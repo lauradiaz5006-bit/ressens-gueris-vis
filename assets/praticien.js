@@ -180,14 +180,18 @@
       var neuf = d.id === DERNIER_CREE;
       return '<div class="pr-dossier' + (neuf ? ' pr-dossier-neuf' : '') + '"><div><b>' + esc(d.nom || 'Sans nom') + '</b>' + (neuf ? ' <span class="pr-badge-neuf">Nouveau</span>' : '') + '<small>' + n + ' personne' + (n > 1 ? 's' : '') + (constel ? ' <span class="pr-badge">Constellation familiale</span>' : '') + (d.maj ? ' · modifié le ' + date(d.maj) : '') + '</small></div><div class="pr-actions">' +
         (constel
-          ? '<a class="btn btn-plein" href="plateau-visio.html?arbre=' + esc(d.id) + '">Ouvrir le plateau pour la séance</a><a class="btn btn-trait" href="genosociogramme.html?arbre=' + esc(d.id) + '">Voir les informations récoltées</a>'
-          : '<a class="btn btn-plein" href="genosociogramme.html?arbre=' + esc(d.id) + '">Ouvrir</a><button class="btn btn-trait" type="button" data-activer-plateau="' + esc(d.id) + '" title="Activer le plateau constellation pour ce dossier">+ Constellation</button>') +
+          ? '<a class="btn btn-plein" href="plateau-visio.html?arbre=' + esc(d.id) + '">Ouvrir le plateau pour la séance</a>'
+          : '<a class="btn btn-plein" href="genosociogramme.html?arbre=' + esc(d.id) + '">Ouvrir</a>') +
         '<a class="btn btn-trait" href="genosociogramme.html?arbre=' + esc(d.id) + '&amp;seance">Mode séance</a>' +
-        '<a class="btn btn-trait" href="genosociogramme.html?arbre=' + esc(d.id) + '&amp;rapport">Rapport</a>' +
-        '<button class="btn btn-trait" type="button" data-notes="' + esc(d.id) + '">Notes de séance</button>' +
-        '<button class="btn btn-trait" type="button" data-questionnaire="' + esc(d.id) + '">Questionnaire</button>' +
         '<button class="btn btn-trait" type="button" data-partager="' + esc(d.id) + '">Partager</button>' +
-        '<button class="pr-lien" type="button" data-renommer="' + esc(d.id) + '">Renommer</button><button class="pr-lien" type="button" data-supprimer="' + esc(d.id) + '">Supprimer</button></div>' +
+        '<details class="pr-menu"><summary aria-label="Plus d’actions pour ce dossier" title="Plus d’actions">⋯</summary><div class="pr-menu-panel">' +
+        (constel ? '<a class="pr-lien" href="genosociogramme.html?arbre=' + esc(d.id) + '">Voir les informations récoltées</a>' : '<button class="pr-lien" type="button" data-activer-plateau="' + esc(d.id) + '">+ Constellation</button>') +
+        '<a class="pr-lien" href="genosociogramme.html?arbre=' + esc(d.id) + '&amp;rapport">Rapport</a>' +
+        '<button class="pr-lien" type="button" data-notes="' + esc(d.id) + '">Notes de séance</button>' +
+        '<button class="pr-lien" type="button" data-questionnaire="' + esc(d.id) + '">Questionnaire</button>' +
+        '<button class="pr-lien" type="button" data-renommer="' + esc(d.id) + '">Renommer</button>' +
+        '<button class="pr-lien pr-danger" type="button" data-supprimer="' + esc(d.id) + '">Supprimer</button>' +
+        '</div></details></div>' +
         '<div class="pr-remise"><label><input type="checkbox" data-remise="' + esc(d.id) + '"' + (d.remise_autorisee ? ' checked' : '') + '> <span>Travail terminé : mon·ma client·e peut télécharger et garder son arbre</span></label>' +
         '<details class="pr-info"><summary aria-label="En savoir plus sur « Travail terminé »" title="En savoir plus">?</summary><p class="pr-aide">Une fois la case cochée, votre client·e peut télécharger son arbre depuis le lien de partage et le garder dans son propre espace. Avant, rien ne peut être téléchargé ni imprimé. Vos notes ne sont jamais partagées.</p></details><p class="pr-aide" data-remise-msg="' + esc(d.id) + '" role="status"></p></div></div>';
     }).join('') + (actif() && !aExemple ? '<div class="pr-exemple"><p><b>Un dossier exemple pour tout essayer :</b> une famille fictive déjà remplie, pour voir les répétitions, le mode séance et le rapport sans toucher à vos vrais dossiers.</p><button class="btn btn-trait" type="button" data-exemple>Ouvrir le dossier exemple</button></div>' : '');
@@ -199,7 +203,11 @@
     (RECUES ? Promise.resolve({ data: RECUES }) : sb.from('questionnaires_client').select('arbre_id').not('rempli_le', 'is', null).is('importe_le', null)).then(function (r) {
       if (r.error || !r.data) return;
       RECUES = r.data;
-      r.data.forEach(function (q) { var b = z.querySelector('[data-questionnaire="' + q.arbre_id + '"]'); if (b) { b.classList.remove('btn-trait'); b.classList.add('btn-plein'); b.textContent = 'Réponses reçues'; } });
+      r.data.forEach(function (q) {
+        var b = z.querySelector('[data-questionnaire="' + q.arbre_id + '"]'); if (!b) return;
+        b.classList.add('pr-signal'); b.textContent = 'Réponses reçues';
+        var menu = b.closest('.pr-menu'); if (menu) { var s = menu.querySelector('summary'); if (s) s.classList.add('pr-signal-point'); }
+      });
     });
   }
   /* « Pour bien commencer » : 4 étapes, cochées au fil de l'usage (rien n'est envoyé, tout reste sur cet appareil) */

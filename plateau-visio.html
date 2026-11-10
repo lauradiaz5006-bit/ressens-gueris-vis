@@ -57,6 +57,13 @@
     @keyframes pvPulse{0%,100%{opacity:1}50%{opacity:.82}}
     .pv-champ-case{display:flex;align-items:center;gap:.5rem;font-size:.88rem;color:var(--prune-doux);margin-bottom:1rem}
     .pv-champ-case input{accent-color:var(--champagne);width:1.1rem;height:1.1rem}
+    .pv-plus{margin-bottom:1rem}
+    .pv-plus summary{cursor:pointer;font-size:.88rem;font-weight:600;color:var(--prune-doux);list-style:none;padding:.5rem 0;display:flex;align-items:center;gap:.4rem}
+    .pv-plus summary::before{content:'▸';font-size:.7rem;transition:transform .15s}
+    .pv-plus[open] summary::before{transform:rotate(90deg)}
+    .pv-plus summary::-webkit-details-marker{display:none}
+    .pv-plus-indice{font-weight:400;color:var(--rose-fonce)}
+    .pv-plus[open] summary{margin-bottom:.4rem}
     .pv-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
     .pv-svg .pv-lien-trait,.pv-svg .pv-trace-trait{pointer-events:visiblePainted;cursor:pointer}
     .pv-corps{position:relative;display:inline-block}
@@ -150,47 +157,50 @@
         <label for="pvNom">Nom</label>
         <input type="text" id="pvNom" placeholder="Ex. : ma mère, le secret, le départ en 1998…" maxlength="40">
       </div>
-      <div class="pv-champ" id="pvChampForme">
-        <label>Forme</label>
-        <div class="pv-formes-choix" id="pvFormesChoix">
-          <button type="button" data-forme="cercle" class="pv-actif" title="Cercle" onclick="pvChoisirForme('cercle')">●</button>
-          <button type="button" data-forme="carre" title="Carré" onclick="pvChoisirForme('carre')">■</button>
-          <button type="button" data-forme="triangle" title="Triangle" onclick="pvChoisirForme('triangle')">▲</button>
+      <details class="pv-plus" id="pvPlus">
+        <summary>Plus d'options <span class="pv-plus-indice">(forme, couleur, taille, orientation, note…)</span></summary>
+        <div class="pv-champ" id="pvChampForme">
+          <label>Forme</label>
+          <div class="pv-formes-choix" id="pvFormesChoix">
+            <button type="button" data-forme="cercle" class="pv-actif" title="Cercle" onclick="pvChoisirForme('cercle')">●</button>
+            <button type="button" data-forme="carre" title="Carré" onclick="pvChoisirForme('carre')">■</button>
+            <button type="button" data-forme="triangle" title="Triangle" onclick="pvChoisirForme('triangle')">▲</button>
+          </div>
         </div>
-      </div>
-      <div class="pv-champ" id="pvChampIcone" style="display:none">
-        <label>Symbole</label>
-        <div class="pv-formes-choix pv-icones-choix" id="pvIconesChoix"></div>
-      </div>
-      <div class="pv-ligne2">
-        <div class="pv-champ" style="flex:1">
-          <label for="pvCouleur">Couleur</label>
-          <input type="color" id="pvCouleur" value="#6B2F5B" style="width:100%;height:2.4rem;border:1.5px solid var(--rose-fonce);border-radius:10px;padding:.2rem">
+        <div class="pv-champ" id="pvChampIcone" style="display:none">
+          <label>Symbole</label>
+          <div class="pv-formes-choix pv-icones-choix" id="pvIconesChoix"></div>
         </div>
-        <div class="pv-champ" style="flex:1">
-          <label for="pvTaille">Taille</label>
-          <input type="range" id="pvTaille" min="36" max="100" value="60" style="width:100%">
+        <div class="pv-ligne2">
+          <div class="pv-champ" style="flex:1">
+            <label for="pvCouleur">Couleur</label>
+            <input type="color" id="pvCouleur" value="#6B2F5B" style="width:100%;height:2.4rem;border:1.5px solid var(--rose-fonce);border-radius:10px;padding:.2rem">
+          </div>
+          <div class="pv-champ" style="flex:1">
+            <label for="pvTaille">Taille</label>
+            <input type="range" id="pvTaille" min="36" max="100" value="60" style="width:100%">
+          </div>
         </div>
-      </div>
-      <div class="pv-champ">
-        <label>Orientation (vers qui ce pion est tourné)</label>
-        <div class="pv-formes-choix pv-boussole" id="pvBoussole" style="flex-wrap:wrap;max-width:16rem">
-          <button type="button" data-rot="0" title="Haut" onclick="pvChoisirRotation(0)"><span></span></button>
-          <button type="button" data-rot="45" title="Haut-droite" onclick="pvChoisirRotation(45)"><span style="transform:rotate(45deg)"></span></button>
-          <button type="button" data-rot="90" title="Droite" onclick="pvChoisirRotation(90)"><span style="transform:rotate(90deg)"></span></button>
-          <button type="button" data-rot="135" title="Bas-droite" onclick="pvChoisirRotation(135)"><span style="transform:rotate(135deg)"></span></button>
-          <button type="button" data-rot="180" title="Bas" onclick="pvChoisirRotation(180)"><span style="transform:rotate(180deg)"></span></button>
-          <button type="button" data-rot="225" title="Bas-gauche" onclick="pvChoisirRotation(225)"><span style="transform:rotate(225deg)"></span></button>
-          <button type="button" data-rot="270" title="Gauche" onclick="pvChoisirRotation(270)"><span style="transform:rotate(270deg)"></span></button>
-          <button type="button" data-rot="315" title="Haut-gauche" onclick="pvChoisirRotation(315)"><span style="transform:rotate(315deg)"></span></button>
-          <button type="button" data-rot="aucune" title="Aucune orientation" onclick="pvChoisirRotation(null)" style="font-size:.68rem">Aucune</button>
+        <div class="pv-champ">
+          <label>Orientation (vers qui ce pion est tourné)</label>
+          <div class="pv-formes-choix pv-boussole" id="pvBoussole" style="flex-wrap:wrap;max-width:16rem">
+            <button type="button" data-rot="0" title="Haut" onclick="pvChoisirRotation(0)"><span></span></button>
+            <button type="button" data-rot="45" title="Haut-droite" onclick="pvChoisirRotation(45)"><span style="transform:rotate(45deg)"></span></button>
+            <button type="button" data-rot="90" title="Droite" onclick="pvChoisirRotation(90)"><span style="transform:rotate(90deg)"></span></button>
+            <button type="button" data-rot="135" title="Bas-droite" onclick="pvChoisirRotation(135)"><span style="transform:rotate(135deg)"></span></button>
+            <button type="button" data-rot="180" title="Bas" onclick="pvChoisirRotation(180)"><span style="transform:rotate(180deg)"></span></button>
+            <button type="button" data-rot="225" title="Bas-gauche" onclick="pvChoisirRotation(225)"><span style="transform:rotate(225deg)"></span></button>
+            <button type="button" data-rot="270" title="Gauche" onclick="pvChoisirRotation(270)"><span style="transform:rotate(270deg)"></span></button>
+            <button type="button" data-rot="315" title="Haut-gauche" onclick="pvChoisirRotation(315)"><span style="transform:rotate(315deg)"></span></button>
+            <button type="button" data-rot="aucune" title="Aucune orientation" onclick="pvChoisirRotation(null)" style="font-size:.68rem">Aucune</button>
+          </div>
         </div>
-      </div>
-      <div class="pv-champ">
-        <label for="pvNote">Note (ce que vous savez sur cette personne ou cet objet)</label>
-        <textarea id="pvNote" rows="3" maxlength="500" placeholder="Dates, répétitions, ce qui a été dit en séance…" style="font:400 .92rem var(--texte);padding:.6rem .8rem;border:1.5px solid var(--rose-fonce);border-radius:12px;width:100%;box-sizing:border-box;resize:vertical"></textarea>
-      </div>
-      <label class="pv-champ-case"><input type="checkbox" id="pvActif"> Entouré d’un halo (c’est son tour, elle parle)</label>
+        <div class="pv-champ">
+          <label for="pvNote">Note (ce que vous savez sur cette personne ou cet objet)</label>
+          <textarea id="pvNote" rows="3" maxlength="500" placeholder="Dates, répétitions, ce qui a été dit en séance…" style="font:400 .92rem var(--texte);padding:.6rem .8rem;border:1.5px solid var(--rose-fonce);border-radius:12px;width:100%;box-sizing:border-box;resize:vertical"></textarea>
+        </div>
+        <label class="pv-champ-case"><input type="checkbox" id="pvActif"> Entouré d’un halo (c’est son tour, elle parle)</label>
+      </details>
       <div class="pv-actions-carte">
         <button type="button" class="pv-supprimer" id="pvBoutonSupprimer" style="display:none" onclick="pvSupprimerPion()">Supprimer</button>
         <button type="button" id="pvBoutonDupliquer" style="display:none" onclick="pvDupliquerPion()">Dupliquer</button>
@@ -629,6 +639,7 @@
         boutonSupprimer.style.display = '';
         document.getElementById('pvBoutonDupliquer').style.display = '';
         document.querySelector('#pvPanneau .pv-valider').textContent = 'Enregistrer';
+        document.getElementById('pvPlus').open = true;
       } else {
         typeActuel = type;
         titre.textContent = type === 'objet' ? 'Ajouter un objet symbolique' : 'Ajouter une personne';
@@ -642,6 +653,7 @@
         boutonSupprimer.style.display = 'none';
         document.getElementById('pvBoutonDupliquer').style.display = 'none';
         document.querySelector('#pvPanneau .pv-valider').textContent = 'Ajouter au plateau';
+        document.getElementById('pvPlus').open = false;
       }
       champForme.style.display = typeActuel === 'objet' ? 'none' : '';
       champIcone.style.display = typeActuel === 'objet' ? '' : 'none';
@@ -650,6 +662,10 @@
     };
 
     window.pvFermerPanneau = function () { panneau.classList.remove('pv-ouvert'); };
+
+    document.getElementById('pvNom').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); pvValiderPanneau(); }
+    });
 
     window.pvValiderPanneau = function () {
       var nom = document.getElementById('pvNom').value.trim();
