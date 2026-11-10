@@ -124,6 +124,7 @@
           <button type="button" id="pvBoutonLien" onclick="pvBasculerModeLien()">+ Lien entre deux pions</button>
           <button type="button" onclick="pvExporter()">Exporter en image</button>
           <button type="button" onclick="pvEnregistrerMain()">Enregistrer</button>
+          <button type="button" id="pvBoutonAnnuler" onclick="pvAnnulerDernier()" disabled>Annuler</button>
           <button type="button" class="pv-danger" onclick="pvToutEffacer()">Tout effacer</button>
           <button type="button" id="pvBoutonPlein" onclick="pvBasculerPlein()">Démarrer la séance (plein écran)</button>
         </div>
@@ -136,6 +137,12 @@
               <svg class="pv-svg" id="pvSvg"></svg>
               <p class="pv-vide" id="pvVide"><span><strong>Le plateau est vide</strong>Ajoutez une personne ou un objet symbolique pour commencer.</span></p>
             </div>
+            <ul class="pv-legende" style="list-style:none;display:flex;flex-wrap:wrap;gap:.6rem 1.2rem;margin:.6rem 0 0;padding:0;font-size:.82rem;color:var(--prune-doux)">
+              <li style="display:flex;align-items:center;gap:.35rem"><svg width="22" height="6" aria-hidden="true"><line x1="1" y1="3" x2="21" y2="3" stroke="#6B2F5B" stroke-width="2"/></svg>Plein : lien fort</li>
+              <li style="display:flex;align-items:center;gap:.35rem"><svg width="22" height="6" aria-hidden="true"><line x1="1" y1="3" x2="21" y2="3" stroke="#6B2F5B" stroke-width="2" stroke-dasharray="3 3"/></svg>Pointillé : lien distendu</li>
+              <li style="display:flex;align-items:center;gap:.35rem"><svg width="22" height="12" aria-hidden="true"><line x1="1" y1="6" x2="21" y2="6" stroke="#6B2F5B" stroke-width="2"/><line x1="9" y1="1" x2="13" y2="11" stroke="#A3324B" stroke-width="2"/></svg>Coupé : lien rompu</li>
+              <li style="display:flex;align-items:center;gap:.35rem"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B2F5B" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="8.5" r="3.6" stroke-dasharray="2.4 2.4"/><path d="M5 20c0-3.6 3.1-6.2 7-6.2s7 2.6 7 6.2" stroke-dasharray="2.4 2.4"/></svg>Pointillé fin (objet « Place vide ») : quelqu’un d’absent</li>
+            </ul>
           </div>
           <div class="pv-liste-zone">
             <h2>Sur le plateau</h2>
@@ -270,7 +277,23 @@
       chaine: { label: 'Chaîne brisée (libération)', chemin: '<ellipse cx="7" cy="12" rx="3.2" ry="4.2"/><ellipse cx="17" cy="12" rx="3.2" ry="4.2"/>' },
       maison: { label: 'Maison (foyer)', chemin: '<path d="M3 11l9-8 9 8M5 10v10h14V10"/>' },
       etoile: { label: 'Étoile (espoir)', chemin: '<path d="M12 3l2.6 5.9 6.4.6-4.9 4.2 1.5 6.3L12 16.9 6.4 20l1.5-6.3L3 9.5l6.4-.6z"/>' },
-      question: { label: 'Point d’interrogation (inconnu)', chemin: '<path d="M9 9a3 3 0 1 1 4.6 2.6c-1.2.8-1.6 1.4-1.6 2.9"/><circle cx="12" cy="17.2" r=".4" fill="currentColor" stroke="none"/>' }
+      question: { label: 'Point d’interrogation (inconnu)', chemin: '<path d="M9 9a3 3 0 1 1 4.6 2.6c-1.2.8-1.6 1.4-1.6 2.9"/><circle cx="12" cy="17.2" r=".4" fill="currentColor" stroke="none"/>' },
+      absent: { label: 'Place vide (quelqu’un d’absent du système)', chemin: '<circle cx="12" cy="8.5" r="3.6" stroke-dasharray="2.4 2.4"/><path d="M5 20c0-3.6 3.1-6.2 7-6.2s7 2.6 7 6.2" stroke-dasharray="2.4 2.4"/>' }
+    };
+
+    // --- Retour arrière : un instantané avant chaque changement (pions et liens), restauré par « Annuler » ---
+    var pvHistorique = [];
+    function pvMemoriser() {
+      pvHistorique.push({ pions: JSON.parse(JSON.stringify(pions)), liens: JSON.parse(JSON.stringify(liens)) });
+      if (pvHistorique.length > 40) pvHistorique.shift();
+      pvMajBoutonAnnuler();
+    }
+    function pvMajBoutonAnnuler() { var b = document.getElementById('pvBoutonAnnuler'); if (b) b.disabled = !pvHistorique.length; }
+    window.pvAnnulerDernier = function () {
+      var etat = pvHistorique.pop(); if (!etat) return;
+      pions = etat.pions; liens = etat.liens;
+      redessiner();
+      pvMajBoutonAnnuler();
     };
 
     function maj() {
@@ -359,7 +382,7 @@
 
         var groupe = document.createElementNS('http://www.w3.org/2000/svg', 'g');
         groupe.setAttribute('class', 'pv-trace-trait');
-        groupe.addEventListener('click', function () { p.trace = []; redessinerSvg(); pvSauvegarder(); });
+        groupe.addEventListener('click', function () { pvMemoriser(); p.trace = []; redessinerSvg(); pvSauvegarder(); });
 
         var chemin = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
         chemin.setAttribute('points', pts.join(' '));
@@ -456,7 +479,7 @@
     }
 
     window.pvSupprimerLien = function (id) {
-      if (confirm('Supprimer ce lien ?')) { liens = liens.filter(function (l) { return l.id !== id; }); redessinerSvg(); pvSauvegarder(); }
+      if (confirm('Supprimer ce lien ?')) { pvMemoriser(); liens = liens.filter(function (l) { return l.id !== id; }); redessinerSvg(); pvSauvegarder(); }
     };
 
     window.addEventListener('resize', redessinerSvg);
@@ -506,6 +529,7 @@
         if (!etat.pointeurs.has(ev.pointerId)) return;
         etat.pointeurs.set(ev.pointerId, { x: ev.clientX, y: ev.clientY });
         if (etat.pince && etat.pointeurs.size === 2) {
+          if (!etat.snap) { pvMemoriser(); etat.snap = true; }
           var pts = Array.from(etat.pointeurs.values());
           var dist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
           p.taille = Math.max(30, Math.min(140, Math.round(etat.tailleInit * (dist / etat.distInit))));
@@ -513,6 +537,7 @@
           redessinerSvg();
         } else if (etat.pointeurs.size === 1) {
           var dx = ev.clientX - etat.startX, dy = ev.clientY - etat.startY;
+          if (Math.abs(dx) + Math.abs(dy) > 6 && !etat.bouge) { pvMemoriser(); etat.snap = true; }
           if (Math.abs(dx) + Math.abs(dy) > 6) etat.bouge = true;
           var rect = plateau.getBoundingClientRect();
           var x = ((ev.clientX - rect.left) / rect.width) * 100;
@@ -609,6 +634,7 @@
 
     window.pvValiderLien = function () {
       var couleur = document.getElementById('pvCouleurLien').value;
+      pvMemoriser();
       liens.push({ id: 'l' + Date.now() + Math.random().toString(36).slice(2, 6), a: premierPionLien, b: deuxiemePionLien, style: styleLienChoisi, couleur: couleur });
       panneauLien.classList.remove('pv-ouvert');
       premierPionLien = null;
@@ -685,6 +711,7 @@
       var taille = parseInt(document.getElementById('pvTaille').value, 10);
       var actif = document.getElementById('pvActif').checked;
       var note = document.getElementById('pvNote').value;
+      pvMemoriser();
       if (idEnEdition) {
         var p = pions.find(function (p) { return p.id === idEnEdition; });
         p.nom = nom; p.couleur = couleur; p.taille = taille; p.forme = formeChoisie; p.actif = actif; p.rotation = rotationChoisie; p.note = note;
@@ -696,6 +723,7 @@
     };
 
     window.pvSupprimerPion = function () {
+      pvMemoriser();
       pions = pions.filter(function (p) { return p.id !== idEnEdition; });
       liens = liens.filter(function (l) { return l.a !== idEnEdition && l.b !== idEnEdition; });
       redessiner();
@@ -710,13 +738,14 @@
       copie.x = Math.min(96, p.x + 6);
       copie.y = Math.min(96, p.y + 6);
       copie.trace = [];
+      pvMemoriser();
       pions.push(copie);
       redessiner();
       pvFermerPanneau();
     };
 
     window.pvToutEffacer = function () {
-      if (!pions.length || confirm('Effacer tous les pions du plateau ?')) { pions = []; liens = []; redessiner(); }
+      if (!pions.length || confirm('Effacer tous les pions du plateau ?')) { pvMemoriser(); pions = []; liens = []; redessiner(); }
     };
 
     // --- Séance / plein écran : masque le menu du site ET les infos privées pendant le partage d'écran,
