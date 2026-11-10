@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Synchronicité (4/5) : les synchronicités familiales, quand l'histoire se répète</title>
+  <meta name="description" content="Prénoms, âges, dates qui reviennent sur plusieurs générations : le génosociogramme, le « syndrome d'anniversaire » et le concept du projet-sens, expliqués avec leurs limites.">
+  <link rel="canonical" href="https://genesolia.fr/synchronicites-familiales-generations.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Synchronicité (4/5) : les synchronicités familiales, quand l'histoire se répète">
+  <meta property="og:description" content="Prénoms, âges, dates qui reviennent sur plusieurs générations : le génosociogramme, le « syndrome d'anniversaire » et le concept du projet-sens, expliqués avec leurs limites.">
+  <meta property="og:image" content="https://genesolia.fr/assets/partage/synchronicites-familiales.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Arbre généalogique manuscrit avec plusieurs générations reliées par des traits">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(52rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .serie{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.4rem 0 0}
+    .serie a,.serie span{border:1px solid var(--rose-fonce);border-radius:999px;padding:.35rem 1rem;font-size:.9rem;text-decoration:none;background:var(--blanc);color:var(--prune-doux)}
+    .serie .ici{background:var(--prune);color:var(--blanc);border-color:var(--prune)}
+    .serie .avenir{opacity:.55;border-style:dashed}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+    .prudence{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--rose-fonce);background:#FCEFF3;border-radius:0 16px 16px 0;font-size:.95rem}
+    .prudence strong{display:block;margin-bottom:.3rem}
+
+    .sources{margin:1.6rem 0;padding:1.3rem 1.4rem;border-radius:16px;border:1px solid var(--rose);background:#FBF8F6;font-size:.92rem}
+    .sources .titre{font-family:var(--display);font-size:1.1rem;margin-bottom:.5rem}
+    .sources ul{margin:0;padding-left:1.2rem}
+    .sources li{margin:.3rem 0}
+
+    .encadre-discret{margin:2rem 0;padding:1.2rem 1.3rem;border-radius:16px;border:1px solid var(--rose);background:#FBF8F6;font-size:.95rem}
+    .encadre-discret p{color:var(--prune-doux)}
+
+    @media (max-width:640px){
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .article .actions .btn{width:100%}
+    }
+    .voisins{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+    .voisins a{border:1px solid var(--rose-fonce);border-radius:999px;padding:.3rem .9rem;text-decoration:none;font-size:.95rem;background:var(--blanc)}
+    .voisins a[aria-current]{background:var(--prune);color:var(--blanc);border-color:var(--prune)}
+    .faq dt{font-weight:600;margin-top:1.4rem}
+    .faq dd{margin:.4rem 0 0;color:var(--prune-doux)}
+    .note-fin{font-size:.93rem;color:var(--prune-doux);margin-top:2.4rem}
+    .article .actions{display:flex;flex-wrap:wrap;gap:.6rem}
+  </style>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Article", "headline": "Synchronicité (4/5) : les synchronicités familiales, quand l'histoire se répète", "description": "Prénoms, âges, dates qui reviennent sur plusieurs générations : le génosociogramme, le « syndrome d'anniversaire » et le concept du projet-sens, expliqués avec leurs limites.", "datePublished": "2026-11-10", "dateModified": "2026-11-10", "inLanguage": "fr", "author": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}, "publisher": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}, "url": "https://genesolia.fr/synchronicites-familiales-generations.html", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://genesolia.fr/synchronicites-familiales-generations.html"}}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Qu'est-ce qu'une synchronicité familiale ?", "acceptedAnswer": {"@type": "Answer", "text": "C'est une répétition qui traverse plusieurs générations d'une même famille : un prénom qui revient, un âge auquel un événement marquant se reproduit, une date du calendrier qui coïncide. Observée sur un arbre, elle devient une piste de lecture plutôt qu'une simple impression isolée."}}, {"@type": "Question", "name": "Qu'est-ce que le génosociogramme ?", "acceptedAnswer": {"@type": "Answer", "text": "C'est un arbre généalogique enrichi, mis au point par la psychologue Anne Ancelin Schützenberger, qui ajoute aux liens de parenté des informations comme les dates, les âges, les métiers ou les événements marquants de chaque personne, afin de faire apparaître visuellement les répétitions entre générations."}}, {"@type": "Question", "name": "Qui était Paul Kammerer et quel est son lien avec cette idée ?", "acceptedAnswer": {"@type": "Answer", "text": "Paul Kammerer (1880-1926) était un biologiste autrichien qui a consacré des années à répertorier des coïncidences de la vie quotidienne. En 1919, il a publié une théorie qu'il a appelée la « loi de la sérialité », selon laquelle les répétitions d'événements seraient un phénomène naturel et récurrent, distinct du hasard pur. Jung connaissait ses travaux et les a cités comme une influence pour sa propre réflexion sur la synchronicité."}}, {"@type": "Question", "name": "Qu'est-ce que le concept du projet-sens ?", "acceptedAnswer": {"@type": "Answer", "text": "C'est une notion développée par le psychologue français Marc Fréchet, qui s'intéresse à la façon dont le contexte familial et les attentes des parents avant une naissance peuvent orienter, sans que la personne le sache, certains choix de vie ultérieurs."}}]}]</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Les synchronicités familiales", "item": "https://genesolia.fr/synchronicites-familiales-generations.html"}]}</script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d'Ariane"><a href="psychogenealogie.html">Psychogénéalogie</a><span aria-hidden="true">/</span>Symboles · Synchronicité</nav>
+        <h1>Les synchronicités familiales : quand l'histoire se répète à travers les générations</h1>
+        <p class="intro">Quatrième épisode de la série sur la synchronicité. Certaines répétitions ne se jouent pas à l'échelle d'une vie, mais à l'échelle d'une lignée entière. Un prénom, un âge, une date : ce que la psychologie familiale en a observé, et l'outil qui permet de les visualiser sur un arbre.</p>
+        <p class="publie">Publié le 10 novembre 2026 · lecture 9 min</p>
+        <nav class="serie" aria-label="La série">
+          <a href="synchronicite-jung-psychologie.html">1 · Jung et la psychologie</a>
+          <a href="chiffres-prenoms-dates-qui-reviennent.html">2 · Les chiffres qui reviennent</a>
+          <a href="synchronicite-ou-coincidence-difference.html">3 · Synchronicité ou coïncidence</a>
+          <span class="ici">4 · Les synchronicités familiales</span>
+          <a href="carnet-synchronicites-methode.html">5 · Tenir un carnet</a>
+        </nav>
+      </div>
+    </section>
+    <figure class="bandeau-photo"><img src="assets/images/synchronicites-familiales-1600.webp" srcset="assets/images/synchronicites-familiales-800.webp 800w, assets/images/synchronicites-familiales-1600.webp 1600w" sizes="(max-width: 1140px) 100vw, 1100px" width="1600" height="841" alt="Arbre généalogique manuscrit avec plusieurs générations reliées par des traits" loading="lazy" decoding="async"></figure>
+
+    <article class="article">
+      <div class="colonne">
+        <h2>Quand la répétition change d'échelle</h2>
+        <p>Les deux épisodes précédents ont distingué ce qui relève de l'attention sélective (épisode 2) de ce qui relève d'une lecture de sens plus personnelle (épisode 3). Il reste un cas particulier, qui a occupé une partie entière de la psychologie familiale depuis les années 1970 : les répétitions qui traversent plusieurs générations d'une même lignée.</p>
+        <p>Un prénom transmis quatre fois en un siècle. Un âge de mariage identique chez la mère et la fille. Une date de décès qui tombe, à cent ans d'écart, le même jour du calendrier. Ce ne sont pas des impressions : ce sont des faits qu'on peut vérifier noir sur blanc dans un arbre généalogique. La question n'est pas « est-ce vrai ? », mais « qu'est-ce que ça peut vouloir dire, si je choisis d'y prêter attention ? ».</p>
+
+        <h2>L'outil né de cette observation : le génosociogramme</h2>
+        <p>C'est pour visualiser précisément ce type de répétitions que la psychologue Anne Ancelin Schützenberger a mis au point le génosociogramme : un arbre généalogique enrichi de dates, d'âges, de métiers et d'événements marquants pour chaque personne, et non plus seulement des liens de filiation. L'intérêt de cet outil est justement de rendre visibles, d'un coup d'œil, des coïncidences qui restent invisibles tant qu'elles ne sont pas couchées sur un même support.</p>
+        <p>Elle associait à cette méthode le concept de « syndrome d'anniversaire » déjà présenté dans l'épisode 2 de cette série : la tendance, chez certaines personnes, à revivre un événement marquant au même âge ou à la même date qu'un membre de leur lignée. Elle le présentait comme une piste clinique née de l'observation de cas, utile pour ouvrir une réflexion, pas comme une preuve.</p>
+
+        <h2>Un précurseur méconnu : la « loi de la sérialité » de Kammerer</h2>
+        <p>Avant même Jung, un biologiste autrichien, Paul Kammerer (1880-1926), s'était penché sur les répétitions de la vie quotidienne. Il collectait, depuis des années, des exemples de coïncidences qu'il consignait méthodiquement : des numéros de billets, des noms, des objets perdus et retrouvés dans des circonstances étranges. En 1919, il publie <em>Das Gesetz der Serie</em> (« La loi de la sérialité »), où il avance l'idée que la répétition serait, au même titre que la causalité, une tendance naturelle et récurrente de l'univers.</p>
+        <div class="rappel">
+          <strong>Une influence directe sur Jung</strong>
+          Jung connaissait les travaux de Kammerer et les cite explicitement dans son essai de 1952 sur la synchronicité, comme l'une des pistes qui l'ont conduit à formuler sa propre théorie. La différence entre les deux hommes est importante : Kammerer pensait les répétitions comme un phénomène objectif, extérieur à l'esprit humain, alors que Jung les reliait toujours à la psyché de la personne qui les observe.
+        </div>
+
+        <h2>Le « projet-sens » : une autre piste française</h2>
+        <p>Dans la même famille d'idées, le psychologue français Marc Fréchet a développé, à partir des années 1970, le concept de « projet-sens » : l'idée que le contexte familial entourant une naissance — les attentes, les non-dits, les événements qui précèdent — pourrait orienter, sans que la personne en ait conscience, certains choix de sa vie future. Comme les autres concepts présentés ici, il s'agit d'une hypothèse de lecture née de la clinique, qui n'a pas fait l'objet de validation par des études contrôlées à grande échelle.</p>
+        <div class="prudence">
+          <strong>Ce que ces concepts sont, et ce qu'ils ne sont pas</strong>
+          Le génosociogramme, le syndrome d'anniversaire et le projet-sens sont des outils et des hypothèses de lecture, issus de la pratique clinique de leurs auteurs. Ils t'invitent à regarder ton histoire familiale sous un autre angle. Ils ne remplacent pas une démarche médicale ou psychologique si tu en as besoin, et ils ne garantissent aucune explication définitive de ta vie.
+        </div>
+
+        <h2>Un écho avec les prénoms transmis</h2>
+        <p>Cette même logique de répétition traverse la série « <a href="origine-prenoms-fonction-nom.html">D'où viennent les prénoms</a> » publiée sur ce site : la papponymie, qui consistait à transmettre systématiquement le prénom du grand-parent, en est un exemple historique parmi tant d'autres. Un prénom qui revient dans ta famille n'est donc pas un hasard isolé : c'est une pratique qui a traversé les siècles, pour des raisons très concrètes de transmission.</p>
+
+        <div class="sources">
+          <p class="titre">Sources de cet article</p>
+          <ul>
+            <li><a href="https://en.wikipedia.org/wiki/Anne_Ancelin_Schützenberger" target="_blank" rel="noopener">Wikipedia — Anne Ancelin Schützenberger</a></li>
+            <li><a href="https://en.wikipedia.org/wiki/Paul_Kammerer" target="_blank" rel="noopener">Wikipedia — Paul Kammerer et la loi de la sérialité (1919)</a></li>
+            <li><a href="https://en.wikipedia.org/wiki/Synchronicity" target="_blank" rel="noopener">Wikipedia — Synchronicity (influence de Kammerer sur Jung)</a></li>
+          </ul>
+        </div>
+
+        <div class="encadre-discret">
+          <p><strong>Envie de voir ce qui se répète dans ta propre lignée ?</strong> Le <a href="genosociogramme.html">génosociogramme de Genesolia</a> dessine ton arbre et met en évidence automatiquement les prénoms, âges et dates qui reviennent.</p>
+        </div>
+
+        <h2>Questions fréquentes</h2>
+        <dl class="faq">
+          <dt>Qu'est-ce qu'une synchronicité familiale ?</dt><dd>C'est une répétition qui traverse plusieurs générations d'une même famille : un prénom qui revient, un âge auquel un événement marquant se reproduit, une date du calendrier qui coïncide. Observée sur un arbre, elle devient une piste de lecture plutôt qu'une simple impression isolée.</dd>
+          <dt>Qu'est-ce que le génosociogramme ?</dt><dd>C'est un arbre généalogique enrichi, mis au point par la psychologue Anne Ancelin Schützenberger, qui ajoute aux liens de parenté des informations comme les dates, les âges, les métiers ou les événements marquants de chaque personne, afin de faire apparaître visuellement les répétitions entre générations.</dd>
+          <dt>Qui était Paul Kammerer et quel est son lien avec cette idée ?</dt><dd>Paul Kammerer (1880-1926) était un biologiste autrichien qui a consacré des années à répertorier des coïncidences de la vie quotidienne. En 1919, il a publié une théorie qu'il a appelée la « loi de la sérialité », selon laquelle les répétitions d'événements seraient un phénomène naturel et récurrent, distinct du hasard pur. Jung connaissait ses travaux et les a cités comme une influence pour sa propre réflexion sur la synchronicité.</dd>
+          <dt>Qu'est-ce que le concept du projet-sens ?</dt><dd>C'est une notion développée par le psychologue français Marc Fréchet, qui s'intéresse à la façon dont le contexte familial et les attentes des parents avant une naissance peuvent orienter, sans que la personne le sache, certains choix de vie ultérieurs.</dd>
+        </dl>
+        <div class="actions">
+          <a class="btn btn-plein" href="carnet-synchronicites-methode.html">Épisode 5 : tenir un carnet de synchronicités →</a>
+        </div>
+
+        <p class="note-fin">Lecture psychologique et généalogique. Les concepts présentés dans cet article sont des grilles de lecture issues de la pratique clinique de leurs auteurs, pas des lois scientifiquement démontrées.</p>
+        <nav class="voisins" aria-label="Dans la même série"><a href="synchronicite-jung-psychologie.html">1 · Jung et la psychologie</a><a href="chiffres-prenoms-dates-qui-reviennent.html">2 · Les chiffres qui reviennent</a><a href="synchronicite-ou-coincidence-difference.html">3 · Synchronicité ou coïncidence</a><a href="synchronicites-familiales-generations.html" aria-current="page">4 · Les synchronicités familiales</a><a href="carnet-synchronicites-methode.html">5 · Tenir un carnet</a></nav>
+      </div>
+    </article>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="genosociogramme.html"><h3>Mon arbre familial</h3><span class="duree">Gratuit</span><p>Dessine ton génosociogramme : les répétitions sont repérées automatiquement.</p></a>
+          <a class="outil" href="origine-prenoms-fonction-nom.html"><h3>D'où viennent les prénoms</h3><p>La papponymie et les autres raisons pour lesquelles un prénom se transmet.</p></a>
+          <a class="outil" href="reves-recurrents-et-memoire-familiale.html"><h3>Rêves récurrents et mémoire familiale</h3><p>Une autre forme de répétition, racontée par les rêves.</p></a>
+          <a class="outil" href="comment-faire-son-genosociogramme.html"><h3>Comment faire son génosociogramme</h3><p>Le guide pas à pas pour construire ton arbre enrichi.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>

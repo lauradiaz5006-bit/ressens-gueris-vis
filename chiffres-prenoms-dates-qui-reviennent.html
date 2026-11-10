@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Synchronicité (2/5) : pourquoi certains chiffres, prénoms ou dates reviennent</title>
+  <meta name="description" content="Un âge, une date, un prénom qui revient dans ta vie : illusion de fréquence, loi des grands nombres, et le « syndrome d'anniversaire » étudié en psychologie familiale.">
+  <link rel="canonical" href="https://genesolia.fr/chiffres-prenoms-dates-qui-reviennent.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Synchronicité (2/5) : pourquoi certains chiffres, prénoms ou dates reviennent">
+  <meta property="og:description" content="Un âge, une date, un prénom qui revient dans ta vie : illusion de fréquence, loi des grands nombres, et le « syndrome d'anniversaire » étudié en psychologie familiale.">
+  <meta property="og:image" content="https://genesolia.fr/assets/partage/chiffres-qui-reviennent.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Calendrier familial ancien avec des dates entourées à l'encre">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(52rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .serie{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.4rem 0 0}
+    .serie a,.serie span{border:1px solid var(--rose-fonce);border-radius:999px;padding:.35rem 1rem;font-size:.9rem;text-decoration:none;background:var(--blanc);color:var(--prune-doux)}
+    .serie .ici{background:var(--prune);color:var(--blanc);border-color:var(--prune)}
+    .serie .avenir{opacity:.55;border-style:dashed}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+    .prudence{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--rose-fonce);background:#FCEFF3;border-radius:0 16px 16px 0;font-size:.95rem}
+    .prudence strong{display:block;margin-bottom:.3rem}
+
+    .sources{margin:1.6rem 0;padding:1.3rem 1.4rem;border-radius:16px;border:1px solid var(--rose);background:#FBF8F6;font-size:.92rem}
+    .sources .titre{font-family:var(--display);font-size:1.1rem;margin-bottom:.5rem}
+    .sources ul{margin:0;padding-left:1.2rem}
+    .sources li{margin:.3rem 0}
+
+    .encadre-discret{margin:2rem 0;padding:1.2rem 1.3rem;border-radius:16px;border:1px solid var(--rose);background:#FBF8F6;font-size:.95rem}
+    .encadre-discret p{color:var(--prune-doux)}
+
+    @media (max-width:640px){
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .article .actions .btn{width:100%}
+    }
+    .voisins{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+    .voisins a{border:1px solid var(--rose-fonce);border-radius:999px;padding:.3rem .9rem;text-decoration:none;font-size:.95rem;background:var(--blanc)}
+    .voisins a[aria-current]{background:var(--prune);color:var(--blanc);border-color:var(--prune)}
+    .faq dt{font-weight:600;margin-top:1.4rem}
+    .faq dd{margin:.4rem 0 0;color:var(--prune-doux)}
+    .note-fin{font-size:.93rem;color:var(--prune-doux);margin-top:2.4rem}
+    .article .actions{display:flex;flex-wrap:wrap;gap:.6rem}
+  </style>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Article", "headline": "Synchronicité (2/5) : pourquoi certains chiffres, prénoms ou dates reviennent", "description": "Un âge, une date, un prénom qui revient dans ta vie : illusion de fréquence, loi des grands nombres, et le « syndrome d'anniversaire » étudié en psychologie familiale.", "datePublished": "2026-11-10", "dateModified": "2026-11-10", "inLanguage": "fr", "author": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}, "publisher": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}, "url": "https://genesolia.fr/chiffres-prenoms-dates-qui-reviennent.html", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://genesolia.fr/chiffres-prenoms-dates-qui-reviennent.html"}}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Pourquoi je remarque toujours le même chiffre ou la même heure ?", "acceptedAnswer": {"@type": "Answer", "text": "C'est le plus souvent l'illusion de fréquence (aussi appelée phénomène Baader-Meinhof) : une fois qu'un détail a attiré ton attention, ton cerveau devient plus sensible à ses répétitions et les repère partout, alors qu'elles étaient déjà aussi fréquentes avant que tu ne les remarques."}}, {"@type": "Question", "name": "Qu'est-ce que la loi des grands nombres appliquée aux coïncidences ?", "acceptedAnswer": {"@type": "Answer", "text": "Le mathématicien John Littlewood a calculé qu'en étant éveillé et attentif environ huit heures par jour, une personne vit assez d'événements pour qu'un fait « à une chance sur un million » lui arrive, statistiquement, environ une fois par mois. Ce qui semble extraordinaire à l'échelle d'une vie est donc attendu à l'échelle du nombre d'événements vécus."}}, {"@type": "Question", "name": "Qu'est-ce que le « syndrome d'anniversaire » en psychologie familiale ?", "acceptedAnswer": {"@type": "Answer", "text": "C'est un terme proposé par la psychologue Anne Ancelin Schützenberger pour décrire la tendance, observée dans certaines familles, à revivre un événement marquant au même âge ou à la même date qu'un ascendant. Elle le présentait comme une piste de réflexion clinique, et non comme une loi scientifiquement démontrée."}}, {"@type": "Question", "name": "Faut-il prendre ces répétitions au sérieux ?", "acceptedAnswer": {"@type": "Answer", "text": "Ni les ignorer, ni les sur-interpréter. Une répétition peut être le fruit du hasard statistique ou de ton attention sélective. Elle peut aussi, dans certains cas, mériter d'être notée et mise en regard de ton histoire familiale, à titre de piste de réflexion plutôt que de certitude."}}]}]</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Synchronicité : les chiffres qui reviennent", "item": "https://genesolia.fr/chiffres-prenoms-dates-qui-reviennent.html"}]}</script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d'Ariane"><a href="psychogenealogie.html">Psychogénéalogie</a><span aria-hidden="true">/</span>Symboles · Synchronicité</nav>
+        <h1>Pourquoi certains chiffres, prénoms ou dates reviennent</h1>
+        <p class="intro">Deuxième épisode de la série sur la synchronicité. Un âge qui revient à chaque génération, une date qui se répète, un prénom qu'on retrouve trois fois dans l'arbre : ce sont des répétitions réelles, souvent vérifiables. Ce qui diffère, c'est l'explication qu'on en donne. Voici ce que la psychologie en dit, avant tout jugement.</p>
+        <p class="publie">Publié le 10 novembre 2026 · lecture 9 min</p>
+        <nav class="serie" aria-label="La série">
+          <a href="synchronicite-jung-psychologie.html">1 · Jung et la psychologie</a>
+          <span class="ici">2 · Les chiffres qui reviennent</span>
+          <a href="synchronicite-ou-coincidence-difference.html">3 · Synchronicité ou coïncidence</a>
+          <a href="synchronicites-familiales-generations.html">4 · Les synchronicités familiales</a>
+          <a href="carnet-synchronicites-methode.html">5 · Tenir un carnet</a>
+        </nav>
+      </div>
+    </section>
+    <figure class="bandeau-photo"><img src="assets/images/chiffres-qui-reviennent-1600.webp" srcset="assets/images/chiffres-qui-reviennent-800.webp 800w, assets/images/chiffres-qui-reviennent-1600.webp 1600w" sizes="(max-width: 1140px) 100vw, 1100px" width="1600" height="841" alt="Calendrier familial ancien avec des dates entourées à l'encre" loading="lazy" decoding="async"></figure>
+
+    <article class="article">
+      <div class="colonne">
+        <h2>Ton cerveau n'est pas câblé pour voir le hasard</h2>
+        <p>Tu remarques trois fois de suite la même heure sur ton téléphone. Un collègue mentionne une ville dont tu n'avais jamais entendu parler, et elle revient deux fois dans la même semaine. Ce phénomène porte un nom : l'illusion de fréquence, popularisée sous le nom de « phénomène Baader-Meinhof » après qu'un lecteur américain l'a décrit par écrit en 1994.</p>
+        <p>Le mécanisme est simple et bien documenté : une fois qu'un détail — un mot, un chiffre, un nom — a capté ton attention une première fois, ton cerveau devient plus sensible à sa récurrence et le repère partout où il apparaît. Il ne se produit pas plus souvent qu'avant : c'est ton attention qui a changé, pas la fréquence réelle de l'événement. Ce mécanisme porte le nom général de biais de confirmation.</p>
+
+        <h2>Ce qui semble extraordinaire est, en fait, statistiquement attendu</h2>
+        <p>Le mathématicien britannique John Edensor Littlewood a proposé, en 1953, ce qu'on appelle aujourd'hui la « loi des miracles » de Littlewood. Son raisonnement : si l'on considère qu'une personne vit, en étant attentive, environ un événement par seconde pendant huit heures par jour, cela représente près d'un million d'événements par mois. Statistiquement, un fait « à une chance sur un million » devrait donc se produire, en moyenne, environ une fois par mois dans la vie de chacun·e.</p>
+        <div class="rappel">
+          <strong>La loi des grands nombres, en une phrase</strong>
+          Plus le nombre d'occasions augmente, plus les événements rares ont de chances de se produire au moins une fois. Ce n'est pas une anomalie : c'est ce que les mathématiques prédisent. Les statisticiens Persi Diaconis et Frederick Mosteller ont formalisé cette idée sous le nom de « loi des très grands nombres » dans un article de référence publié en 1989.
+        </div>
+        <p>Autrement dit : à l'échelle d'un seul événement, une coïncidence frappante paraît impossible. À l'échelle du nombre d'événements vécus sur toute une vie, elle devient presque garantie. C'est l'un des paradoxes les plus mal compris des statistiques.</p>
+
+        <h2>Et quand c'est un prénom ou une date de famille qui revient ?</h2>
+        <p>Les répétitions de chiffres isolés (une heure, un numéro) relèvent le plus souvent de l'illusion de fréquence. Mais certaines répétitions sont plus structurées : un même prénom transmis sur plusieurs générations, un même âge de mariage, une même date de décès à un siècle d'écart. Ce sont des faits qui, eux, se vérifient dans un arbre généalogique — ils ne sont pas qu'une impression.</p>
+        <p>La psychologue française Anne Ancelin Schützenberger (1919-2018), professeure de psychologie à l'université de Nice et fondatrice du Groupe de Sociométrie, a documenté ce type de répétitions dans son ouvrage de référence <em>Aïe, mes aïeux !</em> (1993). Elle a proposé le terme de « syndrome d'anniversaire » pour décrire la tendance, observée chez certains de ses patient·es, à revivre un événement marquant au même âge, ou à la même date du calendrier, qu'un ascendant direct.</p>
+        <div class="prudence">
+          <strong>Une observation clinique, pas une loi démontrée</strong>
+          Schützenberger présentait elle-même cette idée comme une piste de travail clinique, née de l'observation répétée de cas individuels, et non comme un résultat validé par des essais contrôlés. Aucune étude scientifique à grande échelle n'a, à ce jour, confirmé statistiquement l'existence d'un tel « syndrome ». Elle reste une grille de lecture, intéressante à poser sur son histoire, pas une certitude à appliquer.
+        </div>
+
+        <h2>Faire la différence entre les deux</h2>
+        <p>Deux questions simples permettent souvent de s'orienter. La répétition est-elle isolée et ponctuelle, comme un chiffre qui revient une semaine durant ? C'est probablement l'illusion de fréquence ou la loi des grands nombres à l'œuvre — rien à en tirer de spécial, sinon la curiosité du mécanisme lui-même. La répétition concerne-t-elle un fait de lignée, vérifiable sur plusieurs générations (un prénom, un âge, un métier, une date) ? Elle peut alors mériter d'être notée dans un arbre, à titre de piste de lecture symbolique de ton histoire familiale — sans pour autant devenir une explication causale de ta vie présente.</p>
+
+        <div class="sources">
+          <p class="titre">Sources de cet article</p>
+          <ul>
+            <li><a href="https://en.wikipedia.org/wiki/Frequency_illusion" target="_blank" rel="noopener">Wikipedia — Frequency illusion (Baader-Meinhof phenomenon)</a></li>
+            <li><a href="https://en.wikipedia.org/wiki/Littlewood%27s_law" target="_blank" rel="noopener">Wikipedia — Littlewood's law</a></li>
+            <li><a href="https://en.wikipedia.org/wiki/Law_of_truly_large_numbers" target="_blank" rel="noopener">Wikipedia — Law of truly large numbers (Diaconis &amp; Mosteller, 1989)</a></li>
+            <li><a href="https://en.wikipedia.org/wiki/Anne_Ancelin_Schützenberger" target="_blank" rel="noopener">Wikipedia — Anne Ancelin Schützenberger</a></li>
+          </ul>
+        </div>
+
+        <h2>Et la psychogénéalogie, dans tout ça ?</h2>
+        <p>C'est exactement l'angle que prend la psychogénéalogie : repérer les répétitions vérifiables dans une lignée (prénoms, âges, dates), sans affirmer qu'elles obéissent à une loi mystérieuse. Le <a href="genosociogramme.html">génosociogramme</a> met ces répétitions en évidence visuellement, pour que tu puisses juger toi-même ce qui te semble parlant — et la série « <a href="origine-prenoms-fonction-nom.html">D'où viennent les prénoms</a> » explore, de son côté, pourquoi certains prénoms se transmettent avec autant de constance à travers les générations.</p>
+
+        <div class="encadre-discret">
+          <p><strong>Un prénom, un âge, une date revient dans ta famille ?</strong> Le <a href="genosociogramme.html">génosociogramme de Genesolia</a> les repère automatiquement sur ton arbre, pour que tu voies ce qui se répète vraiment.</p>
+        </div>
+
+        <h2>Questions fréquentes</h2>
+        <dl class="faq">
+          <dt>Pourquoi je remarque toujours le même chiffre ou la même heure ?</dt><dd>C'est le plus souvent l'illusion de fréquence (aussi appelée phénomène Baader-Meinhof) : une fois qu'un détail a attiré ton attention, ton cerveau devient plus sensible à ses répétitions et les repère partout, alors qu'elles étaient déjà aussi fréquentes avant que tu ne les remarques.</dd>
+          <dt>Qu'est-ce que la loi des grands nombres appliquée aux coïncidences ?</dt><dd>Le mathématicien John Littlewood a calculé qu'en étant éveillé et attentif environ huit heures par jour, une personne vit assez d'événements pour qu'un fait « à une chance sur un million » lui arrive, statistiquement, environ une fois par mois. Ce qui semble extraordinaire à l'échelle d'une vie est donc attendu à l'échelle du nombre d'événements vécus.</dd>
+          <dt>Qu'est-ce que le « syndrome d'anniversaire » en psychologie familiale ?</dt><dd>C'est un terme proposé par la psychologue Anne Ancelin Schützenberger pour décrire la tendance, observée dans certaines familles, à revivre un événement marquant au même âge ou à la même date qu'un ascendant. Elle le présentait comme une piste de réflexion clinique, et non comme une loi scientifiquement démontrée.</dd>
+          <dt>Faut-il prendre ces répétitions au sérieux ?</dt><dd>Ni les ignorer, ni les sur-interpréter. Une répétition peut être le fruit du hasard statistique ou de ton attention sélective. Elle peut aussi, dans certains cas, mériter d'être notée et mise en regard de ton histoire familiale, à titre de piste de réflexion plutôt que de certitude.</dd>
+        </dl>
+        <div class="actions">
+          <a class="btn btn-plein" href="synchronicite-ou-coincidence-difference.html">Épisode 3 : synchronicité ou coïncidence →</a>
+        </div>
+
+        <p class="note-fin">Lecture psychologique et statistique. Les répétitions familiales présentées ici sont des pistes de réflexion ouvertes par certains chercheurs, pas des lois démontrées. La psychogénéalogie propose une grille de lecture, pas une explication causale de ta vie.</p>
+        <nav class="voisins" aria-label="Dans la même série"><a href="synchronicite-jung-psychologie.html">1 · Jung et la psychologie</a><a href="chiffres-prenoms-dates-qui-reviennent.html" aria-current="page">2 · Les chiffres qui reviennent</a><a href="synchronicite-ou-coincidence-difference.html">3 · Synchronicité ou coïncidence</a><a href="synchronicites-familiales-generations.html">4 · Les synchronicités familiales</a><a href="carnet-synchronicites-methode.html">5 · Tenir un carnet</a></nav>
+      </div>
+    </article>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="genosociogramme.html"><h3>Mon arbre familial</h3><span class="duree">Gratuit</span><p>Dessine ton génosociogramme : les répétitions sont repérées automatiquement.</p></a>
+          <a class="outil" href="origine-prenoms-fonction-nom.html"><h3>D'où viennent les prénoms</h3><p>Pourquoi certains prénoms se transmettent avec une telle constance.</p></a>
+          <a class="outil" href="prenom-transmis-psychogenealogie.html"><h3>Prénom transmis en psychogénéalogie</h3><p>Ce qu'un prénom qui revient peut vouloir dire, dans ton arbre.</p></a>
+          <a class="outil" href="theme-numerologique.html"><h3>Thème numérologique gratuit</h3><p>Calcule ton chemin de vie en numérologie en quelques minutes.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>
