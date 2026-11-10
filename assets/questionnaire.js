@@ -8,7 +8,9 @@
   var SB_URL = 'https://qsvzzkjtjsznfntahvvh.supabase.co', SB_KEY = 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg';
   var z = document.getElementById('gq'), sb = null;
   try { sb = window.supabase.createClient(SB_URL, SB_KEY, { auth: { persistSession: false, autoRefreshToken: false } }); } catch (e) {}
-  var J = (new URLSearchParams(location.search).get('q') || '').toLowerCase();
+  var PARAMS = new URLSearchParams(location.search);
+  var J = (PARAMS.get('q') || '').toLowerCase();
+  var AP = PARAMS.get('apercu') === '1';   /* aperçu : la praticienne regarde le questionnaire complet, rien n'est envoyé */
   var CLE = 'genesolia-questionnaire-' + J;
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
 
@@ -187,7 +189,7 @@
         }
         formulaire(CAB); garder();
       }
-      else if (b.hasAttribute('data-envoyer')) envoyer(b);
+      else if (b.hasAttribute('data-envoyer')) { if (AP) { alert('Ceci est un aperçu : rien n’est envoyé.'); return; } envoyer(b); }
     });
   }
 
@@ -218,6 +220,16 @@
   }
 
   var CAB = '';
+  if (AP) {
+    try { QP = JSON.parse(decodeURIComponent(PARAMS.get('perso') || '[]')).slice(0, 12); } catch (e) { QP = []; }
+    CAB = PARAMS.get('cabinet') || '';
+    lire(); formulaire(CAB); evenements();
+    var bandeau = document.createElement('p');
+    bandeau.style.cssText = 'background:#fff3cd;color:#6B2F5B;padding:.6rem 1rem;border-radius:8px;margin:0 0 1rem;text-align:center;font-weight:600';
+    bandeau.textContent = 'Aperçu : ceci est ce que verra ta·ton client·e. Rien n’est envoyé ni enregistré.';
+    z.parentNode.insertBefore(bandeau, z);
+    return;
+  }
   if (!sb || !/^[0-9a-f-]{36}$/.test(J)) { z.innerHTML = '<div class="gq-carte"><h1>Ce lien n’est pas complet</h1><p class="gq-intro" style="margin:0">Ouvre le lien exact reçu de ton·ta praticien·ne.</p></div>'; return; }
   sb.rpc('questionnaire_ouvrir', { p_jeton: J }).then(function (x) {
     var d = x && x.data;
