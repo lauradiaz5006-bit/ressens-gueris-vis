@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>D'où viennent les prénoms (5/5) : pourquoi les généalogies s'arrêtent presque toutes vers 1600</title>
+  <meta name="description" content="1539, 1579, 1563 : trois textes ont créé les registres où lire les prénoms de tes ancêtres. Avant, le mur n'est pas religieux, il est simplement administratif — et parfois parti en fumée.">
+  <link rel="canonical" href="https://genesolia.fr/genealogie-avant-1600-limites.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="D'où viennent les prénoms (5/5) : pourquoi les généalogies s'arrêtent presque toutes vers 1600">
+  <meta property="og:description" content="1539, 1579, 1563 : trois textes ont créé les registres où lire les prénoms de tes ancêtres. Avant, le mur n'est pas religieux, il est simplement administratif — et parfois parti en fumée.">
+  <meta property="og:image" content="https://genesolia.fr/assets/partage/genealogie-avant-1600.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Vieux registre paroissial manuscrit ouvert, encre fanée, XVIe siècle">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(52rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .serie{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.4rem 0 0}
+    .serie a,.serie span{border:1px solid var(--rose-fonce);border-radius:999px;padding:.35rem 1rem;font-size:.9rem;text-decoration:none;background:var(--blanc);color:var(--prune-doux)}
+    .serie .ici{background:var(--prune);color:var(--blanc);border-color:var(--prune)}
+    .serie .avenir{opacity:.55;border-style:dashed}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .chrono{list-style:none;margin:1.6rem 0;counter-reset:etape}
+    .chrono li{counter-increment:etape;position:relative;padding:0 0 1.6rem 3rem}
+    .chrono li::before{content:counter(etape);position:absolute;left:0;top:0;width:2.1rem;height:2.1rem;border-radius:50%;background:var(--prune);color:var(--blanc);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:1rem}
+    .chrono li::after{content:'';position:absolute;left:1.05rem;top:2.1rem;bottom:0;width:1px;background:var(--rose)}
+    .chrono li:last-child::after{display:none}
+    .chrono strong{display:block;font-family:var(--display);font-size:1.1rem;margin-bottom:.3rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+    .prudence{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--rose-fonce);background:#FCEFF3;border-radius:0 16px 16px 0;font-size:.95rem}
+    .prudence strong{display:block;margin-bottom:.3rem}
+
+    .sources{margin:1.6rem 0;padding:1.3rem 1.4rem;border-radius:16px;border:1px solid var(--rose);background:#FBF8F6;font-size:.92rem}
+    .sources .titre{font-family:var(--display);font-size:1.1rem;margin-bottom:.5rem}
+    .sources ul{margin:0;padding-left:1.2rem}
+    .sources li{margin:.3rem 0}
+
+    .encadre-discret{margin:2rem 0;padding:1.2rem 1.3rem;border-radius:16px;border:1px solid var(--rose);background:#FBF8F6;font-size:.95rem}
+    .encadre-discret p{color:var(--prune-doux)}
+
+    @media (max-width:640px){
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .article .actions .btn{width:100%}
+    }
+    .voisins{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+    .voisins a{border:1px solid var(--rose-fonce);border-radius:999px;padding:.3rem .9rem;text-decoration:none;font-size:.95rem;background:var(--blanc)}
+    .voisins a[aria-current]{background:var(--prune);color:var(--blanc);border-color:var(--prune)}
+    .faq dt{font-weight:600;margin-top:1.4rem}
+    .faq dd{margin:.4rem 0 0;color:var(--prune-doux)}
+    .note-fin{font-size:.93rem;color:var(--prune-doux);margin-top:2.4rem}
+    .article .actions{display:flex;flex-wrap:wrap;gap:.6rem}
+  </style>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Article", "headline": "D'où viennent les prénoms (5/5) : pourquoi les généalogies s'arrêtent presque toutes vers 1600", "description": "1539, 1579, 1563 : trois textes ont créé les registres où lire les prénoms de tes ancêtres. Avant, le mur n'est pas religieux, il est simplement administratif — et parfois parti en fumée.", "datePublished": "2026-11-10", "dateModified": "2026-11-10", "inLanguage": "fr", "author": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}, "publisher": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}, "url": "https://genesolia.fr/genealogie-avant-1600-limites.html", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://genesolia.fr/genealogie-avant-1600-limites.html"}}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Pourquoi la plupart des généalogies françaises s'arrêtent-elles vers 1600 ?", "acceptedAnswer": {"@type": "Answer", "text": "Parce que c'est à partir de cette période que les registres paroissiaux (baptêmes, mariages, sépultures) deviennent suffisamment systématiques et bien conservés pour permettre une recherche continue. Avant, les registres existent par endroits mais sont rares, incomplets ou perdus."}}, {"@type": "Question", "name": "Qu'est-ce que l'ordonnance de Villers-Cotterêts a changé pour les généalogistes ?", "acceptedAnswer": {"@type": "Answer", "text": "Signée par François Ier en 1539, elle imposait aux curés de tenir un registre des baptêmes, avec le nom de l'enfant et la date. C'est le tout premier texte royal français à créer une trace écrite systématique des naissances, bien avant les registres de mariage et de sépulture."}}, {"@type": "Question", "name": "Quel est le lien entre le concile de Trente et les registres paroissiaux français ?", "acceptedAnswer": {"@type": "Answer", "text": "Le concile de Trente (1545-1563) a demandé aux curés catholiques de tenir des registres de baptêmes et de mariages dans toute la chrétienté. En France, l'ordonnance de Blois de 1579 reprend et élargit cette exigence aux sépultures, en s'inspirant directement des décisions du concile."}}, {"@type": "Question", "name": "Pourquoi tant de généalogies parisiennes s'arrêtent-elles brutalement avant 1871 ?", "acceptedAnswer": {"@type": "Answer", "text": "Parce que l'incendie de l'Hôtel de Ville de Paris pendant la Commune, en mai 1871, a détruit la quasi-totalité des registres d'état civil parisiens antérieurs à cette date. C'est l'une des pertes documentaires les plus importantes de la généalogie française."}}]}]</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "D'où viennent les prénoms : la limite de 1600", "item": "https://genesolia.fr/genealogie-avant-1600-limites.html"}]}</script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d'Ariane"><a href="psychogenealogie.html">Psychogénéalogie</a><span aria-hidden="true">/</span>Origines · Le prénom</nav>
+        <h1>D'où viennent les prénoms : pourquoi les généalogies s'arrêtent presque toutes vers 1600</h1>
+        <p class="intro">Dernier épisode de la série. Si tu as déjà cherché tes ancêtres, tu as peut-être buté sur un mur presque toujours situé au même endroit : quelque part entre 1550 et 1650, les prénoms de tes aïeux disparaissent des archives. Ce mur n'a rien de mystique. Il porte une date de naissance précise, et parfois une date de destruction tout aussi précise.</p>
+        <p class="publie">Publié le 10 novembre 2026 · lecture 10 min</p>
+        <nav class="serie" aria-label="La série">
+          <a href="origine-prenoms-fonction-nom.html">1 · La fonction du nom</a>
+          <a href="prenoms-hebreux-theophores.html">2 · Les prénoms hébreux</a>
+          <a href="prenoms-mayas-calendrier.html">3 · Les Maya et ailleurs</a>
+          <a href="prenoms-effaces-rome-histoire.html">4 · Les prénoms effacés</a>
+          <span class="ici">5 · La limite de 1600</span>
+        </nav>
+      </div>
+    </section>
+    <figure class="bandeau-photo"><img src="assets/images/genealogie-1600-1600.webp" srcset="assets/images/genealogie-1600-800.webp 800w, assets/images/genealogie-1600-1600.webp 1600w" sizes="(max-width: 1140px) 100vw, 1100px" width="1600" height="841" alt="Vieux registre paroissial manuscrit ouvert, encre fanée, écriture du XVIe siècle" loading="lazy" decoding="async"></figure>
+
+    <article class="article">
+      <div class="colonne">
+        <h2>Un mur qu'on retrouve dans presque tous les arbres français</h2>
+        <p>Les quatre premiers épisodes ont montré que le prénom a pris, selon les époques et les lieux, des formes très différentes : protecteur, calendaire, théophore, parfois refusé ou effacé. Ce dernier épisode s'intéresse à une question plus pratique, et pourtant tout aussi liée au prénom : pourquoi, en généalogie française, est-il si rare de remonter avant 1600 ? La réponse tient en trois textes juridiques et un incendie.</p>
+
+        <h2>1539 : François Ier invente le premier registre d'état civil</h2>
+        <p>Le tout premier texte royal français à exiger une trace écrite systématique des naissances n'est pas religieux au départ : c'est l'ordonnance de Villers-Cotterêts, signée par François Ier en août 1539. Son article le plus connu impose le français comme langue des actes de justice et d'administration (au détriment du latin), mais un autre article, moins célèbre, demande aux curés de tenir un registre consignant les baptêmes — avec le nom de l'enfant baptisé et la date — essentiellement pour permettre de prouver l'âge d'une personne en cas de litige, notamment sur les successions.</p>
+        <div class="rappel">
+          <strong>Antérieure au concile de Trente</strong>
+          Point souvent mal connu : l'ordonnance de Villers-Cotterêts précède de plusieurs années l'ouverture du concile de Trente (1545). Le registre de baptême français n'est donc pas, à l'origine, une invention de la Contre-Réforme catholique : c'est une mesure administrative royale, antérieure et indépendante, pour sécuriser l'état civil du royaume.
+        </div>
+
+        <h2>Le concile de Trente (1545-1563) généralise la pratique à toute la chrétienté</h2>
+        <p>Le concile de Trente, réuni par étapes entre 1545 et 1563 pour répondre à la Réforme protestante, aborde lui aussi la question des registres — mais à l'échelle de toute l'Église catholique, pas seulement de la France. Le décret <em>Tametsi</em>, adopté en 1563, impose aux curés catholiques, partout en Europe, de tenir des registres de baptêmes et de mariages, avec témoins, pour lutter notamment contre les mariages clandestins et les unions bigames non détectées.</p>
+        <p>En France, cette exigence conciliaire va se combiner avec la tradition déjà entamée par Villers-Cotterêts.</p>
+
+        <h2>1579 : l'ordonnance de Blois complète le dispositif français</h2>
+        <p>C'est l'ordonnance de Blois, signée par Henri III en 1579, qui achève la construction du système français : elle reprend l'obligation de tenir des registres de baptêmes, y ajoute les registres de mariages et, pour la première fois, les registres de sépultures. Elle impose aussi que ces registres soient tenus en double exemplaire et déposés auprès de la justice royale, afin d'éviter les pertes et les falsifications — une précaution qui, avec le recul, s'est révélée largement insuffisante face aux siècles de guerres, d'incendies et de négligences qui ont suivi.</p>
+        <div class="chrono">
+          <li><strong>1539 — Villers-Cotterêts</strong>François Ier impose un registre des baptêmes, pour des raisons avant tout administratives (preuve de majorité, successions).</li>
+          <li><strong>1545-1563 — Concile de Trente</strong>Le décret Tametsi généralise les registres de baptêmes et de mariages à toute l'Église catholique.</li>
+          <li><strong>1579 — Ordonnance de Blois</strong>Henri III ajoute les registres de sépultures et impose le double exemplaire déposé en justice.</li>
+          <li><strong>1792 — État civil laïcisé</strong>La Révolution transfère la tenue des registres des curés aux municipalités : naissent les registres d'état civil tels qu'on les connaît aujourd'hui.</li>
+        </div>
+
+        <h2>Pourquoi le mur se situe en pratique un peu après 1600</h2>
+        <p>En théorie, les registres de baptêmes existent donc depuis 1539, et ceux de mariages et sépultures depuis 1579. En pratique, l'application de ces ordonnances a été très inégale selon les paroisses dans les premières décennies : certains curés ne tenaient aucun registre avant 1600, d'autres l'ont fait de façon irrégulière, et une grande partie de ces tout premiers registres n'a simplement pas survécu — papier fragile, incendies de presbytères, négligence, destructions pendant les guerres de Religion (1562-1598) qui ont ravagé une bonne partie du royaume juste à cette période. Sur les forums de généalogie, il est courant de lire le témoignage d'un chercheur bloqué précisément entre 1600 et 1616 dans une paroisse bretonne ou normande : le registre existe, mais sa première page utilisable commence là, sans qu'on sache ce qu'il y avait avant.</p>
+        <p>Le mur généalogique de 1600 n'est donc pas une limite légale (le texte existe dès 1539) mais une limite de survie documentaire : c'est le moment, variable d'une paroisse à l'autre, à partir duquel les registres commencent à être tenus de façon continue et à avoir survécu jusqu'à aujourd'hui.</p>
+
+        <h2>Paris, un cas à part : l'incendie de la Commune en 1871</h2>
+        <p>Il existe une deuxième cause de mur généalogique, beaucoup plus tardive et beaucoup plus brutale : en mai 1871, pendant les combats de la Commune de Paris, l'Hôtel de Ville de Paris est incendié. Or c'est là qu'était conservée la quasi-totalité des doubles collections de registres paroissiaux et d'état civil parisiens. L'incendie détruit presque tous les registres antérieurs à 1860, remontant parfois jusqu'au Moyen Âge pour certaines paroisses.</p>
+        <div class="prudence">
+          <strong>Ce que ça signifie pour un généalogiste parisien</strong>
+          Un descendant de Parisiens peut buter non pas vers 1600, mais brutalement en 1860-1871 : les reconstitutions d'état civil, menées après coup à partir de copies partielles (notariat, fiscalité, registres paroissiaux retrouvés en province), ne couvrent jamais la totalité de ce qui a été perdu. C'est l'une des pertes d'archives les plus importantes de toute la généalogie française, et elle n'a rien à voir avec l'Ancien Régime.
+        </div>
+
+        <div class="sources">
+          <p class="titre">Sources de cet article</p>
+          <ul>
+            <li><a href="https://fr.wikipedia.org/wiki/Ordonnance_de_Villers-Cotterets" target="_blank" rel="noopener">Wikipédia — Ordonnance de Villers-Cotterêts</a></li>
+            <li><a href="https://fr.wikipedia.org/wiki/Concile_de_Trente" target="_blank" rel="noopener">Wikipédia — Concile de Trente</a></li>
+            <li><a href="https://fr.wikipedia.org/wiki/Ordonnance_de_Blois_(1579)" target="_blank" rel="noopener">Wikipédia — Ordonnance de Blois (1579)</a></li>
+            <li><a href="https://fr.wikipedia.org/wiki/Incendies_de_Paris_de_1871" target="_blank" rel="noopener">Wikipédia — Incendies de Paris de 1871</a></li>
+          </ul>
+        </div>
+
+        <h2>Et la psychogénéalogie, dans tout ça ?</h2>
+        <p>Cette série a montré que le prénom est tour à tour un bouclier, une date, un lien avec le divin, un privilège qu'on peut perdre — et qu'il repose, pour remonter dans le temps, sur des archives fragiles, souvent détruites ou lacunaires. En psychogénéalogie, le mur de 1600 (ou celui de 1871 à Paris) n'empêche pas le travail : ce qui se transmet n'a pas besoin d'un acte notarié pour exister dans une famille. La page <a href="memoire-transgenerationnelle.html">mémoire transgénérationnelle</a> explore ce que les non-dits et les répétitions peuvent révéler, même quand les registres manquent.</p>
+
+        <div class="encadre-discret">
+          <p><strong>Envie de remonter ton arbre aussi loin que les archives le permettent ?</strong> Le <a href="genosociogramme.html">génosociogramme de Genesolia</a> t'aide à structurer ce que tu sais déjà, génération par génération.</p>
+        </div>
+
+        <h2>Questions fréquentes</h2>
+        <dl class="faq">
+          <dt>Pourquoi la plupart des généalogies françaises s'arrêtent-elles vers 1600 ?</dt><dd>Parce que c'est à partir de cette période que les registres paroissiaux (baptêmes, mariages, sépultures) deviennent suffisamment systématiques et bien conservés pour permettre une recherche continue. Avant, les registres existent par endroits mais sont rares, incomplets ou perdus.</dd>
+          <dt>Qu'est-ce que l'ordonnance de Villers-Cotterêts a changé pour les généalogistes ?</dt><dd>Signée par François Ier en 1539, elle imposait aux curés de tenir un registre des baptêmes, avec le nom de l'enfant et la date. C'est le tout premier texte royal français à créer une trace écrite systématique des naissances, bien avant les registres de mariage et de sépulture.</dd>
+          <dt>Quel est le lien entre le concile de Trente et les registres paroissiaux français ?</dt><dd>Le concile de Trente (1545-1563) a demandé aux curés catholiques de tenir des registres de baptêmes et de mariages dans toute la chrétienté. En France, l'ordonnance de Blois de 1579 reprend et élargit cette exigence aux sépultures, en s'inspirant directement des décisions du concile.</dd>
+          <dt>Pourquoi tant de généalogies parisiennes s'arrêtent-elles brutalement avant 1871 ?</dt><dd>Parce que l'incendie de l'Hôtel de Ville de Paris pendant la Commune, en mai 1871, a détruit la quasi-totalité des registres d'état civil parisiens antérieurs à cette date. C'est l'une des pertes documentaires les plus importantes de la généalogie française.</dd>
+        </dl>
+        <div class="actions">
+          <a class="btn btn-trait" href="prenoms-effaces-rome-histoire.html">← Épisode 4 : les prénoms effacés</a>
+          <a class="btn btn-plein" href="origine-prenoms-fonction-nom.html">Revenir à l'épisode 1 →</a>
+        </div>
+
+        <p class="note-fin">Lecture historique. Cet article décrit des textes et des événements documentés ; il ne remplace pas une recherche généalogique professionnelle pour une famille donnée. La psychogénéalogie n'est pas une science : ses interprétations sont des pistes de réflexion, pas des causes.</p>
+        <nav class="voisins" aria-label="Dans la même série"><a href="origine-prenoms-fonction-nom.html">1 · La fonction du nom</a><a href="prenoms-hebreux-theophores.html">2 · Les prénoms hébreux</a><a href="prenoms-mayas-calendrier.html">3 · Les Maya et ailleurs</a><a href="prenoms-effaces-rome-histoire.html">4 · Les prénoms effacés</a><a href="genealogie-avant-1600-limites.html" aria-current="page">5 · La limite de 1600</a></nav>
+      </div>
+    </article>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="prenom-transmis-psychogenealogie.html"><h3>Prénom transmis en psychogénéalogie</h3><p>Ce qu'un prénom qui revient peut vouloir dire, dans ton arbre.</p></a>
+          <a class="outil" href="genosociogramme.html"><h3>Mon arbre familial</h3><span class="duree">Gratuit</span><p>Dessine ton génosociogramme : les répétitions sont repérées automatiquement.</p></a>
+          <a class="outil" href="memoire-transgenerationnelle.html"><h3>La mémoire transgénérationnelle</h3><p>Ce qui se transmet sans qu'on en parle.</p></a>
+          <a class="outil" href="psychogenealogie.html"><h3>La psychogénéalogie, sans promesse</h3><p>Ce qu'elle peut t'apporter, et ses limites, dites honnêtement.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>
