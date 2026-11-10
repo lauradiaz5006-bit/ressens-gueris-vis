@@ -181,21 +181,28 @@ window.GenesoliaPratique = (function () {
         : '<p class="pr-o-aide">Pour envoyer un nouveau questionnaire, il faut l’abonnement. Les réponses déjà reçues restent ici.</p>'));
     var zl = f.querySelector('[data-q-liste]'), liste = [];
     function charger() {
-      o.sb.from('questionnaires_client').select('jeton,expire_le,cree_le,rempli_le,importe_le,reponses').eq('arbre_id', o.id).order('cree_le', { ascending: false }).then(function (r) {
+      o.sb.from('questionnaires_client').select('jeton,expire_le,cree_le,rempli_le,importe_le').eq('arbre_id', o.id).order('cree_le', { ascending: false }).then(function (r) {
         if (r.error) { zl.innerHTML = '<p class="pr-o-aide">Les questionnaires n’ont pas pu être chargés.</p>'; return; }
         liste = (r.data || []).filter(function (q) { return q.rempli_le || new Date(q.expire_le) > new Date(); });
-        zl.innerHTML = liste.length ? liste.map(function (q) {
-          if (q.rempli_le) {
-            var g = (q.reponses && q.reponses.general) || {}, n = q.reponses && q.reponses.people ? Object.keys(q.reponses.people).length : 0;
-            return '<div class="pr-o-actif"><div><b>Réponses reçues le ' + date(q.rempli_le) + '</b> · ' + n + ' personne' + (n > 1 ? 's' : '') + '<br><small>' + (q.importe_le ? 'Ajoutées à l’arbre le ' + date(q.importe_le) : 'Pas encore ajoutées à l’arbre') + '</small></div>' +
-              Object.keys(LIB_G).filter(function (k) { return g[k]; }).map(function (k) { return '<div><small>' + LIB_G[k] + '</small><p style="margin:.15rem 0 0;white-space:pre-wrap">' + esc(g[k]) + '</p></div>'; }).join('') +
-              '<div class="pr-o-boutons">' + (q.importe_le ? '' : '<a class="btn btn-plein bt plein" href="genosociogramme.html?arbre=' + encodeURIComponent(o.id) + '&amp;questionnaire=' + esc(q.jeton) + '">Ajouter à l’arbre</a>') +
-              '<button class="pr-o-lien pr-o-desact" type="button" data-q-suppr="' + esc(q.jeton) + '">Supprimer ces réponses</button></div></div>';
-          }
-          return '<div class="pr-o-actif"><div><b>Créé le ' + date(q.cree_le) + '</b> · en attente des réponses<br><small>Lien valable jusqu’au ' + date(q.expire_le) + '</small></div>' +
-            '<input class="pr-o-url" type="text" readonly value="' + esc(urlQ(q.jeton)) + '" aria-label="Adresse du questionnaire">' +
-            '<div class="pr-o-boutons"><button class="btn btn-trait bt" type="button" data-q-copier="' + esc(q.jeton) + '">Copier le lien</button><button class="pr-o-lien pr-o-desact" type="button" data-q-suppr="' + esc(q.jeton) + '">Désactiver ce lien</button></div><p class="pr-o-msg" data-q-copie="' + esc(q.jeton) + '"></p></div>';
-        }).join('') : '<p class="pr-o-aide">Aucun questionnaire en cours pour ce dossier.</p>';
+        zl.innerHTML = liste.length ? '<p class="pr-o-aide">Déchiffrement…</p>' : '<p class="pr-o-aide">Aucun questionnaire en cours pour ce dossier.</p>';
+        if (!liste.length) return;
+        Promise.all(liste.map(function (q) {
+          if (!q.rempli_le) return Promise.resolve(null);
+          return o.sb.rpc('questionnaire_reponses_lire', { p_jeton: q.jeton }).then(function (rr) { return (rr && rr.data) || null; }, function () { return null; });
+        })).then(function (reps) {
+          zl.innerHTML = liste.map(function (q, i) {
+            if (q.rempli_le) {
+              var rep = reps[i], g = (rep && rep.general) || {}, n = rep && rep.people ? Object.keys(rep.people).length : 0;
+              return '<div class="pr-o-actif"><div><b>Réponses reçues le ' + date(q.rempli_le) + '</b> · ' + n + ' personne' + (n > 1 ? 's' : '') + '<br><small>' + (q.importe_le ? 'Ajoutées à l’arbre le ' + date(q.importe_le) : 'Pas encore ajoutées à l’arbre') + '</small></div>' +
+                Object.keys(LIB_G).filter(function (k) { return g[k]; }).map(function (k) { return '<div><small>' + LIB_G[k] + '</small><p style="margin:.15rem 0 0;white-space:pre-wrap">' + esc(g[k]) + '</p></div>'; }).join('') +
+                '<div class="pr-o-boutons">' + (q.importe_le ? '' : '<a class="btn btn-plein bt plein" href="genosociogramme.html?arbre=' + encodeURIComponent(o.id) + '&amp;questionnaire=' + esc(q.jeton) + '">Ajouter à l’arbre</a>') +
+                '<button class="pr-o-lien pr-o-desact" type="button" data-q-suppr="' + esc(q.jeton) + '">Supprimer ces réponses</button></div></div>';
+            }
+            return '<div class="pr-o-actif"><div><b>Créé le ' + date(q.cree_le) + '</b> · en attente des réponses<br><small>Lien valable jusqu’au ' + date(q.expire_le) + '</small></div>' +
+              '<input class="pr-o-url" type="text" readonly value="' + esc(urlQ(q.jeton)) + '" aria-label="Adresse du questionnaire">' +
+              '<div class="pr-o-boutons"><button class="btn btn-trait bt" type="button" data-q-copier="' + esc(q.jeton) + '">Copier le lien</button><button class="pr-o-lien pr-o-desact" type="button" data-q-suppr="' + esc(q.jeton) + '">Désactiver ce lien</button></div><p class="pr-o-msg" data-q-copie="' + esc(q.jeton) + '"></p></div>';
+          }).join('');
+        });
       });
     }
     charger();

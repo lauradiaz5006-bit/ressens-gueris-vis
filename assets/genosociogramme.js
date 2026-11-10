@@ -3932,11 +3932,14 @@
   /* Questionnaire avant séance : les réponses du·de la client·e entrent dans son arbre (les personnes déjà là sont complétées, rien n'est effacé) */
   function importerQuestionnaire(jeton) {
     history.replaceState(null, '', location.pathname + '?arbre=' + ARBRE_ID);
-    sb.from('questionnaires_client').select('reponses,rempli_le,importe_le').eq('jeton', jeton).eq('arbre_id', ARBRE_ID).maybeSingle().then(function (r) {
+    sb.from('questionnaires_client').select('rempli_le,importe_le').eq('jeton', jeton).eq('arbre_id', ARBRE_ID).maybeSingle().then(function (r) {
       var q = r && r.data;
-      if (r.error || !q || !q.reponses || !q.reponses.people) { alert('Ces réponses n’ont pas été trouvées pour ce dossier.'); return; }
+      if (r.error || !q || !q.rempli_le) { alert('Ces réponses n’ont pas été trouvées pour ce dossier.'); return; }
       if (q.importe_le && !confirm('Ces réponses ont déjà été ajoutées à l’arbre. Les ajouter une deuxième fois ?')) return;
-      var d = JSON.parse(JSON.stringify(q.reponses)), n = Object.keys(d.people).length;
+      sb.rpc('questionnaire_reponses_lire', { p_jeton: jeton }).then(function (rr) {
+      var reponses = rr && rr.data;
+      if (rr.error || !reponses || !reponses.people) { alert('Ces réponses n’ont pas été trouvées pour ce dossier.'); return; }
+      var d = JSON.parse(JSON.stringify(reponses)), n = Object.keys(d.people).length;
       if (!q.importe_le && !confirm('Ajouter à l’arbre les réponses reçues le ' + dateLongue(new Date(q.rempli_le)) + ' (' + n + ' personne' + (n > 1 ? 's' : '') + ') ? Les personnes déjà dans l’arbre sont seulement complétées : rien n’est effacé.')) return;
       var G = d.general || {}, lg = [['repete', 'Ce qui lui semble se répéter'], ['attente', 'Ce qui l’amène'], ['silences', 'Ce dont on ne parle pas']].filter(function (x) { return G[x[0]]; }).map(function (x) { return x[1] + ' : ' + G[x[0]]; });
       if (lg.length && d.people.toi) d.people.toi.notes = (d.people.toi.notes ? d.people.toi.notes + '\n' : 'Questionnaire avant séance :\n') + lg.join('\n');
@@ -3954,6 +3957,7 @@
       b.innerHTML = 'Les réponses du questionnaire sont dans l’arbre. Ce qu’il·elle a écrit est dans chaque fiche. <a href="#" data-fermer-bandeau>OK</a>';
       document.body.appendChild(b);
       b.querySelector('[data-fermer-bandeau]').addEventListener('click', function (e) { e.preventDefault(); b.remove(); });
+      });
     });
   }
   function notesDossier() {
