@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Constellation familiale : définition, déroulement et faire seul·e</title>
+  <meta name="description" content="Constellation familiale : définition, origine avec Bert Hellinger, déroulement en groupe, et ce qu'on peut explorer seul·e ou en ligne entre deux séances.">
+  <link rel="canonical" href="https://genesolia.fr/constellation-familiale.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Constellation familiale : ce que c'est, comment ça se passe, et ce qu'on peut faire seul·e">
+  <meta property="og:description" content="Constellation familiale : définition, origine avec Bert Hellinger, déroulement en groupe, et ce qu'on peut explorer seul·e ou en ligne entre deux séances.">
+  <meta property="og:image" content="https://genesolia.fr/assets/partage/genesolia.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Un arbre lumineux aux racines dorées">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(52rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+    .article .encart{margin:2rem 0}
+
+    .deux{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0}
+    .deux div{padding:1.3rem 1.3rem 1.2rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc)}
+    .deux .c2{background:linear-gradient(180deg,#FCEFF3,var(--blanc) 75%)}
+    .deux .c1{background:linear-gradient(180deg,#FBF1EE,var(--blanc) 75%)}
+    .deux .nom{font-family:var(--display);color:var(--champagne)}
+    .deux h3{margin:.1rem 0 .5rem}
+    .deux p{color:var(--prune-doux);font-size:.97rem}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+
+    .encadre-or{margin:2rem 0;padding:1.5rem 1.6rem;border-radius:var(--rayon);background:linear-gradient(180deg,#FFF8EA,var(--blanc) 80%);border:1px solid #E8C27A}
+    .encadre-or .titre{font-family:var(--display);font-size:1.3rem;margin-bottom:.4rem}
+    .encadre-discret{margin:2rem 0;padding:1.2rem 1.3rem;border-radius:16px;border:1px solid var(--rose);background:#FBF8F6;font-size:.95rem}
+    .encadre-discret p{color:var(--prune-doux)}
+
+    @media (max-width:640px){
+      .deux{grid-template-columns:1fr}
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .article .actions .btn{width:100%}
+    }
+    .voisins{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+    .voisins a{border:1px solid var(--rose-fonce);border-radius:999px;padding:.3rem .9rem;text-decoration:none;font-size:.95rem;background:var(--blanc)}
+    .voisins a[aria-current]{background:var(--prune);color:var(--blanc);border-color:var(--prune)}
+    .faq dt{font-weight:600;margin-top:1.4rem}
+    .faq dd{margin:.4rem 0 0;color:var(--prune-doux)}
+    .note-fin{font-size:.93rem;color:var(--prune-doux);margin-top:2.4rem}
+    .article .actions{display:flex;flex-wrap:wrap;gap:.6rem}
+  </style>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Article", "headline": "Constellation familiale : ce que c'est, comment ça se passe, et ce qu'on peut faire seul·e", "description": "Constellation familiale : définition, origine avec Bert Hellinger, déroulement en groupe, et ce qu'on peut explorer seul·e ou en ligne entre deux séances.", "datePublished": "2026-11-10", "dateModified": "2026-11-10", "inLanguage": "fr", "author": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}, "publisher": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}, "url": "https://genesolia.fr/constellation-familiale.html", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://genesolia.fr/constellation-familiale.html"}}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Qu'est-ce qu'une constellation familiale ?", "acceptedAnswer": {"@type": "Answer", "text": "C'est une méthode systémique, portée par Bert Hellinger, où des personnes ou des objets représentent les membres de ta famille dans l'espace : leur position les uns par rapport aux autres fait apparaître des liens, des exclusions ou des répétitions que tu ne voyais pas."}}, {"@type": "Question", "name": "Peut-on faire une constellation familiale seul·e ?", "acceptedAnswer": {"@type": "Answer", "text": "Une vraie constellation, avec des représentant·es qui ressentent à ta place, se fait en groupe ou avec un·e praticien·ne. Seul·e, tu peux explorer symboliquement ce qui se rejoue dans tes relations, par exemple avec ton propre théâtre intérieur, mais ce n'est pas le même travail."}}, {"@type": "Question", "name": "Quelle différence entre une constellation familiale et un génosociogramme ?", "acceptedAnswer": {"@type": "Answer", "text": "Le génosociogramme est un arbre généalogique enrichi des dates, métiers et événements, pour repérer les répétitions sur plusieurs générations. La constellation met ces liens en scène dans l'espace, avec des représentant·es, pour les ressentir plutôt que les lire."}}, {"@type": "Question", "name": "Peut-on faire une constellation familiale en ligne, à distance ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui, avec un·e praticien·ne équipé·e d'un plateau symbolique partagé en visio : vous posez et déplacez des pions ensemble, comme avec des représentant·es en présentiel."}}]}]</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Constellation familiale", "item": "https://genesolia.fr/constellation-familiale.html"}]}</script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d'Ariane"><a href="psychogenealogie.html">Psychogénéalogie</a><span aria-hidden="true">/</span>Constellation familiale</nav>
+        <h1>Constellation familiale : ce que c'est, comment ça se passe, et ce qu'on peut faire seul·e</h1>
+        <p class="intro">Un mot qu'on entend de plus en plus, souvent sans trop savoir ce qu'il recouvre. Voici ce qu'est vraiment une constellation familiale, comment elle se déroule en groupe, et ce que tu peux explorer de ton côté entre deux séances, ou si tu n'as pas encore franchi le pas.</p>
+        <p class="publie">Publié le 10 novembre 2026 · lecture 8 min</p>
+      </div>
+    </section>
+    <figure class="bandeau-photo"><img src="assets/images/genesolia-1600.webp" srcset="assets/images/genesolia-800.webp 800w, assets/images/genesolia-1600.webp 1600w" sizes="(max-width: 1140px) 100vw, 1100px" width="1600" height="841" alt="Un arbre lumineux aux racines dorées" loading="lazy" decoding="async"></figure>
+
+    <article class="article">
+      <div class="colonne">
+        <h2>Définition</h2>
+        <p>Une constellation familiale est une méthode qui met en scène, dans l'espace, les relations d'une famille : les membres, vivants ou décédés, les liens entre eux, et parfois les événements marquants (un deuil, une séparation, un enfant perdu). Des personnes présentes, appelées représentant·es, se tiennent à la place de chaque membre. Leur position les unes par rapport aux autres, et ce qu'elles ressentent une fois placées, fait apparaître ce qui circule dans la famille sans que personne n'en parle.</p>
+        <p>La méthode a été développée par le thérapeute allemand <strong>Bert Hellinger</strong> dans les années 1990, à partir de la thérapie familiale systémique et de ses observations de terrain. Elle s'est depuis largement diffusée, en groupe comme en séance individuelle.</p>
+
+        <h2>Comment se déroule une séance</h2>
+        <p>En général, elle se fait en groupe. La personne qui "constelle" choisit, parmi les participant·es, des représentant·es pour sa mère, son père, elle-même, parfois un ancêtre ou un enfant disparu. Elle les place dans la pièce, selon son ressenti du moment. Les représentant·es se taisent, attendent, et décrivent ce qu'ils ressentent à cette place : un poids, une envie de se tourner, un vide derrière eux. Le ou la praticien·ne lit ces mouvements et propose des déplacements, jusqu'à ce qu'une image plus apaisée se stabilise.</p>
+        <p class="rappel"><strong>Ce qui fait la force de la méthode</strong> : voir et ressentir une dynamique familiale depuis l'extérieur, plutôt que de seulement la raconter. C'est aussi pour ça qu'elle nécessite, normalement, d'autres personnes.</p>
+
+        <h2>Constellation familiale et génosociogramme</h2>
+        <div class="deux">
+          <div class="c1"><p class="nom">Génosociogramme</p><h3>Lire l'arbre</h3><p>Un arbre généalogique enrichi des dates, métiers, maladies et événements. Il fait ressortir les répétitions sur plusieurs générations : mêmes âges, mêmes prénoms, mêmes schémas.</p></div>
+          <div class="c2"><p class="nom">Constellation</p><h3>Ressentir la scène</h3><p>Les mêmes liens, mais mis en espace et incarnés par des représentant·es. On ne les lit plus : on les ressent, à travers la position et les émotions de chacun·e.</p></div>
+        </div>
+        <p>Les deux méthodes se complètent souvent : le génosociogramme repère où regarder, la constellation permet d'aller plus loin dans le ressenti. Tu peux <a href="genosociogramme.html">dessiner ton arbre familial</a> pour poser d'abord ce qui se répète.</p>
+
+        <h2>Peut-on faire une constellation seul·e, chez soi ?</h2>
+        <p>Honnêtement : pas une vraie constellation. Ce qui fait sa force, c'est justement que d'autres personnes ressentent à ta place, sans savoir à l'avance qui elles représentent. Seul·e, tu ne peux pas obtenir cet effet de surprise et de ressenti extérieur.</p>
+        <p>En revanche, tu peux explorer symboliquement, de ton côté, ce qui se rejoue dans tes relations actuelles : qui te fait ressentir la même chose qu'un parent, quelle place tu occupes avec chacun. C'est un travail différent, plus personnel, mais qui peut déjà faire bouger des choses — et qui prépare bien à une vraie séance si tu décides d'en faire une un jour.</p>
+
+        <div class="encadre-or">
+          <p class="titre">Explorer tes propres liens, à ton rythme</p>
+          <p>Dans <strong>Ma spirale</strong>, l'espace « Mon théâtre » te permet de placer les personnes de ta vie et de ta lignée autour de toi, plus près ou plus loin, et de noter ce que tu ressens de chacune. Un fil doré relie celles qui te font ressentir la même chose : tu vois ce qui se rejoue, à ton image, sans attendre une séance.</p>
+          <p><a class="btn btn-plein" href="ma-spirale.html">Découvrir Mon théâtre dans Ma spirale</a></p>
+        </div>
+
+        <h2>Les signes qu'une constellation pourrait t'aider</h2>
+        <ul class="pistes">
+          <li><strong>Un schéma qui revient</strong><span>Toujours le même type de relation, de rupture ou de conflit, quelles que soient les personnes.</span></li>
+          <li><strong>Un lien qui pèse sans raison claire</strong><span>Une tension avec quelqu'un que tu n'arrives pas à expliquer par ce qui s'est passé entre vous.</span></li>
+          <li><strong>Une place difficile à trouver</strong><span>Dans ta famille, ton couple ou ta fratrie, le sentiment de ne pas être à la bonne place.</span></li>
+          <li><strong>Un événement familial jamais nommé</strong><span>Un deuil, un enfant perdu, un secret, dont l'ombre continue de se faire sentir.</span></li>
+        </ul>
+
+        <div class="encadre-discret">
+          <p><strong>Tu es praticien·ne de la constellation familiale ?</strong> Le <a href="espace-praticien.html">plateau symbolique en visio de Genesolia</a> te permet de mener tes séances à distance : tu poses et déplaces des pions en direct avec ta ou ton client·e, comme avec des représentant·es en présentiel, avec un dossier par client·e et un rapport à ton nom.</p>
+        </div>
+
+        <h2>Questions fréquentes</h2>
+        <dl class="faq">
+          <dt>Qu'est-ce qu'une constellation familiale ?</dt><dd>C'est une méthode systémique, portée par Bert Hellinger, où des personnes ou des objets représentent les membres de ta famille dans l'espace : leur position les uns par rapport aux autres fait apparaître des liens, des exclusions ou des répétitions que tu ne voyais pas.</dd>
+          <dt>Peut-on faire une constellation familiale seul·e ?</dt><dd>Une vraie constellation, avec des représentant·es qui ressentent à ta place, se fait en groupe ou avec un·e praticien·ne. Seul·e, tu peux explorer symboliquement ce qui se rejoue dans tes relations, par exemple avec ton propre théâtre intérieur, mais ce n'est pas le même travail.</dd>
+          <dt>Quelle différence entre une constellation familiale et un génosociogramme ?</dt><dd>Le génosociogramme est un arbre généalogique enrichi des dates, métiers et événements, pour repérer les répétitions sur plusieurs générations. La constellation met ces liens en scène dans l'espace, avec des représentant·es, pour les ressentir plutôt que les lire.</dd>
+          <dt>Peut-on faire une constellation familiale en ligne, à distance ?</dt><dd>Oui, avec un·e praticien·ne équipé·e d'un plateau symbolique partagé en visio : vous posez et déplacez des pions ensemble, comme avec des représentant·es en présentiel.</dd>
+        </dl>
+        <div class="actions">
+          <a class="btn btn-plein" href="ma-spirale.html">Découvrir Ma spirale</a>
+          <a class="btn btn-trait" href="genosociogramme.html">Dessiner mon arbre familial</a>
+        </div>
+
+        <p class="note-fin">Lecture symbolique, pour réfléchir. La psychogénéalogie et la constellation familiale ne sont pas des sciences : leurs interprétations sont des pistes, pas des causes. Si ton histoire familiale te pèse au point de troubler ton quotidien, parles-en à une personne de confiance ou à un·e professionnel·le de l'accompagnement.</p>
+        <nav class="voisins" aria-label="Dans la même série"><a href="constellation-familiale.html" aria-current="page">Constellation familiale</a><a href="memoire-transgenerationnelle.html">Mémoire transgénérationnelle</a><a href="loyaute-familiale-invisible.html">Loyautés invisibles</a><a href="quest-ce-qu-un-genosociogramme.html">Qu'est-ce qu'un génosociogramme</a><a href="secret-de-famille.html">Secrets de famille</a><a href="relation-mere-fille-toxique.html">Relation mère-fille</a><a href="schemas-repetitifs-en-amour.html">Schémas répétitifs en amour</a></nav>
+      </div>
+    </article>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="psychogenealogie.html"><h3>La psychogénéalogie, sans promesse</h3><p>Ce qu'elle peut t'apporter, et ses limites, dites honnêtement.</p></a>
+          <a class="outil" href="genosociogramme.html"><h3>Mon arbre familial</h3><p>Dessine ton génosociogramme : les répétitions sont repérées automatiquement.</p></a>
+          <a class="outil" href="ma-spirale.html"><h3>Ma spirale</h3><p>Dépose ce que tu ressens, et explore tes liens dans Mon théâtre.</p></a>
+          <a class="outil" href="loyaute-familiale-invisible.html"><h3>Les loyautés familiales invisibles</h3><p>Ces fidélités qui nous lient sans le savoir.</p></a>
+          <a class="outil" href="espace-praticien.html"><h3>Genesolia Pro</h3><p>Pour les praticien·nes : dossiers client·es et plateau symbolique en visio.</p></a>
+          <a class="outil" href="methode.html"><h3>La méthode des deux cycles</h3><p>La racine et le cœur : deux besoins pour comprendre ce qui se répète.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>
