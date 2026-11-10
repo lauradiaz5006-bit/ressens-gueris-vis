@@ -102,7 +102,7 @@
     .pv-gens-liste li{font-size:.86rem;color:var(--prune);padding:.3rem .5rem;border-radius:8px;background:var(--rose)}
     .pv-prive textarea{width:100%;box-sizing:border-box;min-height:5rem;font:inherit;font-size:.88rem;padding:.6rem .7rem;border:1.5px solid var(--rose-fonce);border-radius:12px;resize:vertical}
     .pv-dossier-nom{text-align:center;color:var(--champagne);font:600 .8rem var(--texte);letter-spacing:.06em;text-transform:uppercase;margin:0 0 .3rem}
-    body.pv-plein header[data-entete],body.pv-plein footer[data-pied],body.pv-plein .pv-note{display:none!important}
+    body.pv-plein header[data-entete],body.pv-plein footer[data-pied],body.pv-plein .pv-note,body.pv-plein .pv-prive{display:none!important}
   </style>
 </head>
 <body class="nouveau">
@@ -124,7 +124,7 @@
           <button type="button" id="pvBoutonLien" onclick="pvBasculerModeLien()">+ Lien entre deux pions</button>
           <button type="button" onclick="pvExporter()">Exporter en image</button>
           <button type="button" class="pv-danger" onclick="pvToutEffacer()">Tout effacer</button>
-          <button type="button" id="pvBoutonPlein" onclick="pvBasculerPlein()">Plein écran</button>
+          <button type="button" id="pvBoutonPlein" onclick="pvBasculerPlein()">Démarrer la séance (plein écran)</button>
         </div>
         <p class="pv-hint-lien" id="pvHintLien" hidden>Touchez un premier pion, puis un second pour les relier. Touchez le bouton « Lien » pour arrêter.</p>
         <p class="pv-statut" id="pvStatut" role="status" style="text-align:center;color:var(--prune-doux);font-size:.84rem;margin:.3rem 0 0"></p>
@@ -141,11 +141,15 @@
             <ul class="pv-liste" id="pvListe"></ul>
             <details class="pv-prive" id="pvPrive" hidden>
               <summary>Infos de l’arbre (privé)</summary>
-              <p class="pv-prive-aide">Ne partagez pas cette zone à l’écran : gardez-la fermée ou hors du cadrage de votre partage d’écran.</p>
+              <p class="pv-prive-aide">Masqué automatiquement pendant « Démarrer la séance » : même si vous partagez l’écran, cette zone ne peut pas s’afficher par erreur.</p>
               <ul class="pv-gens-liste" id="pvGensListe"></ul>
-              <label for="pvNotesLiens" style="font:600 .82rem var(--texte);color:var(--prune);display:block;margin-bottom:.35rem">Notes de liens à reporter sur l’arbre</label>
-              <textarea id="pvNotesLiens" maxlength="2000" placeholder="Ce qui vient en séance et que vous voudrez reporter sur l’arbre ensuite…"></textarea>
-              <p class="pv-prive-aide" style="color:var(--prune-doux);font-weight:400;margin-top:.5rem">Rien n’est ajouté automatiquement à l’arbre : c’est un brouillon que vous reportez vous-même si besoin.</p>
+              <label for="pvNotesLiens" style="font:600 .82rem var(--texte);color:var(--prune);display:block;margin-bottom:.35rem">Notes à garder, à chaud après la séance</label>
+              <textarea id="pvNotesLiens" maxlength="2000" placeholder="Ce qui vient en séance, ce qui s’est déplacé, ce que ça a évoqué…"></textarea>
+              <div class="pv-boutons" style="display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.5rem">
+                <button type="button" class="btn btn-trait" onclick="pvEnregistrerCommeNote()">Ajouter aux notes de séance (« Note constellation »)</button>
+              </div>
+              <p class="pv-prive-aide" id="pvNotePriveMsg" role="status" style="color:var(--prune-doux);font-weight:400;margin-top:.5rem"></p>
+              <p class="pv-prive-aide" style="color:var(--prune-doux);font-weight:400;margin-top:.3rem">Tant que vous ne cliquez pas ce bouton, ce texte reste un brouillon ici, à part de vos notes de séance chiffrées.</p>
             </details>
           </div>
         </div>
@@ -714,21 +718,49 @@
       if (!pions.length || confirm('Effacer tous les pions du plateau ?')) { pions = []; liens = []; redessiner(); }
     };
 
-    // --- Plein écran : masque le menu du site pendant le partage d'écran, pour éviter un clic involontaire sur un lien ---
+    // --- Séance / plein écran : masque le menu du site ET les infos privées pendant le partage d'écran,
+    //     pour qu'un clic involontaire ne puisse jamais les montrer à la cliente. À la fin, les infos privées
+    //     redeviennent visibles tout de suite, prêtes pour la note d'après-séance. ---
     function pvMajBoutonPlein() {
       var b = document.getElementById('pvBoutonPlein'); if (!b) return;
-      b.textContent = document.body.classList.contains('pv-plein') ? 'Quitter le plein écran' : 'Plein écran';
+      b.textContent = document.body.classList.contains('pv-plein') ? 'Terminer la séance' : 'Démarrer la séance (plein écran)';
+    }
+    function pvFinSeance() {
+      document.body.classList.remove('pv-plein');
+      try { if (document.fullscreenElement) document.exitFullscreen(); } catch (e) {}
+      pvMajBoutonPlein();
+      var p = document.getElementById('pvPrive');
+      if (p && !p.hidden) { p.open = true; setTimeout(function () { p.scrollIntoView({ behavior: 'smooth', block: 'center' }); var zt = document.getElementById('pvNotesLiens'); if (zt) zt.focus(); }, 80); }
     }
     window.pvBasculerPlein = function () {
       var actif = document.body.classList.toggle('pv-plein');
-      if (actif) { try { if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(function () {}); } catch (e) {} }
-      else { try { if (document.fullscreenElement) document.exitFullscreen(); } catch (e) {} }
-      pvMajBoutonPlein();
+      if (actif) { try { if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(function () {}); } catch (e) {} pvMajBoutonPlein(); }
+      else { pvFinSeance(); }
     };
-    document.addEventListener('fullscreenchange', function () { if (!document.fullscreenElement) { document.body.classList.remove('pv-plein'); pvMajBoutonPlein(); } });
+    document.addEventListener('fullscreenchange', function () { if (!document.fullscreenElement && document.body.classList.contains('pv-plein')) pvFinSeance(); });
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && document.body.classList.contains('pv-plein') && !document.fullscreenElement) { document.body.classList.remove('pv-plein'); pvMajBoutonPlein(); }
+      if (e.key === 'Escape' && document.body.classList.contains('pv-plein') && !document.fullscreenElement) pvFinSeance();
     });
+
+    // --- Reporter la note d'après-séance dans les Notes de séance chiffrées du dossier, étiquetée « Note constellation » ---
+    window.pvEnregistrerCommeNote = function () {
+      var msg = document.getElementById('pvNotePriveMsg');
+      if (!pvSb || !pvUser || !ARBRE_ID) { if (msg) msg.textContent = 'Ouvrez ce plateau depuis un dossier pour l’ajouter aux notes de séance.'; return; }
+      var zt = document.getElementById('pvNotesLiens'), texte = (zt && zt.value || '').trim();
+      if (!texte) { if (msg) msg.textContent = 'Écrivez votre note avant de l’ajouter.'; return; }
+      var CF = window.GenesoliaCoffre; if (!CF) { if (msg) msg.textContent = 'Les notes de séance ne sont pas disponibles ici.'; return; }
+      var cle = 'seances-' + ARBRE_ID;
+      if (msg) msg.textContent = 'Ajout en cours…';
+      CF.lire(pvSb, pvUser, cle).then(function (x) {
+        var liste = (x && x.seances) || [];
+        liste.push({ id: 's' + Date.now(), jour: new Date().toISOString().slice(0, 10), texte: 'Note constellation :\n' + texte, visible: false });
+        return CF.ecrire(pvSb, pvUser, cle, { seances: liste });
+      }).then(function (r) {
+        if (r && r.error) { if (msg) msg.textContent = 'La note n’a pas pu être ajoutée. Réessayez.'; return; }
+        if (zt) { zt.value = ''; pvSauvegarder(); }
+        if (msg) msg.textContent = 'Ajoutée dans « Notes de séance » de ce dossier.';
+      }, function () { if (msg) msg.textContent = 'La note n’a pas pu être ajoutée. Réessayez.'; });
+    };
 
     // --- Liste des pions, à côté du plateau ---
     function redessinerListe() {
