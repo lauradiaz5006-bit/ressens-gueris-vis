@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>D'où viennent les prénoms (3/5) : les Maya, les Aztèques et le prénom du jour de naissance</title>
+  <meta name="description" content="Chez les Maya, les Aztèques et les Akan d'Afrique de l'Ouest, le prénom ne se choisit pas : il se lit dans le calendrier, au jour de la naissance.">
+  <link rel="canonical" href="https://genesolia.fr/prenoms-mayas-calendrier.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="D'où viennent les prénoms (3/5) : les Maya, les Aztèques et le prénom du jour de naissance">
+  <meta property="og:description" content="Chez les Maya, les Aztèques et les Akan d'Afrique de l'Ouest, le prénom ne se choisit pas : il se lit dans le calendrier, au jour de la naissance.">
+  <meta property="og:image" content="https://genesolia.fr/assets/partage/prenoms-mayas-calendrier.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Glyphes du calendrier maya tzolk'in sculptés dans la pierre">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(52rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .serie{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.4rem 0 0}
+    .serie a,.serie span{border:1px solid var(--rose-fonce);border-radius:999px;padding:.35rem 1rem;font-size:.9rem;text-decoration:none;background:var(--blanc);color:var(--prune-doux)}
+    .serie .ici{background:var(--prune);color:var(--blanc);border-color:var(--prune)}
+    .serie .avenir{opacity:.55;border-style:dashed}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+    .prudence{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--rose-fonce);background:#FCEFF3;border-radius:0 16px 16px 0;font-size:.95rem}
+    .prudence strong{display:block;margin-bottom:.3rem}
+
+    .tableau-fiab{width:100%;border-collapse:collapse;margin:1.6rem 0;font-size:.93rem}
+    .tableau-fiab th,.tableau-fiab td{border:1px solid var(--rose);padding:.7rem .8rem;text-align:left;vertical-align:top}
+    .tableau-fiab th{background:var(--champagne-clair);font-family:var(--display);font-weight:600}
+    @media (max-width:640px){.tableau-fiab{font-size:.85rem}.tableau-fiab th,.tableau-fiab td{padding:.5rem .55rem}}
+
+    .sources{margin:1.6rem 0;padding:1.3rem 1.4rem;border-radius:16px;border:1px solid var(--rose);background:#FBF8F6;font-size:.92rem}
+    .sources .titre{font-family:var(--display);font-size:1.1rem;margin-bottom:.5rem}
+    .sources ul{margin:0;padding-left:1.2rem}
+    .sources li{margin:.3rem 0}
+
+    .encadre-discret{margin:2rem 0;padding:1.2rem 1.3rem;border-radius:16px;border:1px solid var(--rose);background:#FBF8F6;font-size:.95rem}
+    .encadre-discret p{color:var(--prune-doux)}
+
+    @media (max-width:640px){
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .article .actions .btn{width:100%}
+    }
+    .voisins{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+    .voisins a{border:1px solid var(--rose-fonce);border-radius:999px;padding:.3rem .9rem;text-decoration:none;font-size:.95rem;background:var(--blanc)}
+    .voisins a[aria-current]{background:var(--prune);color:var(--blanc);border-color:var(--prune)}
+    .faq dt{font-weight:600;margin-top:1.4rem}
+    .faq dd{margin:.4rem 0 0;color:var(--prune-doux)}
+    .note-fin{font-size:.93rem;color:var(--prune-doux);margin-top:2.4rem}
+    .article .actions{display:flex;flex-wrap:wrap;gap:.6rem}
+  </style>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Article", "headline": "D'où viennent les prénoms (3/5) : les Maya, les Aztèques et le prénom du jour de naissance", "description": "Chez les Maya, les Aztèques et les Akan d'Afrique de l'Ouest, le prénom ne se choisit pas : il se lit dans le calendrier, au jour de la naissance.", "datePublished": "2026-11-10", "dateModified": "2026-11-10", "inLanguage": "fr", "author": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}, "publisher": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}, "url": "https://genesolia.fr/prenoms-mayas-calendrier.html", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://genesolia.fr/prenoms-mayas-calendrier.html"}}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Comment les Maya nommaient-ils leurs enfants ?", "acceptedAnswer": {"@type": "Answer", "text": "Un enfant maya recevait souvent un nom lié au jour de sa naissance dans le tzolk'in, le calendrier sacré de 260 jours obtenu en croisant 20 noms de jour et 13 nombres. Ce nom de calendrier coexistait avec un nom personnel donné par les parents."}}, {"@type": "Question", "name": "Les Aztèques avaient-ils le même système que les Maya ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui, un système très proche : le tonalpohualli aztèque est lui aussi un calendrier sacré de 260 jours, et la plupart des enfants recevaient le nom du jour de leur naissance. Les familles aisées pouvaient parfois demander à un devin de retarder la cérémonie pour attendre un jour plus favorable dans le même cycle de treize jours."}}, {"@type": "Question", "name": "Qu'est-ce qu'un « day name » akan ?", "acceptedAnswer": {"@type": "Answer", "text": "Chez les Akan d'Afrique de l'Ouest (Ghana, Côte d'Ivoire, Togo), chaque enfant reçoit un « kradin » ou nom de l'âme, déterminé uniquement par le jour de la semaine de sa naissance. Il existe un nom masculin et un nom féminin pour chacun des sept jours, par exemple Kofi et Afua pour un vendredi, Kwame et Ama pour un samedi."}}, {"@type": "Question", "name": "Pourquoi certains noms de calendrier africains sont-ils connus dans le monde entier ?", "acceptedAnswer": {"@type": "Answer", "text": "Parce que plusieurs figures historiques les portaient : Kwame Nkrumah, premier président du Ghana, ou Kofi Annan, ancien secrétaire général de l'ONU, portent tous deux un nom de jour akan. On retrouve aussi ces noms, parfois déformés, parmi les esclaves déportés aux Amériques et les meneurs de révoltes serviles."}}]}]</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "D'où viennent les prénoms : les Maya et ailleurs", "item": "https://genesolia.fr/prenoms-mayas-calendrier.html"}]}</script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d'Ariane"><a href="psychogenealogie.html">Psychogénéalogie</a><span aria-hidden="true">/</span>Origines · Le prénom</nav>
+        <h1>D'où viennent les prénoms : les Maya, les Aztèques et le prénom du jour de naissance</h1>
+        <p class="intro">Troisième épisode de la série. Et si le prénom n'avait jamais été choisi, mais seulement lu ? Chez les Maya, les Aztèques et les Akan d'Afrique de l'Ouest, trois civilisations sans aucun contact entre elles ont inventé, chacune de son côté, un même principe : le jour de la naissance fait le nom.</p>
+        <p class="publie">Publié le 10 novembre 2026 · lecture 9 min</p>
+        <nav class="serie" aria-label="La série">
+          <a href="origine-prenoms-fonction-nom.html">1 · La fonction du nom</a>
+          <a href="prenoms-hebreux-theophores.html">2 · Les prénoms hébreux</a>
+          <span class="ici">3 · Les Maya et ailleurs</span>
+          <a href="prenoms-effaces-rome-histoire.html">4 · Les prénoms effacés</a>
+          <a href="genealogie-avant-1600-limites.html">5 · La limite de 1600</a>
+        </nav>
+      </div>
+    </section>
+    <figure class="bandeau-photo"><img src="assets/images/prenoms-mayas-1600.webp" srcset="assets/images/prenoms-mayas-800.webp 800w, assets/images/prenoms-mayas-1600.webp 1600w" sizes="(max-width: 1140px) 100vw, 1100px" width="1600" height="841" alt="Glyphes du calendrier maya tzolk'in sculptés dans la pierre, lumière dorée" loading="lazy" decoding="async"></figure>
+
+    <article class="article">
+      <div class="colonne">
+        <h2>Un nom que le calendrier donne tout seul</h2>
+        <p>Dans les deux premiers épisodes, le prénom protégeait, identifiait, affiliait. En Mésoamérique, il fait autre chose : il date. Chez les Maya comme chez les Aztèques, le jour exact de la naissance — dans un calendrier sacré de 260 jours — fournissait directement un nom, sans intervention des parents. Le même principe, appliqué cette fois à la semaine plutôt qu'à un cycle complexe, se retrouve de façon indépendante chez les peuples akan d'Afrique de l'Ouest. Trois civilisations, trois continents, trois calendriers différents — et une seule idée : le temps de la naissance est déjà un nom.</p>
+
+        <h2>Le tzolk'in maya : 20 jours, 13 nombres, 260 destins</h2>
+        <p>Le tzolk'in est le calendrier sacré de 260 jours des Maya, obtenu en faisant tourner en parallèle 20 noms de jour (Imix, Ik, Akbal, Kan...) et 13 nombres. Comme 20 et 13 n'ont aucun diviseur commun, chaque combinaison nom-nombre ne revient qu'une fois tous les 260 jours : 20 × 13 = 260 positions uniques. Un enfant maya recevait souvent, à côté de son nom personnel choisi par ses parents, un nom tiré de ce jour de naissance — le jour et son nombre étaient censés influencer durablement son caractère et sa destinée.</p>
+        <p>Les élites mayas portaient fréquemment plusieurs noms superposés : un nom calendaire lié à la naissance, un titre de rang, et parfois un nom pris à l'accession au pouvoir. C'est ce qui explique les noms à rallonge qu'on trouve sur les stèles royales, où un nom calendaire côtoie des titres honorifiques.</p>
+
+        <h2>Le tonalpohualli aztèque : le même principe, un autre peuple</h2>
+        <p>Les Aztèques, sans lien direct de filiation avec les Maya mais partageant un fond culturel mésoaméricain commun, utilisaient un calendrier sacré presque identique : le tonalpohualli (« compte des jours »), lui aussi construit sur 20 signes et 13 nombres, pour 260 jours. La plupart des enfants recevaient directement le nom du jour de leur naissance : Acatl (« Roseau »), Tecpatl (« Silex »), Quiahuitl (« Pluie »). Ce nom de calendrier suivait la personne toute sa vie, parfois comme nom public, parfois comme nom secret.</p>
+        <div class="rappel">
+          <strong>Retarder une naissance… administrativement</strong>
+          Certains jours du tonalpohualli passaient pour funestes. Les sources ethnohistoriques rapportent que les familles qui en avaient les moyens pouvaient consulter un devin et faire patienter la cérémonie de nomination de quelques jours, pour que l'enfant reçoive le nom d'un jour plus favorable à l'intérieur de la même période de treize jours. Les familles modestes, elles, n'avaient pas ce choix : l'enfant gardait le nom du jour où il était réellement né.
+        </div>
+
+        <h2>Les Akan d'Afrique de l'Ouest : un nom par jour de la semaine</h2>
+        <p>À des milliers de kilomètres et sans aucun contact possible avec les Mésoaméricains, les peuples akan du Ghana, de Côte d'Ivoire et du Togo ont développé un système structurellement identique, mais appliqué à la semaine de sept jours plutôt qu'à un cycle de 260 jours. Chaque enfant reçoit un <em>kradin</em>, littéralement « nom de l'âme », déterminé uniquement par le jour de sa naissance. Il existe un nom masculin et un nom féminin pour chaque jour :</p>
+        <table class="tableau-fiab">
+          <tr><th>Jour</th><th>Nom masculin (akan twi)</th><th>Nom féminin</th></tr>
+          <tr><td>Dimanche</td><td>Kwasi</td><td>Akosua</td></tr>
+          <tr><td>Lundi</td><td>Kwadwo</td><td>Adwoa</td></tr>
+          <tr><td>Mardi</td><td>Kwabena</td><td>Abena</td></tr>
+          <tr><td>Mercredi</td><td>Kwaku</td><td>Akua</td></tr>
+          <tr><td>Jeudi</td><td>Yaw</td><td>Yaa</td></tr>
+          <tr><td>Vendredi</td><td>Kofi</td><td>Afua</td></tr>
+          <tr><td>Samedi</td><td>Kwame</td><td>Ama</td></tr>
+        </table>
+        <p>Ce nom de jour est traditionnellement donné lors d'une cérémonie appelée « outdooring », huit jours après la naissance — le moment où l'enfant est formellement présenté à la communauté. Deux exemples connus dans le monde entier : Kwame Nkrumah, premier président du Ghana indépendant, est né un samedi ; Kofi Annan, ancien secrétaire général des Nations unies, est né un vendredi.</p>
+        <p>Cette tradition a traversé l'Atlantique dans les pires conditions : les archives de l'esclavage dans les Caraïbes et en Amérique montrent que de nombreuses personnes réduites en esclavage portaient encore leur nom de jour akan, souvent déformé par l'orthographe des registres coloniaux — Cuffy ou Cuffee pour Kofi, Cudjoe pour Kojo, Quamina pour Kwame. Plusieurs meneurs de révoltes d'esclaves documentés portaient ainsi un nom de jour akan, preuve que la tradition avait résisté à la déportation elle-même.</p>
+
+        <h2>Même logique, trois civilisations : ce que ça apprend sur le prénom</h2>
+        <p>Que trois cultures sans le moindre contact — mésoaméricaine, ouest-africaine — en arrivent indépendamment à faire du moment de la naissance la source du nom dit quelque chose d'assez fort : l'idée qu'un prénom « choisi au hasard » par goût esthétique est une invention très récente et très localisée (voir l'épisode 5 de cette série sur la numérologie moderne pour un phénomène comparable). Pendant l'essentiel de l'histoire humaine, le moment de la naissance — son dieu, son jour, son signe — comptait au moins autant que la volonté des parents.</p>
+
+        <div class="sources">
+          <p class="titre">Sources de cet article</p>
+          <ul>
+            <li><a href="https://en.wikipedia.org/wiki/Tzolk%27in" target="_blank" rel="noopener">Wikipedia — Tzolk'in</a></li>
+            <li><a href="https://en.wikipedia.org/wiki/T%C5%8Dnalp%C5%8Dhualli" target="_blank" rel="noopener">Wikipedia — Tōnalpōhualli</a></li>
+            <li><a href="https://en.wikipedia.org/wiki/Akan_names" target="_blank" rel="noopener">Wikipedia — Akan names</a></li>
+            <li><a href="https://en.wikipedia.org/wiki/Kwame" target="_blank" rel="noopener">Wikipedia — Kwame</a></li>
+          </ul>
+        </div>
+
+        <h2>Et la psychogénéalogie, dans tout ça ?</h2>
+        <p>Ces systèmes calendaires rappellent une intuition centrale de la psychogénéalogie : le moment où l'on naît dans une famille — son rang, sa date, le contexte de l'époque — façonne une part de ce qu'on devient, indépendamment de toute volonté individuelle. La page <a href="prenom-transmis-psychogenealogie.html">prénom transmis en psychogénéalogie</a> explore ce que le prénom donné à la naissance peut encore révéler aujourd'hui dans un arbre familial.</p>
+
+        <div class="encadre-discret">
+          <p><strong>Tu veux voir si un prénom se répète dans ta famille ?</strong> L'outil <a href="genosociogramme.html">génosociogramme de Genesolia</a> dessine ton arbre et repère les prénoms, âges et métiers qui reviennent d'une génération à l'autre.</p>
+        </div>
+
+        <h2>Questions fréquentes</h2>
+        <dl class="faq">
+          <dt>Comment les Maya nommaient-ils leurs enfants ?</dt><dd>Un enfant maya recevait souvent un nom lié au jour de sa naissance dans le tzolk'in, le calendrier sacré de 260 jours obtenu en croisant 20 noms de jour et 13 nombres. Ce nom de calendrier coexistait avec un nom personnel donné par les parents.</dd>
+          <dt>Les Aztèques avaient-ils le même système que les Maya ?</dt><dd>Oui, un système très proche : le tonalpohualli aztèque est lui aussi un calendrier sacré de 260 jours, et la plupart des enfants recevaient le nom du jour de leur naissance. Les familles aisées pouvaient parfois demander à un devin de retarder la cérémonie pour attendre un jour plus favorable dans le même cycle de treize jours.</dd>
+          <dt>Qu'est-ce qu'un « day name » akan ?</dt><dd>Chez les Akan d'Afrique de l'Ouest (Ghana, Côte d'Ivoire, Togo), chaque enfant reçoit un « kradin » ou nom de l'âme, déterminé uniquement par le jour de la semaine de sa naissance. Il existe un nom masculin et un nom féminin pour chacun des sept jours, par exemple Kofi et Afua pour un vendredi, Kwame et Ama pour un samedi.</dd>
+          <dt>Pourquoi certains noms de calendrier africains sont-ils connus dans le monde entier ?</dt><dd>Parce que plusieurs figures historiques les portaient : Kwame Nkrumah, premier président du Ghana, ou Kofi Annan, ancien secrétaire général de l'ONU, portent tous deux un nom de jour akan. On retrouve aussi ces noms, parfois déformés, parmi les esclaves déportés aux Amériques et les meneurs de révoltes serviles.</dd>
+        </dl>
+        <div class="actions">
+          <a class="btn btn-trait" href="prenoms-hebreux-theophores.html">← Épisode 2 : les prénoms hébreux</a>
+          <a class="btn btn-plein" href="prenoms-effaces-rome-histoire.html">Épisode 4 : les prénoms effacés →</a>
+        </div>
+
+        <p class="note-fin">Lecture historique. Cet article décrit des pratiques culturelles documentées, sans intention de valider ou d'invalider une croyance sur le pouvoir du calendrier. La psychogénéalogie n'est pas une science : ses interprétations sont des pistes de réflexion, pas des causes.</p>
+        <nav class="voisins" aria-label="Dans la même série"><a href="origine-prenoms-fonction-nom.html">1 · La fonction du nom</a><a href="prenoms-hebreux-theophores.html">2 · Les prénoms hébreux</a><a href="prenoms-mayas-calendrier.html" aria-current="page">3 · Les Maya et ailleurs</a><a href="prenoms-effaces-rome-histoire.html">4 · Les prénoms effacés</a><a href="genealogie-avant-1600-limites.html">5 · La limite de 1600</a></nav>
+      </div>
+    </article>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="prenom-transmis-psychogenealogie.html"><h3>Prénom transmis en psychogénéalogie</h3><p>Ce qu'un prénom qui revient peut vouloir dire, dans ton arbre.</p></a>
+          <a class="outil" href="genosociogramme.html"><h3>Mon arbre familial</h3><span class="duree">Gratuit</span><p>Dessine ton génosociogramme : les répétitions sont repérées automatiquement.</p></a>
+          <a class="outil" href="memoire-transgenerationnelle.html"><h3>La mémoire transgénérationnelle</h3><p>Ce qui se transmet sans qu'on en parle.</p></a>
+          <a class="outil" href="psychogenealogie.html"><h3>La psychogénéalogie, sans promesse</h3><p>Ce qu'elle peut t'apporter, et ses limites, dites honnêtement.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>
