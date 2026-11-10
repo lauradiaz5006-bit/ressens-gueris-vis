@@ -3919,12 +3919,14 @@
     autoImporterQuestionnaires();
     majIndicateurPartage();
     var g = document.createElement('div'); g.className = 'groupe groupe-cabinet';
-    g.innerHTML = '<button class="bt plein" type="button" id="bt-seance">Mode séance</button><button class="bt" type="button" id="bt-notes-dossier" aria-haspopup="dialog">Notes de séance</button><button class="bt" type="button" id="bt-partager-dossier" aria-haspopup="dialog">Partager</button><button class="bt" type="button" id="bt-questionnaire-dossier" aria-haspopup="dialog">Questionnaire</button>';
+    g.innerHTML = '<button class="bt plein" type="button" id="bt-seance">Mode séance</button><button class="bt" type="button" id="bt-notes-dossier" aria-haspopup="dialog">Notes de séance</button><button class="bt" type="button" id="bt-partager-dossier" aria-haspopup="dialog">Partager</button><button class="bt" type="button" id="bt-bilan-dossier" aria-haspopup="dialog">Bilan de suivi</button><button class="bt" type="button" id="bt-questionnaire-dossier" aria-haspopup="dialog">Questionnaire</button><button class="bt" type="button" id="bt-importer-dossier">Importer un arbre</button>';
     t.parentNode.insertBefore(g, t.nextSibling);
     $('bt-seance').addEventListener('click', modeSeance);
     $('bt-notes-dossier').addEventListener('click', notesDossier);
     $('bt-partager-dossier').addEventListener('click', partagerDossier);
+    $('bt-bilan-dossier').addEventListener('click', bilanDossier);
     $('bt-questionnaire-dossier').addEventListener('click', function () { var GP = window.GenesoliaPratique; if (GP && GP.questionnaire) GP.questionnaire({ sb: sb, user: utilisateur, id: ARBRE_ID, nom: arbreNom, actif: new Date(PRATICIEN.acces_jusqu) > new Date() }); });
+    $('bt-importer-dossier').addEventListener('click', function () { var b = $('bt-importer'); if (b) b.click(); });
     var q = new URLSearchParams(location.search);
     if (q.has('seance')) setTimeout(modeSeance, 300);
     else if (q.has('rapport')) setTimeout(function () { var b = $('bt-rapport'); if (b) b.click(); }, 300);
@@ -3998,6 +4000,10 @@
       var f = GP.partager({ sb: sb, user: utilisateur, id: ARBRE_ID, nom: arbreNom, actif: new Date(PRATICIEN.acces_jusqu) > new Date(), remise: !!(r && r.data && r.data.remise_autorisee) });
       if (f) f.addEventListener('click', function (e) { if (e.target.closest && e.target.closest('[data-fermer]')) setTimeout(majIndicateurPartage, 50); });
     });
+  }
+  function bilanDossier() {
+    var GP = window.GenesoliaPratique; if (!GP || !PRATICIEN) return;
+    GP.bilan({ sb: sb, user: utilisateur, id: ARBRE_ID, nom: arbreNom, cabinet: PRATICIEN.cabinet });
   }
   function modeSeance() {
     if (document.body.classList.contains('mode-seance')) return;
@@ -4075,10 +4081,24 @@
           if (d.remise !== true) document.body.classList.add('partage-verrou');
           if (op.reps === false) document.body.classList.add('partage-sans-reps');
           charger(d); dessiner(); recentrer();
-          b.innerHTML = op.supervision ? 'Dossier anonymisé pour la supervision' + (d.cabinet ? ', partagé par ' + esc(d.cabinet) : '') + ' · en lecture' : 'Ton arbre, partagé' + (d.cabinet ? ' par ' + esc(d.cabinet) : '') + ' · en lecture';
+          var notesBilan = (!op.supervision && d.bilan && Array.isArray(d.bilan.notes)) ? d.bilan.notes : [];
+          b.innerHTML = (op.supervision ? 'Dossier anonymisé pour la supervision' + (d.cabinet ? ', partagé par ' + esc(d.cabinet) : '') + ' · en lecture' : 'Ton arbre, partagé' + (d.cabinet ? ' par ' + esc(d.cabinet) : '') + ' · en lecture')
+            + (op.supervision ? '' : ' <button type="button" class="bt-demo-seance" data-voir-bilan>Le bilan de vos séances</button>');
 
           document.body.appendChild(b); statut('');
           if (d.remise === true) remiseCliente(qs.get('partage'), d.cabinet, qs.has('garder'));
+          var bvb = b.querySelector('[data-voir-bilan]');
+          if (bvb) bvb.addEventListener('click', function () {
+            var GP = window.GenesoliaPratique; if (!GP) return;
+            var html = '<h2>Le bilan de vos séances</h2>' +
+              '<p class="pr-o-aide"><a class="btn btn-trait bt" href="plateau-visio.html?partage=' + encodeURIComponent(qs.get('partage')) + '">Voir le plateau symbolique de vos séances</a></p>' +
+              (notesBilan.length
+                ? '<h3>Notes de ' + (d.cabinet ? esc(d.cabinet) : 'votre praticien·ne') + '</h3>' + notesBilan.slice().sort(function (x, y) { return y.jour < x.jour ? -1 : 1; }).map(function (n) {
+                  return '<div class="pr-o-seance"><small>' + (n.jour ? new Date(n.jour).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) : '') + '</small><p>' + esc(n.texte || '') + '</p></div>';
+                }).join('')
+                : '<p class="pr-o-aide">' + (d.cabinet ? esc(d.cabinet) : 'Votre praticien·ne') + ' n’a pas encore partagé de note pour ce dossier.</p>');
+            GP.fenetre(html);
+          });
         });
       return;
     }
