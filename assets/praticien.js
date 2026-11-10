@@ -347,14 +347,17 @@
     }
   });
 
-  /* ───────── Accès directs de la barre du bas : Arbre, Constellation, Démo (choix arbre ou constellation) ───────── */
+  /* ───────── Accès directs de la barre du bas : Arbre, Constellation, Démo (choix arbre ou constellation) ─────────
+     Sans compte, la démo publique montre le vrai dossier « Démo · cliente fictive Léa », via un lien de partage
+     dédié (lecture seule, sans notes) : jamais le dossier privé lui-même. */
+  var DEMO_JETON = '9436eec3-6340-4cec-9e67-4c6b6b6303f4';
   function exempleExistant() { return dossiers.filter(function (d) { return /^(Exemple|Démo)/.test(d.nom || ''); })[0]; }
   function demoArbre() {
     var ex = exempleExistant();
     if (ex) { location.href = 'genosociogramme.html?arbre=' + encodeURIComponent(ex.id); return; }
     var bt = document.querySelector('[data-exemple]');
     if (user && actif() && bt) { dossierExemple(bt); return; }
-    location.href = 'genosociogramme.html?exemple&appli=pro';
+    location.href = 'genosociogramme.html?partage=' + DEMO_JETON;
   }
   function demoConstellation() {
     var ex = exempleExistant();
@@ -366,7 +369,7 @@
       });
       return;
     }
-    if (!(user && actif())) { location.href = 'plateau-visio.html?demo=1'; return; }
+    if (!(user && actif())) { location.href = 'plateau-visio.html?partage=' + DEMO_JETON; return; }
     sb.from('arbres_supp').insert({ user_id: user.id, nom: 'Démo · famille de Léa (fictive)', data: { people: {}, rels: [], nid: 1, v: 2, dossier: 'client', constellation: true } }).select('id').single().then(function (r) {
       if (r.error) { alert('Le dossier exemple n’a pas pu être créé. Réessayez.'); return; }
       location.href = 'plateau-visio.html?arbre=' + encodeURIComponent(r.data.id);

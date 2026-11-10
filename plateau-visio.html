@@ -883,6 +883,7 @@
 
     // --- Sauvegarde : liée au dossier (Supabase) si ouvert depuis un dossier, sinon dans ce navigateur seulement ---
     var ARBRE_ID = new URLSearchParams(location.search).get('arbre') || null;
+    var PV_PARTAGE = new URLSearchParams(location.search).get('partage') || null;   /* démo publique : lecture d'un plateau précis via un jeton, sans compte */
     var SB_URL = 'https://qsvzzkjtjsznfntahvvh.supabase.co', SB_KEY = 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg';
     var pvSb = null, pvUser = null, pvDossier = null;
     try { pvSb = ARBRE_ID && window.supabase ? window.supabase.createClient(SB_URL, SB_KEY) : null; } catch (e) {}
@@ -972,7 +973,18 @@
         { id: 'l3', a: 'd2', b: 'd4', style: 'plein', couleur: '#6B2F5B' }
       ];
     }
+    function pvChargerPartage() {
+      fetch(SB_URL + '/rest/v1/rpc/partage_plateau_lire', { method: 'POST', headers: { apikey: SB_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify({ p_jeton: PV_PARTAGE }) })
+        .then(function (r) { return r.json(); })
+        .then(function (d) {
+          if (d && Array.isArray(d.pions) && d.pions.length) { pions = d.pions; liens = Array.isArray(d.liens) ? d.liens : []; }
+          else { pvChargerDemo(); }
+          pvAvertir('Démo publique : vous pouvez essayer de déplacer les pions, rien n’est enregistré sur un compte.');
+          redessiner();
+        }, function () { pvChargerDemo(); redessiner(); });
+    }
     function pvChargerDossier() {
+      if (PV_PARTAGE) { pvChargerPartage(); return; }
       if (!pvSb) { pvRestaurer(); if (PV_DEMO) pvChargerDemo(); redessiner(); return; }
       pvSb.auth.getSession().then(function (r) {
         var sess = r && r.data && r.data.session;
