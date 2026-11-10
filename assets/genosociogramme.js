@@ -3916,6 +3916,7 @@
     if (OUTILS_FAITS || !PRATICIEN || !ARBRE_ID || !DOSSIER_CLIENT) return;
     var t = document.querySelector('.titre-arbre'); if (!t) return;
     OUTILS_FAITS = true; document.body.classList.add('dossier-cabinet');
+    autoImporterQuestionnaires();
     var g = document.createElement('div'); g.className = 'groupe groupe-cabinet';
     g.innerHTML = '<button class="bt plein" type="button" id="bt-seance">Mode séance</button><button class="bt" type="button" id="bt-notes-dossier" aria-haspopup="dialog">Notes de séance</button><button class="bt" type="button" id="bt-partager-dossier" aria-haspopup="dialog">Partager</button><button class="bt" type="button" id="bt-questionnaire-dossier" aria-haspopup="dialog">Questionnaire</button>';
     t.parentNode.insertBefore(g, t.nextSibling);
@@ -3930,6 +3931,25 @@
     if (/^[0-9a-f-]{36}$/.test(jq)) setTimeout(function () { importerQuestionnaire(jq); }, 400);
   }
   /* Questionnaire avant séance : les réponses du·de la client·e entrent dans son arbre (les personnes déjà là sont complétées, rien n'est effacé) */
+  function appliquerReponses(jeton, d, silencieux) {
+    var G = d.general || {}, lg = [['repete', 'Ce qui lui semble se répéter'], ['attente', 'Ce qui l’amène'], ['silences', 'Ce dont on ne parle pas']].filter(function (x) { return G[x[0]]; }).map(function (x) { return x[1] + ' : ' + G[x[0]]; });
+    (d.perso || []).forEach(function (x) { if (x && x.q && x.a) lg.push(x.q + ' : ' + x.a); });
+    if (lg.length && d.people.toi) d.people.toi.notes = (d.people.toi.notes ? d.people.toi.notes + '\n' : 'Questionnaire avant séance :\n') + lg.join('\n');
+    var memes = {}, moi = idMoi();
+    if (moi && d.people.toi) memes.toi = moi;
+    Object.keys(d.people).filter(function (k) { return /^[pm]{1,3}$/.test(k); }).sort(function (a, b) { return a.length - b.length; }).forEach(function (k) {
+      var enf = k.length === 1 ? 'toi' : k.slice(0, -1), sexe = k.slice(-1) === 'm' ? 'f' : 'm';
+      if (!memes[enf]) return;
+      var deja = parents(memes[enf]).filter(function (id) { return S.people[id].sex === sexe; });
+      if (deja.length === 1) memes[k] = deja[0];
+    });
+    window.GenoArbre.importer({ people: d.people, rels: d.rels || [] }, { moi: 'toi', memes: memes });
+    sb.from('questionnaires_client').update({ importe_le: new Date().toISOString() }).eq('jeton', jeton).then(function () {});
+    var b = document.createElement('div'); b.className = 'bandeau-exemple'; b.setAttribute('role', 'status');
+    b.innerHTML = (silencieux ? 'Les réponses au questionnaire sont arrivées : l’arbre a été complété automatiquement. ' : 'Les réponses du questionnaire sont dans l’arbre. ') + 'Ce qu’il·elle a écrit est dans chaque fiche. <a href="#" data-fermer-bandeau>OK</a>';
+    document.body.appendChild(b);
+    b.querySelector('[data-fermer-bandeau]').addEventListener('click', function (e) { e.preventDefault(); b.remove(); });
+  }
   function importerQuestionnaire(jeton) {
     history.replaceState(null, '', location.pathname + '?arbre=' + ARBRE_ID);
     sb.from('questionnaires_client').select('rempli_le,importe_le').eq('jeton', jeton).eq('arbre_id', ARBRE_ID).maybeSingle().then(function (r) {
@@ -3937,26 +3957,24 @@
       if (r.error || !q || !q.rempli_le) { alert('Ces réponses n’ont pas été trouvées pour ce dossier.'); return; }
       if (q.importe_le && !confirm('Ces réponses ont déjà été ajoutées à l’arbre. Les ajouter une deuxième fois ?')) return;
       sb.rpc('questionnaire_reponses_lire', { p_jeton: jeton }).then(function (rr) {
-      var reponses = rr && rr.data;
-      if (rr.error || !reponses || !reponses.people) { alert('Ces réponses n’ont pas été trouvées pour ce dossier.'); return; }
-      var d = JSON.parse(JSON.stringify(reponses)), n = Object.keys(d.people).length;
-      if (!q.importe_le && !confirm('Ajouter à l’arbre les réponses reçues le ' + dateLongue(new Date(q.rempli_le)) + ' (' + n + ' personne' + (n > 1 ? 's' : '') + ') ? Les personnes déjà dans l’arbre sont seulement complétées : rien n’est effacé.')) return;
-      var G = d.general || {}, lg = [['repete', 'Ce qui lui semble se répéter'], ['attente', 'Ce qui l’amène'], ['silences', 'Ce dont on ne parle pas']].filter(function (x) { return G[x[0]]; }).map(function (x) { return x[1] + ' : ' + G[x[0]]; });
-      if (lg.length && d.people.toi) d.people.toi.notes = (d.people.toi.notes ? d.people.toi.notes + '\n' : 'Questionnaire avant séance :\n') + lg.join('\n');
-      var memes = {}, moi = idMoi();
-      if (moi && d.people.toi) memes.toi = moi;
-      Object.keys(d.people).filter(function (k) { return /^[pm]{1,3}$/.test(k); }).sort(function (a, b) { return a.length - b.length; }).forEach(function (k) {
-        var enf = k.length === 1 ? 'toi' : k.slice(0, -1), sexe = k.slice(-1) === 'm' ? 'f' : 'm';
-        if (!memes[enf]) return;
-        var deja = parents(memes[enf]).filter(function (id) { return S.people[id].sex === sexe; });
-        if (deja.length === 1) memes[k] = deja[0];
+        var reponses = rr && rr.data;
+        if (rr.error || !reponses || !reponses.people) { alert('Ces réponses n’ont pas été trouvées pour ce dossier.'); return; }
+        var d = JSON.parse(JSON.stringify(reponses)), n = Object.keys(d.people).length;
+        if (!q.importe_le && !confirm('Ajouter à l’arbre les réponses reçues le ' + dateLongue(new Date(q.rempli_le)) + ' (' + n + ' personne' + (n > 1 ? 's' : '') + ') ? Les personnes déjà dans l’arbre sont seulement complétées : rien n’est effacé.')) return;
+        appliquerReponses(jeton, d, false);
       });
-      window.GenoArbre.importer({ people: d.people, rels: d.rels || [] }, { moi: 'toi', memes: memes });
-      sb.from('questionnaires_client').update({ importe_le: new Date().toISOString() }).eq('jeton', jeton).then(function () {});
-      var b = document.createElement('div'); b.className = 'bandeau-exemple'; b.setAttribute('role', 'status');
-      b.innerHTML = 'Les réponses du questionnaire sont dans l’arbre. Ce qu’il·elle a écrit est dans chaque fiche. <a href="#" data-fermer-bandeau>OK</a>';
-      document.body.appendChild(b);
-      b.querySelector('[data-fermer-bandeau]').addEventListener('click', function (e) { e.preventDefault(); b.remove(); });
+    });
+  }
+  /* À l'ouverture du dossier : les réponses déjà reçues et pas encore ajoutées entrent automatiquement dans l'arbre, sans bouton à cliquer */
+  function autoImporterQuestionnaires() {
+    if (!ARBRE_ID || !DOSSIER_CLIENT) return;
+    sb.from('questionnaires_client').select('jeton').eq('arbre_id', ARBRE_ID).not('rempli_le', 'is', null).is('importe_le', null).then(function (r) {
+      (r && r.data || []).forEach(function (q) {
+        sb.rpc('questionnaire_reponses_lire', { p_jeton: q.jeton }).then(function (rr) {
+          var reponses = rr && rr.data;
+          if (rr.error || !reponses || !reponses.people) return;
+          appliquerReponses(q.jeton, JSON.parse(JSON.stringify(reponses)), true);
+        });
       });
     });
   }
