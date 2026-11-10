@@ -102,6 +102,7 @@
     .pv-gens-liste li{font-size:.86rem;color:var(--prune);padding:.3rem .5rem;border-radius:8px;background:var(--rose)}
     .pv-prive textarea{width:100%;box-sizing:border-box;min-height:5rem;font:inherit;font-size:.88rem;padding:.6rem .7rem;border:1.5px solid var(--rose-fonce);border-radius:12px;resize:vertical}
     .pv-dossier-nom{text-align:center;color:var(--champagne);font:600 .8rem var(--texte);letter-spacing:.06em;text-transform:uppercase;margin:0 0 .3rem}
+    body.pv-plein header[data-entete],body.pv-plein footer[data-pied],body.pv-plein .pv-note{display:none!important}
   </style>
 </head>
 <body class="nouveau">
@@ -123,6 +124,7 @@
           <button type="button" id="pvBoutonLien" onclick="pvBasculerModeLien()">+ Lien entre deux pions</button>
           <button type="button" onclick="pvExporter()">Exporter en image</button>
           <button type="button" class="pv-danger" onclick="pvToutEffacer()">Tout effacer</button>
+          <button type="button" id="pvBoutonPlein" onclick="pvBasculerPlein()">Plein écran</button>
         </div>
         <p class="pv-hint-lien" id="pvHintLien" hidden>Touchez un premier pion, puis un second pour les relier. Touchez le bouton « Lien » pour arrêter.</p>
         <p class="pv-statut" id="pvStatut" role="status" style="text-align:center;color:var(--prune-doux);font-size:.84rem;margin:.3rem 0 0"></p>
@@ -711,6 +713,22 @@
     window.pvToutEffacer = function () {
       if (!pions.length || confirm('Effacer tous les pions du plateau ?')) { pions = []; liens = []; redessiner(); }
     };
+
+    // --- Plein écran : masque le menu du site pendant le partage d'écran, pour éviter un clic involontaire sur un lien ---
+    function pvMajBoutonPlein() {
+      var b = document.getElementById('pvBoutonPlein'); if (!b) return;
+      b.textContent = document.body.classList.contains('pv-plein') ? 'Quitter le plein écran' : 'Plein écran';
+    }
+    window.pvBasculerPlein = function () {
+      var actif = document.body.classList.toggle('pv-plein');
+      if (actif) { try { if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(function () {}); } catch (e) {} }
+      else { try { if (document.fullscreenElement) document.exitFullscreen(); } catch (e) {} }
+      pvMajBoutonPlein();
+    };
+    document.addEventListener('fullscreenchange', function () { if (!document.fullscreenElement) { document.body.classList.remove('pv-plein'); pvMajBoutonPlein(); } });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && document.body.classList.contains('pv-plein') && !document.fullscreenElement) { document.body.classList.remove('pv-plein'); pvMajBoutonPlein(); }
+    });
 
     // --- Liste des pions, à côté du plateau ---
     function redessinerListe() {
