@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Synchronicité (5/5) : tenir un carnet de synchronicités, la méthode simple</title>
+  <meta name="description" content="Comment tenir un carnet de synchronicités au quotidien : la méthode en 4 étapes, ce que la recherche dit de l'écriture réflexive, et un carnet téléchargeable gratuit.">
+  <link rel="canonical" href="https://genesolia.fr/carnet-synchronicites-methode.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Synchronicité (5/5) : tenir un carnet de synchronicités, la méthode simple">
+  <meta property="og:description" content="Comment tenir un carnet de synchronicités au quotidien : la méthode en 4 étapes, ce que la recherche dit de l'écriture réflexive, et un carnet téléchargeable gratuit.">
+  <meta property="og:image" content="https://genesolia.fr/assets/partage/carnet-synchronicites.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Carnet ouvert avec un stylo posé dessus, sur une table en bois">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(52rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .serie{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.4rem 0 0}
+    .serie a,.serie span{border:1px solid var(--rose-fonce);border-radius:999px;padding:.35rem 1rem;font-size:.9rem;text-decoration:none;background:var(--blanc);color:var(--prune-doux)}
+    .serie .ici{background:var(--prune);color:var(--blanc);border-color:var(--prune)}
+    .serie .avenir{opacity:.55;border-style:dashed}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+    .prudence{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--rose-fonce);background:#FCEFF3;border-radius:0 16px 16px 0;font-size:.95rem}
+    .prudence strong{display:block;margin-bottom:.3rem}
+
+    .sources{margin:1.6rem 0;padding:1.3rem 1.4rem;border-radius:16px;border:1px solid var(--rose);background:#FBF8F6;font-size:.92rem}
+    .sources .titre{font-family:var(--display);font-size:1.1rem;margin-bottom:.5rem}
+    .sources ul{margin:0;padding-left:1.2rem}
+    .sources li{margin:.3rem 0}
+
+    .encadre-discret{margin:2rem 0;padding:1.2rem 1.3rem;border-radius:16px;border:1px solid var(--rose);background:#FBF8F6;font-size:.95rem}
+    .encadre-discret p{color:var(--prune-doux)}
+
+    .chrono{list-style:none;margin:1.6rem 0;padding-left:0;border-left:2px solid var(--rose-fonce)}
+    .chrono li{position:relative;padding:0 0 1.4rem 1.6rem}
+    .chrono li::before{content:'';position:absolute;left:-.42rem;top:.15rem;width:.75rem;height:.75rem;border-radius:50%;background:var(--prune)}
+    .chrono strong{display:block;font-family:var(--display);font-size:1.05rem}
+
+    @media (max-width:640px){
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .article .actions .btn{width:100%}
+    }
+    .voisins{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+    .voisins a{border:1px solid var(--rose-fonce);border-radius:999px;padding:.3rem .9rem;text-decoration:none;font-size:.95rem;background:var(--blanc)}
+    .voisins a[aria-current]{background:var(--prune);color:var(--blanc);border-color:var(--prune)}
+    .faq dt{font-weight:600;margin-top:1.4rem}
+    .faq dd{margin:.4rem 0 0;color:var(--prune-doux)}
+    .note-fin{font-size:.93rem;color:var(--prune-doux);margin-top:2.4rem}
+    .article .actions{display:flex;flex-wrap:wrap;gap:.6rem}
+  </style>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Article", "headline": "Synchronicité (5/5) : tenir un carnet de synchronicités, la méthode simple", "description": "Comment tenir un carnet de synchronicités au quotidien : la méthode en 4 étapes, ce que la recherche dit de l'écriture réflexive, et un carnet téléchargeable gratuit.", "datePublished": "2026-11-10", "dateModified": "2026-11-10", "inLanguage": "fr", "author": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}, "publisher": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}, "url": "https://genesolia.fr/carnet-synchronicites-methode.html", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://genesolia.fr/carnet-synchronicites-methode.html"}}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Comment commencer un carnet de synchronicités ?", "acceptedAnswer": {"@type": "Answer", "text": "Note, au moment où tu la remarques, la coïncidence elle-même : la date, ce qui s'est passé, et ce que tu étais en train de vivre ou de penser à cet instant. L'important est de l'écrire tout de suite, avant que le détail ne s'efface, sans chercher immédiatement à l'interpréter."}}, {"@type": "Question", "name": "Pourquoi écrire aide à y voir plus clair ?", "acceptedAnswer": {"@type": "Answer", "text": "Les travaux du psychologue James Pennebaker, menés depuis les années 1980, montrent que le fait de mettre des mots sur ce qu'on vit aide à mieux organiser ses pensées et à prendre du recul sur une situation, par rapport au fait de la garder uniquement en tête."}}, {"@type": "Question", "name": "À quelle fréquence relire son carnet ?", "acceptedAnswer": {"@type": "Answer", "text": "Une relecture mensuelle suffit pour commencer à repérer des motifs, sans tomber dans une lecture quotidienne qui pousserait à chercher du sens partout. L'idée est d'observer ce qui revient sur la durée, pas de juger chaque entrée isolément."}}, {"@type": "Question", "name": "Faut-il relier son carnet à son arbre familial ?", "acceptedAnswer": {"@type": "Answer", "text": "Ce n'est pas obligatoire, mais c'est souvent éclairant : certaines des répétitions notées dans un carnet personnel trouvent un écho dans l'histoire familiale, visible sur un génosociogramme. Les deux outils peuvent se compléter sans que l'un dépende de l'autre."}}]}]</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Tenir un carnet de synchronicités", "item": "https://genesolia.fr/carnet-synchronicites-methode.html"}]}</script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d'Ariane"><a href="psychogenealogie.html">Psychogénéalogie</a><span aria-hidden="true">/</span>Symboles · Synchronicité</nav>
+        <h1>Tenir un carnet de synchronicités : la méthode simple</h1>
+        <p class="intro">Dernier épisode de la série sur la synchronicité. Après la théorie, la pratique : une méthode simple, en quatre étapes, pour noter les coïncidences qui te marquent et repérer, sur la durée, ce qui revient vraiment dans ta vie.</p>
+        <p class="publie">Publié le 10 novembre 2026 · lecture 7 min</p>
+        <nav class="serie" aria-label="La série">
+          <a href="synchronicite-jung-psychologie.html">1 · Jung et la psychologie</a>
+          <a href="chiffres-prenoms-dates-qui-reviennent.html">2 · Les chiffres qui reviennent</a>
+          <a href="synchronicite-ou-coincidence-difference.html">3 · Synchronicité ou coïncidence</a>
+          <a href="synchronicites-familiales-generations.html">4 · Les synchronicités familiales</a>
+          <span class="ici">5 · Tenir un carnet</span>
+        </nav>
+      </div>
+    </section>
+    <figure class="bandeau-photo"><img src="assets/images/carnet-synchronicites-1600.webp" srcset="assets/images/carnet-synchronicites-800.webp 800w, assets/images/carnet-synchronicites-1600.webp 1600w" sizes="(max-width: 1140px) 100vw, 1100px" width="1600" height="841" alt="Carnet ouvert avec un stylo posé dessus, sur une table en bois" loading="lazy" decoding="async"></figure>
+
+    <article class="article">
+      <div class="colonne">
+        <h2>Pourquoi un carnet, plutôt que sa mémoire</h2>
+        <p>Les quatre épisodes précédents ont posé un principe simple : une coïncidence qui n'est pas notée s'efface, ou se déforme avec le temps, au gré de l'attention sélective (épisode 2). Un carnet dédié résout ce problème concrètement : il garde une trace fidèle, datée, de ce que tu as vécu et ressenti au moment exact où la coïncidence s'est produite — avant que la mémoire ne la retouche.</p>
+
+        <h2>Ce que la recherche dit de l'écriture réflexive</h2>
+        <p>Le psychologue américain James Pennebaker a consacré une grande partie de sa carrière, depuis le milieu des années 1980, à étudier les effets de la mise en mots sur la façon dont on traite ce qu'on vit. Ses travaux, menés sur plusieurs décennies, montrent qu'écrire régulièrement ce que l'on observe et ressent aide à organiser ses pensées plus clairement qu'en les gardant seulement en tête, et facilite la prise de recul sur une situation.</p>
+        <p>Un carnet de synchronicités s'appuie sur ce même principe, appliqué à un sujet précis : au lieu d'écrire sur n'importe quel événement de la journée, tu notes uniquement les coïncidences qui t'ont marqué·e, pour voir, avec le temps, ce qui s'en dégage.</p>
+
+        <h2>La méthode en quatre étapes</h2>
+        <ol class="chrono">
+          <li><strong>Noter à chaud</strong> La date, l'heure si tu veux, et ce qui s'est passé exactement — le plus factuellement possible, sans l'interpréter tout de suite.</li>
+          <li><strong>Noter ton état intérieur du moment</strong> Ce que tu étais en train de vivre, de penser ou de traverser juste avant que la coïncidence survienne. C'est souvent ce contexte qui donne son relief à l'événement, plus que l'événement lui-même.</li>
+          <li><strong>Laisser reposer, sans juger</strong> Résiste à l'envie de décider immédiatement « ce que ça veut dire ». Le sens, s'il y en a un, apparaît souvent mieux à la relecture qu'à chaud.</li>
+          <li><strong>Relire une fois par mois</strong> C'est à ce moment que les motifs, s'il y en a, deviennent visibles : un thème qui revient, une période où les coïncidences se multiplient, un lien avec un événement familial.</li>
+        </ol>
+        <div class="rappel">
+          <strong>Trois questions à garder sous la main pendant la relecture</strong>
+          Les trois questions de l'épisode 3 restent utiles ici : l'événement était-il statistiquement rare ou simplement fréquent ? Le sens que j'y ai vu est-il spécifique à mon histoire ? Est-ce que je traversais, à ce moment, une période de changement ?
+        </div>
+
+        <h2>Faire le lien avec ton histoire familiale</h2>
+        <p>Certaines entrées de ton carnet, relues avec un peu de distance, trouvent un écho dans ta lignée : un prénom qui revient, un âge que tu reconnais, une date qui résonne avec un événement familial. C'est à ce moment que le carnet personnel et le <a href="genosociogramme.html">génosociogramme</a> peuvent se compléter : l'un capte ce que tu vis au jour le jour, l'autre donne la profondeur de plusieurs générations pour y voir un écho, ou pas.</p>
+
+        <div class="prudence">
+          <strong>Ce que ce carnet n'est pas</strong>
+          Ce n'est pas un journal à visée thérapeutique, ni un outil de diagnostic. C'est un support d'observation personnelle, pensé pour t'aider à remarquer ce qui revient dans ta vie, à ton rythme, sans obligation d'en tirer une conclusion définitive.
+        </div>
+
+        <div class="sources">
+          <p class="titre">Sources de cet article</p>
+          <ul>
+            <li><a href="https://en.wikipedia.org/wiki/James_W._Pennebaker" target="_blank" rel="noopener">Wikipedia — James W. Pennebaker</a></li>
+            <li><a href="https://en.wikipedia.org/wiki/Writing_therapy" target="_blank" rel="noopener">Wikipedia — Recherches sur l'écriture expressive</a></li>
+          </ul>
+        </div>
+
+        <div class="encadre-discret">
+          <p><strong>Un carnet de synchronicités à imprimer, gratuit</strong><br>Un modèle simple en PDF, avec les quatre étapes déjà mises en page, pour commencer dès aujourd'hui. Laisse ton e-mail pour le recevoir.</p>
+        </div>
+
+        <h2>Questions fréquentes</h2>
+        <dl class="faq">
+          <dt>Comment commencer un carnet de synchronicités ?</dt><dd>Note, au moment où tu la remarques, la coïncidence elle-même : la date, ce qui s'est passé, et ce que tu étais en train de vivre ou de penser à cet instant. L'important est de l'écrire tout de suite, avant que le détail ne s'efface, sans chercher immédiatement à l'interpréter.</dd>
+          <dt>Pourquoi écrire aide à y voir plus clair ?</dt><dd>Les travaux du psychologue James Pennebaker, menés depuis les années 1980, montrent que le fait de mettre des mots sur ce qu'on vit aide à mieux organiser ses pensées et à prendre du recul sur une situation, par rapport au fait de la garder uniquement en tête.</dd>
+          <dt>À quelle fréquence relire son carnet ?</dt><dd>Une relecture mensuelle suffit pour commencer à repérer des motifs, sans tomber dans une lecture quotidienne qui pousserait à chercher du sens partout. L'idée est d'observer ce qui revient sur la durée, pas de juger chaque entrée isolément.</dd>
+          <dt>Faut-il relier son carnet à son arbre familial ?</dt><dd>Ce n'est pas obligatoire, mais c'est souvent éclairant : certaines des répétitions notées dans un carnet personnel trouvent un écho dans l'histoire familiale, visible sur un génosociogramme. Les deux outils peuvent se compléter sans que l'un dépende de l'autre.</dd>
+        </dl>
+
+        <p class="note-fin">Fin de la série sur la synchronicité. Cette méthode est un support d'observation personnelle, pas un substitut à un accompagnement professionnel si tu en ressens le besoin.</p>
+        <nav class="voisins" aria-label="Dans la même série"><a href="synchronicite-jung-psychologie.html">1 · Jung et la psychologie</a><a href="chiffres-prenoms-dates-qui-reviennent.html">2 · Les chiffres qui reviennent</a><a href="synchronicite-ou-coincidence-difference.html">3 · Synchronicité ou coïncidence</a><a href="synchronicites-familiales-generations.html">4 · Les synchronicités familiales</a><a href="carnet-synchronicites-methode.html" aria-current="page">5 · Tenir un carnet</a></nav>
+      </div>
+    </article>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="genosociogramme.html"><h3>Mon arbre familial</h3><span class="duree">Gratuit</span><p>Dessine ton génosociogramme : les répétitions sont repérées automatiquement.</p></a>
+          <a class="outil" href="journal-de-reves.html"><h3>Journal de rêves</h3><p>Un carnet voisin, pour garder trace de ce que racontent tes nuits.</p></a>
+          <a class="outil" href="synchronicite-jung-psychologie.html"><h3>Reprendre la série depuis le début</h3><p>Synchronicité selon Jung : ce que la psychologie en dit vraiment.</p></a>
+          <a class="outil" href="theme-numerologique.html"><h3>Thème numérologique gratuit</h3><p>Calcule ton chemin de vie en numérologie en quelques minutes.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>

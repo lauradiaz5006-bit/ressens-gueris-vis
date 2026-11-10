@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Synchronicité (1/5) : ce que Jung en disait vraiment</title>
+  <meta name="description" content="Synchronicité selon Jung : « principe acausal de connexion », l'histoire du scarabée d'or, le lien avec le physicien Pauli, et ce qu'en pense la science aujourd'hui.">
+  <link rel="canonical" href="https://genesolia.fr/synchronicite-jung-psychologie.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Synchronicité (1/5) : ce que Jung en disait vraiment">
+  <meta property="og:description" content="Synchronicité selon Jung : « principe acausal de connexion », l'histoire du scarabée d'or, le lien avec le physicien Pauli, et ce qu'en pense la science aujourd'hui.">
+  <meta property="og:image" content="https://genesolia.fr/assets/partage/synchronicite-jung.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Scarabée doré posé sur une page manuscrite ancienne, lumière chaude">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(52rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .serie{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.4rem 0 0}
+    .serie a,.serie span{border:1px solid var(--rose-fonce);border-radius:999px;padding:.35rem 1rem;font-size:.9rem;text-decoration:none;background:var(--blanc);color:var(--prune-doux)}
+    .serie .ici{background:var(--prune);color:var(--blanc);border-color:var(--prune)}
+    .serie .avenir{opacity:.55;border-style:dashed}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+    .prudence{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--rose-fonce);background:#FCEFF3;border-radius:0 16px 16px 0;font-size:.95rem}
+    .prudence strong{display:block;margin-bottom:.3rem}
+
+    .sources{margin:1.6rem 0;padding:1.3rem 1.4rem;border-radius:16px;border:1px solid var(--rose);background:#FBF8F6;font-size:.92rem}
+    .sources .titre{font-family:var(--display);font-size:1.1rem;margin-bottom:.5rem}
+    .sources ul{margin:0;padding-left:1.2rem}
+    .sources li{margin:.3rem 0}
+
+    .encadre-discret{margin:2rem 0;padding:1.2rem 1.3rem;border-radius:16px;border:1px solid var(--rose);background:#FBF8F6;font-size:.95rem}
+    .encadre-discret p{color:var(--prune-doux)}
+
+    @media (max-width:640px){
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .article .actions .btn{width:100%}
+    }
+    .voisins{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+    .voisins a{border:1px solid var(--rose-fonce);border-radius:999px;padding:.3rem .9rem;text-decoration:none;font-size:.95rem;background:var(--blanc)}
+    .voisins a[aria-current]{background:var(--prune);color:var(--blanc);border-color:var(--prune)}
+    .faq dt{font-weight:600;margin-top:1.4rem}
+    .faq dd{margin:.4rem 0 0;color:var(--prune-doux)}
+    .note-fin{font-size:.93rem;color:var(--prune-doux);margin-top:2.4rem}
+    .article .actions{display:flex;flex-wrap:wrap;gap:.6rem}
+  </style>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Article", "headline": "Synchronicité (1/5) : ce que Jung en disait vraiment", "description": "Synchronicité selon Jung : « principe acausal de connexion », l'histoire du scarabée d'or, le lien avec le physicien Pauli, et ce qu'en pense la science aujourd'hui.", "datePublished": "2026-11-10", "dateModified": "2026-11-10", "inLanguage": "fr", "author": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}, "publisher": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}, "url": "https://genesolia.fr/synchronicite-jung-psychologie.html", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://genesolia.fr/synchronicite-jung-psychologie.html"}}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Qu'est-ce que la synchronicité selon Jung ?", "acceptedAnswer": {"@type": "Answer", "text": "Jung définit la synchronicité comme un « principe acausal de connexion » : deux événements surviennent en même temps, sans lien de cause à effet entre eux, mais sont reliés par une signification commune pour la personne qui les vit."}}, {"@type": "Question", "name": "Quelle est l'histoire du scarabée d'or ?", "acceptedAnswer": {"@type": "Answer", "text": "Une patiente de Jung racontait un rêve où on lui offrait un scarabée en or lorsqu'un insecte a cogné contre la fenêtre du cabinet. Jung l'a attrapé : c'était un cétoine doré, l'équivalent le plus proche d'un scarabée qu'on puisse trouver en Europe. Il lui a tendu l'insecte en disant « voici votre scarabée »."}}, {"@type": "Question", "name": "Jung a-t-il travaillé avec un scientifique sur cette idée ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui. Jung a correspondu pendant des décennies avec le physicien Wolfgang Pauli, prix Nobel de physique. En 1952, ils ont publié ensemble un ouvrage, chacun avec son propre essai, qui a donné naissance à ce qu'on appelle aujourd'hui la conjecture de Pauli-Jung."}}, {"@type": "Question", "name": "La synchronicité est-elle reconnue par la science ?", "acceptedAnswer": {"@type": "Answer", "text": "Non, pas comme un phénomène prouvé. La communauté scientifique la considère comme invérifiable, car elle ne peut être ni confirmée ni réfutée par l'expérience. Le biais de confirmation est l'explication la plus souvent avancée : on se souvient des coïncidences marquantes et on oublie celles qui ne se réalisent pas."}}]}]</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Synchronicité : ce que Jung en disait", "item": "https://genesolia.fr/synchronicite-jung-psychologie.html"}]}</script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d'Ariane"><a href="psychogenealogie.html">Psychogénéalogie</a><span aria-hidden="true">/</span>Symboles · Synchronicité</nav>
+        <h1>Synchronicité : ce que Jung en disait vraiment</h1>
+        <p class="intro">Premier épisode d'une série sur la synchronicité. Avant d'être un mot qu'on utilise pour désigner un signe ou un clin d'œil du destin, « synchronicité » est un concept précis, formulé par un psychiatre, discuté avec un prix Nobel de physique, et toujours débattu aujourd'hui. Voici d'où il vient vraiment.</p>
+        <p class="publie">Publié le 10 novembre 2026 · lecture 9 min</p>
+        <nav class="serie" aria-label="La série">
+          <span class="ici">1 · Jung et la psychologie</span>
+          <a href="chiffres-prenoms-dates-qui-reviennent.html">2 · Les chiffres qui reviennent</a>
+          <a href="synchronicite-ou-coincidence-difference.html">3 · Synchronicité ou coïncidence</a>
+          <a href="synchronicites-familiales-generations.html">4 · Les synchronicités familiales</a>
+          <a href="carnet-synchronicites-methode.html">5 · Tenir un carnet</a>
+        </nav>
+      </div>
+    </section>
+    <figure class="bandeau-photo"><img src="assets/images/synchronicite-jung-1600.webp" srcset="assets/images/synchronicite-jung-800.webp 800w, assets/images/synchronicite-jung-1600.webp 1600w" sizes="(max-width: 1140px) 100vw, 1100px" width="1600" height="841" alt="Scarabée doré posé sur une page manuscrite ancienne, lumière chaude" loading="lazy" decoding="async"></figure>
+
+    <article class="article">
+      <div class="colonne">
+        <h2>Un mot précis, pas une formule magique</h2>
+        <p>« Synchronicité » est devenu, dans le langage courant, à peu près synonyme de « signe » ou de « coïncidence qui veut dire quelque chose ». Mais le mot a une histoire exacte : il a été forgé par un psychiatre suisse, Carl Gustav Jung (1875-1961), fondateur de la psychologie analytique, pour désigner un phénomène précis qu'il observait depuis le début de sa carrière.</p>
+        <p>Jung emploie le terme pour la première fois en public en mai 1930, lors d'un discours en mémoire du sinologue Richard Wilhelm, en lien avec sa découverte du <em>Yi Jing</em>, le livre des changements chinois, dont il pensait que les tirages apportaient des réponses « justes » sans lien de cause à effet logique avec la question posée.</p>
+
+        <h2>Le scarabée d'or : l'exemple que Jung racontait lui-même</h2>
+        <p>Jung a formalisé son idée vingt-deux ans plus tard, en 1952, dans un essai intitulé <em>Synchronizität als ein Prinzip akausaler Zusammenhänge</em> (« La synchronicité, principe de relations acausales »). Pour l'illustrer, il racontait toujours la même histoire, tirée de sa propre pratique.</p>
+        <div class="rappel">
+          <strong>L'histoire telle que Jung la raconte</strong>
+          Une jeune patiente, enfermée dans un rationalisme qui bloquait tout progrès, lui racontait un rêve de la nuit précédente : on lui offrait un bijou en forme de scarabée en or. Au moment précis où elle prononçait ces mots, Jung entendit un bruit léger contre la fenêtre derrière lui. Il l'ouvrit et attrapa l'insecte qui tentait d'entrer : un cétoine doré (<em>Cetonia aurata</em>), l'équivalent le plus proche d'un scarabée qu'on puisse trouver sous ce climat, et qui, contrairement à ses habitudes, cherchait à pénétrer dans une pièce sombre à cet instant précis. Jung le lui a tendu avec ces mots : « Voici votre scarabée. » L'épisode a suffi à entamer la rigidité intellectuelle de sa patiente.
+        </div>
+        <p>Pour Jung, cet épisode illustrait ce qu'il appelait un « principe acausal de connexion » : deux événements — un rêve raconté, un insecte réel — surviennent au même moment, sans que l'un cause l'autre, mais reliés par une signification commune (le scarabée, symbole égyptien de transformation et de renaissance) pour la personne qui les vit.</p>
+
+        <h2>Une idée pensée avec un prix Nobel de physique</h2>
+        <p>Jung n'a pas construit seul cette théorie. Pendant près de vingt-cinq ans, il a correspondu avec le physicien autrichien Wolfgang Pauli, lauréat du prix Nobel de physique 1945 pour son principe d'exclusion. Pauli, qui traversait lui-même une période personnelle difficile, est devenu l'un des rares interlocuteurs scientifiques à prendre au sérieux l'idée que des connexions « de sens » puissent exister en dehors de la causalité classique.</p>
+        <p>En 1952, Jung et Pauli publient ensemble <em>Naturerklärung und Psyche</em> (« L'interprétation de la nature et de la psyché »), un volume contenant un essai de chacun : celui de Jung sur la synchronicité, et celui de Pauli sur l'influence des idées archétypales dans les théories scientifiques de Kepler. Cette collaboration a donné naissance à ce que les chercheurs appellent aujourd'hui la « conjecture de Pauli-Jung », une tentative, restée minoritaire, de faire dialoguer physique et psychologie des profondeurs.</p>
+
+        <h2>Ce qu'en dit la science aujourd'hui</h2>
+        <p>Il faut le dire clairement : la synchronicité n'est pas un phénomène reconnu ou validé par la science. Elle est largement considérée, par la communauté scientifique, comme relevant de la pseudoscience, pour une raison précise : elle n'est ni vérifiable ni réfutable par l'expérience. Aucune étude empirique n'a permis, du vivant de Jung, de mesurer objectivement une « connexion de sens » entre deux événements.</p>
+        <div class="prudence">
+          <strong>L'explication la plus courante : le biais de confirmation</strong>
+          Pour la psychologie contemporaine, ce qu'on vit comme une synchronicité s'explique le plus souvent par le biais de confirmation : on remarque et on retient les coïncidences frappantes, et on oublie, sans même s'en rendre compte, toutes les fois où rien de particulier ne s'est produit. Ce mécanisme, et son cousin l'illusion de fréquence, sont au cœur du deuxième épisode de cette série.
+        </div>
+        <p>Cela ne retire rien à l'intérêt du concept de Jung pour l'histoire de la psychologie : il reste une clé de lecture précieuse pour comprendre comment l'esprit humain cherche du sens, en particulier dans les moments de bascule intérieure. C'est à ce titre — une grille de lecture symbolique, pas une loi de la nature démontrée — que cette série l'aborde.</p>
+
+        <div class="sources">
+          <p class="titre">Sources de cet article</p>
+          <ul>
+            <li><a href="https://en.wikipedia.org/wiki/Synchronicity" target="_blank" rel="noopener">Wikipedia — Synchronicity</a></li>
+            <li><a href="https://en.wikipedia.org/wiki/Synchronicity_(book)" target="_blank" rel="noopener">Wikipedia — Synchronicity (book), Jung, 1952</a></li>
+            <li><a href="https://www.psychologytoday.com/us/basics/synchronicity" target="_blank" rel="noopener">Psychology Today — Synchronicity</a></li>
+            <li><a href="https://infinitepotential.com/blog/wolfgang-pauli-synchronicity-jung" target="_blank" rel="noopener">Wolfgang Pauli, Carl Jung and Synchronicity</a></li>
+          </ul>
+        </div>
+
+        <h2>Et la psychogénéalogie, dans tout ça ?</h2>
+        <p>La psychogénéalogie n'affirme pas que la synchronicité est une force prouvée. Mais elle emprunte à Jung une idée voisine, plus modeste : certains événements qui se répètent dans une lignée (un prénom, un âge, une date) peuvent devenir, pour la personne qui les remarque, une occasion de relire son histoire familiale autrement. La page <a href="genosociogramme.html">génosociogramme</a> permet justement de visualiser ces répétitions dans ton arbre, pour en faire ce que tu veux : une curiosité ou une vraie piste de réflexion.</p>
+
+        <div class="encadre-discret">
+          <p><strong>Envie de voir si des répétitions apparaissent dans ta lignée ?</strong> Le <a href="genosociogramme.html">génosociogramme de Genesolia</a> dessine ton arbre et repère automatiquement les prénoms, âges et dates qui reviennent.</p>
+        </div>
+
+        <h2>Questions fréquentes</h2>
+        <dl class="faq">
+          <dt>Qu'est-ce que la synchronicité selon Jung ?</dt><dd>Jung définit la synchronicité comme un « principe acausal de connexion » : deux événements surviennent en même temps, sans lien de cause à effet entre eux, mais sont reliés par une signification commune pour la personne qui les vit.</dd>
+          <dt>Quelle est l'histoire du scarabée d'or ?</dt><dd>Une patiente de Jung racontait un rêve où on lui offrait un scarabée en or lorsqu'un insecte a cogné contre la fenêtre du cabinet. Jung l'a attrapé : c'était un cétoine doré, l'équivalent le plus proche d'un scarabée qu'on puisse trouver en Europe. Il lui a tendu l'insecte en disant « voici votre scarabée ».</dd>
+          <dt>Jung a-t-il travaillé avec un scientifique sur cette idée ?</dt><dd>Oui. Jung a correspondu pendant des décennies avec le physicien Wolfgang Pauli, prix Nobel de physique. En 1952, ils ont publié ensemble un ouvrage, chacun avec son propre essai, qui a donné naissance à ce qu'on appelle aujourd'hui la conjecture de Pauli-Jung.</dd>
+          <dt>La synchronicité est-elle reconnue par la science ?</dt><dd>Non, pas comme un phénomène prouvé. La communauté scientifique la considère comme invérifiable, car elle ne peut être ni confirmée ni réfutée par l'expérience. Le biais de confirmation est l'explication la plus souvent avancée : on se souvient des coïncidences marquantes et on oublie celles qui ne se réalisent pas.</dd>
+        </dl>
+        <div class="actions">
+          <a class="btn btn-plein" href="chiffres-prenoms-dates-qui-reviennent.html">Épisode 2 : pourquoi certains chiffres reviennent →</a>
+        </div>
+
+        <p class="note-fin">Lecture historique et psychologique. Cet article présente un concept et son contexte scientifique, sans affirmer que la synchronicité est un phénomène démontré. La psychogénéalogie n'est pas une science : ses interprétations sont des pistes de réflexion, pas des causes.</p>
+        <nav class="voisins" aria-label="Dans la même série"><a href="synchronicite-jung-psychologie.html" aria-current="page">1 · Jung et la psychologie</a><a href="chiffres-prenoms-dates-qui-reviennent.html">2 · Les chiffres qui reviennent</a><a href="synchronicite-ou-coincidence-difference.html">3 · Synchronicité ou coïncidence</a><a href="synchronicites-familiales-generations.html">4 · Les synchronicités familiales</a><a href="carnet-synchronicites-methode.html">5 · Tenir un carnet</a></nav>
+      </div>
+    </article>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="genosociogramme.html"><h3>Mon arbre familial</h3><span class="duree">Gratuit</span><p>Dessine ton génosociogramme : les répétitions sont repérées automatiquement.</p></a>
+          <a class="outil" href="jung-reves-archetypes.html"><h3>Jung, les rêves et les archétypes</h3><p>Comment Jung a lu le langage symbolique de l'inconscient.</p></a>
+          <a class="outil" href="prenom-transmis-psychogenealogie.html"><h3>Prénom transmis en psychogénéalogie</h3><p>Ce qu'un prénom qui revient peut vouloir dire, dans ton arbre.</p></a>
+          <a class="outil" href="psychogenealogie.html"><h3>La psychogénéalogie, sans promesse</h3><p>Ce qu'elle peut t'apporter, et ses limites, dites honnêtement.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>
