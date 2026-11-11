@@ -550,8 +550,8 @@
           redessinerSvg();
         } else if (etat.pointeurs.size === 1) {
           var dx = ev.clientX - etat.startX, dy = ev.clientY - etat.startY;
-          if (Math.abs(dx) + Math.abs(dy) > 6 && !etat.bouge) { pvMemoriser(); etat.snap = true; }
-          if (Math.abs(dx) + Math.abs(dy) > 6) etat.bouge = true;
+          if (Math.abs(dx) + Math.abs(dy) > 12 && !etat.bouge) { pvMemoriser(); etat.snap = true; }
+          if (Math.abs(dx) + Math.abs(dy) > 12) etat.bouge = true;
           var rect = plateau.getBoundingClientRect();
           var x = ((ev.clientX - rect.left) / rect.width) * 100;
           var y = ((ev.clientY - rect.top) / rect.height) * 100;

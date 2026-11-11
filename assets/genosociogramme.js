@@ -3162,7 +3162,7 @@
       h += g.items.map(function (r) { var av = AVR[r.cleA]; return '<div class="rep" style="--c:' + r.c + '"><b>' + esc(r.label) + (av && av.v === 'oui' ? ' · ça me parle' : av && av.v === 'creuser' ? ' · à creuser' : '') + '</b><p>' + esc(descComplete(r)) + '</p>' + (av && av.note ? '<p><i>Ma note : ' + esc(av.note) + '</i></p>' : '') + '</div>'; }).join('');
       h += '<div class="pistes"><b>Pistes de réflexion</b><ol>' + T.pistes.map(function (p) { return '<li>' + esc(p) + '</li>'; }).join('') + '</ol></div>';
       h += '<div class="geste"><b>' + (DOSSIER_CLIENT ? 'Un geste à essayer' : 'Pour sortir de la boucle') + '</b>' + esc(T.geste) + '</div>';
-      h += '<div class="notes"><h3>Mes notes</h3>' + new Array(7).join('<div class="lignes"></div>') + '</div></section>';
+      h += (DOSSIER_CLIENT ? '' : '<div class="notes"><h3>Mes notes</h3>' + new Array(7).join('<div class="lignes"></div>') + '</div>') + '</section>';
     });
     h += sectionNumeroRapport();
     h += sectionAstroRapport();
@@ -3177,6 +3177,10 @@
       h += '<section class="page"><div class="sur2">Annexe</div><h2>Les notes de séance</h2><p class="intro">Les observations de ' + esc(CAB || 'ton·ta praticien·ne') + ', séance après séance.</p>' +
         ANNOTATIONS.slice().sort(function (a, b) { return a.jour < b.jour ? -1 : 1; }).map(function (n) { return '<div class="rep" style="--c:#B98A55"><b>' + esc(dateLongue(new Date(n.jour + 'T12:00:00'))) + '</b><p>' + esc(n.texte).replace(/\n/g, '<br>') + '</p></div>'; }).join('') + '</section>';
     }
+    if (AVEC_PHOTO && PHOTO_CONSTELLATION) {
+      h += '<section class="page photo-constellation"><div class="sur2">Annexe</div><h2>La Constellation Familiale</h2><p class="intro">Photo du plateau à la fin de la séance.</p>' +
+        '<img src="' + PHOTO_CONSTELLATION + '" style="width:100%;border-radius:4mm;margin-top:4mm" alt="Constellation Familiale"></section>';
+    }
     h += '<p class="discret" style="margin-top:6mm">Rapport généré le ' + esc(dateLongue(d)) + ' sur genesolia.fr. Ce rapport propose une lecture symbolique de ton histoire familiale, à partir des informations que tu as saisies. Il ne remplace pas un avis médical ou psychologique.</p></section>';
     return h + '</body></html>';
   }
@@ -3186,6 +3190,7 @@
     var lib = DOSSIER_CLIENT ? 'Générer le rapport (PDF)' : 'Générer mon rapport (PDF)';
     if (btn) { btn.disabled = true; btn.textContent = 'Préparation du PDF… (environ 30 secondes)'; }
     var avecNotes = !!(document.getElementById('rap-avec-notes') && document.getElementById('rap-avec-notes').checked);
+    AVEC_PHOTO = !!(document.getElementById('rap-avec-photo') && document.getElementById('rap-avec-photo').checked);
     RAP_RETENUES = !!(document.getElementById('rap-retenues') && document.getElementById('rap-retenues').checked);
     chargerAstro().catch(function () {}).then(function () { return avecNotes ? chargerAnnotations().then(function (a) { ANNOTATIONS = a; }) : (ANNOTATIONS = null); }).then(polices).then(function (css) {
       return pdfDepuisHtml(htmlRapport(css, svgExport(css)), nomFichier('rapport-genosociogramme'));
@@ -3199,6 +3204,7 @@
     var lib = btn ? btn.textContent : '';
     if (btn) { btn.disabled = true; btn.textContent = 'Préparation du fichier Word…'; }
     var avecNotes = !!(document.getElementById('rap-avec-notes') && document.getElementById('rap-avec-notes').checked);
+    AVEC_PHOTO = !!(document.getElementById('rap-avec-photo') && document.getElementById('rap-avec-photo').checked);
     RAP_RETENUES = !!(document.getElementById('rap-retenues') && document.getElementById('rap-retenues').checked);
     function fin() { if (btn) { btn.disabled = false; btn.textContent = lib; } }
     Promise.all([script('assets/docx.min.js', 'docx'), chargerAstro().catch(function () {}).then(function () { return avecNotes ? chargerAnnotations().then(function (a) { ANNOTATIONS = a; }) : (ANNOTATIONS = null); })]).then(polices).then(function (css) {
@@ -3268,6 +3274,19 @@
         return;
       }
       if (c.contains('notes')) { para({ heading: D.HeadingLevel.HEADING_3, children: [new D.TextRun({ text: 'Mes notes', color: PRUNE_X })] }); for (var k = 0; k < 4; k++) para({ border: { bottom: { style: D.BorderStyle.SINGLE, size: 4, color: 'EBCFD5', space: 1 } }, spacing: { after: 240 }, children: [] }); return; }
+      if (c.contains('photo-constellation')) {
+        var ti = el.querySelector('h2'), tp = el.querySelector('p'), im = el.querySelector('img');
+        if (ti) para({ heading: D.HeadingLevel.HEADING_1, children: [new D.TextRun({ text: t(ti), color: PRUNE_X, font: 'Georgia', size: 40 })] });
+        if (tp) para({ spacing: { after: 120 }, children: runs(tp, { size: 21 }) });
+        if (im && /^data:image\/(jpe?g|png);base64,/.test(im.getAttribute('src') || '')) {
+          try {
+            var src = im.getAttribute('src'), b64 = src.split(',')[1], bin = atob(b64), bytes = new Uint8Array(bin.length);
+            for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+            para({ alignment: D.AlignmentType.CENTER, children: [new D.ImageRun({ type: /png/.test(src) ? 'png' : 'jpg', data: bytes, transformation: { width: 560, height: 420 } })] });
+          } catch (e) {}
+        }
+        return;
+      }
       if (c.contains('sur2')) { para({ spacing: { before: 120 }, children: [new D.TextRun({ text: t(el).toUpperCase(), bold: true, size: 16, color: OR })] }); return; }
       var tag = el.tagName;
       if (tag === 'H2') { para({ heading: D.HeadingLevel.HEADING_1, children: [new D.TextRun({ text: t(el), color: PRUNE_X, font: 'Georgia', size: 40 })] }); return; }
@@ -3295,6 +3314,7 @@
     var mobile = /iphone|ipad|ipod|android/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
     var w = mobile ? window.open('', '_blank') : null;
     var avecNotes = !!(document.getElementById('rap-avec-notes') && document.getElementById('rap-avec-notes').checked);
+    AVEC_PHOTO = !!(document.getElementById('rap-avec-photo') && document.getElementById('rap-avec-photo').checked);
     RAP_RETENUES = !!(document.getElementById('rap-retenues') && document.getElementById('rap-retenues').checked);
     chargerAstro().catch(function () {}).then(function () { return avecNotes ? chargerAnnotations().then(function (a) { ANNOTATIONS = a; }) : (ANNOTATIONS = null); }).then(polices).then(function (css) {
       var e = svgExport(css);
@@ -3349,11 +3369,13 @@
     var reps = detecter();
     corps.innerHTML = '<p class="rap-texte">Un instant…</p>';
     ouvrir('fen-rapport');
-    verifierAcces().then(function (acces) {
+    Promise.all([verifierAcces(), (PRATICIEN && ARBRE_ID ? chargerPhotoConstellation() : Promise.resolve(null))]).then(function (r) {
+      var acces = r[0]; PHOTO_CONSTELLATION = r[1];
       accesRapport = acces;
       if (acces) {
         corps.innerHTML = (acces.libre ? '<p class="rap-texte"><b>' + (DOSSIER_CLIENT ? 'Le rapport est inclus dans votre Espace praticien.</b> Complétez l’arbre et régénérez-le autant de fois que vous voulez : il suit chaque ajout.</p>' : 'Ton rapport est offert.</b> Complète ton arbre et régénère-le autant de fois que tu veux : il suit chaque ajout.</p>') : '<p class="rap-texte">Ton accès au rapport est actif jusqu’au <b>' + esc(dateLongue(new Date(acces.valide_jusqu))) + '</b>. Tu peux compléter ton arbre et régénérer ton rapport autant de fois que tu veux d’ici là.</p>') +
-          (PRATICIEN && ARBRE_ID ? '<label class="rap-texte" style="display:flex;gap:.5rem;align-items:flex-start"><input type="checkbox" id="rap-avec-notes" style="margin-top:.3rem"> <span>Ajouter mes notes de séance en annexe (au nom de ' + esc(PRATICIEN.cabinet) + ')</span></label>' : '') +
+          (PRATICIEN && ARBRE_ID ? '<label class="rap-texte" style="display:flex;gap:.5rem;align-items:flex-start"><input type="checkbox" id="rap-avec-notes" style="margin-top:.3rem"> <span>Ajouter en annexe mes notes de séance marquées « visibles » pour ' + (prenomClient() ? esc(prenomClient()) : 'la cliente') + ' (au nom de ' + esc(PRATICIEN.cabinet) + ')</span></label>' : '') +
+          (PRATICIEN && ARBRE_ID && PHOTO_CONSTELLATION ? '<label class="rap-texte" style="display:flex;gap:.5rem;align-items:flex-start"><input type="checkbox" id="rap-avec-photo" style="margin-top:.3rem"> <span>Inclure la dernière photo de la Constellation Familiale</span></label>' : '') +
           (Object.keys(S.avis || {}).some(function (k) { return S.avis[k] && (S.avis[k].v === 'oui' || S.avis[k].v === 'creuser'); }) ? '<label class="rap-texte" style="display:flex;gap:.5rem;align-items:flex-start"><input type="checkbox" id="rap-retenues" style="margin-top:.3rem"> <span>Seulement les pistes marquées « Ça me parle » ou « À creuser »</span></label>' : '') +
           '<button class="bt plein rap-gros" type="button" id="bt-generer">' + (DOSSIER_CLIENT ? 'Générer le rapport' + (prenomClient() ? ' de ' + esc(prenomClient()) : '') + ' (PDF)' : 'Générer mon rapport (PDF)') + '</button>' +
           '<button class="bt rap-gros" type="button" id="bt-generer-word" style="margin-top:.5rem">Version Word, à retoucher (.docx)</button>' +
@@ -4039,11 +4061,20 @@
     });
     setTimeout(recentrer, 120);
   }
-  var ANNOTATIONS = null;   /* notes de séance du dossier, ajoutées en annexe du rapport si le·la praticien·ne le choisit */
+  var ANNOTATIONS = null;   /* notes de séance du dossier marquées visibles pour la cliente, ajoutées en annexe du rapport si le·la praticien·ne le choisit */
   function chargerAnnotations() {
     var CF = window.GenesoliaCoffre;
     if (!PRATICIEN || !ARBRE_ID || !CF || !sb || !utilisateur) return Promise.resolve(null);
-    return CF.lire(sb, utilisateur, 'seances-' + ARBRE_ID).then(function (x) { return (x && x.seances) || []; }, function () { return []; });
+    return CF.lire(sb, utilisateur, 'seances-' + ARBRE_ID).then(function (x) {
+      return ((x && x.seances) || []).filter(function (n) { return n.visible; });
+    }, function () { return []; });
+  }
+  var AVEC_PHOTO = false;   /* le·la praticien·ne a coché l'ajout de la photo de la Constellation au rapport */
+  var PHOTO_CONSTELLATION = null;   /* dernière photo de la Constellation Familiale enregistrée pour ce dossier (bilan.constellation), ajoutée au rapport si le·la praticien·ne le choisit */
+  function chargerPhotoConstellation() {
+    if (!PRATICIEN || !ARBRE_ID || !sb) return Promise.resolve(null);
+    return sb.from('partages_arbre').select('bilan').eq('arbre_id', ARBRE_ID).gt('expire_le', new Date().toISOString()).order('cree_le', { ascending: false }).limit(1)
+      .then(function (r) { var l = r && r.data && r.data[0]; return (l && l.bilan && l.bilan.constellation) || null; }, function () { return null; });
   }
 
   /* Lien de partage : ce que le·la praticien·ne a choisi de ne pas montrer */
