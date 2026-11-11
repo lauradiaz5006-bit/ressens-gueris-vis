@@ -63,6 +63,17 @@
       (maintenant ? 'Ton·ta praticien·ne garde une trace de ta validation' + (nom ? ', au nom de ' + esc(nom) : '') + '. Tu peux fermer cette page.' : 'Ce document a été validé' + (nom ? ' par ' + esc(nom) : '') + (quand ? ' le ' + esc(dateLongue(quand)) : '') + '.') + '</p></div>';
   }
 
+  /* Aperçu : la praticienne regarde le document tel que sa cliente le verra, rien n'est envoyé ni enregistré */
+  if (PARAMS.get('apercu') === '1') {
+    formulaire({ cabinet: PARAMS.get('cabinet') || '', texte_perso: PARAMS.get('perso') ? decodeURIComponent(PARAMS.get('perso')) : '' });
+    var valider0 = z.querySelector('[data-valider]');
+    if (valider0) valider0.addEventListener('click', function (e) { e.stopImmediatePropagation(); alert('Ceci est un aperçu : rien n’est envoyé ni enregistré.'); }, true);
+    var bandeau = document.createElement('p');
+    bandeau.style.cssText = 'background:#fff3cd;color:#6B2F5B;padding:.6rem 1rem;border-radius:8px;margin:0 0 1rem;text-align:center;font-weight:600';
+    bandeau.textContent = 'Aperçu : ceci est ce que verra ta·ton client·e. Rien n’est envoyé ni enregistré.';
+    z.parentNode.insertBefore(bandeau, z);
+    return;
+  }
   if (!sb || !/^[0-9a-f-]{36}$/.test(J)) { z.innerHTML = '<div class="gd-carte"><h1>Ce lien n’est pas complet</h1><p class="gd-intro" style="margin:0">Ouvre le lien exact reçu de ton·ta praticien·ne.</p></div>'; return; }
   sb.rpc('deontologie_ouvrir', { p_jeton: J }).then(function (x) {
     var d = x && x.data;

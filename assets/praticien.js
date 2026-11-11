@@ -243,7 +243,7 @@
   function notes(id) { var d = dossier(id); PO.notes({ sb: sb, user: user, id: id, nom: d ? d.nom : '', cabinet: prat && prat.cabinet }); }
   function partager(id) { var d = dossier(id); PO.partager({ sb: sb, user: user, id: id, nom: d ? d.nom : '', actif: actif(), remise: !!(d && d.remise_autorisee) }).addEventListener('click', function () { setTimeout(debut, 50); }); }
   function bilan(id) { var d = dossier(id); PO.bilan({ sb: sb, user: user, id: id, nom: d ? d.nom : '', cabinet: prat && prat.cabinet }); }
-  function deontologie(id) { var d = dossier(id); if (!PO || !PO.deontologie) { alert('Le document n’a pas pu s’ouvrir. Rechargez la page et réessayez.'); return; } PO.deontologie({ sb: sb, user: user, id: id, nom: d ? d.nom : '' }); }
+  function deontologie(id) { var d = dossier(id); if (!PO || !PO.deontologie) { alert('Le document n’a pas pu s’ouvrir. Rechargez la page et réessayez.'); return; } PO.deontologie({ sb: sb, user: user, id: id, nom: d ? d.nom : '', cabinet: prat && prat.cabinet }); }
 
   /* ───────── Remise de l'arbre au·à la client·e (case par dossier) ───────── */
   document.addEventListener('change', function (e) {

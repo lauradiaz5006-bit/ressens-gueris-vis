@@ -343,6 +343,7 @@ window.GenesoliaPratique = (function () {
         '<p class="pr-o-msg" data-d-msg role="status"></p>' +
         '<div class="pr-o-boutons">' +
         (verrouille ? '' : '<button class="btn btn-plein bt plein" type="submit">' + (d ? 'Enregistrer et confirmer mon engagement' : 'Créer ce document et confirmer mon engagement') + '</button>') +
+        (verrouille ? '' : '<button class="btn btn-trait bt" type="button" data-d-apercu>Voir le document (aperçu)</button>') +
         (d ? '<button class="btn btn-trait bt" type="button" data-d-copier>Copier le lien</button>' : '') +
         (verrouille ? '<button class="btn btn-trait bt" type="button" data-d-nouveau>Nouveau document (pour une prochaine séance)</button>' : '') +
         '</div></form>';
@@ -354,6 +355,11 @@ window.GenesoliaPratique = (function () {
         (d ? Promise.resolve(d.jeton) : o.sb.from('deontologies_client').insert({ user_id: o.user.id, arbre_id: o.id }).select('jeton').single().then(function (r) { if (r.error) throw r.error; return r.data.jeton; }))
           .then(function (jeton) { return o.sb.rpc('deontologie_signer_praticien', { p_jeton: jeton, p_texte_perso: texte || null }).then(function (r) { if (r.error || (r.data && r.data.erreur)) throw (r.error || r.data.erreur); return jeton; }); })
           .then(function () { m.textContent = 'Enregistré. Votre engagement est confirmé.'; charger(); }, function () { bt.disabled = false; m.textContent = 'Ça n’a pas abouti. Réessayez.'; });
+      });
+      var ba = zc.querySelector('[data-d-apercu]');
+      if (ba) ba.addEventListener('click', function () {
+        var u = 'deontologie.html?apercu=1&perso=' + encodeURIComponent(fd.perso.value.trim()) + (o.cabinet ? '&cabinet=' + encodeURIComponent(o.cabinet) : '');
+        window.open(u, '_blank');
       });
       var bc = zc.querySelector('[data-d-copier]');
       if (bc) bc.addEventListener('click', function () { copier(urlD(d.jeton), zc.querySelector('[data-d-msg]')); });
