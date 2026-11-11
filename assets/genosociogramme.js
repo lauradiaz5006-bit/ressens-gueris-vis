@@ -695,7 +695,7 @@
       var ad = annee(d.deces); if (!ad) return;
       var fam = famille(d);
       if (!jeune(d)) return;
-      var liens = [], ids = [d.id], exoMoi = null;
+      var liens = [], ids = [d.id], exoMoi = null, prenomTrouve = false;
       liste.forEach(function (g) {
         if (g.id === d.id || !fam[g.id] || parents(g.id).indexOf(d.id) >= 0) return;   // un parent mort juste après la naissance de son enfant n'est pas un gisant (voir plus bas)
         var an = annee(g.naiss); if (!an || an <= annee(d.naiss || '')) return;
@@ -712,14 +712,16 @@
           if (autour) t = an === ad ? ne(g) + ' l’année de ce décès' : ne(g) + ' l’année qui suit ce décès';
         }
         if (!autour) return;
-        var raisons = [t];
-        if (memePrenom(d, g)) raisons.push('porte ' + (prenom1(d) === prenom1(g) ? 'son prénom' : 'une forme de son prénom'));
+        var raisons = [t], memePr = memePrenom(d, g);
+        if (memePr) { raisons.push('porte ' + (prenom1(d) === prenom1(g) ? 'son prénom' : 'une forme de son prénom')); prenomTrouve = true; }
         liens.push(nomA(g) + ' : ' + raisons.join(', ')); ids.push(g.id);
         if (moi && !autre && g.id === moi.id) exoMoi = raisons.join(', ').replace(/^né(e|·e)? /, 'je suis ' + ne(g) + ' ').replace(/ porte /, ' je porte ');
       });
       if (!liens.length) return;
       var age = ageDeces(d);
-      reps.push({ type: 'gisant', c: COUL.gisant, exo: exoMoi ? { a: nom(d), l: (d.sex === 'f' ? 'décédée' : 'décédé') + ' en ' + ad + (age != null ? ' à ' + age + ' ans' : '') + ' ; ' + exoMoi } : null, label: 'Piste du gisant : ' + nom(d), desc: nomA(d) + ' est ' + (d.sex === 'f' ? 'décédée' : 'décédé') + (age != null ? ' à ' + age + ' ans' : '') + ' en ' + ad + '. ' + liens.join(' ; ') + '.', ids: ids });
+      // Fort (piste principale) seulement quand un prénom confirme le lien : la seule proximité de dates,
+      // bien réelle statistiquement dans un grand arbre, reste une piste plus légère à elle seule.
+      reps.push({ type: 'gisant', c: COUL.gisant, fort: prenomTrouve, exo: exoMoi ? { a: nom(d), l: (d.sex === 'f' ? 'décédée' : 'décédé') + ' en ' + ad + (age != null ? ' à ' + age + ' ans' : '') + ' ; ' + exoMoi } : null, label: 'Piste du gisant : ' + nom(d), desc: nomA(d) + ' est ' + (d.sex === 'f' ? 'décédée' : 'décédé') + (age != null ? ' à ' + age + ' ans' : '') + ' en ' + ad + '. ' + liens.join(' ; ') + '.', ids: ids });
     });
     // Né·e près de l'anniversaire d'un décès survenu des années plus tôt (une date qui revient, pas un gisant)
     // Une seule carte par personne née ; la plus proche (jours, années, même fratrie) en tête.
