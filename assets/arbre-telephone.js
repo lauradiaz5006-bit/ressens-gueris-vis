@@ -214,7 +214,7 @@
   }
   function vueReps() {
     var L = lecture(), r = L.reps, pt = L.portrait;
-    function carteR(x) { return '<article class="mt-rep' + (x.fort ? ' mt-fort' : '') + '"><h3>' + esc(x.label) + '</h3><p>' + esc(x.desc) + '</p>' + (x.loyaute ? '<p class="mt-loyaute"><b>Loyauté invisible possible</b> ' + esc(x.loyaute) + '</p>' : '') + '</article>'; }
+    function carteR(x) { return '<article class="mt-rep' + (x.fort ? ' mt-fort' : '') + '"><h3>' + esc(x.label) + '</h3><p>' + esc(x.desc) + '</p>' + (x.loyaute ? '<p class="mt-loyaute"><b>Loyauté invisible possible</b> ' + esc(x.loyaute) + '</p>' : '') + (x.noyau ? '<p class="mt-noyau"><b>Noyau invisible possible</b> ' + esc(x.noyau) + '</p>' : '') + '</article>'; }
     if (!L.total) return '<div class="mt-vide-reps"><h2>Ce qui se répète</h2><p>Rien n’apparaît encore. Les répétitions se révèlent quand tu ajoutes des <b>dates de naissance et de décès</b>, des <b>métiers</b> et des <b>événements</b> (deuils, départs, secrets…) dans les fiches.</p><button type="button" class="btn btn-plein" data-aller="arbre">Compléter mon arbre</button></div>';
     return '<h2 class="mt-h2">Ce qui se répète <span>' + L.total + '</span></h2>' +
       (pt.length ? '<p class="mt-groupe">' + esc(L.titrePortrait) + '</p>' + pt.map(carteR).join('') : '') +
