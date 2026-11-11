@@ -95,7 +95,11 @@
       (actif() ? '<form class="pr-nouveau" id="pr-nouv" style="flex-direction:column;flex-wrap:nowrap;align-items:stretch"><div style="display:flex;flex-wrap:wrap;gap:.6rem"><input type="text" name="nom" maxlength="60" placeholder="Prénom ou initiales du·de la client·e" aria-label="Prénom ou initiales du client"><button class="btn btn-plein" type="submit">Nouveau dossier</button></div><label class="pr-case" style="font-size:.9rem"><input type="checkbox" name="accord"> <span>Mon·ma client·e est d’accord pour que je crée son dossier et que j’y note son histoire familiale, y compris des informations sensibles (deuils, naissances, secrets de famille).</span></label><p class="pr-err" id="pr-nouv-err" role="alert"></p></form>' : '') +
       '<div class="pr-sondage" id="pr-sondage" hidden></div>' +
       '<p class="pr-aide">Un dossier = un arbre. Pour la confidentialité, préférez le prénom ou les initiales.</p><div class="pr-onglets" id="pr-onglets" role="tablist" aria-label="Filtrer les dossiers"><button type="button" class="pr-onglet actif" data-type-filtre="tous">Tous</button><button type="button" class="pr-onglet" data-type-filtre="constellation">Avec plateau constellation</button></div><div class="pr-filtre" id="pr-filtre" hidden><input type="search" id="pr-cherche" placeholder="Rechercher un dossier" aria-label="Rechercher un dossier" autocomplete="off"><select id="pr-tri" aria-label="Trier les dossiers"><option value="maj">Modifiés récemment</option><option value="nom">Nom, de A à Z</option><option value="ancien">Les moins récents</option></select></div><div class="pr-liste" id="pr-liste"><p class="pr-vide">Chargement…</p></div><div id="pr-perso" style="margin-top:1rem"></div></section>' +
-      '<aside><div id="pr-debut"></div></aside></div></div>' +
+      '<aside><div id="pr-debut"></div></aside></div>' +
+      '<section class="pr-carte" aria-labelledby="pr-libre-t"><h2 id="pr-libre-t">Client·es en libre-service</h2><p class="pr-aide">Si votre client·e construit elle-même son arbre dans son propre espace Genesolia, elle peut vous donner un accès en lecture, pour le voir évoluer entre vos séances. Vous échangez avec elle comme vous le faites déjà (téléphone, visio…).</p>' +
+      '<form class="pr-nouveau" id="pr-code-form" style="gap:.6rem"><input type="text" name="code" maxlength="6" placeholder="Code reçu de la cliente" aria-label="Code reçu de la cliente" style="text-transform:uppercase"><button class="btn btn-trait" type="submit">Relier cet accès</button></form><p class="pr-err" id="pr-code-msg" role="status"></p>' +
+      '<div class="pr-liste" id="pr-libre-liste" style="margin-top:.8rem"><p class="pr-vide">Chargement…</p></div></section>' +
+      '</div>' +
       '<div id="pr-panneau-activite" hidden>' +
       (!actif() ? '<div class="pr-carte"><h2>Continuer avec l’Espace praticien</h2><p class="pr-aide">24 € par mois sans engagement, ou 240 € l’année' + (fondateur() ? ' (offre de Noël avant le 31 décembre : 19 € par mois, ou 190 € l’année)' : '') + '. Vous retrouvez la création de dossiers, les partages et les rapports à votre nom. <span style="white-space:nowrap">TVA non applicable, art. 293 B du CGI.</span></p><label class="pr-case pr-cgv" style="font-size:.9rem;margin:.6rem 0"><input type="checkbox" data-cgv> <span>J’accepte les <a href="conditions-praticien.html" target="_blank">conditions de l’Espace praticien (CGV)</a> et l’<a href="accord-sous-traitance.html" target="_blank">accord de sous-traitance</a>.</span></label><button class="btn btn-plein" type="button" disabled data-payer="' + (fondateur() ? 'praticienFondateur' : 'praticienMois') + '" data-bientot-texte="Bientôt disponible. Vos dossiers restent consultables en attendant.">' + (fondateur() ? '19 € par mois' : '24 € par mois') + '</button> <button class="btn btn-trait" type="button" disabled data-payer="' + cleAn() + '" data-bientot-texte="Bientôt disponible. Vos dossiers restent consultables en attendant.">' + (cleAn() === 'praticienFondateurAn' ? '190 € l’année' : '240 € l’année') + '</button><p class="pr-aide" data-bientot-msg style="margin-top:.6rem"></p></div>' : '') +
       essai +
@@ -113,7 +117,34 @@
     else { panneau(PANNEAU_ACTUEL); if (location.hash === '#demo') { history.replaceState(null, '', location.pathname + location.search); window.GenesoliaPro.demo(); } }
     chargerDossiers();
     sondage();
+    chargerLibreService();
   }
+  function chargerLibreService() {
+    var z = document.getElementById('pr-libre-liste'); if (!z) return;
+    sb.from('autorisations_arbre').select('client_id,prenom_client,relie_le').eq('praticien_id', user.id).is('revoque_le', null).not('relie_le', 'is', null).order('relie_le', { ascending: false }).then(function (r) {
+      if (r.error) { z.innerHTML = '<p class="pr-vide">Impossible de charger cette liste pour l’instant.</p>'; return; }
+      var l = r.data || [];
+      var ligneStyle = 'display:flex;justify-content:space-between;align-items:center;gap:.6rem;border:1px solid var(--rose,#F2D6DE);border-radius:14px;padding:.7rem .9rem;margin:0 0 .5rem;text-decoration:none;color:inherit';
+      z.innerHTML = l.length ? l.map(function (a) {
+        return '<a style="' + ligneStyle + '" href="genosociogramme.html?client=' + encodeURIComponent(a.client_id) + '"><span><b>' + esc(a.prenom_client || 'Cliente') + '</b><br><small style="color:var(--prune-doux,#7A5570)">Accès donné le ' + date(a.relie_le) + '</small></span><span class="btn btn-trait" style="pointer-events:none">Voir l’arbre</span></a>';
+      }).join('') : '<p class="pr-vide">Aucune cliente en libre-service pour l’instant.</p>';
+    });
+  }
+  (function () {
+    document.addEventListener('submit', function (e) {
+      var f = e.target.closest && e.target.closest('#pr-code-form'); if (!f) return;
+      e.preventDefault();
+      var code = (f.code.value || '').trim(), m = document.getElementById('pr-code-msg'), bt = f.querySelector('button[type=submit]');
+      if (!code) { m.textContent = 'Indiquez le code reçu de la cliente.'; return; }
+      bt.disabled = true;
+      sb.rpc('arbre_client_relier', { p_code: code }).then(function (r) {
+        bt.disabled = false;
+        var d = r && r.data;
+        if (r.error || !d || d.erreur) { m.textContent = d && d.erreur === 'deja-relie' ? 'Ce code est déjà relié à un autre compte.' : 'Ce code n’est pas valable. Vérifiez-le avec votre cliente.'; return; }
+        m.textContent = 'Accès relié' + (d.prenom ? ' pour ' + d.prenom : '') + '.'; f.reset(); chargerLibreService();
+      }, function () { bt.disabled = false; m.textContent = 'Ça n’a pas abouti. Réessayez.'; });
+    });
+  })();
   var PANNEAU_ACTUEL = 'dossiers';
   function panneau(nom) {
     PANNEAU_ACTUEL = nom;

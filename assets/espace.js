@@ -107,6 +107,45 @@
       else zp.innerHTML = '<p class="tb-aide">Tu n’as pas encore fait le parcours guidé. Quelques questions pour nommer ce qui se répète dans ta vie, dix minutes environ.</p>';
       chargerArbresSupp();
       chargerFilDor();
+      chargerPartagesPro();
+    });
+  }
+
+  /* ── Accès de mon·ma praticien·ne à mon arbre, en lecture (table autorisations_arbre) ── */
+  function chargerPartagesPro() {
+    var z = $('partage-pro-liste'); if (!z) return;
+    sb.from('autorisations_arbre').select('id,code,cabinet_praticien,cree_le,expire_le,relie_le,revoque_le').eq('client_id', user.id).is('revoque_le', null).order('cree_le', { ascending: false }).then(function (r) {
+      if (r.error) { z.innerHTML = '<p class="tb-aide">Impossible de charger les accès pour l’instant.</p>'; return; }
+      var l = (r.data || []).filter(function (a) { return a.relie_le || new Date(a.expire_le) > new Date(); });
+      if (!l.length) { z.innerHTML = '<p class="tb-aide">Personne n’a accès à ton arbre pour l’instant.</p>'; return; }
+      var ligneStyle = 'display:flex;flex-wrap:wrap;gap:.4rem .8rem;align-items:center;justify-content:space-between;background:rgba(255,255,255,.75);border:1px solid var(--rose);border-radius:12px;padding:.6rem .9rem;margin:0 0 .5rem';
+      z.innerHTML = l.map(function (a) {
+        return a.relie_le
+          ? '<div style="' + ligneStyle + '"><span><b>' + esc(a.cabinet_praticien || 'ton·ta praticien·ne') + '</b><br><small class="tb-aide" style="margin:0">Accès donné le ' + dateFr(a.relie_le) + '</small></span><button class="btn btn-trait" type="button" data-revoquer-pro="' + esc(a.id) + '">Retirer l’accès</button></div>'
+          : '<div style="' + ligneStyle + '"><span><b>Code ' + esc(a.code) + '</b><br><small class="tb-aide" style="margin:0">Pas encore utilisé, valable jusqu’au ' + dateFr(a.expire_le) + '</small></span><button class="btn btn-trait" type="button" data-revoquer-pro="' + esc(a.id) + '">Annuler ce code</button></div>';
+      }).join('');
+    });
+  }
+  function brancherPartagePro() {
+    var bt = $('bt-code-pro'); if (!bt) return;
+    bt.addEventListener('click', function () {
+      bt.disabled = true;
+      sb.rpc('arbre_client_generer_code').then(function (r) {
+        bt.disabled = false;
+        var d = r && r.data, m = $('partage-pro-msg');
+        if (r.error || !d || d.erreur) { m.textContent = 'Le code n’a pas pu être généré. Réessaie dans un instant.'; return; }
+        m.textContent = 'Ton code : ' + d.code + '. Donne-le à ton·ta praticien·ne (il·elle l’utilisera dans son Espace praticien). Valable 7 jours.';
+        chargerPartagesPro();
+      }, function () { bt.disabled = false; $('partage-pro-msg').textContent = 'Le code n’a pas pu être généré. Réessaie dans un instant.'; });
+    });
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-revoquer-pro]'); if (!b) return;
+      if (!confirm('Retirer cet accès ? Ton·ta praticien·ne ne pourra plus voir ton arbre.')) return;
+      b.disabled = true;
+      sb.from('autorisations_arbre').update({ revoque_le: new Date().toISOString() }).eq('id', b.getAttribute('data-revoquer-pro')).eq('client_id', user.id).then(function (r) {
+        if (r.error) { b.disabled = false; alert('Ça n’a pas abouti. Réessaie.'); return; }
+        chargerPartagesPro();
+      });
     });
   }
 
@@ -400,7 +439,7 @@
   window.GenesoliaEspace = {
     ouvrir: function (client, u) {
       sb = client; user = u;
-      if (!branche) { brancherPhoto(); brancherFormulaires(); brancherChemin(); branche = true; }
+      if (!branche) { brancherPhoto(); brancherFormulaires(); brancherChemin(); brancherPartagePro(); branche = true; }
       info('');
       $('zone-suppr').hidden = true;
       majEntete();

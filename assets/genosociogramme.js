@@ -4095,8 +4095,8 @@
   function demarrer() {
     /* Téléphone : la vue « une personne au centre » (assets/arbre-telephone.js) remplace la porte ; ?dessin force le dessin complet */
     var qs = new URLSearchParams(location.search);
-    if (window.matchMedia('(max-width: 760px)').matches && !qs.has('exemple') && !qs.has('dessin') && !qs.has('partage')) document.body.classList.add('mobile-arbre');
-    else if (surTelephone() && !qs.has('partage') && !qs.has('exemple')) document.body.classList.add('porte-ouverte');   /* l'exemple se regarde directement, même sur téléphone */
+    if (window.matchMedia('(max-width: 760px)').matches && !qs.has('exemple') && !qs.has('dessin') && !qs.has('partage') && !qs.has('client')) document.body.classList.add('mobile-arbre');
+    else if (surTelephone() && !qs.has('partage') && !qs.has('exemple') && !qs.has('client')) document.body.classList.add('porte-ouverte');   /* l'exemple se regarde directement, même sur téléphone */
     try { if (window.supabase && window.supabase.createClient) sb = window.supabase.createClient(SB_URL, SB_KEY); } catch (e) { sb = null; }
 
     /* Lien de partage d'un·e praticien·ne (?partage=<jeton>) : l'arbre en lecture, sans ses notes, rien n'est enregistré */
@@ -4119,6 +4119,24 @@
           document.body.appendChild(b); statut('');
           if (d.remise === true) remiseCliente(qs.get('partage'), d.cabinet, qs.has('garder'));
         });
+      return;
+    }
+
+    /* L'arbre d'une cliente en libre-service, ouvert par son·sa praticien·ne (?client=<id>) : lecture seule, rien n'est enregistré */
+    if (qs.has('client')) {
+      EXEMPLE = true; document.body.classList.add('arbre-partage', 'partage-verrou');
+      sb.auth.getSession().then(function (r) {
+        var s = r && r.data && r.data.session;
+        if (!s) { location.replace('pro.html'); return; }
+        return sb.rpc('arbre_client_lire', { p_client_id: qs.get('client') });
+      }).then(function (x) {
+        var d = x && x.data;
+        var b = document.createElement('div'); b.className = 'bandeau-exemple'; b.setAttribute('role', 'status');
+        if (!d || d.erreur || !d.data || !d.data.people) { b.innerHTML = 'Vous n’avez plus accès à cet arbre. Votre cliente a peut-être retiré l’accès.'; document.body.appendChild(b); statut(''); return; }
+        charger(d.data); dessiner(); recentrer();
+        b.innerHTML = 'Arbre de votre cliente, en lecture seule' + (d.maj ? ' · mis à jour le ' + esc(dateLongue(new Date(d.maj))) : '') + '. <a href="pro.html">Retour à mon Espace praticien</a>';
+        document.body.appendChild(b); statut('');
+      }, function () { statut('Cet arbre n’a pas pu être chargé. Vérifiez votre connexion et rechargez la page.'); });
       return;
     }
     /* Retour de connexion après « Garder mon arbre dans mon espace » : on revient sur le lien de partage pour finir la copie */
