@@ -320,6 +320,59 @@ window.GenesoliaPratique = (function () {
     return f;
   }
 
+  /* ───────── Document de déontologie : à envoyer avant de démarrer une séance ───────── */
+  function urlD(j) { return 'https://genesolia.fr/deontologie.html?d=' + j; }
+  /* o : { sb, user, id, nom } */
+  function deontologie(o) {
+    var f = fenetre('<h2>Déontologie · ' + esc(o.nom || '') + '</h2><p class="pr-o-aide">Un document de cadre à envoyer à votre client·e avant de démarrer une séance. Le texte de base est le même pour tous vos dossiers ; ajoutez ci-dessous ce qui est propre à votre pratique ou à cette personne. C’est un modèle de départ : relisez-le et adaptez-le à votre façon de travailler.</p>' +
+      '<div data-corps><p class="pr-o-aide">Chargement…</p></div>', o.tiroir);
+    var courant = null;
+    function statutTexte(d) {
+      if (!d) return '';
+      var bits = [];
+      bits.push(d.signe_praticien_le ? 'Votre engagement est enregistré depuis le ' + date(d.signe_praticien_le) + '.' : '');
+      bits.push(d.signe_client_le ? '<b style="color:#6B2F5B">Validé par ' + esc(d.client_nom || 'votre client·e') + ' le ' + date(d.signe_client_le) + '.</b>' : 'En attente de la validation de votre client·e.');
+      return bits.filter(Boolean).join(' ');
+    }
+    function dessinerForm(d) {
+      var zc = f.querySelector('[data-corps]'), verrouille = !!(d && d.signe_client_le);
+      zc.innerHTML = (d ? '<p class="pr-o-aide">' + statutTexte(d) + '</p>' : '') +
+        (d ? '<input class="pr-o-url" style="margin:.3rem 0 .8rem" type="text" readonly value="' + esc(urlD(d.jeton)) + '" aria-label="Lien du document">' : '') +
+        '<form class="pr-o-form" data-d-form>' +
+        '<label>Votre section personnalisée (facultatif)<textarea name="perso" maxlength="4000" placeholder="Ce qui est propre à votre pratique, à ce dossier, ou toute précision utile avant de commencer."' + (verrouille ? ' disabled' : '') + '>' + esc((d && d.texte_perso) || '') + '</textarea></label>' +
+        '<p class="pr-o-msg" data-d-msg role="status"></p>' +
+        '<div class="pr-o-boutons">' +
+        (verrouille ? '' : '<button class="btn btn-plein bt plein" type="submit">' + (d ? 'Enregistrer et confirmer mon engagement' : 'Créer ce document et confirmer mon engagement') + '</button>') +
+        (d ? '<button class="btn btn-trait bt" type="button" data-d-copier>Copier le lien</button>' : '') +
+        (verrouille ? '<button class="btn btn-trait bt" type="button" data-d-nouveau>Nouveau document (pour une prochaine séance)</button>' : '') +
+        '</div></form>';
+      var fd = zc.querySelector('[data-d-form]');
+      if (fd) fd.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var texte = fd.perso.value.trim(), m = zc.querySelector('[data-d-msg]'), bt = fd.querySelector('button[type=submit]');
+        bt.disabled = true;
+        (d ? Promise.resolve(d.jeton) : o.sb.from('deontologies_client').insert({ user_id: o.user.id, arbre_id: o.id }).select('jeton').single().then(function (r) { if (r.error) throw r.error; return r.data.jeton; }))
+          .then(function (jeton) { return o.sb.rpc('deontologie_signer_praticien', { p_jeton: jeton, p_texte_perso: texte || null }).then(function (r) { if (r.error || (r.data && r.data.erreur)) throw (r.error || r.data.erreur); return jeton; }); })
+          .then(function () { m.textContent = 'Enregistré. Votre engagement est confirmé.'; charger(); }, function () { bt.disabled = false; m.textContent = 'Ça n’a pas abouti. Réessayez.'; });
+      });
+      var bc = zc.querySelector('[data-d-copier]');
+      if (bc) bc.addEventListener('click', function () { copier(urlD(d.jeton), zc.querySelector('[data-d-msg]')); });
+      var bn = zc.querySelector('[data-d-nouveau]');
+      if (bn) bn.addEventListener('click', function () {
+        if (!confirm('Créer un nouveau document pour une prochaine séance ? Le document déjà validé reste conservé tel quel.')) return;
+        courant = null; dessinerForm(null);
+      });
+    }
+    function charger() {
+      o.sb.from('deontologies_client').select('jeton,texte_perso,expire_le,cree_le,signe_praticien_le,signe_client_le,client_nom').eq('arbre_id', o.id).gt('expire_le', new Date().toISOString()).order('cree_le', { ascending: false }).limit(1).then(function (r) {
+        if (r.error) { f.querySelector('[data-corps]').innerHTML = '<p class="pr-o-aide">Le document n’a pas pu être chargé.</p>'; return; }
+        courant = (r.data && r.data[0]) || null; dessinerForm(courant);
+      });
+    }
+    charger();
+    return f;
+  }
+
   /* ───────── Bilan de suivi : une page dédiée (bilan.html) pour la fin d'accompagnement — toujours l'arbre, en option la photo
      de la constellation (capturée depuis le plateau), et les notes cochées une à une ici même ───────── */
   function urlBilan(j) { return 'https://genesolia.fr/bilan.html?b=' + j; }
@@ -393,5 +446,5 @@ window.GenesoliaPratique = (function () {
     return f;
   }
 
-  return { fenetre: fenetre, notes: notes, partager: partager, bilan: bilan, questionnaire: questionnaire, esc: esc, date: date };
+  return { fenetre: fenetre, notes: notes, partager: partager, bilan: bilan, questionnaire: questionnaire, deontologie: deontologie, esc: esc, date: date };
 })();

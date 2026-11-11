@@ -195,6 +195,7 @@
         '<button class="pr-lien" type="button" data-notes="' + esc(d.id) + '">Notes de séance</button>' +
         '<button class="pr-lien" type="button" data-bilan="' + esc(d.id) + '">Bilan de suivi</button>' +
         '<button class="pr-lien" type="button" data-questionnaire="' + esc(d.id) + '">Questionnaire</button>' +
+        '<button class="pr-lien" type="button" data-deontologie="' + esc(d.id) + '">Déontologie</button>' +
         '<button class="pr-lien" type="button" data-renommer="' + esc(d.id) + '">Renommer</button>' +
         '<button class="pr-lien pr-danger" type="button" data-supprimer="' + esc(d.id) + '">Supprimer</button>' +
         '</div></details></div>' +
@@ -242,6 +243,7 @@
   function notes(id) { var d = dossier(id); PO.notes({ sb: sb, user: user, id: id, nom: d ? d.nom : '', cabinet: prat && prat.cabinet }); }
   function partager(id) { var d = dossier(id); PO.partager({ sb: sb, user: user, id: id, nom: d ? d.nom : '', actif: actif(), remise: !!(d && d.remise_autorisee) }).addEventListener('click', function () { setTimeout(debut, 50); }); }
   function bilan(id) { var d = dossier(id); PO.bilan({ sb: sb, user: user, id: id, nom: d ? d.nom : '', cabinet: prat && prat.cabinet }); }
+  function deontologie(id) { var d = dossier(id); if (!PO || !PO.deontologie) { alert('Le document n’a pas pu s’ouvrir. Rechargez la page et réessayez.'); return; } PO.deontologie({ sb: sb, user: user, id: id, nom: d ? d.nom : '' }); }
 
   /* ───────── Remise de l'arbre au·à la client·e (case par dossier) ───────── */
   document.addEventListener('change', function (e) {
@@ -307,6 +309,7 @@
     var b;
     if ((b = e.target.closest('[data-notes]'))) notes(b.getAttribute('data-notes'));
     else if ((b = e.target.closest('[data-bilan]'))) bilan(b.getAttribute('data-bilan'));
+    else if ((b = e.target.closest('[data-deontologie]'))) deontologie(b.getAttribute('data-deontologie'));
     else if ((b = e.target.closest('[data-partager]'))) partager(b.getAttribute('data-partager'));
     else if ((b = e.target.closest('[data-questionnaire]'))) {
       var dq = dossier(b.getAttribute('data-questionnaire'));

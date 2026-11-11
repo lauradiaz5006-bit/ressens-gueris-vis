@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <title>Avant ta séance · Genesolia</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <meta name="description" content="Le cadre et la déontologie de ton accompagnement, à lire et à valider avant ta séance.">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    #gd{max-width:42rem;margin:0 auto;padding:2rem 16px 4rem;color:var(--prune)}
+    #gd h1{font-size:clamp(1.9rem,5vw,2.5rem);margin:0 0 .6rem;line-height:1.12}
+    .gd-etiq{font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--champagne);margin:0 0 .4rem}
+    .gd-intro{color:var(--prune-doux);margin:0 0 1.3rem}
+    .gd-carte{background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:1.2rem 1.2rem 1.3rem;margin:0 0 1.1rem;box-shadow:0 8px 24px rgba(107,47,91,.05)}
+    .gd-carte h2{font-size:1.3rem;margin:0 0 .5rem}
+    .gd-texte{white-space:pre-wrap;line-height:1.6;margin:0 0 .3rem}
+    .gd-case{display:flex!important;gap:.6rem;align-items:flex-start!important;font-weight:400!important;font-size:.95rem!important;line-height:1.45;margin:0 0 .8rem}
+    .gd-case input{width:22px;height:22px;flex:none;margin:.1rem 0 0;accent-color:var(--prune)}
+    #gd label{display:grid;gap:.3rem;font-weight:600;font-size:.9rem;margin:0 0 .9rem}
+    #gd input[type=text]{font:inherit;font-weight:400;padding:.7rem .85rem;border:1px solid #E5C6CF;border-radius:12px;width:100%;box-sizing:border-box;color:var(--prune);background:#fff}
+    .gd-err{color:#A3324B;font-size:.92rem;min-height:1.2em;margin:.4rem 0 0}
+    .gd-merci{text-align:center;padding:2.4rem 1.2rem}
+    header[data-entete=simple] .menu,header[data-entete=simple] .burger,header[data-entete=simple] .entete-actions{display:none!important}
+    header[data-entete=simple] .marque{pointer-events:none}
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete="simple"></header>
+  <main id="gd" aria-live="polite"><p class="gd-intro">Le document s’ouvre…</p></main>
+  <script src="assets/site.js"></script>
+  <script src="assets/supabase.js"></script>
+  <script src="assets/deontologie.js?v=1"></script>
+</body>
+</html>
