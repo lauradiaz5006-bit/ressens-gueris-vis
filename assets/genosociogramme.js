@@ -1037,6 +1037,7 @@
       var an = annee(g.naiss); if (!an) return;
       procheDe(g.id).forEach(function (did) {
         var d = S.people[did], ad = annee(d.deces); if (!ad) return;
+        if (jumeauDe(g.id) === did) return;   // le jumeau perdu a sa propre piste
         var ok, quand;
         if (plein(g.naiss) && plein(d.deces)) {
           var nj = enJours(g.naiss), dj = enJours(d.deces), conc = nj - 266;
@@ -1059,6 +1060,7 @@
       var an = annee(g.naiss); if (!an || petit(g)) return;
       freres(g.id).forEach(function (sid) {
         var sb = S.people[sid]; if (petit(sb) && !perte(sb)) return;
+        if (jumeauDe(g.id) === sid) return;   // le jumeau perdu a sa propre piste
         var pt = perte(sb), dFin = sb.deces || (pt ? sb.naiss : ''), ad = pt ? 0 : ageDeces(sb), fin = annee(dFin); if (!fin || ad == null || ad >= 18) return;
         var ecart = plein(g.naiss) && plein(dFin) ? (enJours(g.naiss) - enJours(dFin)) / 30.4 : (an - fin) * 12;
         var memeSexe = g.sex && g.sex === sb.sex, memeNom = morceaux(g).some(function (t) { return morceaux(sb).some(function (u) { return racine(t) === racine(u); }); });
@@ -1190,6 +1192,230 @@
         desc: morceauxR.join(' ; ') + '.' + (seulAlliance ? ' Ces personnes sont reliées par un couple, pas par la naissance : c’est un écho, pas une transmission.' : ''), ids: ids });
     });
 
+    /* ── Liens, places et couples : Bowen (coupure, triangle), Boszormenyi-Nagy (parentification), Toman (rang),
+       Verrier (adoption), Gaulejac (trajectoire), Austermann (jumeau perdu). Rien ne se déclenche sur un simple décès
+       ou sur une seule donnée isolée : il faut un lien dessiné, une place précise ou une répétition dans la lignée. ── */
+    function relNat(x, y) { var r = S.rels.find(function (q) { return q.type === 'relation' && ((q.from === x && q.to === y) || (q.from === y && q.to === x)); }); return r && NATURES[r.nature] ? r.nature : null; }
+    function estParentDe(pa, en) { return (parentsDe[en] || []).indexOf(pa) >= 0; }
+    function memesParents(x, y) { return (parentsDe[x] || []).some(function (p) { return (parentsDe[y] || []).indexOf(p) >= 0; }); }
+    function natTxt(n) { return n ? NATURES[n][0].toLowerCase().replace(/ \(.*\)$/, '') : ''; }
+    function liste2(l) { return l.length < 2 ? (l[0] || '') : l.slice(0, -1).join(', ') + ' et ' + l[l.length - 1]; }
+    var COUPE = ['rupture', 'coupe'], TENDU = ['conflit', 'rupture', 'ambivalent', 'distance', 'coupe'], COLLE = ['fusion', 'alliance', 'confident'];
+    function separes(p1, p2) { var rc = relCouple(p1, p2); return !!(rc && (rc.statut === 'separe' || rc.statut === 'divorce')); }
+
+    // 13. La coupure émotionnelle (Bowen) : des liens rompus entre parents et enfants, ou dans une fratrie
+    var coupures = [];
+    S.rels.forEach(function (r) {
+      if (r.type !== 'relation' || COUPE.indexOf(r.nature) < 0 || !S.people[r.from] || !S.people[r.to] || r.from === r.to) return;
+      var lien = estParentDe(r.from, r.to) ? 'parent' : estParentDe(r.to, r.from) ? 'parent' : memesParents(r.from, r.to) ? 'fratrie' : '';
+      if (!lien) return;
+      var pa = lien === 'parent' ? (estParentDe(r.from, r.to) ? r.from : r.to) : null;
+      coupures.push({ a: r.from, b: r.to, lien: lien, pa: pa, en: pa ? (pa === r.from ? r.to : r.from) : null, nat: r.nature });
+    });
+    function txtCoupure(c) {
+      var nt = c.nat === 'rupture' ? 'rupture' : 'lien coupé, sans conflit';
+      return c.lien === 'parent' ? nom(S.people[c.en]) + ' et ' + (S.people[c.pa].sex === 'f' ? 'sa mère' : S.people[c.pa].sex === 'm' ? 'son père' : 'son parent') + ', ' + nom(S.people[c.pa]) + ' (' + nt + ')'
+        : nom(S.people[c.a]) + ' et ' + nom(S.people[c.b]) + ', dans la même fratrie (' + nt + ')';
+    }
+    var enChaineC = {};
+    chaine(function (pa, en) { return pa && en && COUPE.indexOf(relNat(pa.id, en.id)) >= 0; }, 3).forEach(function (l) {
+      l.forEach(function (i) { enChaineC[i] = 1; });
+      reps.push({ type: 'schema', qk: 'coupure', fam: ['coupure'], fort: true, tags: 'coupure emotionnelle rupture couper les ponts lien coupe bowen generation',
+        label: 'Des liens coupés de parent à enfant, sur ' + l.length + ' générations',
+        desc: l.slice().reverse().map(function (id) { return nom(S.people[id]); }).join(', puis ') + ' : à chaque génération, l’enfant a rompu ou perdu le lien avec son parent. Murray Bowen a observé que celui ou celle qui coupe les ponts reproduit souvent, sans le vouloir, la coupure qu’a vécue son parent.', ids: l });
+    });
+    var coupuresR = coupures.filter(function (c) { return !(enChaineC[c.a] && enChaineC[c.b]); });
+    if (coupuresR.length >= 2) {
+      reps.push({ type: 'schema', qk: 'coupure', fam: ['coupure'], fort: coupuresR.length >= 3, tags: 'coupure emotionnelle rupture couper les ponts lien coupe bowen',
+        label: 'Des liens coupés, ' + coupuresR.length + ' fois dans ' + (moi && !autre ? 'ton ' : 'l’') + 'arbre',
+        desc: coupuresR.slice(0, 5).map(txtCoupure).join(' ; ') + '. Une coupure apaise sur le moment, mais selon Bowen elle ne règle pas l’attachement : la tension se déplace, souvent vers la génération suivante.',
+        ids: uniques([].concat.apply([], coupuresR.map(function (c) { return [c.a, c.b]; }))) });
+    } else if (coupuresR.length === 1 && moi && [coupuresR[0].a, coupuresR[0].b].some(function (i) { return i === moi.id || parents(moi.id).indexOf(i) >= 0; })) {
+      reps.push({ type: 'schema', qk: 'coupure', fam: ['coupure'], faible: true, tags: 'coupure emotionnelle rupture couper les ponts lien coupe bowen',
+        label: 'Un lien coupé, tout près de ' + (autre ? prenomC : 'toi'),
+        desc: txtCoupure(coupuresR[0]) + '. Une seule coupure n’est pas un schéma : la question est de savoir si elle a déjà existé plus haut dans l’arbre. Si tu sais qu’un grand-parent avait lui aussi rompu avec les siens, dessine ce lien : la répétition apparaîtra.',
+        ids: [coupuresR[0].a, coupuresR[0].b] });
+    }
+
+    // 14. Le triangle (Bowen, Minuchin) : entre deux parents en tension, un enfant très proche de l'un des deux
+    var triangles = [];
+    Object.keys(fratries).forEach(function (k) {
+      var ps = k.split('+'); if (ps.length !== 2) return;
+      var p1 = ps[0], p2 = ps[1], nP = relNat(p1, p2), sep = separes(p1, p2);
+      if (TENDU.indexOf(nP) < 0 && !sep) return;   // sans tension entre les parents, pas de triangle
+      fratries[k].forEach(function (c) {
+        if (petit(c)) return;
+        var n1 = relNat(c.id, p1), n2 = relNat(c.id, p2), c1 = COLLE.indexOf(n1) >= 0, c2 = COLLE.indexOf(n2) >= 0;
+        if (c1 === c2) return;   // proche des deux, ou d'aucun : rien de lisible
+        var proche = c1 ? p1 : p2, loin = c1 ? p2 : p1, nLoin = c1 ? n2 : n1;
+        triangles.push({ c: c, proche: S.people[proche], loin: S.people[loin], nat: c1 ? n1 : n2, nLoin: nLoin, contre: TENDU.indexOf(nLoin) >= 0, nP: nP, sep: sep });
+      });
+    });
+    if (triangles.length) {
+      var transmisT = triangles.some(function (t) { return triangles.some(function (u) { return u !== t && (u.proche.id === t.c.id || u.loin.id === t.c.id); }); });
+      reps.push({ type: 'schema', qk: 'triangle', fam: ['triangle'], fort: transmisT || triangles.some(function (t) { return t.contre; }), tags: 'triangle triangulation enfant pris entre parents conflit alliance fusion bowen loyaute clivee',
+        label: triangles.length === 1 ? 'Un enfant entre ses deux parents : ' + nomBase(triangles[0].c) : 'Des enfants pris entre leurs parents, ' + triangles.length + ' fois' + (transmisT ? ', d’une génération à l’autre' : ''),
+        desc: triangles.slice(0, 4).map(function (t) {
+          return 'entre ' + nom(t.proche) + ' et ' + nom(t.loin) + ' (' + (t.nP ? natTxt(t.nP) : '') + (t.nP && t.sep ? ', ' : '') + (t.sep ? 'séparés' : '') + '), ' + nom(t.c) + (t.nat === 'confident' ? ' porte ' + nomBase(t.proche) + ' (confident·e)' : ' est en lien « ' + natTxt(t.nat) + ' » avec ' + nomBase(t.proche)) + (t.contre ? ', et en « ' + natTxt(t.nLoin) + ' » avec ' + nomBase(t.loin) : '');
+        }).join(' ; ').replace(/^./, function (x) { return x.toUpperCase(); }) + '. Quand deux adultes n’arrivent pas à se parler, la tension passe souvent par un troisième : l’enfant devient l’allié·e, le confident ou le messager de l’un contre l’autre.' + (transmisT ? ' Ici, un enfant pris dans un triangle se retrouve plus tard au sommet d’un autre.' : ''),
+        ids: uniques([].concat.apply([], triangles.slice(0, 4).map(function (t) { return [t.c.id, t.proche.id, t.loin.id]; }))) });
+    }
+
+    // 15. La parentification (Boszormenyi-Nagy) : un enfant devenu le soutien d'un adulte
+    var portes = [];
+    S.rels.forEach(function (r) {
+      if (r.type !== 'relation' || r.nature !== 'confident' || !S.people[r.from] || !S.people[r.to] || r.from === r.to) return;
+      var x = S.people[r.from], y = S.people[r.to], enf, adu;
+      if (estParentDe(x.id, y.id)) { adu = x; enf = y; } else if (estParentDe(y.id, x.id)) { adu = y; enf = x; }
+      else { var ax = annee(x.naiss), ay = annee(y.naiss); if (!ax || !ay || ax === ay) return; enf = ax > ay ? x : y; adu = enf === x ? y : x; }
+      portes.push({ enf: enf, adu: adu });
+    });
+    if (portes.length) {
+      var transmisP = portes.some(function (p) { return portes.some(function (q) { return q !== p && q.adu.id === p.enf.id; }) || portes.some(function (q) { return q !== p && q.enf.id === p.adu.id; }); });
+      reps.push({ type: 'schema', qk: 'parentif', fam: ['parentif'], fort: transmisP || portes.length >= 2, tags: 'parentification enfant parentifie confident porte parent aine loyaute dette nagy',
+        label: portes.length === 1 ? 'Un enfant qui porte un adulte : ' + nomBase(portes[0].enf) : 'Des enfants qui portent les adultes, ' + portes.length + ' fois' + (transmisP ? ', de génération en génération' : ''),
+        desc: portes.slice(0, 4).map(function (p) { return nom(p.enf) + ' porte ' + nom(p.adu); }).join(' ; ') + '.' + (transmisP ? ' L’enfant qui a porté son parent devient à son tour un adulte porté par son enfant : c’est ce que Boszormenyi-Nagy appelle une dette qui se reporte d’une génération sur l’autre.' : ' Un enfant qui console, conseille ou protège un parent donne ce qu’il n’a pas encore reçu.'),
+        ids: uniques([].concat.apply([], portes.slice(0, 4).map(function (p) { return [p.enf.id, p.adu.id]; }))) });
+    }
+
+    // 16. La place dans la fratrie (Toman, Bowen) : en comptant les enfants perdus, et seulement quand l'ordre est sûr
+    var placeDe = {};
+    Object.keys(fratries).forEach(function (k) {
+      var dN = function (e) { return e.naiss || (perte(e) ? e.deces : ''); };
+      var f = fratries[k];
+      if (f.length < 2 || f.some(function (e) { return !annee(dN(e)); })) return;   // un enfant sans date : l'ordre n'est pas sûr
+      f = f.slice().sort(function (x, y) { return (annee(dN(x)) - annee(dN(y))) || (plein(dN(x)) && plein(dN(y)) ? enJours(dN(x)) - enJours(dN(y)) : 0); });
+      var n = f.length;
+      f.forEach(function (e, i) {
+        if (perte(e)) return;
+        var avant = f.slice(0, i), memeS = avant.filter(function (x) { return x.sex === e.sex && e.sex !== 'u'; }).length;
+        placeDe[e.id] = { pos: i + 1, n: n, cls: i === 0 ? 'aine' : i === n - 1 ? 'cadet' : 'milieu', posS: memeS + 1, avant: avant };
+      });
+    });
+    function txtPlace(p) {
+      var pl = placeDe[p.id], e = p.sex === 'f' ? 'e' : p.sex === 'u' ? '·e' : '';
+      if (!pl) return '';
+      if (pl.cls === 'aine') return 'aîné' + e + ' de ' + pl.n;
+      if (pl.cls === 'cadet') return (p.sex === 'f' ? 'dernière' : p.sex === 'm' ? 'dernier' : 'dernier·ère') + ' de ' + pl.n;
+      return pl.pos + 'ᵉ de ' + pl.n;
+    }
+    function memePlace(x, y) { var a1 = placeDe[x.id], b1 = placeDe[y.id]; return !!(a1 && b1 && x.sex === y.sex && x.sex !== 'u' && a1.cls === b1.cls && (a1.cls !== 'milieu' || a1.pos === b1.pos) && a1.posS === b1.posS); }
+    if (moi && placeDe[moi.id]) {
+      var ascP = [], fileP = [[moi.id, 0]];
+      while (fileP.length) { var cP = fileP.shift(); if (cP[1] >= 3) continue; (parentsDe[cP[0]] || []).forEach(function (q) { ascP.push([q, cP[1] + 1]); fileP.push([q, cP[1] + 1]); }); }
+      var pareils = ascP.filter(function (x) { return S.people[x[0]] && memePlace(moi, S.people[x[0]]); });
+      if (pareils.length) {
+        var parentPareil = pareils.some(function (x) { return x[1] === 1; }), gpPareil = pareils.some(function (x) { return x[1] === 2; });
+        reps.push({ type: 'schema', qk: 'rang', fam: ['rang'], fort: parentPareil && gpPareil, faible: pareils.length === 1 && placeDe[moi.id].cls === 'aine' && !parentPareil,
+          tags: 'rang fratrie place aine cadet milieu toman meme place ancetre',
+          label: (autre ? prenomC + ' occupe' : 'Tu occupes') + ' la même place que ' + (pareils.length === 1 ? nomBase(S.people[pareils[0][0]]) : pareils.length + ' ancêtres'),
+          desc: nom(moi) + ' : ' + txtPlace(moi) + '. ' + liste2(pareils.map(function (x) { var q = S.people[x[0]]; return nom(q) + ' (' + lienC(q.id).toLowerCase() + ', ' + txtPlace(q) + ')'; })) + ' : même rang, même sexe. Walter Toman a montré que la place dans la fratrie façonne la manière d’aimer, de travailler et de s’allier ; occuper la place d’un ancêtre, c’est souvent hériter aussi de ce qu’on attendait de lui ou d’elle. Les grossesses perdues sont comptées dans le rang.',
+          ids: [moi.id].concat(pareils.map(function (x) { return x[0]; })) });
+      }
+      // L'aîné·e « de fait » : avant toi, seulement des enfants perdus
+      var plM = placeDe[moi.id];
+      if (plM.pos > 1 && plM.avant.every(function (x) { var ad = ageDeces(x); return perte(x) || (ad != null && ad < 1); })) {
+        reps.push({ type: 'schema', qk: 'rangcache', fam: ['deces', 'rang'], fort: true, tags: 'rang fratrie aine de fait premier enfant perdu fausse couche place',
+          label: (autre ? prenomC + ' est' : 'Tu es') + ' l’aîné' + (moi.sex === 'f' ? 'e' : '') + ' vivant' + (moi.sex === 'f' ? 'e' : '') + ', mais pas ' + (moi.sex === 'f' ? 'la première' : 'le premier'),
+          desc: 'Avant ' + nom(moi) + ' : ' + liste2(plM.avant.map(function (x) { return perte(x) ? libPerte(x) : nom(x) + ' (mort' + (x.sex === 'f' ? 'e' : '') + ' avant un an)'; })) + '. Dans la famille, ' + (autre ? prenomC : 'tu') + ' ' + (autre ? 'a' : 'as') + ' tenu la place d’aîné' + (moi.sex === 'f' ? 'e' : '') + ' ; dans l’histoire des parents, ' + (autre ? 'il' : 'tu') + ' ' + (autre ? 'est' : 'es') + ' arrivé' + (moi.sex === 'f' ? 'e' : '') + ' en ' + plM.pos + 'ᵉ position. Ces deux places ne se recouvrent pas toujours.',
+          ids: [moi.id].concat(plM.avant.map(function (x) { return x.id; })) });
+      }
+    }
+    chaine(function (pa, en) { return pa && en && placeDe[pa.id] && placeDe[en.id] && placeDe[pa.id].cls !== 'milieu' && memePlace(pa, en); }, 3).forEach(function (l) {
+      var p0 = S.people[l[0]], cls = placeDe[p0.id].cls, f = p0.sex === 'f';
+      reps.push({ type: 'schema', qk: 'rang', fam: ['rang'], fort: l.length >= 4, tags: 'rang fratrie place aine cadet lignee toman generation',
+        label: (cls === 'aine' ? (f ? 'Des aînées de mère en fille' : 'Des aînés de père en fils') : (f ? 'Des cadettes de mère en fille' : 'Des cadets de père en fils')) + ', sur ' + l.length + ' générations',
+        desc: l.slice().reverse().map(function (id) { var q = S.people[id]; return nom(q) + ' (' + txtPlace(q) + ')'; }).join(', puis ') + '. À chaque génération, la même place, du même côté : celle qui ' + (cls === 'aine' ? 'ouvre la voie, rassure et répond aux attentes' : 'arrive quand tout est déjà joué, que l’on protège ou que l’on garde près de soi') + '.', ids: l });
+    });
+
+    // 17. Les enfants confiés : adoption, placement (Verrier, Schützenberger)
+    function confie(p) { return !!(p && (p.adopte || p.place)); }
+    function txtConfie(p) { var e = p.sex === 'f' ? 'e' : p.sex === 'u' ? '·e' : ''; return nom(p) + ' (' + [p.adopte ? 'adopté' + e : '', p.place ? 'placé' + e : ''].filter(Boolean).join(', ') + ')'; }
+    var enChaineA = {};
+    chaine(function (pa, en) { return confie(pa) && confie(en); }, 2).forEach(function (l) {
+      l.forEach(function (i) { enChaineA[i] = 1; });
+      reps.push({ type: 'schema', qk: 'confie', fam: ['confie'], fort: true, tags: 'adoption adopte placement place famille accueil confie abandon verrier generation',
+        label: 'Des enfants confiés à d’autres, sur ' + l.length + ' générations',
+        desc: l.slice().reverse().map(function (id) { return txtConfie(S.people[id]); }).join(', puis ') + '. Un parent qui a été confié enfant peut, sans le vouloir, revivre cette séparation avec ses propres enfants : ce qui n’a pas été dit se rejoue parfois en actes.', ids: l });
+    });
+    var confies = liste.filter(function (p) { return confie(p) && !enChaineA[p.id] && (!moi || !!lienC(p.id)); });
+    if (confies.length) {
+      var direct = moi ? confies.filter(function (p) { return p.id === moi.id || (function up(id, d) { return d <= 3 && (parentsDe[id] || []).some(function (q) { return q === p.id || up(q, d + 1); }); })(moi.id, 1); }) : [];
+      if (confies.length >= 2 || direct.length) reps.push({ type: 'schema', qk: 'confie', fam: ['confie'], fort: confies.length >= 3, tags: 'adoption adopte placement place famille accueil confie abandon verrier',
+        label: confies.length === 1 ? 'Un enfant confié, dans ' + (autre ? 'la lignée de ' + prenomC : 'ta lignée') : confies.length + ' enfants confiés ou adoptés',
+        desc: confies.slice(0, 6).map(txtConfie).join(', ') + '. Nancy Verrier parle de « blessure primitive » : même aimé et bien accueilli, un enfant séparé de sa mère de naissance garde la trace de cette première séparation. Elle traverse souvent les générations sous forme de peur d’être abandonné·e, ou de difficulté à se sentir à sa place.',
+        ids: confies.slice(0, 6).map(function (p) { return p.id; }) });
+    }
+
+    // 18. Les couples : remariages, veuvages précoces, un conjoint qui porte le prénom d'un parent
+    function nbUnions(p) { return S.rels.filter(function (r) { return r.type === 'couple' && (r.from === p.id || r.to === p.id) && existe(r.from) && existe(r.to); }).length; }
+    chaine(function (pa, en) { return pa && en && nbUnions(pa) >= 2 && nbUnions(en) >= 2; }, 2).forEach(function (l) {
+      reps.push({ type: 'schema', qk: 'remariage', fam: ['couple'], fort: l.length >= 3, tags: 'couple remariage plusieurs unions famille recomposee generation',
+        label: 'Plusieurs unions, sur ' + l.length + ' générations',
+        desc: l.slice().reverse().map(function (id) { var q = S.people[id]; return nom(q) + ' (' + nbUnions(q) + ' unions)'; }).join(', puis ') + '. Refaire sa vie est une force ; quand cela revient à chaque génération, on peut aussi se demander ce que chacun·e cherchait à réparer d’une union à l’autre.', ids: l });
+    });
+    function veuf(p) {
+      return partenaires(p.id).map(function (q) { return S.people[q]; }).filter(function (q) {
+        return q && decede(q) && jeune(q) && !separes(p.id, q.id) && annee(q.deces) && (!decede(p) || (annee(p.deces) || 9999) > annee(q.deces));
+      })[0] || null;
+    }
+    var enChaineV = {};
+    chaine(function (pa, en) { return pa && en && veuf(pa) && veuf(en); }, 2).forEach(function (l) {
+      l.forEach(function (i) { enChaineV[i] = 1; });
+      reps.push({ type: 'schema', qk: 'veuvage', fam: ['couple'], fort: true, tags: 'veuvage veuve veuf conjoint mort jeune couple generation',
+        label: 'Un veuvage précoce, sur ' + l.length + ' générations',
+        desc: l.slice().reverse().map(function (id) { var q = S.people[id], v = veuf(q); return nom(q) + ' perd ' + (v.sex === 'f' ? 'sa compagne' : 'son compagnon') + ' ' + nomBase(v) + ' (' + ageDeces(v) + ' ans, en ' + annee(v.deces) + ')'; }).join(', puis ') + '. Dans plusieurs familles, Anne Ancelin Schützenberger a relevé des « veuves de génération en génération » : comme si une génération apprenait à l’autre qu’aimer, c’est risquer de perdre.', ids: l });
+    });
+    var veufs = liste.filter(function (p) { return veuf(p) && !enChaineV[p.id] && (!moi || !!lienC(p.id)); });
+    if (veufs.length >= 2) reps.push({ type: 'schema', qk: 'veuvage', fam: ['couple'], tags: 'veuvage veuve veuf conjoint mort jeune couple',
+      label: 'Des veuvages précoces, ' + veufs.length + ' fois',
+      desc: veufs.slice(0, 5).map(function (q) { var v = veuf(q); return nom(q) + ' perd ' + nomBase(v) + ' à ' + ageDeces(v) + ' ans'; }).join(' ; ') + '.', ids: uniques([].concat.apply([], veufs.slice(0, 5).map(function (q) { return [q.id, veuf(q).id]; }))) });
+    var echosC = [];
+    liste.forEach(function (p) {
+      partenaires(p.id).forEach(function (qi) {
+        var q = S.people[qi]; if (!q || !q.prenom) return;
+        (parentsDe[p.id] || []).forEach(function (pi) { var pa = S.people[pi]; if (pa && pa.id !== q.id && memePrenom(q, pa)) echosC.push({ p: p, q: q, x: pa, fort: pa.sex === q.sex, quoi: pa.sex === 'f' ? 'sa mère' : pa.sex === 'm' ? 'son père' : 'son parent' }); });
+        liste.forEach(function (fr) { if (fr.id !== p.id && fr.id !== q.id && memesParents(fr.id, p.id) && decede(fr) && jeune(fr) && memePrenom(q, fr)) echosC.push({ p: p, q: q, x: fr, fort: true, quoi: fr.sex === 'f' ? 'sa sœur disparue' : 'son frère disparu' }); });
+      });
+    });
+    var dejaEC = {};
+    echosC = echosC.filter(function (e) { var k = [e.p.id, e.q.id].sort().join('+') + e.x.id; if (dejaEC[k]) return false; dejaEC[k] = 1; return true; });
+    if (echosC.length) reps.push({ type: 'prenom', qk: 'prenomconj', fam: ['couple'], fort: echosC.some(function (e) { return e.fort; }), tags: 'prenom conjoint partenaire choix amoureux pere mere imago couple',
+      label: echosC.length === 1 ? 'Un conjoint qui porte le prénom de ' + echosC[0].quoi + ' : ' + nomBase(echosC[0].p) : 'Des conjoints qui portent le prénom d’un parent, ' + echosC.length + ' fois',
+      desc: echosC.slice(0, 4).map(function (e) { return nom(e.p) + ' s’unit à ' + nomBase(e.q) + ', le prénom de ' + e.quoi + ' (' + nomBase(e.x) + ')'; }).join(' ; ') + '. Le choix amoureux n’est jamais seulement un hasard : on est souvent attiré·e par ce qui rappelle, en mieux ou en pire, un premier lien.',
+      ids: uniques([].concat.apply([], echosC.slice(0, 4).map(function (e) { return [e.p.id, e.q.id, e.x.id]; }))) });
+
+    // 19. Dépasser ses parents (Gaulejac) : une réussite là où le parent a connu le manque ou le déclassement
+    var depasse = [];
+    liste.forEach(function (p) {
+      if (!evtsDe(p, ['ascension', 'reussite']).length) return;
+      var pas = (parentsDe[p.id] || []).map(function (i) { return S.people[i]; }).filter(function (pa) { return pa && evtsDe(pa, ['pauvrete', 'declassement', 'faillite', 'perte-emploi']).length; });
+      if (pas.length) depasse.push({ p: p, pas: pas });
+    });
+    if (depasse.length) reps.push({ type: 'schema', qk: 'depasser', fam: ['argent'], fort: depasse.length >= 2, tags: 'transfuge classe nevrose de classe depasser ses parents reussite ascension sociale gaulejac loyaute',
+      label: depasse.length === 1 ? 'Réussir là où ' + (depasse[0].pas[0].sex === 'f' ? 'sa mère' : 'son père') + ' a manqué : ' + nomBase(depasse[0].p) : 'Réussir là où les parents ont manqué, ' + depasse.length + ' fois',
+      desc: depasse.slice(0, 4).map(function (d) { return nom(d.p) + ' connaît ' + evtsDe(d.p, ['ascension', 'reussite']).map(function (e) { return '« ' + libE(e.type) + ' »'; })[0] + ', après ' + liste2(d.pas.map(function (pa) { return '« ' + libE(evtsDe(pa, ['pauvrete', 'declassement', 'faillite', 'perte-emploi'])[0].type) + ' » chez ' + nomBase(pa); })); }).join(' ; ') + '. Vincent de Gaulejac a décrit le tiraillement de celui ou celle qui dépasse ses parents : fier·e et coupable à la fois, entre deux mondes, sans se sentir tout à fait chez soi dans aucun.',
+      ids: uniques([].concat.apply([], depasse.slice(0, 4).map(function (d) { return [d.p.id].concat(d.pas.map(function (pa) { return pa.id; })); }))) });
+
+    // 20. Le jumeau perdu (Austermann) et les jumeaux d'une génération à l'autre
+    var pairesJ = {}, perdus = [];
+    liste.forEach(function (p) {
+      var j = jumeauDe(p.id); if (!j) return;
+      var k = [p.id, j].sort().join('+'); pairesJ[k] = 1;
+      var q = S.people[j], ad = ageDeces(q);
+      if (!perte(p) && !(ageDeces(p) != null && ageDeces(p) < 1) && (perte(q) || (ad != null && ad < 18) || (decede(q) && !q.deces && a(q, 'deces-precoce')))) perdus.push({ p: p, q: q, ad: ad });
+    });
+    if (perdus.length) reps.push({ type: 'gisant', qk: 'jumeau', fam: ['jumeau'], fort: true, tags: 'jumeau perdu jumelle survivant gemellaire austermann deuil naissance',
+      label: perdus.length === 1 ? 'Un jumeau perdu : ' + nomBase(perdus[0].p) : 'Des jumeaux perdus, ' + perdus.length + ' fois',
+      desc: perdus.slice(0, 4).map(function (x) { return nom(x.p) + ' a perdu ' + (x.q.sex === 'f' ? 'sa jumelle' : 'son jumeau') + (nomBase(x.q) !== 'Sans prénom' ? ', ' + nomBase(x.q) : '') + (perte(x.q) ? ', avant la naissance' : x.ad != null ? ', à ' + (x.ad < 1 ? 'moins d’un an' : x.ad + ' an' + (x.ad > 1 ? 's' : '')) : ''); }).join(' ; ') + '. Alfred et Bettina Austermann décrivent chez le jumeau survivant un sentiment de manque sans objet, une culpabilité d’être là, l’impression de devoir vivre pour deux.',
+      ids: uniques([].concat.apply([], perdus.slice(0, 4).map(function (x) { return [x.p.id, x.q.id]; }))) });
+    var gensJ = {};
+    Object.keys(pairesJ).forEach(function (k) { var id = k.split('+')[0]; if (PL.pos[id]) gensJ[PL.pos[id].y] = (gensJ[PL.pos[id].y] || []).concat(k.split('+')); });
+    if (Object.keys(gensJ).length >= 2) reps.push({ type: 'schema', qk: 'jumeaux', fam: ['jumeau'], faible: true, tags: 'jumeaux jumelles generation',
+      label: 'Des jumeaux sur ' + Object.keys(gensJ).length + ' générations',
+      desc: Object.keys(pairesJ).slice(0, 4).map(function (k) { return liste2(k.split('+').map(function (i) { return nomBase(S.people[i]); })); }).join(' ; ') + '. Les naissances gémellaires ont une part héréditaire (du côté maternel surtout) : c’est d’abord un fait biologique, mais aussi une place singulière dans chaque génération.',
+      ids: uniques([].concat.apply([], Object.keys(gensJ).map(function (g) { return gensJ[g]; }))) });
+
     // Questions pour réfléchir, selon la piste
     var QUESTIONS = {
       anniversaire: ['Que se passe-t-il dans ta vie en ce moment ?', 'Que sais-tu de ce que cette personne vivait à cet âge ?'],
@@ -1218,7 +1444,19 @@
       decesage: ['Qu’as-tu envie de vivre que cette personne n’a pas pu vivre ?', 'Que sais-tu de ce qu’elle vivait à cet âge ?'],
       nepres: ['Qu’a-t-on raconté de cette naissance, si proche de cette date ?', 'Cette date est-elle encore marquée dans la famille ?'],
       nepresmoi: ['Que t’a-t-on raconté de ta naissance ?', 'Comment vis-tu la période de ton anniversaire ?'],
-      separation: ['Comment parlait-on des séparations dans ta famille ?', 'Qu’as-tu appris, enfant, de ce qu’on fait quand un couple va mal ?']
+      separation: ['Comment parlait-on des séparations dans ta famille ?', 'Qu’as-tu appris, enfant, de ce qu’on fait quand un couple va mal ?'],
+      coupure: ['Qui a coupé les ponts le premier, et qu’est-ce qui n’a jamais pu se dire ?', 'Que t’apporte la distance, et que te coûte-t-elle ?'],
+      triangle: ['Enfant, à qui servais-tu de confident·e, d’allié·e ou de messager·e ?', 'Peux-tu aimer l’un de tes parents sans trahir l’autre ?'],
+      parentif: ['Qu’est-ce que cet enfant a donné, qu’il n’a pas reçu ?', 'Qui, aujourd’hui, prend soin de celui ou celle qui a tant porté ?'],
+      rang: ['Qu’attendait-on de l’aîné·e, du cadet ou de la cadette dans ta famille ?', 'Qu’as-tu en commun avec l’ancêtre qui occupait ta place ?'],
+      rangcache: ['A-t-on parlé de l’enfant d’avant, ou a-t-il été passé sous silence ?', 'Te sens-tu parfois en dette d’une place qui n’était pas prévue pour toi ?'],
+      confie: ['Qu’a-t-on raconté de cette séparation, et qu’a-t-on tu ?', 'Où, dans ta vie, la peur d’être laissé·e de côté se rejoue-t-elle ?'],
+      remariage: ['Que cherchait chacun·e en refaisant sa vie ?', 'Qu’as-tu appris sur la durée d’un couple en regardant les tiens ?'],
+      veuvage: ['Comment ces veuves ou ces veufs ont-ils continué à vivre ?', 'Que crains-tu de perdre quand tu aimes ?'],
+      prenomconj: ['Qu’est-ce qui t’a attiré·e chez cette personne, au tout début ?', 'Qu’est-ce que ce prénom réveillait déjà dans la famille ?'],
+      depasser: ['As-tu le droit de réussir plus que tes parents ?', 'Dans quel milieu te sens-tu vraiment chez toi ?'],
+      jumeau: ['Que sait-on de cette grossesse, et de l’enfant qui n’est pas resté ?', 'T’arrive-t-il d’avoir l’impression qu’il te manque quelqu’un ?'],
+      jumeaux: ['Comment ces jumeaux ont-ils été élevés : ensemble ou comparés ?', 'Quelle place ont-ils prise dans leur fratrie ?']
     };
     // Vu depuis un enfant ou un proche : des questions pour la personne qui l'observe
     var il = moi && moi.sex === 'f' ? 'elle' : 'lui', ae = moi && moi.sex === 'f' ? 'e' : '';
@@ -1243,6 +1481,14 @@
       taille: ['Quelle place ' + prenomC + ' a-t-' + (moi.sex === 'f' ? 'elle' : 'il') + ' dans sa fratrie ?', 'Attendait-on une fille ou un garçon avant sa naissance ?'],
       ombre: ['Qui pourrait raconter à ' + prenomC + ' ce qui manque à l’arbre ?', 'Sur quels sujets lui répond-on de façon évasive ?'],
       repere: ['Qu’observes-tu chez ' + prenomC + ' qui ressemble à ce que tu as repéré ?', 'Que veux-tu lui transmettre, et que veux-tu laisser ?'],
+      coupure: ['Que sait ' + prenomC + ' de ce lien coupé ?', 'Comment lui en parle-t-on, ou pas ?'],
+      triangle: ['' + prenomC + ' sert-' + il + ' de confident·e ou de messager·e entre deux adultes ?', 'Que pourrait-on lui retirer de ce rôle ?'],
+      parentif: ['Qu’est-ce que ' + prenomC + ' porte pour un adulte ?', 'Qui prend soin de ' + il + ' ?'],
+      rang: ['Qu’attend-on de ' + prenomC + ' à sa place dans la fratrie ?', 'Que sait-' + il + ' de l’ancêtre qui occupait la même place ?'],
+      rangcache: ['Lui a-t-on parlé de l’enfant d’avant ?', 'Comment cette place d’aîné·e lui a-t-elle été donnée ?'],
+      confie: ['Que sait ' + prenomC + ' de cette histoire de séparation ?', 'Qu’observes-tu chez ' + il + ' quand quelqu’un s’éloigne ?'],
+      jumeau: ['Que lui a-t-on dit de son jumeau ou de sa jumelle ?', 'Qu’observes-tu chez ' + il + ' qui ressemble à un manque ?'],
+      prenomconj: ['Qu’est-ce que ce prénom évoque pour ' + prenomC + ' ?', 'Que sait-' + il + ' du parent qui le portait ?'],
       _: ['Qu’est-ce que cette histoire peut dire de la place de ' + prenomC + ' ?', 'Qu’observes-tu chez ' + il + ' qui y fait écho ?']
     } : {};
     // L'article du blog qui explique chaque piste
@@ -1262,6 +1508,13 @@
       ageevt: A('devenir-parent-au-meme-age.html', 'Les âges qui se répondent'), manque: A('deuil-non-fait-mort-jeune.html', 'Le deuil non fait')
     };
     QUESTIONS.taille = QUESTIONS.enfants; ARTICLES.taille = ARTICLES.enfants; ARTICLES.separation = ARTICLES.schema;
+    ARTICLES.coupure = A('conflits-avec-ses-parents.html', 'Les conflits avec ses parents'); ARTICLES.triangle = ARTICLES.coupure;
+    ARTICLES.parentif = A('loyaute-familiale-invisible.html', 'Les loyautés invisibles'); ARTICLES.depasser = ARTICLES.parentif;
+    ARTICLES.rang = A('place-dans-la-fratrie.html', 'La place dans la fratrie'); ARTICLES.rangcache = ARTICLES.rang;
+    ARTICLES.confie = A('blessure-d-abandon.html', 'La blessure d’abandon');
+    ARTICLES.remariage = A('schemas-repetitifs-en-amour.html', 'Les schémas répétitifs en amour'); ARTICLES.veuvage = ARTICLES.remariage;
+    ARTICLES.prenomconj = A('imago-choix-amoureux.html', 'L’imago et le choix amoureux');
+    ARTICLES.jumeau = A('jumeau-perdu.html', 'Le jumeau perdu'); ARTICLES.jumeaux = ARTICLES.jumeau;
     reps.forEach(function (r) {
       var k = r.qk || (/secret|non-dit/i.test(r.label) ? 'secret' : /au même âge/.test(r.label) ? 'ageevt' : '') || (/cousins/.test(r.label) ? 'cousins' : /fratries|enfants, dans/.test(r.label) ? 'enfants' : r.type);
       var k2 = r.qk2 && (QUESTIONS[r.qk2] || QUESTIONS_AUTRE[r.qk2]) ? r.qk2 : k;
@@ -1292,7 +1545,8 @@
 
     // Score de proximité : les pistes les plus parlantes en premier (même fratrie, lignée directe, écarts courts)
     var BASE_S = { anniversaire: 6, gisant: 6, repere: 5, depart: 4, schema: 3, date: 3, epreuve: 3, metier: 2, prenom: 2 };
-    var QK_S = { guerre: 0.5, taille: 1, ombre: 1, ageparent: 2, remplacement: 6, conception: 5, manque: 5, premier: 4, reversage: 4, separation: 3 };
+    var QK_S = { guerre: 0.5, taille: 1, ombre: 1, ageparent: 2, remplacement: 6, conception: 5, manque: 5, premier: 4, reversage: 4, separation: 3,
+      coupure: 4, triangle: 5, parentif: 5, rang: 3, rangcache: 5, confie: 5, remariage: 2.5, veuvage: 4, prenomconj: 3, depasser: 3.5, jumeau: 6, jumeaux: 1 };
     // distance en générations depuis la personne au centre (parents, enfants, frères et sœurs, couples)
     var distC = {};
     if (moi) { distC[moi.id] = 0; var fileD = [moi.id];
@@ -3109,6 +3363,17 @@
   TEXTES_RAPPORT.repere = { titre: 'Tes répétitions visibles', intro: 'Ce sont les mots que tu as posés toi-même sur les personnes de ton arbre. Quand un même mot revient d’une génération à l’autre, il dessine un fil que tu as déjà su voir. Quand il ne relie que des personnes unies par un couple, c’est un écho par alliance, pas une transmission.', pistes: ['D’où vient ce que tu as repéré : de l’exemple, d’une histoire racontée, d’une fidélité ?', 'Qu’est-ce que ce trait a permis, autrefois, à celles et ceux qui le portaient ?', 'Que veux-tu garder de ce fil, et que veux-tu laisser ?'], geste: 'Écris, pour chaque mot repéré, une façon de le vivre qui t’appartient vraiment.', loyaute: 'Si c’est toi-même qui as repéré ce mot qui revient, une part de toi sait déjà qu’il circule dans la famille comme une dette plus que comme un choix. Te demander à qui tu restes redevable en le portant, c’est te donner le droit de décider, aujourd’hui, ce que tu gardes de cette comptabilité et ce que tu effaces.' };
   // Des loyautés invisibles plus précises, pour les pistes les plus chargées émotionnellement (reprend les clés de QUESTIONS plus bas)
   var QK_LOYAUTE = {
+    coupure: 'Murray Bowen a appelé « coupure émotionnelle » cette façon de gérer un attachement trop lourd : partir, se taire, mettre des kilomètres ou des années entre soi et les siens. Sur le moment, la coupure soulage. Mais elle ne dénoue rien : le lien non réglé reste actif, et il a tendance à se rejouer — avec un conjoint, avec ses propres enfants, ou dans une nouvelle coupure à la génération suivante. La loyauté invisible, ici, peut prendre une forme paradoxale : rompre comme ton parent a rompu, être fidèle à sa façon de partir. Se libérer ne veut pas dire renouer à tout prix : on peut garder une distance choisie, tout en mettant des mots sur ce qui a été coupé, pour que ce ne soit plus un héritage subi.',
+    triangle: 'Bowen voyait dans le triangle la plus petite unité stable d’une famille : quand la tension monte entre deux personnes, elle se décharge sur une troisième. Pour un enfant, c’est souvent devenir l’allié·e d’un parent contre l’autre, son confident, ou le messager entre deux adultes qui ne se parlent plus. Iván Boszormenyi-Nagy parle alors de « loyauté clivée » : aimer l’un revient à trahir l’autre. On en sort rarement en choisissant un camp, plus souvent en refusant le rôle — en rendant aux adultes ce qui appartient à leur couple, et en se donnant le droit d’aimer ses deux parents séparément.',
+    parentif: 'Iván Boszormenyi-Nagy a nommé « parentification » le renversement des rôles : l’enfant devient le soutien de son parent — il console, il conseille, il protège, il se tient tranquille pour ne pas ajouter de poids. Dans ce qu’il appelle le « grand livre des comptes » de la famille, cet enfant a beaucoup donné sans recevoir. Ce déséquilibre ne s’efface pas tout seul : il se reporte souvent sur la génération suivante, quand l’enfant devenu parent attend à son tour d’être porté. Reconnaître ce qui a été donné — même trop tôt — est la première manière de solder ce compte, sans culpabilité ni reproche.',
+    rang: 'Le psychologue Walter Toman a passé des années à observer comment la place dans la fratrie (aîné·e, cadet·te, enfant du milieu, frères ou sœurs du même sexe ou non) façonne la façon de se lier, d’aimer et de travailler. Murray Bowen en a fait l’un des huit concepts de sa théorie. Occuper la même place qu’un ancêtre du même sexe, c’est souvent hériter aussi des attentes qui pesaient sur cette place : être celle qui tient, celui qu’on protège, celle qu’on n’attendait plus. Ta place n’est pas ton destin, mais savoir qui l’occupait avant toi aide à distinguer ce que tu choisis de ce qu’on attendait de toi.',
+    rangcache: 'Quand l’aîné·e vivant·e n’est pas le premier enfant conçu, deux places coexistent : celle qu’on occupe dans la famille, et celle qu’on occupe dans l’histoire des parents. L’enfant qui arrive après une perte peut se sentir en charge de réparer, de consoler, ou de ne jamais décevoir. Il n’a pourtant pas à remplacer l’enfant d’avant : redonner à celui-ci son nom et sa place dans l’arbre, c’est permettre à l’enfant suivant d’être enfin à la sienne.',
+    confie: 'La thérapeute américaine Nancy Verrier, elle-même mère adoptive, a nommé « blessure primitive » la trace que laisse la séparation d’avec la mère de naissance, même chez un enfant aimé et bien accueilli. Le placement en famille d’accueil ou chez des proches laisse une marque voisine. Anne Ancelin Schützenberger a vu ces séparations se répéter : un parent qui a été confié enfant peut, sans le vouloir, revivre la séparation avec ses propres enfants. La loyauté, ici, est souvent celle-ci : « je ne mérite pas qu’on reste ». La reconnaître, c’est commencer à la défaire.',
+    remariage: 'Refaire sa vie est une ressource, pas un échec. Quand plusieurs unions se suivent à chaque génération, la question n’est pas « pourquoi ça n’a pas duré », mais « qu’est-ce que chacun·e cherchait d’une union à l’autre ». La thérapeute Monica McGoldrick a montré que les transitions de couple (séparation, remariage, famille recomposée) sont des moments où les schémas anciens ressurgissent : on reproduit ce qu’on a vu, ou l’on fait exactement l’inverse. Les deux sont une forme de fidélité.',
+    veuvage: 'Anne Ancelin Schützenberger a relevé dans plusieurs familles des « veuves de génération en génération ». Le veuvage précoce transmet souvent une conviction muette : aimer, c’est risquer de perdre ; on ne peut compter que sur soi. Les enfants de ces couples grandissent parfois auprès d’un parent endeuillé, et apprennent tôt à ne pas trop s’attacher. Reconnaître cette peur comme un héritage — et non comme une vérité sur l’amour — permet de choisir ses liens autrement.',
+    prenomconj: 'Freud parlait déjà de choix amoureux « par étayage » sur les premiers objets d’amour, et la thérapie Imago (Harville Hendrix) décrit comment on est attiré·e par quelqu’un qui réveille, en mieux ou en pire, ce qu’on a vécu avec ses parents. Un conjoint qui porte le prénom d’un parent, ou d’un frère ou d’une sœur disparu·e, n’est pas forcément un hasard : c’est parfois une façon inconsciente de retrouver, de réparer ou de garder près de soi quelqu’un. Ce n’est ni bien ni mal — mais le voir permet d’aimer la personne pour elle-même, et non pour ce qu’elle représente.',
+    depasser: 'Le sociologue Vincent de Gaulejac a nommé « névrose de classe » le tiraillement de celui ou celle qui dépasse ses parents : fierté et culpabilité mêlées, sentiment d’imposture, impression de trahir son milieu d’origine sans être tout à fait accepté·e dans le nouveau. La loyauté invisible se reconnaît alors à de petits sabotages : ne pas oser gagner plus, rater au moment de réussir, se sentir illégitime. Réussir n’est pas trahir. On peut honorer d’où l’on vient — et ce que ses parents ont traversé — tout en prenant pleinement sa place là où l’on est arrivé.',
+    jumeau: 'Alfred et Bettina Austermann ont recueilli de nombreux témoignages de jumeaux survivants : manque sans objet, sensation d’être incomplet, culpabilité d’être là, impression de devoir vivre pour deux ou de chercher quelqu’un sans savoir qui. Quand la perte a eu lieu à la naissance ou avant, elle a souvent été peu racontée, et l’enfant survivant porte ce deuil sans en avoir les mots. Donner un nom et une place à ce jumeau dans l’arbre est souvent un premier apaisement.',
     decesage: 'C’est la forme la plus documentée du syndrome d’anniversaire : atteindre exactement l’âge auquel une personne de ta famille est décédée. Josephine Hilgard l’a observée dès 1953, surtout pour une perte maternelle vécue dans l’enfance — comme si une part de toi gardait un compteur, réglé sur cet âge-là, en souvenir de ce deuil. Ce n’est pas une échéance à redouter : les personnes qui ont pu, enfant ou depuis, mettre des mots sur cette perte traversent cet âge beaucoup plus sereinement que celles qui l’ont gardée pour elles. Nommer cette coïncidence suffit souvent à désamorcer la tension qu’elle porte.',
     conception: 'Être conçu·e pendant un deuil peut installer une mission silencieuse : apporter de la vie, de la joie, ou combler un vide, avant même de savoir qui on est. Cette loyauté-là fait parfois porter l’équilibre de toute une famille sur une seule personne. Tu peux apporter de la douceur sans avoir à réparer, seul·e, un chagrin qui n’était pas le tien.',
     remplacement: 'Un enfant de remplacement peut hériter, sans l’avoir choisi, du prénom, de la place ou des attentes de l’enfant disparu. La loyauté invisible, ici, ressemble à : « je dois être lui ou elle, pour que mes parents survivent à cette perte. » Tu as le droit d’exister pour toi-même, pleinement distinct·e de celui ou celle qui t’a précédé·e dans leur cœur.',
@@ -3127,6 +3392,10 @@
   /* Le noyau invisible : pas une fidélité qu'on choisit sans le savoir (la loyauté), mais ce que l'on porte d'un secret qu'on ignore totalement
      (Nicolas Abraham et Maria Torok, « crypte » et « fantôme », L'Écorce et le noyau, 1978) — réservé aux pistes qui touchent à du non-dit, pas à toutes */
   var QK_NOYAU = {
+    coupure: 'Une coupure dont personne ne connaît vraiment la raison est souvent la porte d’un secret : un événement si douloureux qu’on a préféré partir plutôt que d’en parler. Ce qui n’a pas été dit ne disparaît pas pour autant ; pour Abraham et Torok, il passe aux générations suivantes comme un « fantôme ». Chercher pourquoi on s’est séparé, même sans renouer, c’est parfois ce qui apaise le plus.',
+    confie: 'Une adoption ou un placement tus, ou racontés à demi-mot, sont parmi les secrets les plus lourds à porter pour les descendants : on sent qu’il y a quelque chose, sans savoir quoi. Retrouver, même par bribes, l’histoire de la première séparation rend souvent à l’enfant — et à ses enfants — une part de leur histoire.',
+    jumeau: 'Un jumeau perdu avant ou à la naissance est souvent un deuil invisible : pas de nom, pas de tombe, parfois pas même un récit. C’est exactement le type d’événement qu’Abraham et Torok décrivent comme une crypte : enfermé dans le silence des parents, il peut agir chez l’enfant survivant sans que personne ne fasse le lien.',
+    rangcache: 'Un enfant perdu dont on ne parle jamais laisse une place vide au milieu de la fratrie. L’enfant suivant la sent sans pouvoir la nommer. Dire qu’il y a eu un enfant avant, même sans détails, suffit souvent à défaire ce poids.',
     ombre: 'Un silence qui revient, une question qui n’obtient jamais de vraie réponse : c’est la signature d’une crypte, au sens d’Abraham et Torok — un secret si enfoui qu’il ne se raconte même plus, mais qui continue d’agir sous forme de malaise ou de symptôme sans cause connue chez un descendant qui n’a jamais entendu l’histoire. On ne peut pas être loyal à un secret qu’on ignore : on en est hanté, comme par un fantôme. Poser la question dans la famille, même maladroitement, commence à désamorcer ce noyau.',
     premier: 'Quand un premier enfant meurt et que la famille cesse d’en parler, l’événement peut devenir une crypte : enfermé, non raconté, non pleuré en commun. Les enfants suivants grandissent alors avec un noyau invisible — une charge, une tristesse ou un vide qu’ils ressentent sans en connaître l’origine. Nommer cette histoire, même des décennies plus tard, libère ce noyau de son silence.',
     remplacement: 'Un enfant de remplacement peut porter, sans le savoir, le fantôme de celui ou celle qu’il remplace : pas une fidélité choisie, mais la présence d’un deuil resté enfermé dans le psychisme des parents et jamais transmis en mots — ce que Nicolas Abraham et Maria Torok ont appelé la crypte et le fantôme. Dire le nom de l’enfant disparu, raconter son histoire, c’est ce qui permet au fantôme de cesser de hanter en silence.'
