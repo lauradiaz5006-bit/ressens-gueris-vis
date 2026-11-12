@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Transfuge de classe : réussir plus que ses parents sans culpabilité</title>
+  <meta name="description" content="Premier de la famille à faire des études, à gagner plus que ses parents : la névrose de classe selon Vincent de Gaulejac, les transclasses de Chantal Jaquet, l'habitus clivé de Bourdieu, et comment se libérer.">
+  <link rel="canonical" href="https://genesolia.fr/transfuge-de-classe-nevrose-de-classe.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Transfuge de classe : réussir plus que ses parents, sans se sentir coupable">
+  <meta property="og:description" content="Premier de la famille à faire des études, à gagner plus que ses parents : la névrose de classe selon Vincent de Gaulejac, les transclasses de Chantal Jaquet, l'habitus clivé de Bourdieu, et comment se libérer.">
+  <meta property="og:image" content="https://genesolia.fr/assets/partage/blog-argent-et-lignee.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Un ancien livre de comptes ouvert, des pièces anciennes, une clé de maison et une photo de famille jaunie sur une table en bois clair">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(52rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+    .article .encart{margin:2rem 0}
+
+    .facettes{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0;list-style:none}
+    .facettes li{background:var(--blanc);border:1px solid var(--rose);border-radius:16px;padding:1.1rem 1.2rem}
+    .facettes strong{display:block;font-family:var(--display);font-weight:400;font-size:1.2rem;margin-bottom:.2rem}
+    .facettes span{color:var(--prune-doux);font-size:.97rem}
+
+    .cocher{margin:1.8rem 0;padding:1.6rem 1.6rem 1.4rem;border-radius:var(--rayon);background:linear-gradient(180deg,#FCEFF3,var(--blanc) 80%);border:1px solid var(--rose-fonce)}
+    .cocher .titre{font-family:var(--display);font-size:1.3rem;margin-bottom:.8rem}
+    .cocher ul{list-style:none;display:grid;gap:.15rem}
+    .cocher label{display:flex;gap:.8rem;align-items:flex-start;padding:.45rem 0;cursor:pointer}
+    .cocher input{flex-shrink:0;width:1.15rem;height:1.15rem;margin-top:.25rem;accent-color:var(--prune)}
+    .cocher .note{margin-top:.9rem}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+
+    .deux{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0}
+    .deux div{padding:1.3rem 1.3rem 1.2rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc)}
+    .deux .c2{background:linear-gradient(180deg,#FCEFF3,var(--blanc) 75%)}
+    .deux .c1{background:linear-gradient(180deg,#FBF1EE,var(--blanc) 75%)}
+    .deux .nom{font-family:var(--display);color:var(--champagne)}
+    .deux h3{margin:.1rem 0 .5rem}
+    .deux p{color:var(--prune-doux);font-size:.97rem}
+
+    .exercice{list-style:none;counter-reset:ex;margin:1.6rem 0;display:grid;gap:0}
+    .exercice li{counter-increment:ex;display:grid;grid-template-columns:2.6rem 1fr;gap:.2rem 1rem;padding:1.2rem 0;border-top:1px solid var(--rose)}
+    .exercice li::before{content:counter(ex);grid-row:span 2;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.15rem;background:var(--champagne-clair)}
+    .exercice li:last-child::before{background:var(--prune);color:var(--blanc)}
+    .exercice h3{margin:0;font-size:1.2rem}
+    .exercice p{color:var(--prune-doux)}
+
+    .gestes{margin:1.4rem 0;padding-left:1.2rem;display:grid;gap:.6rem}
+    .gestes li::marker{color:var(--champagne)}
+
+    .securite{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:start}
+    .securite svg{width:36px;height:36px;margin-top:.15rem}
+
+    .article .actions{margin-top:1.6rem}
+
+    @media (max-width:640px){
+      .facettes,.deux{grid-template-columns:1fr}
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .securite{grid-template-columns:1fr;gap:.8rem}
+      .article .actions .btn{width:100%}
+    }
+    .voisins{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+    .voisins a{border:1px solid var(--rose-fonce);border-radius:999px;padding:.3rem .9rem;text-decoration:none;font-size:.95rem;background:var(--blanc)}
+    .voisins a[aria-current]{background:var(--prune);color:var(--blanc);border-color:var(--prune)}
+    .faq dt{font-weight:600;margin-top:1.4rem}
+    .faq dd{margin:.4rem 0 0;color:var(--prune-doux)}
+    .note-fin{font-size:.93rem;color:var(--prune-doux);margin-top:2.4rem}
+    .article .actions{display:flex;flex-wrap:wrap;gap:.6rem}
+  </style>
+  <script type="application/ld+json">[{"@context":"https://schema.org","@type":"Article","headline":"Transfuge de classe : réussir plus que ses parents, sans se sentir coupable","description":"Premier de la famille à faire des études, à gagner plus que ses parents : la névrose de classe selon Vincent de Gaulejac, les transclasses de Chantal Jaquet, l'habitus clivé de Bourdieu, et comment se libérer.","datePublished":"2026-11-12","dateModified":"2026-11-12","inLanguage":"fr","author":{"@type":"Organization","name":"Genesolia","url":"https://genesolia.fr/"},"publisher":{"@type":"Organization","name":"Genesolia","url":"https://genesolia.fr/"},"url":"https://genesolia.fr/transfuge-de-classe-nevrose-de-classe.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://genesolia.fr/transfuge-de-classe-nevrose-de-classe.html"}},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Qu'est-ce que la névrose de classe ?","acceptedAnswer":{"@type":"Answer","text":"Une notion du sociologue Vincent de Gaulejac : le conflit intérieur de celui ou celle qui change de milieu social, entre fierté de réussir, honte de ses origines et sentiment de trahison."}},{"@type":"Question","name":"Quelle différence entre transfuge et transclasse ?","acceptedAnswer":{"@type":"Answer","text":"« Transfuge » évoque la trahison. La philosophe Chantal Jaquet a proposé « transclasse » pour désigner, sans jugement, les personnes qui changent de classe sociale."}},{"@type":"Question","name":"Pourquoi se sent-on coupable de réussir plus que ses parents ?","acceptedAnswer":{"@type":"Answer","text":"Souvent à cause d'un double message familial (réussis, mais ne nous quitte pas) et d'une loyauté envers des parents qui ont connu le manque. Reconnaître cette loyauté aide à s'autoriser la réussite."}},{"@type":"Question","name":"Le syndrome de l'imposteur est-il lié à l'origine sociale ?","acceptedAnswer":{"@type":"Answer","text":"Les recherches montrent qu'il est plus fréquent chez les personnes sous-représentées dans leur milieu, comme les premiers diplômés de leur famille."}}]}]</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Transfuge de classe : réussir plus que ses parents, sans se sentir coupable", "item": "https://genesolia.fr/transfuge-de-classe-nevrose-de-classe.html"}]}</script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d'Ariane"><a href="psychogenealogie.html">Psychogénéalogie</a><span aria-hidden="true">/</span>Transfuge de classe</nav>
+        <h1>Transfuge de classe : réussir plus que ses parents, sans se sentir coupable</h1>
+        <p class="intro">Tu es le premier ou la première de ta famille à faire de longues études, à changer de milieu, à gagner plus que tes parents. Tu en es fier·e, et pourtant quelque chose coince : un sentiment d'imposture, une gêne aux repas de famille, une peur de trop réussir. Ce tiraillement a été étudié, et il a un nom.</p>
+        <p class="publie">Publié le 12 novembre 2026 · lecture 10 min</p>
+      </div>
+    </section>
+    <figure class="bandeau-photo"><img src="assets/images/blog-argent-et-lignee-1600.webp" srcset="assets/images/blog-argent-et-lignee-800.webp 800w, assets/images/blog-argent-et-lignee-1600.webp 1600w" sizes="(max-width: 1140px) 100vw, 1100px" width="1600" height="840" alt="Un ancien livre de comptes ouvert, des pièces anciennes, une clé de maison et une photo de famille jaunie sur une table en bois clair" loading="lazy" decoding="async"></figure>
+
+    <article class="article">
+      <div class="colonne">
+        <h2>La névrose de classe</h2>
+        <p>Le sociologue clinicien <strong>Vincent de Gaulejac</strong> a publié en 1987 <em>La névrose de classe</em>. Il y décrit le conflit intérieur de celles et ceux qui changent de milieu social : fierté d'avoir réussi, honte de ses origines, puis honte d'avoir eu honte. On se sent entre deux mondes, sans être tout à fait chez soi dans aucun.</p>
+        <p>Gaulejac montre que ce conflit n'est pas seulement personnel : il prend sa source dans l'histoire familiale. Les parents ont souvent souhaité que leur enfant « réussisse », tout en craignant de le perdre. L'enfant reçoit un double message : « Va plus loin que nous » et « Ne nous quitte pas ».</p>
+
+        <h2>Les transclasses et l'habitus clivé</h2>
+        <ul class="facettes">
+          <li><strong>Pierre Bourdieu</strong><span>Fils de facteur devenu professeur au Collège de France, il parle d'« habitus clivé » : des manières d'être, de parler, de sentir, héritées d'un milieu, qui ne collent plus au nouveau.</span></li>
+          <li><strong>Chantal Jaquet</strong><span>La philosophe propose le mot « transclasse » (<em>Les transclasses ou la non-reproduction</em>, 2014) pour éviter le jugement contenu dans « transfuge », qui évoque la trahison.</span></li>
+          <li><strong>Annie Ernaux</strong><span>Dans <em>La place</em> (1983), elle raconte la distance qui s'installe entre elle, devenue professeure, et son père, ancien ouvrier devenu cafetier.</span></li>
+          <li><strong>Didier Eribon</strong><span>Dans <em>Retour à Reims</em> (2009), il revient dans sa famille ouvrière et interroge la honte sociale.</span></li>
+        </ul>
+
+        <h2>Ce que la psychogénéalogie y ajoute</h2>
+        <p>La psychogénéalogie regarde la trajectoire sur plusieurs générations. Souvent, la réussite d'un enfant arrive après un parent ou un grand-parent qui a connu le manque d'argent, une faillite, un déclassement, une humiliation sociale. L'enfant porte alors une mission (réparer, venger, honorer) et une loyauté (ne pas dépasser, ne pas trahir).</p>
+        <ul class="pistes">
+          <li><strong>Le petit sabotage</strong><span>Rater un examen important, refuser une promotion, dépenser vite ce qu'on gagne : une façon inconsciente de ne pas trop s'éloigner.</span></li>
+          <li><strong>Le sentiment d'imposture</strong><span>Avoir l'impression qu'on va être « démasqué », qu'on n'a pas sa place.</span></li>
+          <li><strong>La réussite qui ne rend pas heureux</strong><span>Tout est là, et pourtant on n'en profite pas, comme si on n'y avait pas droit.</span></li>
+          <li><strong>Monter, puis redescendre</strong><span>Dans certaines familles, la réussite est suivie d'une chute, à chaque génération.</span></li>
+        </ul>
+        <p class="rappel"><strong>Réussir n'est pas trahir.</strong> On peut honorer d'où l'on vient, et ce que ses parents ont traversé, tout en prenant pleinement sa place là où l'on est arrivé.</p>
+
+        <h2>Ce que dit la science</h2>
+        <p>Les études sur la mobilité sociale montrent qu'en France, l'origine sociale pèse encore lourd : les enfants de cadres ont beaucoup plus de chances de devenir cadres que les enfants d'ouvriers. Les transclasses sont donc des exceptions, et cette rareté explique en partie leur solitude. Les recherches en psychologie sur le « syndrome de l'imposteur », décrit en 1978 par <strong>Pauline Clance et Suzanne Imes</strong>, montrent qu'il est plus fréquent chez les personnes issues de groupes sous-représentés dans leur milieu : premiers diplômés de la famille, femmes dans des métiers masculins, minorités.</p>
+
+        <h2>Comment ton arbre peut t'aider</h2>
+        <p>Dans l'<a href="genosociogramme.html">arbre familial</a>, note dans les fiches les événements marquants : manque d'argent, faillite, perte d'emploi, déclassement, et aussi ascension sociale ou réussite. L'arbre repère quand quelqu'un réussit là où l'un de ses parents a connu le manque ou le déclassement, et quand une réussite est suivie d'une chute. Il te propose des questions sur ton droit à réussir.</p>
+
+        <h2>Un exercice pour prendre ta place</h2>
+        <ol class="exercice">
+          <li><h3>Trace la trajectoire</h3><p>Métiers, revenus, diplômes de tes grands-parents, de tes parents, de toi.</p></li>
+          <li><h3>Repère les blessures</h3><p>Qui a connu le manque, la honte, la chute ? Que s'est-il dit de l'argent et de la réussite ?</p></li>
+          <li><h3>Entends le double message</h3><p>« Va plus loin que nous » et « Ne nous quitte pas » : lequel entends-tu le plus fort ?</p></li>
+          <li><h3>Repère tes sabotages</h3><p>Où te freines-tu, juste avant de réussir ?</p></li>
+          <li><h3>Remercie, et avance</h3><p>Écris à un parent ou un grand-parent ce que tu lui dois, et ce que tu choisis de faire de ta vie.</p></li>
+        </ol>
+
+        <h2>Questions fréquentes</h2>
+        <dl class="faq">
+          <dt>Qu'est-ce que la névrose de classe ?</dt><dd>Une notion du sociologue Vincent de Gaulejac : le conflit intérieur de celui ou celle qui change de milieu social, entre fierté de réussir, honte de ses origines et sentiment de trahison.</dd>
+          <dt>Quelle différence entre transfuge et transclasse ?</dt><dd>« Transfuge » évoque la trahison. La philosophe Chantal Jaquet a proposé « transclasse » pour désigner, sans jugement, les personnes qui changent de classe sociale.</dd>
+          <dt>Pourquoi se sent-on coupable de réussir plus que ses parents ?</dt><dd>Souvent à cause d'un double message familial (réussis, mais ne nous quitte pas) et d'une loyauté envers des parents qui ont connu le manque. Reconnaître cette loyauté aide à s'autoriser la réussite.</dd>
+          <dt>Le syndrome de l'imposteur est-il lié à l'origine sociale ?</dt><dd>Les recherches montrent qu'il est plus fréquent chez les personnes sous-représentées dans leur milieu, comme les premiers diplômés de leur famille.</dd>
+        </dl>
+        <div class="actions">
+          <a class="btn btn-plein" href="genosociogramme.html">Voir les trajectoires dans mon arbre</a>
+          <a class="btn btn-trait" href="argent-et-lignee.html">Argent et lignée</a>
+        </div>
+
+        <section class="sources">
+          <h2>Sources et pour aller plus loin</h2>
+          <ul class="gestes">
+            <li>Vincent de Gaulejac, <em>La névrose de classe</em>, Hommes et groupes (1987) ; <em>L'histoire en héritage</em>, Desclée de Brouwer (1999).</li>
+            <li>Chantal Jaquet, <em>Les transclasses ou la non-reproduction</em>, PUF (2014).</li>
+            <li>Pierre Bourdieu, <em>Esquisse pour une auto-analyse</em>, Raisons d'agir (2004).</li>
+            <li>Annie Ernaux, <em>La place</em>, Gallimard (1983).</li>
+            <li>Didier Eribon, <em>Retour à Reims</em>, Fayard (2009).</li>
+            <li>Pauline R. Clance et Suzanne A. Imes, « The impostor phenomenon in high achieving women », <em>Psychotherapy: Theory, Research &amp; Practice</em> (1978).</li>
+          </ul>
+        </section>
+
+        <p class="note-fin">Lecture symbolique, pour réfléchir. La psychogénéalogie n'est pas une science : ses interprétations sont des pistes, pas des causes. Si ton histoire familiale te pèse au point de troubler ton quotidien, parles-en à une personne de confiance ou à un·e professionnel·le de l'accompagnement.</p>
+        <nav class="voisins" aria-label="Dans la même série"><a href="constellation-familiale.html">Constellation familiale</a><a href="memoire-transgenerationnelle.html">Mémoire transgénérationnelle</a><a href="loyaute-familiale-invisible.html">Loyautés invisibles</a><a href="syndrome-anniversaire.html">Syndrome d'anniversaire</a><a href="syndrome-du-gisant.html">Syndrome du gisant</a><a href="enfant-de-remplacement.html">Enfant de remplacement</a><a href="place-dans-la-fratrie.html">Place dans la fratrie</a><a href="prenom-transmis-psychogenealogie.html">Prénoms transmis</a><a href="implexe-mariage-entre-cousins.html">Implexe et cousins</a><a href="metiers-transmis-genealogie.html">Métiers de famille</a><a href="deuil-non-fait-mort-jeune.html">Deuils non faits</a><a href="projet-sens-conception-deuil.html">Projet-sens</a><a href="devenir-parent-au-meme-age.html">Les âges qui se répondent</a><a href="guerre-et-memoire-familiale.html">La guerre dans l'arbre</a><a href="secret-de-famille.html">Secrets de famille</a><a href="argent-et-lignee.html">Argent et lignée</a><a href="filles-garcons-fratrie.html">Filles et garçons</a><a href="peur-de-manquer-d-argent.html">Peur de manquer d'argent</a><a href="conflit-familial-noel.html">Conflits de Noël</a></nav>
+      </div>
+    </article>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="psychogenealogie.html"><h3>La psychogénéalogie, sans promesse</h3><p>Ce qu'elle peut t'apporter, et ses limites, dites honnêtement.</p></a>
+          <a class="outil" href="heriter.html"><h3>Comprendre le transgénérationnel</h3><p>Mémoire familiale, loyautés, âges-clés : les bases.</p></a>
+          <a class="outil" href="genosociogramme.html"><h3>Mon arbre familial</h3><p>Dessine ton génosociogramme : les répétitions sont repérées automatiquement.</p></a>
+          <a class="outil" href="methode.html"><h3>La méthode des deux cycles</h3><p>La racine et le cœur : deux besoins pour comprendre ce qui se répète.</p></a>
+          <a class="outil" href="questions-a-poser-a-sa-famille.html"><h3>Les questions à poser à sa famille</h3><p>Pour retrouver les histoires, les dates et les silences, avec tact.</p></a>
+          <a class="outil" href="blessures-de-l-ame.html"><h3>Les 5 blessures de l'âme</h3><p>Rejet, abandon, humiliation, trahison, injustice : un test pour reconnaître la tienne.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>

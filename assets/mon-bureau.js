@@ -694,23 +694,27 @@
 
 
   /* ---------- Idées ---------- */
-  var BLOCS = [['l', 'Lives & vidéos'], ['a', 'Articles de blog à écrire'], ['v', 'Vendre plus']];
+  var BLOCS = [['l', 'Lives & vidéos'], ['a', 'Articles de blog à écrire'], ['r', 'Articles écrits, à vérifier avant publication'], ['v', 'Vendre plus']];
   var IDEES = {
     gen: { titre: 'Genesolia', mq: 'gen',
       l: ['Tirer le premier fil de ton arbre, en direct', 'Les dates qui se répètent dans ta famille : on cherche ensemble', 'Questions-réponses psychogénéalogie (réponds aux commentaires)', 'Noël en famille : les loyautés qui reviennent à table', 'Ton prénom vient d\'où ? Je lis vos prénoms en direct', 'Rêver de ses ancêtres : ce que ça raconte', 'Ton année personnelle 2027 en direct', 'Je fais un génosociogramme en direct (famille inventée)'],
-      a: ['Syndrome d\'anniversaire : comment le repérer dans ton arbre', 'Pourquoi je répète les mêmes histoires d\'amour', 'Enfant de remplacement : porter la place d\'un autre', 'Les fêtes de fin d\'année et les tensions familiales', 'Loyauté invisible envers un parent : les signes', 'Ce que dit ta place dans la fratrie', 'Écrire une lettre à un ancêtre : comment faire', 'Faire son arbre généalogique gratuitement en ligne', 'Les 5 symboles du génosociogramme à connaître', 'Couper les ponts avec sa famille : la coupure émotionnelle (Bowen) et pourquoi elle se répète', 'Enfant pris entre ses parents : le triangle familial et la loyauté clivée', 'Enfant parentifié : quand l\'enfant porte ses parents (Boszormenyi-Nagy, le grand livre des comptes)', 'Aîné·e de fait après une fausse couche : la place cachée dans la fratrie', 'Occuper la même place qu\'un ancêtre dans la fratrie (Walter Toman)', 'Adoption et placement dans l\'arbre : la blessure primitive (Nancy Verrier)', 'Veuves de génération en génération : le veuvage précoce qui se répète', 'Plusieurs unions à chaque génération : remariages et familles recomposées', 'Épouser quelqu\'un qui porte le prénom de son père ou de sa mère', 'Transfuge de classe : réussir plus que ses parents sans culpabilité (Gaulejac)', 'Fausse couche, IVG, enfant mort-né : la place des enfants non nés dans la fratrie (Bayle, Dumas)', 'Perdre une grossesse au même âge que sa mère : le syndrome d\'anniversaire périnatal'],
+      a: ['Syndrome d\'anniversaire : comment le repérer dans ton arbre', 'Pourquoi je répète les mêmes histoires d\'amour', 'Enfant de remplacement : porter la place d\'un autre', 'Les fêtes de fin d\'année et les tensions familiales', 'Loyauté invisible envers un parent : les signes', 'Ce que dit ta place dans la fratrie', 'Écrire une lettre à un ancêtre : comment faire', 'Faire son arbre généalogique gratuitement en ligne', 'Les 5 symboles du génosociogramme à connaître'],
+      r: ['Couper les ponts : la coupure émotionnelle (coupure-emotionnelle-couper-les-ponts.html)', 'Enfant pris entre ses parents : le triangle familial (triangle-familial-enfant-pris-entre-ses-parents.html)', 'Enfant parentifié (enfant-parentifie-parentification.html)', 'Aîné·e après une fausse couche (aine-apres-une-fausse-couche.html)', 'Même place qu\'un ancêtre dans la fratrie (meme-place-qu-un-ancetre-fratrie.html)', 'Adoption et placement dans l\'arbre (adoption-placement-psychogenealogie.html)', 'Veuves de génération en génération (veuvage-precoce-generations.html)', 'Plusieurs unions à chaque génération (remariages-familles-recomposees-generations.html)', 'Conjoint au prénom de son père ou de sa mère (conjoint-meme-prenom-que-son-pere.html)', 'Transfuge de classe (transfuge-de-classe-nevrose-de-classe.html)', 'Fausse couche, IVG, enfant mort-né : les enfants non nés (enfants-non-nes-fausse-couche-ivg-fratrie.html)', 'Grossesse perdue au même âge que sa mère (grossesse-perdue-meme-age-que-sa-mere.html)', 'Mise à jour : La place dans la fratrie (3 visions) (place-dans-la-fratrie.html)'],
       v: ['Mettre en avant l\'offre de Noël du Cercle (17,77 €/mois jusqu\'au 31/12) dans chaque vidéo', 'Ma spirale : 7 jours offerts puis 4,99 €, lien en bio TikTok', 'Envoyer une newsletter mensuelle avec une offre', 'Proposer la carte cadeau Genesolia pour Noël', 'Espace praticien : relancer les praticien·nes avec le tarif fondateur', 'Lien unique en bio vers les offres (Cercle, Ma spirale, boutique, livres)'] },
     bou: { titre: 'Boutique & livres', mq: 'bou',
       l: ['Déballer un arbre imprimé / un poster en vidéo', 'Montrer les pages du livre L\'enquête de ma lignée', 'Idée cadeau de Noël en 15 secondes'],
       a: ['Idées cadeaux pour une personne qui aime sa famille', 'Offrir son arbre généalogique encadré'],
+      r: [],
       v: ['Vérifier les dates limites de commande Gelato pour Noël et les afficher', 'Fiches Etsy : titres et mots-clés de Noël, 5 photos par produit', 'Demander des avis Amazon aux premiers lecteurs de Racines et L\'enquête de ma lignée', 'Mettre les livres et la boutique dans la newsletter'] },
     str: { titre: 'STRAKARA', mq: 'str',
       l: ['LinkedIn live : stocker sans bail commercial, questions-réponses', 'Vidéo : visite d\'un entrepôt disponible (1 par semaine)', 'Vidéo hébergeurs : rentabiliser des m² vides'],
       a: ['Stockage temporaire avant Noël : les solutions', 'Un espace pro pour 3 mois, sans bail commercial', 'Combien de palettes dans 100 m² ?', 'Rentabiliser un entrepôt à moitié vide', 'Un atelier temporaire pour artisan', 'Une page par ville où un espace est libre'],
+      r: [],
       v: ['Créer et compléter la fiche Google Business Profile', 'Partenariats : experts-comptables, CCI, transporteurs', 'Relancer les hébergeurs inscrits sans espace publié', 'Répondre aux recherches clients sous 24 h', 'Demander un avis Google après chaque mise en relation'] },
     sev: { titre: 'Sève', mq: 'sev',
       l: ['Avant / après d\'un institut en vidéo', '3 erreurs d\'aménagement qui coûtent cher', 'Quelle ambiance pour mon commerce ? (Clairière, Canopée, Écorce)'],
       a: ['Combien coûte l\'aménagement d\'un institut de 40 m²', 'Éclairage d\'un commerce : quel blanc choisir', 'Refaire sa boutique avec 4 000 €', 'Bois blond, noyer, béton : choisir son ambiance'],
+      r: [],
       v: ['Offre de lancement : les 3 premières études à prix réduit (mettre en avant)', 'Démarcher 5 instituts, restaurants ou boutiques par semaine', 'Partenariats avec des artisans locaux (peintres, menuisiers)', 'Fiche Google Business Profile Sève', 'Partager l\'exemple d\'étude PDF dans les groupes Facebook de commerçants'] }
   };
   /* qg_items kind 'idee' : { ref, fait } pour une idée de départ ; { m, b, t, fait } pour une idée ajoutée */
@@ -749,7 +753,7 @@
   });
   document.addEventListener('submit', function (e) {
     var f = e.target, k = f.getAttribute && f.getAttribute('data-idee-form'); if (!k) return;
-    e.preventDefault(); var p = k.split('-'), v = f.t.value.trim(); if (!v || !IDEES[p[0]] || 'lav'.indexOf(p[1]) < 0) return;
+    e.preventDefault(); var p = k.split('-'), v = f.t.value.trim(); if (!v || !IDEES[p[0]] || 'larv'.indexOf(p[1]) < 0) return;
     enregistrer({ kind: 'idee', data: { m: p[0], b: p[1], t: v.slice(0, 200), fait: false } }); rendreIdees(); toast('Idée ajoutée');
   });
 
