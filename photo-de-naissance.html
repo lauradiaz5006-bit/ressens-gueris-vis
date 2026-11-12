@@ -7,26 +7,26 @@
 <title>Ta photo de naissance — Genesolia</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gilda+Display&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     /* palette : mauve pâle en fond, prune profond pour le texte, or discret en accent */
-    --bg: #f7ece7;
-    --bg-card: #ffffff;
-    --ink: #3f1f3a;
-    --ink-soft: #6b4f66;
-    --accent: #b8903f;
-    --accent-ink: #4a2f12;
-    --line: #e7d6cd;
-    --font-display: 'Cormorant Garamond', 'Iowan Old Style', serif;
-    --font-body: 'Work Sans', 'Segoe UI', sans-serif;
+    --bg: #FFF9F7;
+    --bg-card: #FFFFFF;
+    --ink: #4A2142;
+    --ink-soft: #8E6383;
+    --accent: #B98A55;
+    --accent-ink: #6B2F5B;
+    --line: #EBCFD5;
+    --font-display: 'Gilda Display', Georgia, serif;
+    --font-body: 'Nunito Sans', system-ui, sans-serif;
     /* idée de mise en page : une colonne centrale étroite, un pas à la fois, jamais plusieurs écrans visibles ensemble */
   }
 
   *{ box-sizing: border-box; }
   html,body{ margin:0; padding:0; }
   body{
-    background: var(--bg);
+    background: radial-gradient(ellipse 50% 32% at 12% 4%, rgba(231,167,158,.16), transparent 60%), radial-gradient(ellipse 46% 36% at 92% 18%, rgba(107,47,91,.08), transparent 62%), linear-gradient(170deg, #FFF9F7 0%, #FBF0F2 60%, #F7E6E8 100%);
     color: var(--ink);
     font-family: var(--font-body);
     min-height: 100%;
@@ -36,9 +36,17 @@
     line-height:1.55;
   }
 
+  .ciel{ position:fixed; inset:0; pointer-events:none; z-index:0; }
+  .ciel i{ position:absolute; border-radius:50%; background:radial-gradient(circle,#FFF6DD 0%,#F3CF8E 45%,rgba(243,207,142,0) 70%); animation:scintille 4.5s ease-in-out infinite; }
+  .ciel b{ position:absolute; width:var(--s); height:var(--s); background:conic-gradient(from 45deg,transparent 0 10%,#F6D79C 12% 13%,transparent 15% 35%,#F6D79C 37% 38%,transparent 40% 60%,#F6D79C 62% 63%,transparent 65% 85%,#F6D79C 87% 88%,transparent 90%); filter:drop-shadow(0 0 6px rgba(246,215,156,.8)); animation:scintille 6s ease-in-out infinite; }
+  @keyframes scintille{ 0%,100%{opacity:.25;} 50%{opacity:.85;} }
+  @media (prefers-reduced-motion: reduce){ .ciel i,.ciel b{ animation:none; opacity:.5; } }
+
   .shell{
     width:100%;
     max-width: 620px;
+    position:relative;
+    z-index:1;
   }
 
   .brand{
@@ -70,7 +78,7 @@
     border: 1px solid var(--line);
     border-radius: 18px;
     padding: 36px 32px;
-    box-shadow: 0 18px 40px -28px rgba(63,31,58,0.45);
+    box-shadow: 0 18px 44px -28px rgba(107,47,91,.4);
   }
 
   .step{ display:none; }
@@ -154,7 +162,7 @@
     padding: 10px 12px;
     border-radius: 10px;
     border: 1px solid var(--line);
-    background: #fffaf7;
+    background: #FFFBF9;
     color: var(--ink);
   }
   input:focus{ outline: 2px solid var(--accent); outline-offset: 1px; }
@@ -201,8 +209,9 @@
     cursor: pointer;
   }
   .btn-primary{
-    background: var(--accent);
+    background: var(--accent-ink);
     color: #fff;
+    box-shadow: 0 10px 26px -14px rgba(107,47,91,.6);
   }
   .btn-secondary{
     background: transparent;
@@ -219,7 +228,7 @@
   }
 
   .resultat-bloc{
-    background: #fbf4ee;
+    background: #FDF5F3;
     border: 1px solid var(--line);
     border-radius: 14px;
     padding: 20px 22px;
@@ -297,8 +306,8 @@
   }
 
   .agenda-bloc{
-    background: var(--ink);
-    color: #fbf4ee;
+    background: radial-gradient(30rem 14rem at 85% 0%, rgba(231,167,158,.3), transparent 60%), linear-gradient(140deg,#3A1335,#6B2F5B);
+    color: #F7E6EE;
     border-radius: 16px;
     padding: 22px 24px;
     margin-top: 6px;
@@ -314,8 +323,8 @@
     opacity: 0.9;
   }
   .agenda-bloc .btn-secondary{
-    border-color: rgba(255,255,255,0.4);
-    color: #fbf4ee;
+    border-color: rgba(246,215,156,.6);
+    color: #F6DCA8;
   }
 
   .discret{
@@ -337,6 +346,8 @@
 </style>
 </head>
 <body>
+
+<div class="ciel" aria-hidden="true" id="ciel"></div>
 
 <div class="shell">
   <div class="brand">Genesolia</div>
@@ -496,6 +507,24 @@
 </div>
 
 <script>
+  (function(){
+    var c = document.getElementById('ciel');
+    var s = 7;
+    function r(){ s = (s*9301+49297)%233280; return s/233280; }
+    for(var i=0;i<60;i++){
+      var k = document.createElement('i');
+      var z = 1 + r()*r()*6;
+      k.style.cssText = 'left:'+(r()*100)+'%;top:'+(r()*100)+'%;width:'+z+'px;height:'+z+'px;animation-delay:'+(r()*5)+'s;opacity:'+(0.2+r()*0.5);
+      c.appendChild(k);
+    }
+    for(var j=0;j<7;j++){
+      var b = document.createElement('b');
+      var z2 = 12 + r()*22;
+      b.style.cssText = '--s:'+z2+'px;left:'+(r()*92)+'%;top:'+(r()*94)+'%;animation-delay:'+(r()*6)+'s';
+      c.appendChild(b);
+    }
+  })();
+
   function goTo(n){
     document.querySelectorAll('.step').forEach(function(s){ s.classList.remove('active'); });
     document.getElementById('step-' + n).classList.add('active');
