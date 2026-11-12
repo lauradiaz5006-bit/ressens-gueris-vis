@@ -235,7 +235,7 @@
     var corps = onglet === 'reps' ? vueReps() : onglet === 'rapport' ? vueRapport(e) : vueArbre(e);
     racine.innerHTML = '<div class="mt-haut"><h1 class="mt-titre">' + (CLI() ? 'Dossier client·e' : 'Mon arbre familial') + '</h1><button type="button" class="mt-menu-bt" aria-haspopup="true" aria-expanded="false" aria-label="Plus d’options">•••</button></div>' +
       '<div class="mt-corps">' + corps + '</div>' +
-      '<nav class="mt-nav" aria-label="Ton arbre"><button type="button" data-aller="arbre" aria-current="' + (onglet === 'arbre') + '">' + (CLI() ? 'L’arbre' : 'Mon arbre') + '</button><button type="button" data-aller="reps" aria-current="' + (onglet === 'reps') + '">Ce qui se répète' + (nbR ? ' <i>' + nbR + '</i>' : '') + '</button><button type="button" data-aller="rapport" aria-current="' + (onglet === 'rapport') + '">' + (CLI() ? 'Le rapport' : 'Mon rapport') + '</button></nav>';
+      '<nav class="mt-nav" aria-label="Ton arbre"><button type="button" data-aller="arbre" aria-current="' + (onglet === 'arbre') + '">' + (CLI() ? 'L’arbre' : 'Mon arbre') + '</button><button type="button" data-aller="dessin">Le dessin</button><button type="button" data-aller="reps" aria-current="' + (onglet === 'reps') + '">Ce qui se répète' + (nbR ? ' <i>' + nbR + '</i>' : '') + '</button><button type="button" data-aller="rapport" aria-current="' + (onglet === 'rapport') + '">' + (CLI() ? 'Le rapport' : 'Mon rapport') + '</button></nav>';
     if (focusCentre) { var cc = racine.querySelector('.mt-centre'); if (cc) cc.scrollIntoView({ block: 'center' }); }
   }
 
@@ -308,12 +308,26 @@
       var cible = document.getElementById(k); if (cible) cible.click();
     });
   }
+  var CLE_AIDE_DESSIN = 'geno-aide-dessin';
   function voirDessin() {
     document.body.classList.add('mt-dessin');
-    var r = document.createElement('button'); r.type = 'button'; r.className = 'mt-revenir btn btn-plein'; r.textContent = '← Revenir à ma vue';
+    var r = document.createElement('button'); r.type = 'button'; r.className = 'mt-revenir btn btn-plein'; r.textContent = '← ' + (CLI() ? 'Vue simple' : 'Mon arbre');
     document.body.appendChild(r);
-    var c = document.getElementById('bt-centrer'); if (c) setTimeout(function () { c.click(); }, 60);
-    r.addEventListener('click', function () { document.body.classList.remove('mt-dessin'); r.remove(); rendre(); });
+    /* un petit arbre : on le montre en entier ; un grand : on centre sur toi, à un zoom lisible */
+    setTimeout(function () {
+      var e = E(), n = Object.keys(e.people).length, m = centre && e.people[centre] ? centre : moiId(e);
+      if (n > 14 && m && G.centrerSur && G.centrerSur(m, 0.85)) return;
+      var c = document.getElementById('bt-centrer'); if (c) c.click();
+    }, 80);
+    var vu = false; try { vu = !!localStorage.getItem(CLE_AIDE_DESSIN); } catch (x) {}
+    var aide = null;
+    if (!vu) {
+      aide = document.createElement('div'); aide.className = 'mt-aide-dessin'; aide.setAttribute('role', 'status');
+      aide.innerHTML = '<p><b>Ton arbre en entier.</b> Écarte deux doigts pour zoomer, glisse pour te déplacer. Touche une personne pour la modifier ou ajouter quelqu’un autour d’elle.</p><button type="button" class="btn btn-plein">Compris</button>';
+      document.body.appendChild(aide);
+      aide.querySelector('button').addEventListener('click', function () { try { localStorage.setItem(CLE_AIDE_DESSIN, '1'); } catch (x) {} aide.remove(); aide = null; });
+    }
+    r.addEventListener('click', function () { document.body.classList.remove('mt-dessin'); r.remove(); if (aide) aide.remove(); if (G.allerA) G.allerA(null); rendre(); });
   }
 
   /* ───────── Événements ───────── */
@@ -323,7 +337,7 @@
     if ((t = ev.target.closest('[data-ajout]'))) { feuilleAjout(t.getAttribute('data-ajout')); return; }
     if ((t = ev.target.closest('[data-reps-pdf]'))) { G.imprimerReps(t); return; }
     if ((t = ev.target.closest('[data-fiche]'))) { G.fiche(t.getAttribute('data-fiche')); return; }
-    if ((t = ev.target.closest('[data-aller]'))) { onglet = t.getAttribute('data-aller'); rendre(); window.scrollTo(0, 0); return; }
+    if ((t = ev.target.closest('[data-aller]'))) { if (t.getAttribute('data-aller') === 'dessin') { voirDessin(); return; } onglet = t.getAttribute('data-aller'); rendre(); window.scrollTo(0, 0); return; }
     if ((t = ev.target.closest('[data-clic]'))) { var b = document.getElementById(t.getAttribute('data-clic')); if (b) b.click(); return; }
     if ((t = ev.target.closest('.mt-menu-bt'))) { ouvrirMenu(t); return; }
     if ((t = ev.target.closest('[data-passerelle]'))) { passerelle = false; rendre(); return; }

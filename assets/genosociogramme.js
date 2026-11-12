@@ -2020,7 +2020,8 @@
     var y1 = (p.y - R - 70) * vue.k + vue.y, y2 = (p.y + BAS_TEXTE) * vue.k + vue.y;
     var dx = 0, dy = 0;
     if (x1 < marge) dx = marge - x1; else if (x2 > t.clientWidth - marge) dx = t.clientWidth - marge - x2;
-    if (y1 < marge) dy = marge - y1; else if (y2 > t.clientHeight - 60) dy = t.clientHeight - 60 - y2;
+    var basM = document.body.classList.contains('mt-dessin') ? 400 : 60;   // téléphone : le panneau d'actions occupe le bas de l'écran
+    if (y1 < marge) dy = marge - y1; else if (y2 > t.clientHeight - basM) dy = t.clientHeight - basM - y2;
     if (dx || dy) { vue.x += dx; vue.y += dy; appliquerVue(); }
   }
   function zoomer(f, cx, cy) {
@@ -2046,7 +2047,9 @@
   function majBarreActions() {
     var bar = $('actions-perso');
     if (!selId || !S.people[selId]) { bar.innerHTML = ''; bar.classList.remove('visible'); return; }
-    var b = '<button type="button" class="principal" data-act="modifier">Modifier</button>';
+    var tel = document.body.classList.contains('mobile-arbre');   // téléphone : un panneau en bas de l'écran, avec le nom et de quoi le fermer
+    var b = tel ? '<div class="ap-tete"><b>' + esc(nomCourt(selId)) + '</b><button type="button" class="ap-fermer" data-act="fermer" aria-label="Fermer">×</button></div>' : '';
+    b += '<button type="button" class="principal" data-act="modifier">Modifier</button>';
     b += '<button type="button" data-act="vu">' + (S.people[selId].role === 'moi' ? (DOSSIER_CLIENT ? 'Ses répétitions' : 'Mes répétitions') : 'Ses répétitions') + '</button>';
     var np0 = parents(selId).length;
     if (np0 < 2) b += '<button type="button" data-act="parent">' + (np0 ? '+ Parent' : '+ Parents') + '</button>';
@@ -2054,6 +2057,7 @@
     b += '<button type="button" data-act="enfant">+ Enfant</button>';
     b += '<button type="button" data-act="fratrie">+ Frère ou sœur</button>';
     if (Object.keys(S.people).length > 1) b += '<button type="button" data-act="relation">+ Lien relationnel</button>';
+    if (tel && !petit(S.people[selId])) b += '<button type="button" data-act="grossesse">+ Grossesse non aboutie</button>';
     b += '<button type="button" class="danger" data-act="supprimer" aria-label="Supprimer">Supprimer</button>';
     bar.innerHTML = b;
     placerActions();
@@ -3002,6 +3006,11 @@
       setTimeout(function () { $('fp-bloc-liens').scrollIntoView({ block: 'center' }); $('fp-lier-qui').focus(); }, 60);
     }
     else if (act === 'supprimer') supprimer(selId);
+    else if (act === 'fermer') choisir(null);
+    else if (act === 'grossesse') {   // la fiche, ouverte directement sur l'ajout d'une grossesse non aboutie
+      ouvrirFiche(selId, false); ouvrirFormGrossesse();
+      setTimeout(function () { $('fp-grossesses').scrollIntoView({ block: 'start' }); }, 60);
+    }
     else ouvrirAjout(act, selId);
   });
   (function () {
@@ -3435,6 +3444,11 @@
     etat: function () { var e = JSON.parse(JSON.stringify(S)); e.libelles = JSON.parse(JSON.stringify(NOM_EVT)); return e; },   // lecture seule (export GEDCOM)
     ouvrir: ouvrir, fermer: fermer,
     fiche: function (id) { if (S.people[id]) ouvrirFiche(id); },
+    centrerSur: function (id, k) {   // téléphone : centrer le dessin sur une personne, à un zoom lisible, sans la choisir
+      if (!plan || !plan.pos[id]) return false;
+      var t = $('toile'), p = plan.pos[id]; vue.k = k || 0.85;
+      vue.x = t.clientWidth / 2 - p.x * vue.k; vue.y = t.clientHeight * 0.42 - p.y * vue.k; appliquerVue(); return true;
+    },
     allerA: function (id) { if (S.people[id]) choisir(id); },   // recherche par nom : sélectionne la personne et l'amène à l'écran   // vue téléphone : ouvrir la fiche d'une personne
     repetitions: function () { return detecter().map(function (r) { return { type: r.type, label: r.label, desc: descComplete(r), fort: !!r.fort, loyaute: r.loyaute || null, noyau: r.noyau || null }; }); },
     /* vue téléphone : les mêmes cartes et le même compte que le panneau « Ce qui se répète » de l'ordinateur
