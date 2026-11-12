@@ -1349,14 +1349,22 @@
           desc: nom(moi) + ' : ' + txtPlace(moi) + '. ' + liste2(pareils.map(function (x) { var q = S.people[x[0]]; return nom(q) + ' (' + lienC(q.id).toLowerCase() + ', ' + txtPlace(q) + ')'; })) + ' : même rang, même sexe. Walter Toman a montré que la place dans la fratrie façonne la manière d’aimer, de travailler et de s’allier ; occuper la place d’un ancêtre, c’est souvent hériter aussi de ce qu’on attendait de lui ou d’elle. Les grossesses perdues sont comptées dans le rang.',
           ids: [moi.id].concat(pareils.map(function (x) { return x[0]; })) });
       }
-      // L'aîné·e « de fait » : avant toi, seulement des enfants perdus
-      var plM = placeDe[moi.id];
-      if (plM.pos > 1 && plM.avant.every(function (x) { var ad = ageDeces(x); return petit(x) || (ad != null && ad < 1); })) {
+    }
+    // L'aîné·e « de fait » : avant toi, chez ta mère ou chez ton père (même dans une autre union), seulement des grossesses non abouties
+    if (moi) {
+      var cotesM = (parentsDe[moi.id] || []).map(function (pid) {
+        var l = enfantsR(pid); if (!ordreSur(l)) return null;
+        var i = l.findIndex(function (q) { return q.id === moi.id; }), av = i > 0 ? l.slice(0, i) : [];
+        return av.length && av.every(function (x) { var ad = ageDeces(x); return petit(x) || (ad != null && ad < 1); }) ? { pa: S.people[pid], pos: i + 1, avant: av } : null;
+      }).filter(Boolean);
+      if (cotesM.length === 2 && cotesM[0].avant.map(function (x) { return x.id; }).join() === cotesM[1].avant.map(function (x) { return x.id; }).join()) cotesM = [cotesM[0]];
+      cotesM.forEach(function (plM) {
+        var un = (parentsDe[moi.id] || []).length > 1 && !(cotesM.length === 1 && plM.avant.every(function (x) { return (parentsDe[x.id] || []).length > 1; }));
         reps.push({ type: 'schema', qk: 'rangcache', fam: ['deces', 'rang'], fort: true, tags: 'rang fratrie aine de fait premier enfant perdu fausse couche place',
-          label: (autre ? prenomC + ' est' : 'Tu es') + ' l’aîné' + (moi.sex === 'f' ? 'e' : '') + ' de fait, mais ' + (moi.sex === 'f' ? 'la ' : 'le ') + plM.pos + (moi.sex === 'f' ? 'ᵉ conçue' : 'ᵉ conçu'),
-          desc: 'Avant ' + nom(moi) + ' : ' + liste2(grouperPertes(plM.avant)) + '. Dans la famille, ' + (autre ? prenomC : 'tu') + ' ' + (autre ? 'a' : 'as') + ' tenu la place d’aîné' + (moi.sex === 'f' ? 'e' : '') + ' ; dans l’histoire des parents, ' + (autre ? 'il' : 'tu') + ' ' + (autre ? 'est' : 'es') + ' arrivé' + (moi.sex === 'f' ? 'e' : '') + ' en ' + plM.pos + 'ᵉ position. Ces deux places ne se recouvrent pas toujours.',
+          label: (autre ? prenomC + ' est' : 'Tu es') + ' l’aîné' + (moi.sex === 'f' ? 'e' : '') + ' de fait, mais ' + (moi.sex === 'f' ? 'la ' : 'le ') + plM.pos + (moi.sex === 'f' ? 'ᵉ conçue' : 'ᵉ conçu') + (un ? ' (côté ' + nomBase(plM.pa) + ')' : ''),
+          desc: 'Avant ' + nom(moi) + (un ? ', chez ' + (plM.pa.sex === 'f' ? 'sa mère' : plM.pa.sex === 'm' ? 'son père' : 'son parent') + ' ' + nomBase(plM.pa) : '') + ' : ' + liste2(grouperPertes(plM.avant)) + '. Dans la famille, ' + (autre ? prenomC : 'tu') + ' ' + (autre ? 'a' : 'as') + ' tenu la place d’aîné' + (moi.sex === 'f' ? 'e' : '') + ' ; dans l’histoire ' + (un ? 'de ' + nomBase(plM.pa) : 'des parents') + ', ' + (autre ? 'il' : 'tu') + ' ' + (autre ? 'est' : 'es') + ' arrivé' + (moi.sex === 'f' ? 'e' : '') + ' en ' + plM.pos + 'ᵉ position. Ces deux places ne se recouvrent pas toujours.',
           ids: [moi.id].concat(plM.avant.map(function (x) { return x.id; })) });
-      }
+      });
     }
     chaine(function (pa, en) { return pa && en && placeDe[pa.id] && placeDe[en.id] && placeDe[pa.id].cls !== 'milieu' && memePlace(pa, en); }, 3).forEach(function (l) {
       var p0 = S.people[l[0]], cls = placeDe[p0.id].cls, f = p0.sex === 'f';
@@ -2171,7 +2179,9 @@
         ? (tiers ? pr + ' est ' : 'Tu es ') + (fem ? 'la ' : 'le ') + ordinal(cotes[0].rn.r) + ' enfant' + (cotes.length === 1 ? ' ' + de(nm(cotes[0].q)) : '') + (cotes[0].rn.pertes.length ? ', en comptant ' + pluriel(cotes[0].rn.pertes) + ' avant ' + (tiers ? (il === 'elle' ? 'elle' : 'lui') : 'toi') : '') + '.'
         : (tiers ? pr + ' est ' : 'Tu es ') + cotes.map(function (c) { return (fem ? 'la ' : 'le ') + ordinal(c.rn.r) + ' enfant ' + de(nm(c.q)) + (c.rn.pertes.length ? ' (en comptant ' + pluriel(c.rn.pertes) + ')' : ''); }).join(', et ') + '.';
       var rMin = Math.min.apply(null, cotes.map(function (c) { return c.rn.r; }));
-      if (pl.rang === 1 && pl.n > 1 && rMin > 1) faits += ' Dans la fratrie, ' + (tiers ? il : 'tu') + ' ' + (tiers ? 'est' : 'es') + ' pourtant ' + (fem ? 'l’aînée' : 'l’aîné') + ' de fait : la place dans la famille et la place dans l’histoire des parents ne sont pas les mêmes.';
+      var deFait = cotes.filter(function (c) { return c.rn.r > 1 && c.rn.pertes.length === c.rn.r - 1; });   // avant soi, seulement des grossesses non abouties
+      if (pl.rang === 1 && rMin > 1) faits += ' Dans la fratrie, ' + (tiers ? il : 'tu') + ' ' + (tiers ? 'est' : 'es') + ' pourtant ' + (fem ? 'l’aînée' : 'l’aîné') + ' de fait : la place dans la famille et la place dans l’histoire des parents ne sont pas les mêmes.';
+      else if (deFait.length) faits += ' ' + deFait.map(function (c) { return 'Pour ' + nm(c.q) + ', ' + (tiers ? il + ' est' : 'tu es') + ' ' + (fem ? 'l’aînée' : 'l’aîné') + ' de fait, mais ' + (fem ? 'la ' : 'le ') + ordinal(c.rn.r) + ' dans son histoire'; }).join(' ; ') + ' : ce qu’un parent a vécu avant, même dans une autre union, fait partie de la place de l’enfant.';
       var psy = {
         aine: 'Pour Alfred Adler, l’aîné·e reçoit d’abord toute l’attention, puis doit la partager : il ou elle devient souvent responsable, protecteur·rice, attaché·e aux règles et aux attentes des parents.',
         cadet: 'Pour Alfred Adler, le ou la dernier·ère est souvent protégé·e, parfois encouragé·e à rester « le petit » ; c’est aussi une place de liberté, qui ose inventer ce que les aînés n’ont pas tenté.',
