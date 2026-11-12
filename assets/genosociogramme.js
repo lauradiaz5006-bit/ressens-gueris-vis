@@ -236,6 +236,29 @@
   var RP = 13;   // demi-taille des petits symboles
   function petit(p) { return !!(p && GROSS[p.grossesse]); }
   function perte(p) { return !!p && (p.grossesse === 'fc' || p.grossesse === 'mn'); }
+  // Ordre d'une fratrie : par date ; une grossesse non aboutie sans date se place après l'enfant indiqué (p.apres, '' = en premier)
+  function dateFrat(p) { return (p && (p.naiss || (petit(p) ? p.deces : ''))) || ''; }
+  function ordonnerFratrie(l) {
+    var flottant = function (p) { return petit(p) && p.apres != null && !annee(dateFrat(p)); };
+    var base = l.filter(function (p) { return !flottant(p); });
+    base.sort(function (a, b) {
+      var da = dateFrat(a), db = dateFrat(b), ya = annee(da), yb = annee(db);
+      if (ya && yb && ya !== yb) return ya - yb;
+      if (ya && yb) return da.length === 10 && db.length === 10 ? (da < db ? -1 : da > db ? 1 : 0) : 0;
+      if (ya && !yb) return -1; if (yb && !ya) return 1;
+      return 0;
+    });
+    l.filter(flottant).forEach(function (p) {
+      var i = p.apres ? base.findIndex(function (q) { return q.id === p.apres; }) : -1;
+      if (p.apres && i < 0) { base.push(p); return; }
+      var j = i + 1;
+      while (j < base.length && flottant(base[j]) && base[j].apres === p.apres) j++;   // plusieurs grossesses au même endroit restent dans l'ordre
+      base.splice(j, 0, p);
+    });
+    return base;
+  }
+  // l'ordre est-il sûr ? chaque enfant a une date, ou une place indiquée
+  function ordreSur(l) { return l.every(function (p) { return annee(dateFrat(p)) || (petit(p) && p.apres != null); }); }
   function jumeauDe(id) {
     var p = S.people[id]; if (!p) return null;
     if (p.jumeau && p.jumeau !== id && existe(p.jumeau)) return p.jumeau;
@@ -375,12 +398,8 @@
     });
     var familles = Object.keys(fm).map(function (k) { return fm[k]; });
     familles.forEach(function (fa) {
-      fa.enfants.sort(function (a, b) {
-        var ya = annee(S.people[a].naiss), yb = annee(S.people[b].naiss);
-        if (ya && yb && ya !== yb) return ya - yb;
-        if (ya && !yb) return -1; if (yb && !ya) return 1;
-        return ordre[a] - ordre[b];
-      });
+      fa.enfants.sort(function (a, b) { return ordre[a] - ordre[b]; });
+      fa.enfants = ordonnerFratrie(fa.enfants.map(function (c) { return S.people[c]; })).map(function (p) { return p.id; });
       // des jumeaux restent côte à côte dans la fratrie
       var e = fa.enfants;
       for (var i = 0; i < e.length; i++) { var t = jumeauDe(e[i]), k = t ? e.indexOf(t) : -1; if (k > i + 1) { e.splice(k, 1); e.splice(i + 1, 0, t); } }
@@ -1279,15 +1298,33 @@
     }
 
     // 16. La place dans la fratrie (Toman, Bowen) : en comptant les enfants perdus, et seulement quand l'ordre est sûr
-    var placeDe = {};
-    Object.keys(fratries).forEach(function (k) {
-      var dN = function (e) { return e.naiss || (perte(e) ? e.deces : ''); };
-      var f = fratries[k];
-      if (f.length < 2 || f.some(function (e) { return !annee(dN(e)); })) return;   // un enfant sans date : l'ordre n'est pas sûr
-      f = f.slice().sort(function (x, y) { return (annee(dN(x)) - annee(dN(y))) || (plein(dN(x)) && plein(dN(y)) ? enJours(dN(x)) - enJours(dN(y)) : 0); });
+    // Le rang de naissance compte toutes les grossesses (fausse couche, IVG, mort-né), sauf une grossesse en cours
+    var placeDe = {}, fratriesR = {};
+    function grouperPertes(l) {   // « 2 fausses couches (1985) » plutôt que la même ligne deux fois
+      var out = [], cle = {};
+      l.forEach(function (x) {
+        if (!petit(x)) { out.push(nom(x) + ' (mort' + (x.sex === 'f' ? 'e' : '') + ' avant un an)'); return; }
+        var k = x.grossesse + '|' + (annee(dateFrat(x)) || '');
+        if (cle[k]) { cle[k].n++; return; }
+        cle[k] = { n: 1, x: x, i: out.length }; out.push('');
+      });
+      var pl = { fc: 'fausses couches', ivg: 'IVG', mn: 'enfants mort-nés' };
+      Object.keys(cle).forEach(function (k) { var c = cle[k], an = annee(dateFrat(c.x)); out[c.i] = (c.n > 1 ? c.n + ' ' + pl[c.x.grossesse] : artGross(c.x)) + (an ? ' (' + an + ')' : ''); });
+      return out;
+    }
+    function artGross(q) { return { fc: 'une fausse couche', ivg: 'une IVG', mn: 'un enfant mort-né' }[q.grossesse] || 'une grossesse'; }
+    Object.keys(S.people).forEach(function (id) {
+      var q = S.people[id]; if (q.grossesse === 'encours') return;
+      var ps = (parentsDe[id] || []).slice().sort(); if (!ps.length) return;
+      (fratriesR[ps.join('+')] = fratriesR[ps.join('+')] || []).push(q);
+    });
+    Object.keys(fratriesR).forEach(function (k) {
+      var f = fratriesR[k];
+      if (f.length < 2 || !ordreSur(f)) return;   // un enfant sans date ni place : l'ordre n'est pas sûr
+      f = ordonnerFratrie(f);
       var n = f.length;
       f.forEach(function (e, i) {
-        if (perte(e)) return;
+        if (petit(e)) return;
         var avant = f.slice(0, i), memeS = avant.filter(function (x) { return x.sex === e.sex && e.sex !== 'u'; }).length;
         placeDe[e.id] = { pos: i + 1, n: n, cls: i === 0 ? 'aine' : i === n - 1 ? 'cadet' : 'milieu', posS: memeS + 1, avant: avant };
       });
@@ -1312,14 +1349,22 @@
           desc: nom(moi) + ' : ' + txtPlace(moi) + '. ' + liste2(pareils.map(function (x) { var q = S.people[x[0]]; return nom(q) + ' (' + lienC(q.id).toLowerCase() + ', ' + txtPlace(q) + ')'; })) + ' : même rang, même sexe. Walter Toman a montré que la place dans la fratrie façonne la manière d’aimer, de travailler et de s’allier ; occuper la place d’un ancêtre, c’est souvent hériter aussi de ce qu’on attendait de lui ou d’elle. Les grossesses perdues sont comptées dans le rang.',
           ids: [moi.id].concat(pareils.map(function (x) { return x[0]; })) });
       }
-      // L'aîné·e « de fait » : avant toi, seulement des enfants perdus
-      var plM = placeDe[moi.id];
-      if (plM.pos > 1 && plM.avant.every(function (x) { var ad = ageDeces(x); return perte(x) || (ad != null && ad < 1); })) {
+    }
+    // L'aîné·e « de fait » : avant toi, chez ta mère ou chez ton père (même dans une autre union), seulement des grossesses non abouties
+    if (moi) {
+      var cotesM = (parentsDe[moi.id] || []).map(function (pid) {
+        var l = enfantsR(pid); if (!ordreSur(l)) return null;
+        var i = l.findIndex(function (q) { return q.id === moi.id; }), av = i > 0 ? l.slice(0, i) : [];
+        return av.length && av.every(function (x) { var ad = ageDeces(x); return petit(x) || (ad != null && ad < 1); }) ? { pa: S.people[pid], pos: i + 1, avant: av } : null;
+      }).filter(Boolean);
+      if (cotesM.length === 2 && cotesM[0].avant.map(function (x) { return x.id; }).join() === cotesM[1].avant.map(function (x) { return x.id; }).join()) cotesM = [cotesM[0]];
+      cotesM.forEach(function (plM) {
+        var un = (parentsDe[moi.id] || []).length > 1 && !(cotesM.length === 1 && plM.avant.every(function (x) { return (parentsDe[x.id] || []).length > 1; }));
         reps.push({ type: 'schema', qk: 'rangcache', fam: ['deces', 'rang'], fort: true, tags: 'rang fratrie aine de fait premier enfant perdu fausse couche place',
-          label: (autre ? prenomC + ' est' : 'Tu es') + ' l’aîné' + (moi.sex === 'f' ? 'e' : '') + ' vivant' + (moi.sex === 'f' ? 'e' : '') + ', mais pas ' + (moi.sex === 'f' ? 'la première' : 'le premier'),
-          desc: 'Avant ' + nom(moi) + ' : ' + liste2(plM.avant.map(function (x) { return perte(x) ? libPerte(x) : nom(x) + ' (mort' + (x.sex === 'f' ? 'e' : '') + ' avant un an)'; })) + '. Dans la famille, ' + (autre ? prenomC : 'tu') + ' ' + (autre ? 'a' : 'as') + ' tenu la place d’aîné' + (moi.sex === 'f' ? 'e' : '') + ' ; dans l’histoire des parents, ' + (autre ? 'il' : 'tu') + ' ' + (autre ? 'est' : 'es') + ' arrivé' + (moi.sex === 'f' ? 'e' : '') + ' en ' + plM.pos + 'ᵉ position. Ces deux places ne se recouvrent pas toujours.',
+          label: (autre ? prenomC + ' est' : 'Tu es') + ' l’aîné' + (moi.sex === 'f' ? 'e' : '') + ' de fait, mais ' + (moi.sex === 'f' ? 'la ' : 'le ') + plM.pos + (moi.sex === 'f' ? 'ᵉ conçue' : 'ᵉ conçu') + (un ? ' (côté ' + nomBase(plM.pa) + ')' : ''),
+          desc: 'Avant ' + nom(moi) + (un ? ', chez ' + (plM.pa.sex === 'f' ? 'sa mère' : plM.pa.sex === 'm' ? 'son père' : 'son parent') + ' ' + nomBase(plM.pa) : '') + ' : ' + liste2(grouperPertes(plM.avant)) + '. Dans la famille, ' + (autre ? prenomC : 'tu') + ' ' + (autre ? 'a' : 'as') + ' tenu la place d’aîné' + (moi.sex === 'f' ? 'e' : '') + ' ; dans l’histoire ' + (un ? 'de ' + nomBase(plM.pa) : 'des parents') + ', ' + (autre ? 'il' : 'tu') + ' ' + (autre ? 'est' : 'es') + ' arrivé' + (moi.sex === 'f' ? 'e' : '') + ' en ' + plM.pos + 'ᵉ position. Ces deux places ne se recouvrent pas toujours.',
           ids: [moi.id].concat(plM.avant.map(function (x) { return x.id; })) });
-      }
+      });
     }
     chaine(function (pa, en) { return pa && en && placeDe[pa.id] && placeDe[en.id] && placeDe[pa.id].cls !== 'milieu' && memePlace(pa, en); }, 3).forEach(function (l) {
       var p0 = S.people[l[0]], cls = placeDe[p0.id].cls, f = p0.sex === 'f';
@@ -1327,6 +1372,29 @@
         label: (cls === 'aine' ? (f ? 'Des aînées de mère en fille' : 'Des aînés de père en fils') : (f ? 'Des cadettes de mère en fille' : 'Des cadets de père en fils')) + ', sur ' + l.length + ' générations',
         desc: l.slice().reverse().map(function (id) { var q = S.people[id]; return nom(q) + ' (' + txtPlace(q) + ')'; }).join(', puis ') + '. À chaque génération, la même place, du même côté : celle qui ' + (cls === 'aine' ? 'ouvre la voie, rassure et répond aux attentes' : 'arrive quand tout est déjà joué, que l’on protège ou que l’on garde près de soi') + '.', ids: l });
     });
+
+    // 16 bis. Une perte en première position, d'une génération à l'autre ; le même âge de la mère lors d'une perte
+    function enfantsR(id) { return ordonnerFratrie((enfantsDe[id] || []).map(function (c) { return S.people[c]; }).filter(function (q) { return q && q.grossesse !== 'encours'; })); }
+    function premPerte(p) { var l = p ? enfantsR(p.id) : []; return l.length >= 1 && petit(l[0]) && ordreSur(l.slice(0, 2)); }
+    chaine(function (pa, en) { return premPerte(pa) && premPerte(en); }, 2).forEach(function (l) {
+      reps.push({ type: 'gisant', qk: 'premperte', fam: ['rang'], fort: l.length >= 3 || l.every(function (id) { return S.people[id].sex === 'f'; }), tags: 'fausse couche ivg mort-ne premiere grossesse rang aine de fait generation',
+        label: 'Une première grossesse perdue, sur ' + l.length + ' générations',
+        desc: l.slice().reverse().map(function (id) { var q = S.people[id], c = enfantsR(id), pr = c.filter(function (x) { return !petit(x); })[0]; return 'chez ' + nom(q) + ', ' + artGross(c[0]) + ' en premier' + (pr ? ', puis ' + nomBase(pr) + ', aîné' + (pr.sex === 'f' ? 'e' : '') + ' de fait' : ''); }).join(' ; ').replace(/^./, function (x) { return x.toUpperCase(); }) + '. À chaque génération, l’aîné·e de la famille arrive à la place d’un enfant qui n’est pas venu.', ids: l });
+    });
+    function agesPerte(f) { var an0 = annee(f.naiss); return an0 ? enfantsR(f.id).filter(function (q) { return petit(q) && annee(dateFrat(q)); }).map(function (q) { return { q: q, age: annee(dateFrat(q)) - an0 }; }).filter(function (x) { return x.age > 10 && x.age < 60; }) : []; }
+    var echosAge = [];
+    liste.forEach(function (fi) {
+      if (fi.sex !== 'f') return;
+      var a1 = agesPerte(fi); if (!a1.length) return;
+      (parentsDe[fi.id] || []).forEach(function (mi) {
+        var m = S.people[mi]; if (!m || m.sex !== 'f') return;
+        agesPerte(m).forEach(function (x) { a1.forEach(function (y) { if (x.age === y.age && !echosAge.some(function (e) { return e.m === m && e.f === fi && e.age === x.age; })) echosAge.push({ m: m, f: fi, age: x.age, qm: x.q, qf: y.q }); }); });
+      });
+    });
+    if (echosAge.length) reps.push({ type: 'anniversaire', qk: 'agemere', fam: ['agemere'], fort: true, tags: 'fausse couche ivg mort-ne meme age mere fille grossesse anniversaire',
+      label: echosAge.length === 1 ? 'Une grossesse perdue au même âge que sa mère : ' + nomBase(echosAge[0].f) : 'Des grossesses perdues au même âge, de mère en fille',
+      desc: echosAge.slice(0, 4).map(function (e) { return nom(e.m) + ' a ' + e.age + ' ans lors d’' + artGross(e.qm) + ' (' + annee(dateFrat(e.qm)) + ') ; sa fille ' + nomBase(e.f) + ' aussi, ' + e.age + ' ans (' + annee(dateFrat(e.qf)) + ')'; }).join(' ; ') + '. C’est l’une des formes du syndrome d’anniversaire : arriver à l’âge où sa mère a vécu une perte réveille parfois, sans qu’on le sache, ce qu’elle a traversé.',
+      ids: uniques([].concat.apply([], echosAge.slice(0, 4).map(function (e) { return [e.m.id, e.f.id, e.qm.id, e.qf.id]; }))) });
 
     // 17. Les enfants confiés : adoption, placement (Verrier, Schützenberger)
     function confie(p) { return !!(p && (p.adopte || p.place)); }
@@ -1456,7 +1524,9 @@
       prenomconj: ['Qu’est-ce qui t’a attiré·e chez cette personne, au tout début ?', 'Qu’est-ce que ce prénom réveillait déjà dans la famille ?'],
       depasser: ['As-tu le droit de réussir plus que tes parents ?', 'Dans quel milieu te sens-tu vraiment chez toi ?'],
       jumeau: ['Que sait-on de cette grossesse, et de l’enfant qui n’est pas resté ?', 'T’arrive-t-il d’avoir l’impression qu’il te manque quelqu’un ?'],
-      jumeaux: ['Comment ces jumeaux ont-ils été élevés : ensemble ou comparés ?', 'Quelle place ont-ils prise dans leur fratrie ?']
+      jumeaux: ['Comment ces jumeaux ont-ils été élevés : ensemble ou comparés ?', 'Quelle place ont-ils prise dans leur fratrie ?'],
+      premperte: ['A-t-on parlé de ces premières grossesses, ou les a-t-on tues ?', 'Qu’attendait-on de l’enfant arrivé ensuite ?'],
+      agemere: ['Savais-tu que ta mère avait vécu une perte à cet âge ?', 'Qu’est-ce que cet âge a réveillé chez toi ?']
     };
     // Vu depuis un enfant ou un proche : des questions pour la personne qui l'observe
     var il = moi && moi.sex === 'f' ? 'elle' : 'lui', ae = moi && moi.sex === 'f' ? 'e' : '';
@@ -1515,6 +1585,7 @@
     ARTICLES.remariage = A('schemas-repetitifs-en-amour.html', 'Les schémas répétitifs en amour'); ARTICLES.veuvage = ARTICLES.remariage;
     ARTICLES.prenomconj = A('imago-choix-amoureux.html', 'L’imago et le choix amoureux');
     ARTICLES.jumeau = A('jumeau-perdu.html', 'Le jumeau perdu'); ARTICLES.jumeaux = ARTICLES.jumeau;
+    ARTICLES.premperte = ARTICLES.rang; ARTICLES.agemere = A('syndrome-anniversaire.html', 'Le syndrome d’anniversaire');
     reps.forEach(function (r) {
       var k = r.qk || (/secret|non-dit/i.test(r.label) ? 'secret' : /au même âge/.test(r.label) ? 'ageevt' : '') || (/cousins/.test(r.label) ? 'cousins' : /fratries|enfants, dans/.test(r.label) ? 'enfants' : r.type);
       var k2 = r.qk2 && (QUESTIONS[r.qk2] || QUESTIONS_AUTRE[r.qk2]) ? r.qk2 : k;
@@ -1546,7 +1617,7 @@
     // Score de proximité : les pistes les plus parlantes en premier (même fratrie, lignée directe, écarts courts)
     var BASE_S = { anniversaire: 6, gisant: 6, repere: 5, depart: 4, schema: 3, date: 3, epreuve: 3, metier: 2, prenom: 2 };
     var QK_S = { guerre: 0.5, taille: 1, ombre: 1, ageparent: 2, remplacement: 6, conception: 5, manque: 5, premier: 4, reversage: 4, separation: 3,
-      coupure: 4, triangle: 5, parentif: 5, rang: 3, rangcache: 5, confie: 5, remariage: 2.5, veuvage: 4, prenomconj: 3, depasser: 3.5, jumeau: 6, jumeaux: 1 };
+      coupure: 4, triangle: 5, parentif: 5, rang: 3, rangcache: 5, confie: 5, remariage: 2.5, veuvage: 4, prenomconj: 3, depasser: 3.5, jumeau: 6, jumeaux: 1, premperte: 5, agemere: 5 };
     // distance en générations depuis la personne au centre (parents, enfants, frères et sœurs, couples)
     var distC = {};
     if (moi) { distC[moi.id] = 0; var fileD = [moi.id];
@@ -1949,7 +2020,8 @@
     var y1 = (p.y - R - 70) * vue.k + vue.y, y2 = (p.y + BAS_TEXTE) * vue.k + vue.y;
     var dx = 0, dy = 0;
     if (x1 < marge) dx = marge - x1; else if (x2 > t.clientWidth - marge) dx = t.clientWidth - marge - x2;
-    if (y1 < marge) dy = marge - y1; else if (y2 > t.clientHeight - 60) dy = t.clientHeight - 60 - y2;
+    var basM = document.body.classList.contains('mt-dessin') ? 400 : 60;   // téléphone : le panneau d'actions occupe le bas de l'écran
+    if (y1 < marge) dy = marge - y1; else if (y2 > t.clientHeight - basM) dy = t.clientHeight - basM - y2;
     if (dx || dy) { vue.x += dx; vue.y += dy; appliquerVue(); }
   }
   function zoomer(f, cx, cy) {
@@ -1975,7 +2047,9 @@
   function majBarreActions() {
     var bar = $('actions-perso');
     if (!selId || !S.people[selId]) { bar.innerHTML = ''; bar.classList.remove('visible'); return; }
-    var b = '<button type="button" class="principal" data-act="modifier">Modifier</button>';
+    var tel = document.body.classList.contains('mobile-arbre');   // téléphone : un panneau en bas de l'écran, avec le nom et de quoi le fermer
+    var b = tel ? '<div class="ap-tete"><b>' + esc(nomCourt(selId)) + '</b><button type="button" class="ap-fermer" data-act="fermer" aria-label="Fermer">×</button></div>' : '';
+    b += '<button type="button" class="principal" data-act="modifier">Modifier</button>';
     b += '<button type="button" data-act="vu">' + (S.people[selId].role === 'moi' ? (DOSSIER_CLIENT ? 'Ses répétitions' : 'Mes répétitions') : 'Ses répétitions') + '</button>';
     var np0 = parents(selId).length;
     if (np0 < 2) b += '<button type="button" data-act="parent">' + (np0 ? '+ Parent' : '+ Parents') + '</button>';
@@ -1983,6 +2057,7 @@
     b += '<button type="button" data-act="enfant">+ Enfant</button>';
     b += '<button type="button" data-act="fratrie">+ Frère ou sœur</button>';
     if (Object.keys(S.people).length > 1) b += '<button type="button" data-act="relation">+ Lien relationnel</button>';
+    if (tel && !petit(S.people[selId])) b += '<button type="button" data-act="grossesse">+ Grossesse non aboutie</button>';
     b += '<button type="button" class="danger" data-act="supprimer" aria-label="Supprimer">Supprimer</button>';
     bar.innerHTML = b;
     placerActions();
@@ -2082,6 +2157,58 @@
       (tiers ? pr + ' est ' : 'Tu es ') + (pl.n === 1 ? 'enfant unique, d’après l’arbre' : pl.pos + (pl.n > 1 && pl.pos.indexOf('enfants') < 0 ? ' de ' + pl.n + ' enfants' : '') + (pl.seul ? ', ' + pl.seul : '')) + '. ' +
       (pl.cle === 'unique' ? 'Les frères et sœurs des parents et grands-parents sont-ils tous notés ? Ils permettraient de voir qui a eu la même place.' : memePl.length ? 'Même place avant ' + (tiers ? il === 'elle' ? 'elle' : 'lui' : 'toi') + ' : ' + memePl.slice(0, 4).map(function (q) { var x = place(q.id); return nm(q) + ' (' + (x.seul || x.pos) + ')'; }).join(', ') + '.' : 'Personne de ' + sa + ' lignée directe n’avait la même place, d’après les fratries notées dans l’arbre.'),
       memePl.map(function (q) { return q.id; }));
+    // 4 bis. Le rang de naissance (toutes les grossesses comptées, sauf une grossesse en cours) et ses deux lectures
+    function rangNaiss(x, parentId) {
+      var l = ordonnerFratrie(enfants(parentId).map(function (k) { return S.people[k]; }).filter(function (q) { return q && q.grossesse !== 'encours'; }));
+      if (!ordreSur(l)) return null;
+      var i = l.findIndex(function (q) { return q.id === x; });
+      return i < 0 ? null : { r: i + 1, n: l.length, pertes: l.slice(0, i).filter(petit) };
+    }
+    function rangDe(x) {   // côté mère d'abord, sinon côté père
+      var ps = parents(x).map(function (k) { return S.people[k]; }).filter(Boolean).sort(function (a, b) { return (a.sex === 'f' ? 0 : 1) - (b.sex === 'f' ? 0 : 1); });
+      for (var i = 0; i < ps.length; i++) { var rr = rangNaiss(x, ps[i].id); if (rr) return rr; }
+      return null;
+    }
+    var p0 = S.people[id], fem = p0.sex === 'f';
+    function ordinal(r) { return r === 1 ? (fem ? '1ʳᵉ' : '1ᵉʳ') : r + 'ᵉ'; }
+    function pluriel(l) {
+      var c = {}; l.forEach(function (q) { c[q.grossesse] = (c[q.grossesse] || 0) + 1; });
+      var lib = { fc: ['fausse couche', 'fausses couches'], ivg: ['IVG', 'IVG'], mn: ['enfant mort-né', 'enfants mort-nés'] };
+      return Object.keys(c).map(function (k) { return c[k] + ' ' + lib[k][c[k] > 1 ? 1 : 0]; }).join(' et ');
+    }
+    var cotes = parents(id).map(function (k) { var rr = rangNaiss(id, k); return rr ? { q: S.people[k], rn: rr } : null; }).filter(Boolean);
+    if (cotes.length) {
+      var memeR = cotes.length === 1 || cotes[0].rn.r === cotes[1].rn.r;
+      var faits = memeR
+        ? (tiers ? pr + ' est ' : 'Tu es ') + (fem ? 'la ' : 'le ') + ordinal(cotes[0].rn.r) + ' enfant' + (cotes.length === 1 ? ' ' + de(nm(cotes[0].q)) : '') + (cotes[0].rn.pertes.length ? ', en comptant ' + pluriel(cotes[0].rn.pertes) + ' avant ' + (tiers ? (il === 'elle' ? 'elle' : 'lui') : 'toi') : '') + '.'
+        : (tiers ? pr + ' est ' : 'Tu es ') + cotes.map(function (c) { return (fem ? 'la ' : 'le ') + ordinal(c.rn.r) + ' enfant ' + de(nm(c.q)) + (c.rn.pertes.length ? ' (en comptant ' + pluriel(c.rn.pertes) + ')' : ''); }).join(', et ') + '.';
+      var rMin = Math.min.apply(null, cotes.map(function (c) { return c.rn.r; }));
+      var deFait = cotes.filter(function (c) { return c.rn.r > 1 && c.rn.pertes.length === c.rn.r - 1; });   // avant soi, seulement des grossesses non abouties
+      if (pl.rang === 1 && rMin > 1) faits += ' Dans la fratrie, ' + (tiers ? il : 'tu') + ' ' + (tiers ? 'est' : 'es') + ' pourtant ' + (fem ? 'l’aînée' : 'l’aîné') + ' de fait : la place dans la famille et la place dans l’histoire des parents ne sont pas les mêmes.';
+      else if (deFait.length) faits += ' ' + deFait.map(function (c) { return 'Pour ' + nm(c.q) + ', ' + (tiers ? il + ' est' : 'tu es') + ' ' + (fem ? 'l’aînée' : 'l’aîné') + ' de fait, mais ' + (fem ? 'la ' : 'le ') + ordinal(c.rn.r) + ' dans son histoire'; }).join(' ; ') + ' : ce qu’un parent a vécu avant, même dans une autre union, fait partie de la place de l’enfant.';
+      var psy = {
+        aine: 'Pour Alfred Adler, l’aîné·e reçoit d’abord toute l’attention, puis doit la partager : il ou elle devient souvent responsable, protecteur·rice, attaché·e aux règles et aux attentes des parents.',
+        cadet: 'Pour Alfred Adler, le ou la dernier·ère est souvent protégé·e, parfois encouragé·e à rester « le petit » ; c’est aussi une place de liberté, qui ose inventer ce que les aînés n’ont pas tenté.',
+        milieu: 'L’enfant du milieu cherche sa place entre l’aîné·e et le dernier : souvent médiateur, diplomate, indépendant, parfois avec le sentiment d’être moins vu.',
+        unique: 'L’enfant unique grandit au centre des attentes : souvent mûr tôt, à l’aise avec les adultes, il ou elle porte seul·e ce que la famille espère.',
+        'seul-f': 'La seule fille de la fratrie occupe une place à part : on attend souvent d’elle ce que la famille projette sur les femmes (douceur, soin, lien).',
+        'seul-m': 'Le seul garçon de la fratrie occupe une place à part : on attend souvent de lui ce que la famille projette sur les hommes (force, réussite, transmission du nom).'
+      }[pl.cle] || '';
+      carteP('schema', C.s, (tiers ? 'Le rang de naissance ' + de(pr) : 'Ton rang de naissance'),
+        faits + (psy ? ' ' + psy + ' Walter Toman ajoute que le sexe des frères et sœurs compte, et qu’on rejoue ces places dans le couple et au travail. Ce sont des tendances, pas un destin : la plus grande étude sur le sujet (Rohrer, Egloff et Schmukle, 2015) ne trouve presque pas d’effet du rang sur la personnalité.' : ''),
+        cotes.map(function (c) { return c.q.id; }).concat(cotes[0].rn.pertes.map(function (q) { return q.id; })));
+      // la lecture symbolique (biogénéalogie) : familles de rangs 1-4-7, 2-5-8, 3-6-9
+      var FAM = [['pilier', 'rangs 1, 4, 7', 'celui ou celle qui porte, hérite et protège la famille'], ['médiateur', 'rangs 2, 5, 8', 'relié·e aux émotions du clan, celui ou celle qui apaise et fait le lien'], ['rebelle ou rassembleur', 'rangs 3, 6, 9', 'celui ou celle qui casse les codes, apporte le changement et réunit']];
+      var rS = cotes.filter(function (c) { return c.q.sex === 'f'; }).concat(cotes)[0].rn.r, fS = FAM[(rS - 1) % 3];
+      var echosS = parents(id).map(function (k) { var q = S.people[k], rr = rangDe(k); return rr ? { q: q, r: rr.r } : null; }).filter(Boolean);
+      var memeF = echosS.filter(function (e) { return (e.r - 1) % 3 === (rS - 1) % 3; });
+      carteP('schema', C.s, 'La lecture symbolique ' + (tiers ? 'de son rang' : 'de ton rang'),
+        'Rang ' + rS + ' : la place du ' + fS[0] + ' (' + fS[1] + '), ' + fS[2] + '. ' +
+        (echosS.length ? echosS.map(function (e) { return nm(e.q) + ' est rang ' + e.r + ' (' + FAM[(e.r - 1) % 3][0] + ')'; }).join(', ') + '. ' : '') +
+        (memeF.length ? 'Même famille de rang que ' + memeF.map(function (e) { return nm(e.q); }).join(' et ') + ' : cette lecture y voit une transmission directe, une même mission portée d’une génération à l’autre. ' : echosS.length ? 'Pas la même famille de rang que ' + (echosS.length > 1 ? 'tes parents' : nm(echosS[0].q)) + ' : cette lecture y voit des rôles qui se complètent, ou qui se heurtent. ' : '') +
+        'C’est une lecture symbolique, issue de la biogénéalogie (Marc Fréchet, Chantal Rialland), sans base scientifique : à toi de voir ce qui résonne.',
+        echosS.map(function (e) { return e.q.id; }));
+    }
     // 5. l'âge de ses parents à sa naissance, comparé à la lignée
     function agesA(x) { return parents(x).map(function (k) { var q = S.people[k], a1 = ageEntre(q.naiss, S.people[x].naiss); if (a1 == null && annee(q.naiss) && annee(S.people[x].naiss)) a1 = annee(S.people[x].naiss) - annee(q.naiss); return a1 != null && a1 > 10 && a1 < 70 ? { q: q, a: a1 } : null; }).filter(Boolean); }
     var a0 = agesA(id);
@@ -2661,7 +2788,11 @@
     if (jm && fr.indexOf(jm) < 0) fr.push(jm);
     $('fp-jumeau').innerHTML = '<option value="">Personne</option>' + fr.map(function (o) { return '<option value="' + esc(o) + '"' + (o === jm ? ' selected' : '') + '>' + esc(nomCourt(o)) + '</option>'; }).join('');
     $('fp-jumeau-ligne').style.display = fr.length ? '' : 'none';
+    // « Cette personne est une grossesse non aboutie » n'a pas de sens pour soi, ni pour quelqu'un qui a déjà un couple ou des enfants
+    $('fp-grossesse-ligne').style.display = (GROSS[p.grossesse] || (p.role !== 'moi' && !enfants(id).length && !partenaires(id).length)) ? '' : 'none';
     $('fp-situation').open = !!(GROSS[p.grossesse] || p.adopte || p.place || jm);
+    $('fp-gr-form').hidden = true; $('fp-gr-ajout').hidden = false;
+    dessinerGrossesses();
     $('fp-evts').innerHTML = '';
     (p.events || []).forEach(ligneEvt);
     dessinerTraits();
@@ -2673,6 +2804,61 @@
     ouvrir('fen-personne');
     setTimeout(function () { $('fp-prenom').focus(); }, 40);
   }
+  /* Grossesses et enfants non nés, notés depuis la fiche d'un parent, à leur place dans la fratrie */
+  function enfantsOrdonnes(id) { return ordonnerFratrie(enfants(id).map(function (c) { return S.people[c]; }).filter(Boolean)); }
+  function libGross(q) { return GROSS[q.grossesse] + (annee(dateFrat(q)) ? ' (' + annee(dateFrat(q)) + ')' : ''); }
+  function dessinerGrossesses() {
+    var id = fiche.id, p = S.people[id], ok = !!p && !petit(p);
+    $('fp-grossesses').style.display = ok ? '' : 'none';
+    if (!ok) return;
+    var l = enfantsOrdonnes(id);
+    $('fp-gr-liste').innerHTML = l.map(function (q) {
+      return petit(q) ? '<li class="gr-perte">' + esc(libGross(q)) + '<button type="button" class="gr-x" data-gr-suppr="' + esc(q.id) + '" aria-label="Retirer">×</button></li>'
+        : '<li>' + esc(nomCourt(q.id)) + (annee(q.naiss) ? ' (' + annee(q.naiss) + ')' : '') + '</li>';
+    }).join('');
+    $('fp-gr-liste').hidden = !l.length;
+  }
+  function ouvrirFormGrossesse() {
+    var id = fiche.id, p = S.people[id], l = enfantsOrdonnes(id), parts = partenaires(id);
+    $('fp-gr-pos').innerHTML = (l.length ? '<option value="">Avant le premier enfant</option>' : '<option value="">En premier</option>') +
+      l.map(function (q, i) { return '<option value="' + esc(q.id) + '"' + (i === l.length - 1 ? ' selected' : '') + '>Après ' + esc(petit(q) ? GROSS[q.grossesse].toLowerCase() + ' n°' + (i + 1) : nomCourt(q.id)) + '</option>'; }).join('');
+    // l'autre parent par défaut : celui des enfants déjà notés
+    var compte = {}; l.forEach(function (q) { parents(q.id).forEach(function (x) { if (x !== id) compte[x] = (compte[x] || 0) + 1; }); });
+    var defaut = parts.slice().sort(function (a, b) { return (compte[b] || 0) - (compte[a] || 0); })[0] || '';
+    $('fp-gr-avec').innerHTML = parts.map(function (x) { return '<option value="' + esc(x) + '"' + (x === defaut ? ' selected' : '') + '>' + esc(nomCourt(x)) + '</option>'; }).join('') + '<option value=""' + (defaut ? '' : ' selected') + '>Autre ou inconnu</option>';
+    $('fp-gr-avec-ligne').style.display = parts.length ? '' : 'none';
+    $('fp-gr-nb').value = 1; $('fp-gr-annee').value = ''; $('fp-gr-age').value = '';
+    $('fp-gr-age-lab').textContent = 'Ou ' + (p.role === 'moi' ? 'ton' : 'son') + ' âge à ce moment';
+    $('fp-gr-form').hidden = false; $('fp-gr-ajout').hidden = true;
+    $('fp-gr-type').focus();
+  }
+  $('fp-gr-ajout').addEventListener('click', ouvrirFormGrossesse);
+  $('fp-gr-annuler').addEventListener('click', function () { $('fp-gr-form').hidden = true; $('fp-gr-ajout').hidden = false; });
+  $('fp-gr-ok').addEventListener('click', function () {
+    var id = fiche.id, p = S.people[id]; if (!p) return;
+    var type = $('fp-gr-type').value, nb = Math.max(1, Math.min(9, parseInt($('fp-gr-nb').value, 10) || 1));
+    var an = parseInt($('fp-gr-annee').value, 10), age = parseInt($('fp-gr-age').value, 10);
+    if (!(an > 1800 && an < 2101)) an = (age > 9 && age < 61 && annee(p.naiss)) ? annee(p.naiss) + age : null;
+    var apres = $('fp-gr-pos').value, avec = $('fp-gr-avec-ligne').style.display === 'none' ? '' : $('fp-gr-avec').value;
+    memoriser();
+    for (var i = 0; i < nb; i++) {
+      var q = nouvellePersonne({ grossesse: type, apres: apres });
+      if (an) q.naiss = String(an);
+      if (type === 'mn') { q.decede = true; if (an) q.deces = String(an); }
+      S.rels.push({ from: id, to: q.id, type: 'parent' });
+      if (avec && S.people[avec]) S.rels.push({ from: avec, to: q.id, type: 'parent' });
+    }
+    $('fp-gr-form').hidden = true; $('fp-gr-ajout').hidden = false;
+    dessinerGrossesses(); dessinerLiensFiche(); dessiner(id); majBarreActions(); enregistrer();
+  });
+  $('fp-gr-liste').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-gr-suppr]'); if (!b) return;
+    var x = b.getAttribute('data-gr-suppr'); if (!S.people[x]) return;
+    memoriser();
+    delete S.people[x];
+    S.rels = S.rels.filter(function (r) { return r.from !== x && r.to !== x; });
+    dessinerGrossesses(); dessinerLiensFiche(); dessiner(fiche.id); majBarreActions(); enregistrer();
+  });
   function annulerFiche() {
     if (fiche && fiche.nouveau && fiche.avant) {
       // on retire la personne tout juste créée
@@ -2718,7 +2904,7 @@
     if (rq.length) p.reperes = rq; else delete p.reperes;
     p.events = evts;
     var gr = $('fp-grossesse').value;
-    if (GROSS[gr]) p.grossesse = gr; else delete p.grossesse;
+    if (GROSS[gr] && p.role !== 'moi') p.grossesse = gr; else { delete p.grossesse; delete p.apres; }
     if ($('fp-adopte').checked) p.adopte = true; else delete p.adopte;
     if ($('fp-place').checked) p.place = true; else delete p.place;
     var jNouv = $('fp-jumeau').value, jAnc = jumeauDe(fiche.id);
@@ -2820,6 +3006,11 @@
       setTimeout(function () { $('fp-bloc-liens').scrollIntoView({ block: 'center' }); $('fp-lier-qui').focus(); }, 60);
     }
     else if (act === 'supprimer') supprimer(selId);
+    else if (act === 'fermer') choisir(null);
+    else if (act === 'grossesse') {   // la fiche, ouverte directement sur l'ajout d'une grossesse non aboutie
+      ouvrirFiche(selId, false); ouvrirFormGrossesse();
+      setTimeout(function () { $('fp-grossesses').scrollIntoView({ block: 'start' }); }, 60);
+    }
     else ouvrirAjout(act, selId);
   });
   (function () {
@@ -3253,6 +3444,11 @@
     etat: function () { var e = JSON.parse(JSON.stringify(S)); e.libelles = JSON.parse(JSON.stringify(NOM_EVT)); return e; },   // lecture seule (export GEDCOM)
     ouvrir: ouvrir, fermer: fermer,
     fiche: function (id) { if (S.people[id]) ouvrirFiche(id); },
+    centrerSur: function (id, k) {   // téléphone : centrer le dessin sur une personne, à un zoom lisible, sans la choisir
+      if (!plan || !plan.pos[id]) return false;
+      var t = $('toile'), p = plan.pos[id]; vue.k = k || 0.85;
+      vue.x = t.clientWidth / 2 - p.x * vue.k; vue.y = t.clientHeight * 0.42 - p.y * vue.k; appliquerVue(); return true;
+    },
     allerA: function (id) { if (S.people[id]) choisir(id); },   // recherche par nom : sélectionne la personne et l'amène à l'écran   // vue téléphone : ouvrir la fiche d'une personne
     repetitions: function () { return detecter().map(function (r) { return { type: r.type, label: r.label, desc: descComplete(r), fort: !!r.fort, loyaute: r.loyaute || null, noyau: r.noyau || null }; }); },
     /* vue téléphone : les mêmes cartes et le même compte que le panneau « Ce qui se répète » de l'ordinateur
@@ -3363,6 +3559,8 @@
   TEXTES_RAPPORT.repere = { titre: 'Tes répétitions visibles', intro: 'Ce sont les mots que tu as posés toi-même sur les personnes de ton arbre. Quand un même mot revient d’une génération à l’autre, il dessine un fil que tu as déjà su voir. Quand il ne relie que des personnes unies par un couple, c’est un écho par alliance, pas une transmission.', pistes: ['D’où vient ce que tu as repéré : de l’exemple, d’une histoire racontée, d’une fidélité ?', 'Qu’est-ce que ce trait a permis, autrefois, à celles et ceux qui le portaient ?', 'Que veux-tu garder de ce fil, et que veux-tu laisser ?'], geste: 'Écris, pour chaque mot repéré, une façon de le vivre qui t’appartient vraiment.', loyaute: 'Si c’est toi-même qui as repéré ce mot qui revient, une part de toi sait déjà qu’il circule dans la famille comme une dette plus que comme un choix. Te demander à qui tu restes redevable en le portant, c’est te donner le droit de décider, aujourd’hui, ce que tu gardes de cette comptabilité et ce que tu effaces.' };
   // Des loyautés invisibles plus précises, pour les pistes les plus chargées émotionnellement (reprend les clés de QUESTIONS plus bas)
   var QK_LOYAUTE = {
+    premperte: 'Benoît Bayle, psychiatre, parle de « survivance prénatale » : l’enfant qui arrive après une grossesse perdue ou interrompue peut porter, sans le savoir, le sentiment d’être là à la place d’un autre. Quand la première grossesse est perdue à chaque génération, la famille transmet aussi une manière de vivre (ou de taire) ces pertes. L’aîné·e de fait occupe alors une double place : premier enfant de la famille, deuxième dans l’histoire de ses parents. Nommer ces grossesses, même sans détail, rend à chacun sa place.',
+    agemere: 'Le syndrome d’anniversaire ne concerne pas que les décès : une fille qui atteint l’âge auquel sa mère a perdu une grossesse peut vivre, à son tour, une perte au même âge. Monique Bydlowski décrit la « transparence psychique » de la grossesse, ce moment où l’histoire de sa propre mère remonte à la surface. Ce n’est pas une fatalité : savoir ce que sa mère a traversé, et le lui demander quand c’est possible, desserre souvent ce lien invisible.',
     coupure: 'Murray Bowen a appelé « coupure émotionnelle » cette façon de gérer un attachement trop lourd : partir, se taire, mettre des kilomètres ou des années entre soi et les siens. Sur le moment, la coupure soulage. Mais elle ne dénoue rien : le lien non réglé reste actif, et il a tendance à se rejouer — avec un conjoint, avec ses propres enfants, ou dans une nouvelle coupure à la génération suivante. La loyauté invisible, ici, peut prendre une forme paradoxale : rompre comme ton parent a rompu, être fidèle à sa façon de partir. Se libérer ne veut pas dire renouer à tout prix : on peut garder une distance choisie, tout en mettant des mots sur ce qui a été coupé, pour que ce ne soit plus un héritage subi.',
     triangle: 'Bowen voyait dans le triangle la plus petite unité stable d’une famille : quand la tension monte entre deux personnes, elle se décharge sur une troisième. Pour un enfant, c’est souvent devenir l’allié·e d’un parent contre l’autre, son confident, ou le messager entre deux adultes qui ne se parlent plus. Iván Boszormenyi-Nagy parle alors de « loyauté clivée » : aimer l’un revient à trahir l’autre. On en sort rarement en choisissant un camp, plus souvent en refusant le rôle — en rendant aux adultes ce qui appartient à leur couple, et en se donnant le droit d’aimer ses deux parents séparément.',
     parentif: 'Iván Boszormenyi-Nagy a nommé « parentification » le renversement des rôles : l’enfant devient le soutien de son parent — il console, il conseille, il protège, il se tient tranquille pour ne pas ajouter de poids. Dans ce qu’il appelle le « grand livre des comptes » de la famille, cet enfant a beaucoup donné sans recevoir. Ce déséquilibre ne s’efface pas tout seul : il se reporte souvent sur la génération suivante, quand l’enfant devenu parent attend à son tour d’être porté. Reconnaître ce qui a été donné — même trop tôt — est la première manière de solder ce compte, sans culpabilité ni reproche.',
