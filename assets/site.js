@@ -1709,6 +1709,10 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
     blocs.forEach(function (b) {
       var n = +b.getAttribute('data-avis-publies') || 3, zone = b.querySelector('[data-avis-liste]') || b;
       zone.innerHTML = liste.slice(0, n).map(function (a) { return '<figure><blockquote>« ' + esc(a.texte) + ' »</blockquote><figcaption>' + esc(a.qui) + '</figcaption></figure>'; }).join('');
+      if (liste.length === 1) {
+        b.classList.add('avis-seul');
+        var titre = b.querySelector('h2'); if (titre) titre.textContent = 'Elle a essayé';
+      }
       b.hidden = false;
     });
   });
