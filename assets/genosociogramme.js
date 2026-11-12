@@ -3450,12 +3450,12 @@
       vue.x = t.clientWidth / 2 - p.x * vue.k; vue.y = t.clientHeight * 0.42 - p.y * vue.k; appliquerVue(); return true;
     },
     allerA: function (id) { if (S.people[id]) choisir(id); },   // recherche par nom : sélectionne la personne et l'amène à l'écran   // vue téléphone : ouvrir la fiche d'une personne
-    repetitions: function () { return detecter().map(function (r) { return { type: r.type, label: r.label, desc: descComplete(r), fort: !!r.fort, loyaute: r.loyaute || null, noyau: r.noyau || null, art: r.art || null }; }); },
+    repetitions: function () { return detecter().map(function (r) { return { type: r.type, label: r.label, desc: descComplete(r), fort: !!r.fort, loyaute: r.loyaute || null, noyau: r.noyau || null }; }); },
     /* vue téléphone : les mêmes cartes et le même compte que le panneau « Ce qui se répète » de l'ordinateur
        (« Ce qui part de toi » compris, sans les pistes marquées « Pas pour moi ») */
     lecture: function () {
       var base = detecter().filter(function (r) { return !r.synth && visiblePartage(r); }), AV = S.avis || {};
-      var reps = base.filter(function (r) { return !(AV[r.cleA] && AV[r.cleA].v === 'non'); }).map(function (r) { return { type: r.type, label: r.label, desc: descComplete(r), fort: !!r.fort, jm: r.jm || undefined, loyaute: r.loyaute || null, noyau: r.noyau || null, art: r.art || null }; });
+      var reps = base.filter(function (r) { return !(AV[r.cleA] && AV[r.cleA].v === 'non'); }).map(function (r) { return { type: r.type, label: r.label, desc: descComplete(r), fort: !!r.fort, jm: r.jm || undefined, loyaute: r.loyaute || null, noyau: r.noyau || null }; });
       var c = idCentre(), pc = c ? S.people[c] : null, port = base.length && pc ? portraitDe(c) : [];
       var tiers = DOSSIER_CLIENT || (pc && pc.role !== 'moi'), prC = pc ? (String(pc.prenom || '').split(/[\s-]+/)[0] || nomComplet(pc) || 'cette personne') : '';
       return { portrait: port.map(function (r) { return { label: r.label, desc: r.desc }; }), titrePortrait: 'Ce qui part ' + (tiers ? 'de ' + prC : 'de toi'), reps: reps, total: port.length + reps.length };
