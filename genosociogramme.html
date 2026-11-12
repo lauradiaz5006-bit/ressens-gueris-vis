@@ -183,6 +183,8 @@
     .gr-liste{margin:.2rem 0 .6rem;padding-left:1.6rem;font-size:.9rem;color:var(--prune)}
     .gr-liste li{margin:.2rem 0}
     .gr-liste li.gr-perte{color:var(--prune-doux);font-style:italic}
+    .gr-liste li.gr-perte .gr-texte{cursor:pointer;border-radius:4px}
+    .gr-liste li.gr-perte .gr-texte:hover{text-decoration:underline}
     .gr-liste .gr-x{border:0;background:none;color:var(--prune-doux);font-size:1.1rem;cursor:pointer;padding:0 .3rem;margin-left:.2rem}
     .gr-form{border:1.5px dashed var(--rose-fonce);border-radius:10px;padding:.6rem .8rem .3rem;margin:0 0 .7rem}
     .gr-boutons{margin:.2rem 0 .5rem}
@@ -840,9 +842,9 @@
           <div class="gr-form" id="fp-gr-form" hidden>
             <div class="deux-col">
               <div class="champ"><label for="fp-gr-type">Quoi</label><select id="fp-gr-type"><option value="fc">Fausse couche</option><option value="ivg">IVG</option><option value="mn">Enfant mort-né</option><option value="encours">Grossesse en cours</option></select></div>
-              <div class="champ"><label for="fp-gr-nb">Combien de fois</label><input type="number" id="fp-gr-nb" min="1" max="9" value="1" inputmode="numeric"></div>
+              <div class="champ" id="fp-gr-nb-ligne"><label for="fp-gr-nb">Combien de fois</label><input type="number" id="fp-gr-nb" min="1" max="9" value="1" inputmode="numeric"></div>
             </div>
-            <div class="champ"><label for="fp-gr-pos">À quelle place</label><select id="fp-gr-pos"></select></div>
+            <div class="champ" id="fp-gr-pos-ligne"><label for="fp-gr-pos">À quelle place</label><select id="fp-gr-pos"></select></div>
             <div class="champ" id="fp-gr-avec-ligne"><label for="fp-gr-avec">Avec</label><select id="fp-gr-avec"></select></div>
             <div class="deux-col">
               <div class="champ"><label for="fp-gr-annee">Année</label><input type="number" id="fp-gr-annee" min="1800" max="2100" inputmode="numeric" placeholder="Facultatif"></div>
@@ -1037,7 +1039,7 @@
   <script src="assets/guematrie.js"></script>
   <script src="assets/prenoms-echos.js?v=1"></script>
   <script src="assets/praticien-outils.js?v=12"></script>
-  <script src="assets/genosociogramme.js?v=2026-11-12b"></script>
+  <script src="assets/genosociogramme.js?v=2026-11-12c"></script>
   <script src="assets/import-arbre.js?v=2026-10-26"></script>
   <script src="assets/tutoriel-arbre.js?v=2026-10-21"></script>
   <script src="assets/date-deroulante.js?v=1"></script>
