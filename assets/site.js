@@ -1698,7 +1698,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
   var URL_AVIS = 'https://qsvzzkjtjsznfntahvvh.supabase.co/functions/v1/avis', attente = null;
   window.GenesoliaAvis = function (cb) {
     if (!attente) attente = fetch(URL_AVIS).then(function (r) { return r.ok ? r.json() : { avis: [] }; }).catch(function () { return { avis: [] }; })
-      .then(function (r) { return (r && r.avis || []).map(function (a) { return { texte: a.texte, qui: a.prenom + (a.age ? ', ' + a.age + ' ans' : '') + (a.ville ? ' · ' + a.ville : '') }; }); });
+      .then(function (r) { return (r && r.avis || []).map(function (a) { return { texte: a.texte, verifie: a.verifie === true, qui: a.prenom + (a.age ? ', ' + a.age + ' ans' : '') + (a.ville ? ' · ' + a.ville : '') }; }); });
     attente.then(cb);
   };
   var blocs = document.querySelectorAll('[data-avis-publies]');
@@ -1708,7 +1708,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
     if (!liste.length) return;
     blocs.forEach(function (b) {
       var n = +b.getAttribute('data-avis-publies') || 3, zone = b.querySelector('[data-avis-liste]') || b;
-      zone.innerHTML = liste.slice(0, n).map(function (a) { return '<figure><blockquote>« ' + esc(a.texte) + ' »</blockquote><figcaption>' + esc(a.qui) + '</figcaption></figure>'; }).join('');
+      zone.innerHTML = liste.slice(0, n).map(function (a) { return '<figure><blockquote>« ' + esc(a.texte) + ' »</blockquote><figcaption>' + esc(a.qui) + (a.verifie ? '<span class="avis-verifie">✓ Avis vérifié</span>' : '') + '</figcaption></figure>'; }).join('');
       if (liste.length === 1) {
         b.classList.add('avis-seul');
         var titre = b.querySelector('h2'); if (titre) titre.textContent = 'Elle a essayé';
