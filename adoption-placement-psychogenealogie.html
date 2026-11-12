@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Adoption et placement : la blessure primitive dans l'arbre</title>
+  <meta name="description" content="Adoption, placement en famille d'accueil, enfant confié à des proches : la blessure primitive selon Nancy Verrier, ce que la psychogénéalogie observe sur plusieurs générations, et comment l'inscrire dans son arbre.">
+  <link rel="canonical" href="https://genesolia.fr/adoption-placement-psychogenealogie.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Adoption et placement dans l'arbre : la blessure primitive et ce qui se transmet">
+  <meta property="og:description" content="Adoption, placement en famille d'accueil, enfant confié à des proches : la blessure primitive selon Nancy Verrier, ce que la psychogénéalogie observe sur plusieurs générations, et comment l'inscrire dans son arbre.">
+  <meta property="og:image" content="https://genesolia.fr/assets/partage/genosociogramme.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Un arbre familial dessiné à la main, entouré de photos de famille anciennes">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(52rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+    .article .encart{margin:2rem 0}
+
+    .facettes{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0;list-style:none}
+    .facettes li{background:var(--blanc);border:1px solid var(--rose);border-radius:16px;padding:1.1rem 1.2rem}
+    .facettes strong{display:block;font-family:var(--display);font-weight:400;font-size:1.2rem;margin-bottom:.2rem}
+    .facettes span{color:var(--prune-doux);font-size:.97rem}
+
+    .cocher{margin:1.8rem 0;padding:1.6rem 1.6rem 1.4rem;border-radius:var(--rayon);background:linear-gradient(180deg,#FCEFF3,var(--blanc) 80%);border:1px solid var(--rose-fonce)}
+    .cocher .titre{font-family:var(--display);font-size:1.3rem;margin-bottom:.8rem}
+    .cocher ul{list-style:none;display:grid;gap:.15rem}
+    .cocher label{display:flex;gap:.8rem;align-items:flex-start;padding:.45rem 0;cursor:pointer}
+    .cocher input{flex-shrink:0;width:1.15rem;height:1.15rem;margin-top:.25rem;accent-color:var(--prune)}
+    .cocher .note{margin-top:.9rem}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+
+    .deux{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0}
+    .deux div{padding:1.3rem 1.3rem 1.2rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc)}
+    .deux .c2{background:linear-gradient(180deg,#FCEFF3,var(--blanc) 75%)}
+    .deux .c1{background:linear-gradient(180deg,#FBF1EE,var(--blanc) 75%)}
+    .deux .nom{font-family:var(--display);color:var(--champagne)}
+    .deux h3{margin:.1rem 0 .5rem}
+    .deux p{color:var(--prune-doux);font-size:.97rem}
+
+    .exercice{list-style:none;counter-reset:ex;margin:1.6rem 0;display:grid;gap:0}
+    .exercice li{counter-increment:ex;display:grid;grid-template-columns:2.6rem 1fr;gap:.2rem 1rem;padding:1.2rem 0;border-top:1px solid var(--rose)}
+    .exercice li::before{content:counter(ex);grid-row:span 2;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.15rem;background:var(--champagne-clair)}
+    .exercice li:last-child::before{background:var(--prune);color:var(--blanc)}
+    .exercice h3{margin:0;font-size:1.2rem}
+    .exercice p{color:var(--prune-doux)}
+
+    .gestes{margin:1.4rem 0;padding-left:1.2rem;display:grid;gap:.6rem}
+    .gestes li::marker{color:var(--champagne)}
+
+    .securite{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:start}
+    .securite svg{width:36px;height:36px;margin-top:.15rem}
+
+    .article .actions{margin-top:1.6rem}
+
+    @media (max-width:640px){
+      .facettes,.deux{grid-template-columns:1fr}
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .securite{grid-template-columns:1fr;gap:.8rem}
+      .article .actions .btn{width:100%}
+    }
+    .voisins{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+    .voisins a{border:1px solid var(--rose-fonce);border-radius:999px;padding:.3rem .9rem;text-decoration:none;font-size:.95rem;background:var(--blanc)}
+    .voisins a[aria-current]{background:var(--prune);color:var(--blanc);border-color:var(--prune)}
+    .faq dt{font-weight:600;margin-top:1.4rem}
+    .faq dd{margin:.4rem 0 0;color:var(--prune-doux)}
+    .note-fin{font-size:.93rem;color:var(--prune-doux);margin-top:2.4rem}
+    .article .actions{display:flex;flex-wrap:wrap;gap:.6rem}
+  </style>
+  <script type="application/ld+json">[{"@context":"https://schema.org","@type":"Article","headline":"Adoption et placement dans l'arbre : la blessure primitive et ce qui se transmet","description":"Adoption, placement en famille d'accueil, enfant confié à des proches : la blessure primitive selon Nancy Verrier, ce que la psychogénéalogie observe sur plusieurs générations, et comment l'inscrire dans son arbre.","datePublished":"2026-11-12","dateModified":"2026-11-12","inLanguage":"fr","author":{"@type":"Organization","name":"Genesolia","url":"https://genesolia.fr/"},"publisher":{"@type":"Organization","name":"Genesolia","url":"https://genesolia.fr/"},"url":"https://genesolia.fr/adoption-placement-psychogenealogie.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://genesolia.fr/adoption-placement-psychogenealogie.html"}},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Qu'est-ce que la blessure primitive ?","acceptedAnswer":{"@type":"Answer","text":"Une notion de la thérapeute Nancy Verrier : la trace que laisse, chez un enfant adopté, la séparation d'avec sa mère de naissance, même s'il a été aimé et accueilli très tôt."}},{"@type":"Question","name":"Les enfants adoptés vont-ils forcément mal ?","acceptedAnswer":{"@type":"Answer","text":"Non. Les grandes études montrent que la plupart rattrapent l'essentiel de leur développement dans un environnement stable. L'âge à l'adoption et la qualité de l'accueil comptent beaucoup."}},{"@type":"Question","name":"Comment noter une adoption dans un génosociogramme ?","acceptedAnswer":{"@type":"Answer","text":"On relie l'enfant à ses parents adoptifs et, quand on la connaît, à sa famille de naissance. Dans l'arbre de Genesolia, il suffit de cocher « Adopté·e » ou « Placé·e » dans la fiche de la personne."}},{"@type":"Question","name":"Un placement peut-il se répéter d'une génération à l'autre ?","acceptedAnswer":{"@type":"Answer","text":"La psychogénéalogie l'observe souvent : un parent confié enfant peut revivre la séparation avec ses propres enfants. Ce n'est pas une fatalité, et en parler aide à défaire cette répétition."}},{"@type":"Question","name":"Comment retrouver ses origines quand on est né sous X ?","acceptedAnswer":{"@type":"Answer","text":"En France, la personne née sous le secret peut s'adresser au Conseil national pour l'accès aux origines personnelles (CNAOP), créé par la loi du 22 janvier 2002. Il recherche si la mère de naissance a laissé son identité et peut la contacter pour lui demander son accord avant de la communiquer."}},{"@type":"Question","name":"Est-ce normal de penser à sa mère de naissance quand on a été adopté ?","acceptedAnswer":{"@type":"Answer","text":"Oui. Se poser des questions sur ses origines est fréquent et sain, surtout aux grandes étapes de la vie (adolescence, naissance d'un enfant, deuil). Ce n'est pas un rejet de la famille qui a élevé. Si ces questions deviennent envahissantes ou douloureuses, en parler à un·e professionnel·le peut aider."}}]}]</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Adoption et placement dans l'arbre : la blessure primitive et ce qui se transmet", "item": "https://genesolia.fr/adoption-placement-psychogenealogie.html"}]}</script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d'Ariane"><a href="psychogenealogie.html">Psychogénéalogie</a><span aria-hidden="true">/</span>Adoption et placement</nav>
+        <h1>Adoption et placement dans l'arbre : la blessure primitive et ce qui se transmet</h1>
+        <p class="intro">Un grand-père élevé par une tante, une mère placée en famille d'accueil, un enfant adopté : ces histoires sont souvent racontées à demi-mot. Elles comptent pourtant beaucoup, pour celui ou celle qui les a vécues, et parfois pour ses descendants.</p>
+        <p class="publie">Publié le 12 novembre 2026 · lecture 12 min</p>
+      </div>
+    </section>
+    <figure class="bandeau-photo"><img src="assets/images/genosociogramme-1600.webp" srcset="assets/images/genosociogramme-800.webp 800w, assets/images/genosociogramme-1600.webp 1600w" sizes="(max-width: 1140px) 100vw, 1100px" width="1600" height="841" alt="Un arbre familial dessiné à la main, entouré de photos de famille anciennes" loading="lazy" decoding="async"></figure>
+
+    <article class="article">
+      <div class="colonne">
+        <h2>Les enfants confiés, une histoire très ancienne</h2>
+        <p>Pendant des siècles, confier un enfant a été courant : enfants mis en nourrice, orphelins élevés par un oncle, enfants placés à l'Assistance publique, enfants de la guerre accueillis à la campagne, adoptions plus ou moins officielles au sein de la famille. Dans beaucoup d'arbres, ces histoires existent, mais on les connaît mal. Elles sont pourtant essentielles : elles disent qu'un enfant a été séparé de ses parents, et que quelqu'un d'autre a pris le relais.</p>
+        <ul class="facettes">
+          <li><strong>L'adoption</strong><span>Plénière ou simple, en France ou à l'étranger, connue de l'enfant ou longtemps cachée.</span></li>
+          <li><strong>Le placement</strong><span>En famille d'accueil, en foyer, à l'Aide sociale à l'enfance : souvent après une difficulté grave des parents.</span></li>
+          <li><strong>L'enfant confié à des proches</strong><span>Élevé par des grands-parents, une tante, une marraine, sans démarche officielle. C'est la forme la plus fréquente, et la moins notée.</span></li>
+          <li><strong>La mise en nourrice</strong><span>Très répandue jusqu'au début du XXᵉ siècle : des bébés élevés loin de leur mère pendant leurs premières années.</span></li>
+        </ul>
+
+        <h2>La blessure primitive</h2>
+        <p>La thérapeute américaine <strong>Nancy Verrier</strong>, elle-même mère adoptive, a publié en 1993 <em>The Primal Wound</em>, traduit en français sous le titre <em>L'enfant adopté : comprendre la blessure primitive</em>. Sa thèse : même aimé, même accueilli très tôt dans une famille aimante, un enfant séparé de sa mère de naissance garde la trace de cette première séparation. Le lien prénatal (la voix, l'odeur, le rythme de la mère) a été rompu.</p>
+        <p>Verrier décrit deux attitudes fréquentes chez l'enfant adopté : être « trop sage », pour ne pas risquer d'être abandonné à nouveau, ou tester sans cesse l'amour de ses parents, pour vérifier qu'ils restent. À l'âge adulte, cette blessure peut se manifester par une peur d'être laissé, une difficulté à faire confiance, ou un sentiment diffus de ne pas être tout à fait à sa place.</p>
+        <p class="rappel"><strong>Une lecture, pas une fatalité.</strong> Beaucoup de personnes adoptées ne se reconnaissent pas dans cette description, et c'est légitime. Les travaux sur l'attachement montrent que la qualité de l'accueil compte énormément.</p>
+
+        <h2>Ce que la psychogénéalogie observe</h2>
+        <p><strong>Anne Ancelin Schützenberger</strong> a souvent relevé que les séparations précoces se répètent dans les familles. Un parent qui a été confié enfant peut, sans le vouloir, revivre la séparation avec ses propres enfants : les confier à son tour, partir, ou au contraire ne jamais réussir à les laisser grandir. Ce qui n'a pas été dit se rejoue parfois en actes.</p>
+        <ul class="pistes">
+          <li><strong>La séparation en chaîne</strong><span>Une grand-mère placée enfant, une mère élevée par sa grand-mère, un enfant confié à son tour : la même séparation, à chaque génération.</span></li>
+          <li><strong>Le secret d'adoption</strong><span>Un enfant qui découvre tard qu'il a été adopté, ou un « oncle » qui était en réalité un père : ces secrets pèsent souvent plus lourd que l'adoption elle-même.</span></li>
+          <li><strong>Deux familles dans un seul arbre</strong><span>L'enfant adopté a une lignée de naissance et une lignée d'adoption. Les deux comptent, même si l'une est inconnue.</span></li>
+          <li><strong>Le rang inconnu</strong><span>Le rang de naissance d'un enfant adopté est souvent inconnu ; il prend pourtant une vraie place dans sa nouvelle fratrie, et son arrivée déplace celle des autres.</span></li>
+        </ul>
+
+        <h2>Quatre histoires, quatre façons de porter</h2>
+        <p>Derrière les mots « adoption » ou « placement », il y a des vies très différentes. Ces quatre situations, inventées mais très proches de ce que l'on rencontre dans les familles, montrent que la même séparation ne laisse jamais la même trace.</p>
+        <h3>Marie, adoptée à six mois</h3>
+        <p>Marie a toujours su qu'elle avait été adoptée. Ses parents lui en ont parlé tôt, avec des mots simples, et elle a grandi entourée. À 35 ans, enceinte de son premier enfant, elle se surprend à pleurer sans raison pendant l'échographie. Elle réalise qu'elle ne sait rien de la grossesse de sa mère de naissance : était-elle seule, avait-elle peur, a-t-elle pu la tenir dans ses bras ? Rien n'allait mal dans sa vie. C'est la naissance de son propre enfant qui a réveillé la question de sa propre naissance.</p>
+        <h3>Jean, élevé par sa grand-mère</h3>
+        <p>Jean est né en 1952. Sa mère, très jeune et seule, l'a confié à sa propre mère « le temps de trouver du travail ». Le temps a duré toute son enfance. Dans la famille, on n'a jamais parlé d'abandon : c'était normal, « ça se faisait ». Jean a adoré sa grand-mère. Il a aussi passé sa vie à quitter les femmes avant qu'elles ne le quittent, sans jamais faire le lien. C'est sa fille, en remplissant son arbre, qui a remarqué que trois générations d'enfants avaient été élevés par quelqu'un d'autre que leur mère.</p>
+        <h3>Sofia, placée à huit ans</h3>
+        <p>Sofia a été placée en famille d'accueil après des années difficiles chez ses parents. Elle garde de cette famille un souvenir de calme et de repas à heure fixe. Elle garde aussi une loyauté douloureuse envers sa mère de naissance, qu'elle n'arrive ni à quitter ni à retrouver. Pour elle, la séparation a été une protection. Et pourtant, elle se sent coupable d'avoir été heureuse ailleurs.</p>
+        <h3>L'arrière-grand-père mis en nourrice</h3>
+        <p>Dans beaucoup d'arbres, on trouve un aïeul né à Paris ou à Lyon et mort, ou élevé, à des centaines de kilomètres, dans un village du Morvan ou de Normandie. Jusqu'au début du XXᵉ siècle, une grande partie des bébés des villes partaient en nourrice à la campagne, parfois pendant plusieurs années. Personne n'en parlait comme d'une séparation : c'était la norme. L'arbre permet pourtant de le voir, et de se demander ce que cet enfant-là a transmis de cette première absence.</p>
+        <p class="rappel">Un même événement, quatre histoires. La séparation est un fait ; ce qu'elle devient dépend de ce qui a été dit, de la façon dont l'enfant a été accueilli, et de ce que la famille a pu en faire.</p>
+
+        <h2>Questions normales, ou blessure qui se rejoue ?</h2>
+        <p>Toute personne adoptée ou confiée se pose des questions sur ses origines, à un moment ou à un autre. C'est sain. Ce n'est ni un rejet de la famille qui a élevé, ni le signe que « quelque chose ne va pas ». Le psychologue <strong>David Brodzinsky</strong>, qui a suivi des personnes adoptées pendant des décennies, décrit l'adoption comme une histoire qu'on relit à chaque âge de la vie : à l'enfance, à l'adolescence, à la naissance d'un enfant, à la mort des parents adoptifs.</p>
+        <ul class="pistes">
+          <li><strong>Ce qui est fréquent et attendu</strong><span>Se demander à qui on ressemble, avoir envie de connaître son histoire médicale, imaginer sa mère de naissance, vivre des émotions fortes aux dates anniversaires ou à la naissance de ses enfants.</span></li>
+          <li><strong>Ce qui peut signaler une blessure encore vive</strong><span>Une peur d'être abandonné·e qui revient dans toutes les relations, une impossibilité de faire confiance, une colère ou une tristesse qui envahissent le quotidien, l'impression de devoir « mériter » sa place partout.</span></li>
+          <li><strong>Ce qui appartient souvent à la lignée</strong><span>La même séparation qui revient d'une génération à l'autre : enfants confiés, départs précoces, mères absentes, pères inconnus. C'est là que l'arbre devient précieux.</span></li>
+        </ul>
+        <p>La journaliste et autrice <strong>Betty Jean Lifton</strong>, elle-même adoptée, parlait d'un « soi adopté » qui a besoin de relier les deux moitiés de son histoire pour se sentir entier. Relier ne veut pas dire choisir : on peut aimer la famille qui a élevé et chercher celle qui a donné la vie.</p>
+
+        <h2>Ce que dit la recherche</h2>
+        <p>Les grandes études sur l'adoption sont plutôt rassurantes. Le psychologue néerlandais <strong>Marinus van IJzendoorn</strong> et ses collègues ont montré, en rassemblant des dizaines d'études, que les enfants adoptés rattrapent l'essentiel de leur retard de développement quand ils sont accueillis dans un environnement stable, même après des débuts difficiles. Les difficultés d'attachement sont plus fréquentes après une adoption tardive ou un long séjour en institution, et l'âge à l'adoption compte beaucoup. La recherche confirme donc l'importance de la première séparation, sans en faire un destin.</p>
+
+        <h2>Retrouver ses origines en France</h2>
+        <p>Si tu cherches des informations sur une adoption ou un placement, des démarches existent. Elles prennent du temps, et il est utile de savoir à qui s'adresser.</p>
+        <ul class="gestes">
+          <li><strong>Pour une naissance « sous le secret ».</strong> Depuis la loi du 22 janvier 2002, le <a href="https://www.cnaop.gouv.fr/" target="_blank" rel="noopener">Conseil national pour l'accès aux origines personnelles (CNAOP)</a> reçoit les demandes des personnes nées sous le secret. Il recherche si la mère de naissance a laissé son identité, et peut la contacter pour lui demander si elle accepte qu'elle soit communiquée.</li>
+          <li><strong>Pour un placement ou une adoption par l'Aide sociale à l'enfance.</strong> Les dossiers sont conservés par le département. La personne concernée peut demander à consulter le sien auprès du service de l'Aide sociale à l'enfance ou des archives départementales.</li>
+          <li><strong>Pour un aïeul « enfant assisté » ou mis en nourrice.</strong> Les registres des enfants assistés et des bureaux de nourrices sont souvent consultables aux archives départementales, parfois en ligne. Ils indiquent la date d'admission, le lieu de placement, et parfois le nom de la nourrice.</li>
+          <li><strong>Pour un enfant confié dans la famille.</strong> Il n'y a souvent aucun papier. Ce sont les témoignages qui comptent : demande aux plus âgés, regarde les recensements (qui vivait dans quelle maison), compare les adresses sur les actes.</li>
+        </ul>
+        <p class="rappel">Une recherche d'origines peut réveiller beaucoup d'émotions, chez toi et chez les autres. Avance à ton rythme, et entoure-toi : une personne de confiance, une association de personnes adoptées, ou un·e professionnel·le de l'accompagnement si c'est lourd.</p>
+
+        <h2>Ce qu'on peut dire, et à qui</h2>
+        <p>Les histoires d'adoption et de placement ne concernent jamais une seule personne. Voici quelques façons d'ouvrir la parole, avec douceur.</p>
+        <h3>À un parent ou un grand-parent qui a été confié</h3>
+        <p>« Tu m'as dit que tu avais grandi chez ta grand-mère. Tu veux bien me raconter comment c'était, pour toi ? » Évite le mot « abandon » si la personne ne l'emploie pas elle-même : beaucoup ont vécu ces séparations comme normales, et c'est leur façon de les avoir traversées. Ce qui compte, c'est de laisser venir ce qu'elle a envie de dire, sans chercher à lui faire dire autre chose.</p>
+        <h3>À un enfant adopté</h3>
+        <p>Les spécialistes recommandent de parler tôt, avec des mots simples et vrais, et de revenir sur l'histoire au fil des âges. « Tu as grandi dans le ventre d'une autre maman. Elle n'a pas pu s'occuper de toi, et nous, on t'attendait très fort. » Les questions reviendront, différentes à chaque âge : elles ne sont pas un reproche, c'est l'enfant qui construit son histoire.</p>
+        <h3>À tes parents adoptifs, si tu cherches tes origines</h3>
+        <p>« Chercher d'où je viens ne change rien à ce que vous êtes pour moi. J'ai besoin de connaître le début de mon histoire. » Beaucoup de parents adoptifs ont peur de perdre leur enfant. Le leur dire franchement apaise souvent plus qu'on ne l'imagine.</p>
+        <h3>À toi-même</h3>
+        <p>« Ce qui m'est arrivé avant mes souvenirs a compté. Je n'ai pas à le minimiser, ni à en faire toute mon histoire. » C'est souvent la phrase la plus difficile, et la plus libératrice.</p>
+
+        <h2>Comment ton arbre peut t'aider</h2>
+        <p>Dans l'<a href="genosociogramme.html">arbre familial</a>, ouvre la fiche d'une personne et coche « Adopté·e » ou « Placé·e » dans la partie « Situation particulière ». L'arbre repère alors les enfants confiés sur deux générations ou plus, et ceux qui se trouvent dans ta lignée directe. Il te propose des questions sur ce qu'on a raconté, et ce qu'on a tu.</p>
+
+        <h2>Dessiner deux familles dans un seul arbre</h2>
+        <p>L'arbre d'une personne adoptée ou confiée pose une question très concrète : où mettre qui ? Il n'y a pas de règle unique, mais quelques repères aident à ne rien effacer.</p>
+        <ul class="pistes">
+          <li><strong>La famille de naissance</strong><span>Même si tu ne connais qu'un prénom, une ville ou une date, inscris-la. Une case presque vide dit déjà quelque chose : il y a eu quelqu'un avant.</span></li>
+          <li><strong>La famille qui a élevé</strong><span>Parents adoptifs, grands-parents, famille d'accueil, marraine : ce sont eux qui ont transmis les habitudes, les phrases, la façon d'aimer. Leur lignée fait partie de ton histoire.</span></li>
+          <li><strong>Les liens qui restent</strong><span>Une famille d'accueil avec qui l'on garde contact, des frères et sœurs de placement, une nourrice dont on garde la photo : ces liens comptent même sans lien de sang.</span></li>
+          <li><strong>Ce qu'on ne sait pas</strong><span>Un point d'interrogation est une information. Il montre où l'histoire s'interrompt, et parfois où elle s'est déjà interrompue pour les générations d'avant.</span></li>
+        </ul>
+        <p>Beaucoup de personnes adoptées disent qu'elles ont longtemps eu l'impression que leur arbre était « faux » ou « à moitié ». Le dessiner avec ses deux familles permet souvent de sentir qu'il est, au contraire, plus large que les autres.</p>
+
+        <h2>Quand se faire accompagner</h2>
+        <p>Comprendre son histoire d'adoption ou de placement peut se faire seul·e, avec l'arbre et des lectures. Mais certaines situations demandent un soutien. C'est le cas quand une recherche d'origines aboutit à une rencontre, ou à un refus ; quand des souvenirs difficiles d'avant l'adoption ou du placement remontent ; quand la peur d'être abandonné·e abîme tes relations au point de te faire souffrir. Un·e psychologue formé·e aux questions d'adoption, ou un groupe de parole de personnes adoptées, peut alors t'aider à traverser ce moment. En France, la fédération <a href="https://www.adoptionefa.org/" target="_blank" rel="noopener">Enfance & Familles d'Adoption (EFA)</a> réunit des personnes adoptées et des familles adoptives dans toute la France et peut orienter vers un groupe de parole près de chez toi.</p>
+        <p class="rappel">La psychogénéalogie propose une lecture de ton histoire, pas un soin. Si tu traverses une souffrance importante, un·e professionnel·le de santé reste la bonne personne vers qui te tourner.</p>
+
+        <h2>Un exercice pour retrouver l'histoire</h2>
+        <ol class="exercice">
+          <li><h3>Cherche les enfants confiés</h3><p>Qui, dans ta famille, a été élevé par quelqu'un d'autre que ses parents, même pour quelques années ?</p></li>
+          <li><h3>Note l'âge et la raison</h3><p>À quel âge ? Pourquoi ? Décès, pauvreté, maladie, guerre, naissance hors mariage ?</p></li>
+          <li><h3>Regarde la génération suivante</h3><p>Comment cette personne a-t-elle vécu ses propres séparations : départs des enfants, ruptures, deuils ?</p></li>
+          <li><h3>Écoute ta peur</h3><p>Où, dans ta vie, la peur d'être laissé·e de côté se rejoue-t-elle ?</p></li>
+          <li><h3>Rends sa place à chacun</h3><p>Inscris dans ton arbre les deux familles quand tu les connais : celle de naissance et celle qui a élevé.</p></li>
+        </ol>
+
+        <h2>Questions fréquentes</h2>
+        <dl class="faq">
+          <dt>Qu'est-ce que la blessure primitive ?</dt><dd>Une notion de la thérapeute Nancy Verrier : la trace que laisse, chez un enfant adopté, la séparation d'avec sa mère de naissance, même s'il a été aimé et accueilli très tôt.</dd>
+          <dt>Les enfants adoptés vont-ils forcément mal ?</dt><dd>Non. Les grandes études montrent que la plupart rattrapent l'essentiel de leur développement dans un environnement stable. L'âge à l'adoption et la qualité de l'accueil comptent beaucoup.</dd>
+          <dt>Comment noter une adoption dans un génosociogramme ?</dt><dd>On relie l'enfant à ses parents adoptifs et, quand on la connaît, à sa famille de naissance. Dans l'arbre de Genesolia, il suffit de cocher « Adopté·e » ou « Placé·e » dans la fiche de la personne.</dd>
+          <dt>Un placement peut-il se répéter d'une génération à l'autre ?</dt><dd>La psychogénéalogie l'observe souvent : un parent confié enfant peut revivre la séparation avec ses propres enfants. Ce n'est pas une fatalité, et en parler aide à défaire cette répétition.</dd>
+          <dt>Comment retrouver ses origines quand on est né sous X ?</dt><dd>En France, la personne née sous le secret peut s'adresser au Conseil national pour l'accès aux origines personnelles (CNAOP), créé par la loi du 22 janvier 2002. Il recherche si la mère de naissance a laissé son identité et peut la contacter pour lui demander son accord avant de la communiquer.</dd>
+          <dt>Est-ce normal de penser à sa mère de naissance quand on a été adopté ?</dt><dd>Oui. Se poser des questions sur ses origines est fréquent et sain, surtout aux grandes étapes de la vie (adolescence, naissance d'un enfant, deuil). Ce n'est pas un rejet de la famille qui a élevé. Si ces questions deviennent envahissantes ou douloureuses, en parler à un·e professionnel·le peut aider.</dd>
+        </dl>
+        <div class="actions">
+          <a class="btn btn-plein" href="genosociogramme.html">Inscrire ces histoires dans mon arbre</a>
+          <a class="btn btn-trait" href="blessure-d-abandon.html">La blessure d'abandon</a>
+        </div>
+
+        <section class="sources">
+          <h2>Sources et pour aller plus loin</h2>
+          <ul class="gestes">
+            <li>Nancy Newton Verrier, <em>L'enfant adopté : comprendre la blessure primitive</em>, De Boeck (édition originale <em>The Primal Wound</em>, 1993).</li>
+            <li>Marinus H. van IJzendoorn et Femmie Juffer, « <a href="https://doi.org/10.1111/j.1469-7610.2006.01675.x" target="_blank" rel="noopener">The Emanuel Miller Memorial Lecture 2006: Adoption as intervention</a> », <em>Journal of Child Psychology and Psychiatry</em> (2006).</li>
+            <li>Anne Ancelin Schützenberger, <em>Aïe, mes aïeux !</em>, Desclée de Brouwer (1993).</li>
+            <li>John Bowlby, <em>Attachement et perte</em>, PUF (1978-1984).</li>
+            <li>David M. Brodzinsky, Marshall D. Schechter et Robin Marantz Henig, <em>Being Adopted: The Lifelong Search for Self</em>, Doubleday (1992).</li>
+            <li>Betty Jean Lifton, <em>Journey of the Adopted Self: A Quest for Wholeness</em>, Basic Books (1994).</li>
+            <li><a href="https://www.cnaop.gouv.fr/" target="_blank" rel="noopener">Conseil national pour l'accès aux origines personnelles (CNAOP)</a>, loi n° 2002-93 du 22 janvier 2002.</li>
+            <li><a href="https://www.adoptionefa.org/" target="_blank" rel="noopener">Enfance & Familles d'Adoption (EFA)</a>, fédération reconnue d'utilité publique.</li>
+          </ul>
+        </section>
+
+        <p class="note-fin">Lecture symbolique, pour réfléchir. La psychogénéalogie n'est pas une science : ses interprétations sont des pistes, pas des causes. Si ton histoire familiale te pèse au point de troubler ton quotidien, parles-en à une personne de confiance ou à un·e professionnel·le de l'accompagnement.</p>
+        <nav class="voisins" aria-label="Dans la même série"><a href="constellation-familiale.html">Constellation familiale</a><a href="memoire-transgenerationnelle.html">Mémoire transgénérationnelle</a><a href="loyaute-familiale-invisible.html">Loyautés invisibles</a><a href="syndrome-anniversaire.html">Syndrome d'anniversaire</a><a href="syndrome-du-gisant.html">Syndrome du gisant</a><a href="enfant-de-remplacement.html">Enfant de remplacement</a><a href="place-dans-la-fratrie.html">Place dans la fratrie</a><a href="prenom-transmis-psychogenealogie.html">Prénoms transmis</a><a href="implexe-mariage-entre-cousins.html">Implexe et cousins</a><a href="metiers-transmis-genealogie.html">Métiers de famille</a><a href="deuil-non-fait-mort-jeune.html">Deuils non faits</a><a href="projet-sens-conception-deuil.html">Projet-sens</a><a href="devenir-parent-au-meme-age.html">Les âges qui se répondent</a><a href="guerre-et-memoire-familiale.html">La guerre dans l'arbre</a><a href="secret-de-famille.html">Secrets de famille</a><a href="argent-et-lignee.html">Argent et lignée</a><a href="filles-garcons-fratrie.html">Filles et garçons</a><a href="peur-de-manquer-d-argent.html">Peur de manquer d'argent</a><a href="conflit-familial-noel.html">Conflits de Noël</a></nav>
+      </div>
+    </article>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="psychogenealogie.html"><h3>La psychogénéalogie, sans promesse</h3><p>Ce qu'elle peut t'apporter, et ses limites, dites honnêtement.</p></a>
+          <a class="outil" href="heriter.html"><h3>Comprendre le transgénérationnel</h3><p>Mémoire familiale, loyautés, âges-clés : les bases.</p></a>
+          <a class="outil" href="genosociogramme.html"><h3>Mon arbre familial</h3><p>Dessine ton génosociogramme : les répétitions sont repérées automatiquement.</p></a>
+          <a class="outil" href="methode.html"><h3>La méthode des deux cycles</h3><p>La racine et le cœur : deux besoins pour comprendre ce qui se répète.</p></a>
+          <a class="outil" href="questions-a-poser-a-sa-famille.html"><h3>Les questions à poser à sa famille</h3><p>Pour retrouver les histoires, les dates et les silences, avec tact.</p></a>
+          <a class="outil" href="blessures-de-l-ame.html"><h3>Les 5 blessures de l'âme</h3><p>Rejet, abandon, humiliation, trahison, injustice : un test pour reconnaître la tienne.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>
