@@ -99,7 +99,9 @@
     }
     var prenoms = '<button type="button" class="btn ' + (FIL ? 'btn-trait' : 'btn-plein') + ' mt-porte" data-q="commencer">Commencer mon arbre · 2 min</button>';
     var fil = FIL ? '<a class="btn btn-plein mt-porte" href="fil-d-or.html">Commencer par ce que je ressens · le fil d’or</a>' : '<a class="mt-lien-fil" href="fil-d-or.html">Ou commence par ce que tu ressens : <b>le fil d’or</b></a>';
-    racine.innerHTML = '<div class="mt-q mt-accueil"><span class="mt-etiq">Ton arbre familial · gratuit</span><h1>Ce qui se répète dans ta famille <em>commence ici</em></h1>' +
+    /* déjà un arbre en ligne (fait sur ordinateur) : le retrouver ici en se connectant, avant de recommencer */
+    var dejaCompte = (G.connecte && G.connecte()) ? '' : '<div class="mt-info mt-deja"><p><b>Tu as déjà un arbre en ligne ?</b> Celui que tu as fait sur ordinateur est dans ton espace : connecte-toi pour le retrouver ici, avec toutes ses personnes.</p><a class="btn btn-trait" href="login.html?retour=genosociogramme.html">Me connecter et retrouver mon arbre</a></div>';
+    racine.innerHTML = '<div class="mt-q mt-accueil">' + dejaCompte + '<span class="mt-etiq">Ton arbre familial · gratuit</span><h1>Ce qui se répète dans ta famille <em>commence ici</em></h1>' +
       '<p class="mt-aide">' + (FIL ? 'Pars des moments qui t’ont marquée et de ce que ta lignée a ressenti : ton arbre se dessine à partir de là.' : 'Toi, tes parents, tes grands-parents : quelques prénoms suffisent, une question à la fois.') + '</p>' +
       '<div class="mt-portes">' + (FIL ? fil + prenoms : prenoms + fil) + '</div>' +
       '<p class="mt-discret">Sans inscription pour commencer. <a href="genosociogramme.html?dessin">Je préfère le dessin complet</a></p></div>';
@@ -188,7 +190,7 @@
     if (deCote && bAnn && !bAnn.disabled) h += '<div class="mt-info"><p>Ton espace avait déjà un arbre : c’est lui qui s’affiche. L’arbre commencé sur ce téléphone a été mis de côté.</p><button type="button" class="btn btn-trait" data-recuperer>Reprendre l’arbre de ce téléphone</button></div>';
     if (!(G.connecte && G.connecte())) {
       var essaiOn = (window.GENESOLIA_ESSAI || {}).actif;
-      h += '<div class="mt-info"><p><b>Garde ton arbre.</b> Sans compte, il reste seulement dans ce navigateur, jusqu’à sa fermeture. Crée ton espace gratuit pour le retrouver partout' + (essaiOn ? ', avec <b>30 jours d’analyses offerts</b>' : '') + '.</p><a class="btn btn-plein" href="login.html?inscription&amp;retour=genosociogramme.html">Créer mon espace gratuit</a></div>';
+      h += '<div class="mt-info"><p><b>Garde ton arbre.</b> Sans compte, il reste seulement dans ce navigateur, jusqu’à sa fermeture. Crée ton espace gratuit pour le retrouver partout' + (essaiOn ? ', avec <b>30 jours d’analyses offerts</b>' : '') + '.</p><a class="btn btn-plein" href="login.html?inscription&amp;retour=genosociogramme.html">Créer mon espace gratuit</a><a class="btn btn-trait" href="login.html?retour=genosociogramme.html">J’ai déjà un espace : me connecter</a></div>';
     }
     if (passerelle && !CLI()) h += '<div class="mt-passerelle"><p class="mt-etiq">Ton arbre a ' + (ids.length >= 5 ? '3 générations' : ids.length + ' personne' + (ids.length > 1 ? 's' : '')) + ' ✦</p><p>Maintenant, ajoute ce que ta lignée a vécu et ressenti.</p><a class="btn btn-plein" href="fil-d-or.html">Continuer avec le fil d’or</a><button type="button" class="mt-plus-details" data-passerelle>Plus tard</button></div>';
     if (!estMoi && m) h += '<button type="button" class="mt-retour" data-centre="' + esc(m) + '">← Revenir à ' + (CLI() ? 'votre client·e' : 'toi') + '</button>';
@@ -332,4 +334,6 @@
     if (questionnaire && questionnaire.i <= 0 && Object.keys(E().people).length) questionnaire = null;
     if (!document.body.classList.contains('mt-dessin') && !document.querySelector('.mt-fond')) rendre(); });
   rendre();
+  /* la session se confirme après l'affichage : on retire alors l'invitation à se connecter de l'accueil */
+  [1500, 4000].forEach(function (ms) { setTimeout(function () { if (questionnaire && questionnaire.i < 0 && G.connecte && G.connecte() && racine.querySelector('.mt-deja')) afficherAccueil(); }, ms); });
 })();
