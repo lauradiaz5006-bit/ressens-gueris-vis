@@ -4,7 +4,7 @@ et les retire de outils-internes/prenoms-a-venir.json. Usage : python3 outils-in
 import json, sys, re, os, unicodedata
 R = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 CLES = {'prenom', 'variantes', 'genre', 'origine', 'sens', 'histoire', 'fete'}
-INTERDIT = re.compile(r"\b(santé|guéri\w*|soign\w*|soins?|maladi\w*|malade\w*|thérap\w*|médic\w*|médecin\w*|patient\w*|symptôm\w*|vibr\w*)\b|→|—", re.I)
+INTERDIT = re.compile(r"→|—")  # seulement la flèche et le tiret long ; plus de liste de mots interdits (12/11/2026)
 def slug(s): return ''.join(c for c in unicodedata.normalize('NFD', s.lower()) if unicodedata.category(c) != 'Mn').replace(' ', '-')
 src = os.path.join(R, 'assets', 'prenoms.js')
 base = json.loads(open(src, encoding='utf-8').read().split('window.PRENOMS = ', 1)[1].rstrip().rstrip(';'))
@@ -16,7 +16,7 @@ for x in nouv:
     if set(x) - {'slug'} != CLES: pb.append('clés ' + str(sorted(set(x) ^ CLES)))
     if x.get('genre') not in ('f', 'm', 'mixte'): pb.append('genre')
     if not x.get('sens') or not x.get('histoire'): pb.append('texte vide')
-    if INTERDIT.search(json.dumps(x, ensure_ascii=False)): pb.append('mot interdit')
+    if INTERDIT.search(json.dumps(x, ensure_ascii=False)): pb.append('flèche ou tiret long')
     x['slug'] = slug(x.get('prenom', ''))
     if x['slug'] in deja: pb.append('déjà présent')
     if pb: refus.append((x.get('prenom'), pb))
