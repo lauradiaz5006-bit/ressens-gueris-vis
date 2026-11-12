@@ -261,7 +261,7 @@ window.GENESOLIA_STRIPE = {
   cercleAn: 'https://buy.stripe.com/dRmbIU9vv3S16Yd6er43S0g',       /* Le Cercle 24 €/mois sur 12 mois : plus proposé (le prix fondatrice 24,90 € le remplace) ; gardé pour les abonnements déjà pris */
   /* Le Cercle à l'année : offre de Noël 199 € jusqu'au 31/12/2026, puis 249 € (eVq7sE2336096Yd1Yb43S0f) */
   cercleAnnee: new Date() < new Date('2027-01-01T00:00:00+01:00') ? 'https://buy.stripe.com/28E4gsfTTcox3M10U743S0u' : 'https://buy.stripe.com/eVq7sE2336096Yd1Yb43S0f',
-  passMois: 'https://buy.stripe.com/9B600cbDD0FPeqFgT543S0s',   /* Ma spirale, offre de Noël 4,99 €/mois, 7 jours offerts */
+  passMois: 'https://buy.stripe.com/9B600cbDD0FPeqFgT543S0s',   /* Ma spirale, 4,99 €/mois, 7 jours offerts */
   pass3Mois: '',      /* Ma spirale 27 € les 3 mois : retirée pour l'instant (lien Stripe : https://buy.stripe.com/14AdR28rragp1DT8mz43S0k) */
   praticienMois: 'https://buy.stripe.com/00w8wIdLLcoxcixauH43S0e',      /* Espace praticien 24 €/mois */
   praticienFondateur: 'https://buy.stripe.com/fZueV64bb4W5cixcCP43S0b', /* Espace praticien, offre de Noël 19 €/mois (abonnements pris avant le 31/12/2026) */
