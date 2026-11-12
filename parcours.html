@@ -15,7 +15,7 @@
     :root{
       --cream:#FFF9F7;--cream2:#EBCFD5;--cream3:#FFF9F7;
       --terra-fonce:#4E1F42;--terra:#6B2F5B;--terra-clair:#E7A79E;
-      --brun:#6B2F5B;--ink:#4A2142;--ink2:#5C3420;--soft:#8E6383;
+      --brun:#6B2F5B;--ink:#4A2142;--ink2:#6B4761;--soft:#8E6383;
       --line:rgba(107,47,91,.14);--white:#FFFFFF;--night:#3A1834;
       --shadow:0 18px 55px rgba(74,33,66,.10);
     }
@@ -26,7 +26,7 @@
       background:radial-gradient(ellipse 50% 35% at 10% 5%,rgba(231,167,158,.14),transparent 58%),radial-gradient(ellipse 45% 38% at 95% 20%,rgba(107,47,91,.09),transparent 60%),linear-gradient(165deg,var(--cream3) 0%,var(--cream) 55%,var(--cream2) 100%);
       color:var(--ink);min-height:100vh;overflow-x:hidden;padding-top:68px;
     }
-    body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.18;background-image:linear-gradient(rgba(107,47,91,.13) 1px,transparent 1px),linear-gradient(90deg,rgba(107,47,91,.10) 1px,transparent 1px);background-size:72px 72px;mask-image:linear-gradient(to bottom,transparent 0%,#000 15%,#000 80%,transparent 100%);}
+    body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.5;background:radial-gradient(ellipse 40% 30% at 85% 85%,rgba(243,220,192,.35),transparent 70%);}
     a{color:inherit;text-decoration:none}
     button,input,textarea,select{font:inherit}
 
@@ -57,8 +57,8 @@
     .sync-banner p{font-size:.75rem;color:var(--terra-fonce);line-height:1.5;}
     .sync-banner a{font-size:.72rem;font-weight:600;color:var(--terra-fonce);border:1px solid rgba(107,47,91,.35);border-radius:100px;padding:.25rem .75rem;white-space:nowrap;transition:all .15s;}
     .sync-banner a:hover{background:rgba(107,47,91,.1);}
-    .sync-ok{background:rgba(39,174,96,.07);border-color:rgba(39,174,96,.2);}
-    .sync-ok p{color:#27AE60;}
+    .sync-ok{background:rgba(185,138,85,.10);border-color:rgba(185,138,85,.35);}
+    .sync-ok p{color:#8A5F33;}
 
     .journey-bar{position:sticky;top:68px;z-index:60;background:rgba(255,250,245,.88);backdrop-filter:blur(14px);border-bottom:1px solid rgba(107,47,91,.10);padding:.85rem 1.3rem;}
     .journey-inner{max-width:1040px;margin:0 auto;display:flex;align-items:center;gap:1rem}
@@ -83,7 +83,7 @@
     .lead{font-size:1rem;line-height:1.9;color:var(--ink2);font-weight:300;max-width:640px}
     .quote{margin-top:1.25rem;padding:1rem 1.1rem;border-left:3px solid var(--terra);background:rgba(255,252,248,.62);color:var(--soft);font-family:'Gilda Display',serif;font-style:italic;font-size:1.12rem;line-height:1.62;}
 
-    .portal-card{position:relative;overflow:hidden;background:linear-gradient(160deg,var(--night),#4A2115);border-radius:6px;padding:2.4rem;box-shadow:var(--shadow);min-height:460px;display:flex;flex-direction:column;justify-content:space-between;}
+    .portal-card{position:relative;overflow:hidden;background:linear-gradient(160deg,#3A1335,#6B2F5B);border-radius:6px;padding:2.4rem;box-shadow:var(--shadow);min-height:460px;display:flex;flex-direction:column;justify-content:space-between;}
     .portal-card::before{content:"";position:absolute;inset:-20%;background:radial-gradient(ellipse 42% 35% at 50% 30%,rgba(231,167,158,.28),transparent 62%),radial-gradient(ellipse 55% 40% at 50% 75%,rgba(255,252,248,.06),transparent 62%);}
     .portal-svg{position:relative;z-index:1;margin:0 auto;display:block;max-width:250px;width:72%;opacity:.92}
     .portal-text{position:relative;z-index:1;color:rgba(255,255,255,.70);font-size:.88rem;line-height:1.8;font-weight:300}
@@ -127,7 +127,7 @@
     .res-mail .rm-ok{color:var(--terra-fonce);font-weight:500;margin:0}
     .res-mail .rm-err{color:#A6324E;font-size:.85rem;margin:.6rem 0 0}
     @media (max-width:560px){.res-mail .rm-champs{grid-template-columns:1fr}}
-    .reveal-box{background:linear-gradient(150deg,var(--night),#4B2115);color:white;border-radius:6px;padding:1.8rem;margin-top:1.5rem;position:relative;overflow:hidden;}
+    .reveal-box{background:linear-gradient(150deg,#3A1335,#6B2F5B);color:white;border-radius:6px;padding:1.8rem;margin-top:1.5rem;position:relative;overflow:hidden;}
     .reveal-box::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 15% 10%,rgba(231,167,158,.2),transparent 55%)}
     .reveal-box *{position:relative;z-index:1}
     .reveal-line{display:flex;gap:.8rem;padding:.75rem 0;border-bottom:1px solid rgba(255,255,255,.08)}
