@@ -49,7 +49,7 @@
         var dans = Object.keys(NOMS_P).filter(function (x) { return P[x] && P[x].maison === k; });
         var sg = AS.signeDe(r.cuspides[k]), el = AS.ELEMENT[sg], MP = T.MAISONS_PLUS;
         return '<div class="bloc" style="padding:3mm 4mm;margin-bottom:2.5mm"><h3 style="font-size:11.5pt">' + esc(T.MAISONS[String(k)].titre) + ' · ' + esc(S(sg)) + (dans.length ? ' · ' + esc(dans.map(function (x) { return NOMS_P[x]; }).join(', ')) : '') + '</h3><p style="font-size:9.2pt">' + esc(T.MAISONS[String(k)].texte) + '</p>' +
-          '<p style="font-size:9.2pt;margin-top:1.5mm"><b>Cette maison s\'ouvre ' + esc(enS(sg)) + '.</b> Tu vis ce domaine ' + esc(MP.couleur[el]) + '.</p>' +
+          '<p style="font-size:9.2pt;margin-top:1.5mm"><b>Ta maison ' + k + ' s\'ouvre ' + esc(enS(sg)) + '.</b> ' + esc((window.MAISONS_SIGNES && window.MAISONS_SIGNES[String(k)] && window.MAISONS_SIGNES[String(k)][sg]) || ('Tu vis ce domaine ' + MP.couleur[el] + '.')) + '</p>' +
           dans.filter(function (x) { return T.PLANETES[x]; }).map(function (x) { return '<p style="font-size:9.2pt;margin-top:1.5mm"><b>' + NOMS_P[x] + ' est ici</b>, ' + esc(T.PLANETES[x].role) + '. ' + esc(T.PLANETES[x].famille) + '</p>'; }).join('') +
           '<p style="font-size:9.2pt;margin-top:1.5mm"><b>Côté lignée.</b> ' + esc(MP.lignee[k]) + '</p></div>';
       }).join('') + '</section>';
