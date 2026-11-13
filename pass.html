@@ -568,6 +568,17 @@ body.pa-app #pass{padding-bottom:4.5rem}
     .pa-decouvre summary::before{content:'+ ';color:#C99B5F}.pa-decouvre[open] summary::before{content:'\2212 '}
     .pa-decouvre summary::-webkit-details-marker{display:none}
     .pa-decouvre .pa-carte{box-shadow:none;border:1px solid #F3E2E7;margin-top:.7rem}
+  
+    /* One-tap émotion, agenda teinté, bulles, insight */
+    .pa-emos button{font-size:.95rem;padding:.55rem 1rem;border-radius:999px;border:2px solid var(--ec,#C99B5F);background:#fff;position:relative}
+    .pa-emos button::before{content:'';display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--ec,#C99B5F);margin-right:.45rem;vertical-align:baseline}
+    .pa-emos button[aria-pressed="true"]{background:color-mix(in srgb,var(--ec,#C99B5F) 18%,#fff);font-weight:700;color:#2E1338}
+    @supports not (background:color-mix(in srgb,red 10%,#fff)){.pa-emos button[aria-pressed="true"]{background:#FBF1EE}}
+    .pa-jour.emo{background:color-mix(in srgb,var(--ej,#C99B5F) 16%,#fff)}
+    .pa-bulle{display:inline-block;margin-left:.6rem;font-size:.8rem;background:#2E1338;color:#fff;border-radius:10px;padding:.35rem .7rem;vertical-align:middle;max-width:18rem;transition:opacity .5s}
+    .pa-bulle.va{opacity:0}
+    .pa-insight{border-left:4px solid #C99B5F}
+    .pa-insight p{margin:.2rem 0 .5rem}
   </style>
   <script>window.GENESOLIA_APPLI = { nom: 'Ma spirale', icone: '/assets/icones/pass-apple-180.png' };</script>
 </head>
@@ -593,8 +604,8 @@ body.pa-app #pass{padding-bottom:4.5rem}
   <script src="assets/supabase.js"></script>
   <script src="assets/numerologie.js"></script>
   <script src="assets/astronomy.browser.min.js"></script>
-  <script src="assets/pass-enquete.js?v=17"></script>
-  <script src="assets/pass.js?v=49"></script>
+  <script src="assets/pass-enquete.js?v=18"></script>
+  <script src="assets/pass.js?v=50"></script>
   <script src="assets/spirale-aime.js"></script>
 </body>
 </html>
