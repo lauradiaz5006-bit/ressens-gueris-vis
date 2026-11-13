@@ -711,6 +711,8 @@ window.PASS_FIL = {
   QUESTION: 'À qui est cette incohérence, cette distorsion dans mon être ? À un parent ? Plus loin ? Est-ce que je répète un problème de cette vie, ou une mémoire plus ancienne ?',
   AQUI: [['moi', 'De cette vie : un problème que je répète'], ['parent', 'D’un parent'], ['loin', 'De plus loin dans ma lignée'], ['ancienne', 'D’une mémoire plus ancienne, je ne sais pas d’où']],
   HUMEURS: ['Paix', 'Joie', 'Élan', 'Gratitude', 'Fatigue', 'Tristesse', 'Inquiétude', 'Colère', 'Vide'],
+  /* La couleur de chaque état d'âme — définie UNE fois ici, reprise par la note du jour et l'agenda (jamais de vert) */
+  HUMEURS_COULEURS: { 'Paix': '#C99B5F', 'Joie': '#E8B931', 'Élan': '#E86F56', 'Gratitude': '#E7A79E', 'Fatigue': '#9C8AA8', 'Tristesse': '#5B7BB4', 'Inquiétude': '#8A5BC0', 'Colère': '#C44A4A', 'Vide': '#8D7F89' },
   /* Les protocoles de libération. Pour en ajouter un : { id, titre, court, etapes: [{ titre, texte }], questions: ['…'] }.
      cle1 et cle2 ont leur affichage complet (respiration guidée, phrase qui se compose, etc.). */
   PROTOCOLES: [
