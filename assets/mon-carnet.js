@@ -2206,29 +2206,37 @@
     });
     return r;
   }
+  /* Remplacer D par des données arrivées en arrière-plan (chargement initial ou autre onglet) sans écraser
+     ce que la personne est en train de taper : sans ça, si l'espace répond pendant qu'elle écrit dans un
+     champ, appliquer() remet l'ancienne valeur dans ce champ et le curseur revient au début — les
+     premiers caractères tapés ensuite se retrouvent alors insérés avant le reste, qui lui ne bouge pas :
+     le début du texte semble avoir disparu, alors qu'il a juste été réécrit à la mauvaise place. */
+  function remplacerD(nouveau) {
+    var actif = document.activeElement && document.activeElement.getAttribute && document.activeElement.getAttribute('data-k');
+    var garde = actif ? D.v[actif] : undefined;
+    D = nouveau;
+    if (actif && garde !== undefined) { D.v[actif] = garde; D.t = D.t || {}; D.t[actif] = Date.now(); }
+  }
   /* Un autre onglet a modifié le même carnet : on reprend ses réponses plus récentes */
   window.addEventListener('storage', function (e) {
     if (e.key !== CLE_LOCALE || !e.newValue) return;
     try { var autre = JSON.parse(e.newValue); } catch (x) { return; }
-    var actif = document.activeElement && document.activeElement.getAttribute && document.activeElement.getAttribute('data-k');
-    var garde = actif ? D.v[actif] : undefined;
-    D = fusion(D, autre);
-    if (actif && garde !== undefined) D.v[actif] = garde;
+    remplacerD(fusion(D, autre));
     appliquer();
   });
   function charger() {
     var local = null; try { local = JSON.parse(localStorage.getItem(CLE_LOCALE) || 'null'); } catch (e) {}
-    if (!sb) { D = local || D; appliquer(); invitation(); chargerAccompagnement(); if (T2 || SUIVI) chargerPD(); return; }
+    if (!sb) { remplacerD(local || D); appliquer(); invitation(); chargerAccompagnement(); if (T2 || SUIVI) chargerPD(); return; }
     sb.auth.getSession().then(function (r) {
       var s = r.data && r.data.session;
-      if (!s) { D = local || D; appliquer(); invitation(); chargerAccompagnement(); if (T2 || SUIVI) chargerPD(); return; }
+      if (!s) { remplacerD(local || D); appliquer(); invitation(); chargerAccompagnement(); if (T2 || SUIVI) chargerPD(); return; }
       user = s.user;
       prenom = premierMot((user.user_metadata && (user.user_metadata.full_name || user.user_metadata.prenom)) || '') || premierMot((lireProfil() || {}).prenom || '');
       perso();
       if (window.GenesoliaReperes && !SUIVI && !MODULE) window.GenesoliaReperes.lire(sb, user).then(function () { tonMois(); if (typeof majSemainesMaya === 'function') majSemainesMaya(); majMeteoDit(); perso(); });
       var CF = window.GenesoliaCoffre;
       (CF ? CF.lire(sb, user, CLE) : sb.from('carnets').select('data').eq('user_id', user.id).eq('mois', CLE).maybeSingle().then(function (x) { return x && x.data ? x.data.data : null; })).then(function (distant) {
-        D = fusion(distant, local);
+        remplacerD(fusion(distant, local));
         appliquer(); chargerAccompagnement(); if (T2 || SUIVI) chargerPD();
         if (CF && !CF.accord(user)) { etat('Enregistré sur cet appareil. Genesolia n’y a pas accès.'); CF.demander(document.getElementById('mc-compte'), sb, function () { user.user_metadata = Object.assign({}, user.user_metadata, { coffre_accord: new Date().toISOString() }); sauver(); }); }
         else { etat('Enregistré et chiffré dans ton espace privé'); if (local && Object.keys(local.v || {}).length) sauver(); }
@@ -2236,7 +2244,7 @@
         /* L'espace ne répond pas : on affiche ce qu'il y a sur l'appareil au lieu de laisser
            un carnet vide. Sans ce repli, la page restait blanche et donnait l'impression
            que tout le travail avait disparu, alors que rien n'était perdu. */
-        D = local || D;
+        remplacerD(local || D);
         appliquer(); chargerAccompagnement(); if (T2 || SUIVI) chargerPD();
         etat('Tes réponses sont là, mais ton espace ne répond pas : recharge la page plus tard pour les y enregistrer.');
       });
@@ -2244,7 +2252,7 @@
         historique = (x && x.data) || [];
         if (PAGES[courante].id === 'cloture') comparer();
       });
-    }).catch(function () { D = local || D; appliquer(); invitation(); chargerAccompagnement(); if (T2 || SUIVI) chargerPD(); });
+    }).catch(function () { remplacerD(local || D); appliquer(); invitation(); chargerAccompagnement(); if (T2 || SUIVI) chargerPD(); });
   }
   /* Sans compte : le texte décrit exactement la règle de site.js (window.GenesoliaDonnees) */
   function invitation() {
