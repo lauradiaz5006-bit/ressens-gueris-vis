@@ -2845,27 +2845,37 @@
     if (!ok) return;
     var l = enfantsOrdonnes(id);
     $('fp-gr-liste').innerHTML = l.map(function (q) {
-      return petit(q) ? '<li class="gr-perte">' + esc(libGross(q)) + '<button type="button" class="gr-x" data-gr-suppr="' + esc(q.id) + '" aria-label="Retirer">×</button></li>'
+      return petit(q) ? '<li class="gr-perte"><span class="gr-texte" data-gr-modifier="' + esc(q.id) + '">' + esc(libGross(q)) + '</span><button type="button" class="gr-x" data-gr-suppr="' + esc(q.id) + '" aria-label="Retirer">×</button></li>'
         : '<li>' + esc(nomCourt(q.id)) + (annee(q.naiss) ? ' (' + annee(q.naiss) + ')' : '') + '</li>';
     }).join('');
     $('fp-gr-liste').hidden = !l.length;
   }
-  function ouvrirFormGrossesse() {
+  var grEdit = null;   // id de la grossesse en cours de modification, ou null si on en ajoute une nouvelle
+  function ouvrirFormGrossesse(editId) {
     var id = fiche.id, p = S.people[id], l = enfantsOrdonnes(id), parts = partenaires(id);
+    grEdit = editId && S.people[editId] ? editId : null;
+    var q0 = grEdit ? S.people[grEdit] : null;
     $('fp-gr-pos').innerHTML = (l.length ? '<option value="">Avant le premier enfant</option>' : '<option value="">En premier</option>') +
       l.map(function (q, i) { return '<option value="' + esc(q.id) + '"' + (i === l.length - 1 ? ' selected' : '') + '>Après ' + esc(petit(q) ? GROSS[q.grossesse].toLowerCase() + ' n°' + (i + 1) : nomCourt(q.id)) + '</option>'; }).join('');
-    // l'autre parent par défaut : celui des enfants déjà notés
+    // l'autre parent par défaut : celui des enfants déjà notés (ou celui déjà renseigné si on modifie)
     var compte = {}; l.forEach(function (q) { parents(q.id).forEach(function (x) { if (x !== id) compte[x] = (compte[x] || 0) + 1; }); });
-    var defaut = parts.slice().sort(function (a, b) { return (compte[b] || 0) - (compte[a] || 0); })[0] || '';
+    var autreParent = q0 ? parents(q0.id).filter(function (x) { return x !== id; })[0] || '' : '';
+    var defaut = autreParent || parts.slice().sort(function (a, b) { return (compte[b] || 0) - (compte[a] || 0); })[0] || '';
     $('fp-gr-avec').innerHTML = parts.map(function (x) { return '<option value="' + esc(x) + '"' + (x === defaut ? ' selected' : '') + '>' + esc(nomCourt(x)) + '</option>'; }).join('') + '<option value=""' + (defaut ? '' : ' selected') + '>Autre ou inconnu</option>';
     $('fp-gr-avec-ligne').style.display = parts.length ? '' : 'none';
-    $('fp-gr-nb').value = 1; $('fp-gr-annee').value = ''; $('fp-gr-age').value = '';
+    $('fp-gr-type').value = q0 ? q0.grossesse : 'fc';
+    $('fp-gr-nb-ligne').style.display = grEdit ? 'none' : '';
+    $('fp-gr-nb').value = 1;
+    $('fp-gr-annee').value = q0 && annee(dateFrat(q0)) ? annee(dateFrat(q0)) : '';
+    $('fp-gr-age').value = '';
     $('fp-gr-age-lab').textContent = 'Ou ' + (p.role === 'moi' ? 'ton' : 'son') + ' âge à ce moment';
+    $('fp-gr-pos-ligne').style.display = grEdit ? 'none' : '';
+    $('fp-gr-ok').textContent = grEdit ? 'Enregistrer' : 'Ajouter';
     $('fp-gr-form').hidden = false; $('fp-gr-ajout').hidden = true;
     $('fp-gr-type').focus();
   }
-  $('fp-gr-ajout').addEventListener('click', ouvrirFormGrossesse);
-  $('fp-gr-annuler').addEventListener('click', function () { $('fp-gr-form').hidden = true; $('fp-gr-ajout').hidden = false; });
+  $('fp-gr-ajout').addEventListener('click', function () { ouvrirFormGrossesse(null); });
+  $('fp-gr-annuler').addEventListener('click', function () { grEdit = null; $('fp-gr-form').hidden = true; $('fp-gr-ajout').hidden = false; });
   $('fp-gr-ok').addEventListener('click', function () {
     var id = fiche.id, p = S.people[id]; if (!p) return;
     var type = $('fp-gr-type').value, nb = Math.max(1, Math.min(9, parseInt($('fp-gr-nb').value, 10) || 1));
@@ -2873,23 +2883,39 @@
     if (!(an > 1800 && an < 2101)) an = (age > 9 && age < 61 && annee(p.naiss)) ? annee(p.naiss) + age : null;
     var apres = $('fp-gr-pos').value, avec = $('fp-gr-avec-ligne').style.display === 'none' ? '' : $('fp-gr-avec').value;
     memoriser();
-    for (var i = 0; i < nb; i++) {
-      var q = nouvellePersonne({ grossesse: type, apres: apres });
-      if (an) q.naiss = String(an);
-      if (type === 'mn') { q.decede = true; if (an) q.deces = String(an); }
+    if (grEdit && S.people[grEdit]) {
+      var q = S.people[grEdit];
+      q.grossesse = type;
+      q.naiss = an ? String(an) : '';
+      if (type === 'mn') { q.decede = true; q.deces = an ? String(an) : ''; } else { q.decede = false; q.deces = ''; }
+      S.rels = S.rels.filter(function (r) { return r.to !== q.id || r.type !== 'parent'; });
       S.rels.push({ from: id, to: q.id, type: 'parent' });
       if (avec && S.people[avec]) S.rels.push({ from: avec, to: q.id, type: 'parent' });
+      grEdit = null;
+    } else {
+      for (var i = 0; i < nb; i++) {
+        var q2 = nouvellePersonne({ grossesse: type, apres: apres });
+        if (an) q2.naiss = String(an);
+        if (type === 'mn') { q2.decede = true; if (an) q2.deces = String(an); }
+        S.rels.push({ from: id, to: q2.id, type: 'parent' });
+        if (avec && S.people[avec]) S.rels.push({ from: avec, to: q2.id, type: 'parent' });
+      }
     }
     $('fp-gr-form').hidden = true; $('fp-gr-ajout').hidden = false;
     dessinerGrossesses(); dessinerLiensFiche(); dessiner(id); majBarreActions(); enregistrer();
   });
   $('fp-gr-liste').addEventListener('click', function (e) {
-    var b = e.target.closest('[data-gr-suppr]'); if (!b) return;
-    var x = b.getAttribute('data-gr-suppr'); if (!S.people[x]) return;
-    memoriser();
-    delete S.people[x];
-    S.rels = S.rels.filter(function (r) { return r.from !== x && r.to !== x; });
-    dessinerGrossesses(); dessinerLiensFiche(); dessiner(fiche.id); majBarreActions(); enregistrer();
+    var sup = e.target.closest('[data-gr-suppr]');
+    if (sup) {
+      var x = sup.getAttribute('data-gr-suppr'); if (!S.people[x]) return;
+      memoriser();
+      delete S.people[x];
+      S.rels = S.rels.filter(function (r) { return r.from !== x && r.to !== x; });
+      dessinerGrossesses(); dessinerLiensFiche(); dessiner(fiche.id); majBarreActions(); enregistrer();
+      return;
+    }
+    var mod = e.target.closest('[data-gr-modifier]'); if (!mod) return;
+    ouvrirFormGrossesse(mod.getAttribute('data-gr-modifier'));
   });
   function annulerFiche() {
     if (fiche && fiche.nouveau && fiche.avant) {

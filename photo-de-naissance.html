@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Ta photo de naissance — Genesolia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gilda+Display&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* palette : mauve pâle en fond, prune profond pour le texte, or discret en accent */
+    --bg: #FFF9F7;
+    --bg-card: #FFFFFF;
+    --ink: #4A2142;
+    --ink-soft: #8E6383;
+    --accent: #B98A55;
+    --accent-ink: #6B2F5B;
+    --line: #EBCFD5;
+    --font-display: 'Gilda Display', Georgia, serif;
+    --font-body: 'Nunito Sans', system-ui, sans-serif;
+    /* idée de mise en page : une colonne centrale étroite, un pas à la fois, jamais plusieurs écrans visibles ensemble */
+  }
+
+  *{ box-sizing: border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    background: radial-gradient(ellipse 50% 32% at 12% 4%, rgba(231,167,158,.16), transparent 60%), radial-gradient(ellipse 46% 36% at 92% 18%, rgba(107,47,91,.08), transparent 62%), linear-gradient(170deg, #FFF9F7 0%, #FBF0F2 60%, #F7E6E8 100%);
+    color: var(--ink);
+    font-family: var(--font-body);
+    min-height: 100%;
+    display:flex;
+    justify-content:center;
+    padding: 32px 16px 80px;
+    line-height:1.55;
+  }
+
+  .ciel{ position:fixed; inset:0; pointer-events:none; z-index:0; }
+  .ciel i{ position:absolute; border-radius:50%; background:radial-gradient(circle,#FFF6DD 0%,#F3CF8E 45%,rgba(243,207,142,0) 70%); animation:scintille 4.5s ease-in-out infinite; }
+  .ciel b{ position:absolute; width:var(--s); height:var(--s); background:conic-gradient(from 45deg,transparent 0 10%,#F6D79C 12% 13%,transparent 15% 35%,#F6D79C 37% 38%,transparent 40% 60%,#F6D79C 62% 63%,transparent 65% 85%,#F6D79C 87% 88%,transparent 90%); filter:drop-shadow(0 0 6px rgba(246,215,156,.8)); animation:scintille 6s ease-in-out infinite; }
+  @keyframes scintille{ 0%,100%{opacity:.25;} 50%{opacity:.85;} }
+  @media (prefers-reduced-motion: reduce){ .ciel i,.ciel b{ animation:none; opacity:.5; } }
+
+  .shell{
+    width:100%;
+    max-width: 620px;
+    position:relative;
+    z-index:1;
+  }
+
+  .brand{
+    text-align:center;
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 28px;
+  }
+
+  .progress{
+    display:flex;
+    gap:6px;
+    justify-content:center;
+    margin-bottom: 28px;
+  }
+  .progress span{
+    width: 34px;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--line);
+  }
+  .progress span.done{ background: var(--accent); }
+
+  .card{
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 36px 32px;
+    box-shadow: 0 18px 44px -28px rgba(107,47,91,.4);
+  }
+
+  .step{ display:none; }
+  .step.active{ display:block; }
+
+  .tunnel-progress{ display:flex; gap:5px; justify-content:center; margin-bottom:22px; }
+  .tunnel-progress span{ width:16px; height:3px; border-radius:2px; background:var(--line); }
+  .tunnel-progress span.done{ background:var(--accent); }
+
+  .tunnel{ display:none; }
+  .tunnel.active{ display:block; animation: fadein 0.7s ease; }
+  @keyframes fadein { from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);} }
+
+  .eyebrow{
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+    font-weight: 600;
+    margin: 0 0 10px;
+  }
+
+  h1{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.7rem, 4vw, 2.3rem);
+    line-height:1.18;
+    margin: 0 0 16px;
+    text-wrap: balance;
+  }
+
+  p.lede{
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+    margin: 0 0 26px;
+    max-width: 62ch;
+  }
+
+  .manifesto{
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.25rem;
+    line-height:1.5;
+    color: var(--ink);
+    border-left: 3px solid var(--accent);
+    padding-left: 18px;
+    margin: 0 0 30px;
+  }
+
+  fieldset{
+    border: none;
+    padding: 0;
+    margin: 0 0 22px;
+  }
+  legend{
+    font-weight:600;
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+    color: var(--ink);
+  }
+
+  .row{
+    display:flex;
+    gap: 12px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  .field{
+    flex: 1 1 160px;
+    display:flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  label{
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+  }
+  input[type="text"], input[type="date"]{
+    font-family: var(--font-body);
+    font-size: 0.98rem;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background: #FFFBF9;
+    color: var(--ink);
+  }
+  input:focus{ outline: 2px solid var(--accent); outline-offset: 1px; }
+
+  .famille-bloc{
+    border: 1px dashed var(--line);
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .famille-titre{
+    font-weight: 600;
+    font-size: 0.88rem;
+    margin-bottom: 10px;
+    color: var(--ink-soft);
+  }
+
+  .toggle-famille{
+    background:none;
+    border:none;
+    color: var(--accent-ink);
+    font-weight:600;
+    font-size: 0.92rem;
+    padding: 8px 0 18px;
+    cursor:pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .famille-zone{ display:none; }
+  .famille-zone.open{ display:block; }
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.98rem;
+    padding: 13px 26px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-primary{
+    background: var(--accent-ink);
+    color: #fff;
+    box-shadow: 0 10px 26px -14px rgba(107,47,91,.6);
+  }
+  .btn-secondary{
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--line);
+  }
+  .btn:disabled{ opacity:0.5; cursor:not-allowed; }
+
+  .actions{
+    display:flex;
+    gap: 12px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+  }
+
+  .resultat-bloc{
+    background: #FDF5F3;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 20px 22px;
+    margin-bottom: 16px;
+  }
+  .resultat-label{
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+    font-weight:600;
+    margin-bottom: 6px;
+  }
+  .resultat-valeur{
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    margin: 0 0 6px;
+  }
+  .resultat-note{
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  .repetition{
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+  .repetition .puce{
+    width: 8px; height:8px; border-radius:50%;
+    background: var(--accent);
+    margin-top: 7px;
+    flex: none;
+  }
+
+  .portes{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin: 22px 0;
+  }
+  .porte{
+    display:block;
+    text-decoration:none;
+    color: var(--ink);
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 18px 20px;
+  }
+  .porte h3{
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    margin: 0 0 4px;
+  }
+  .porte p{
+    margin:0;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+  }
+  .porte-cta{
+    display:inline-block;
+    margin-top:10px;
+    font-size:0.85rem;
+    font-weight:600;
+    color: var(--accent-ink);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .agenda-bloc{
+    background: radial-gradient(30rem 14rem at 85% 0%, rgba(231,167,158,.3), transparent 60%), linear-gradient(140deg,#3A1335,#6B2F5B);
+    color: #F7E6EE;
+    border-radius: 16px;
+    padding: 22px 24px;
+    margin-top: 6px;
+  }
+  .agenda-bloc h3{
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    margin: 0 0 8px;
+  }
+  .agenda-bloc p{
+    margin: 0 0 14px;
+    font-size: 0.95rem;
+    opacity: 0.9;
+  }
+  .agenda-bloc .btn-secondary{
+    border-color: rgba(246,215,156,.6);
+    color: #F6DCA8;
+  }
+
+  .discret{
+    text-align:center;
+    margin-top: 18px;
+  }
+  .discret a{
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+
+  .note-prototype{
+    text-align:center;
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    margin-top: 22px;
+    opacity: 0.8;
+  }
+</style>
+</head>
+<body>
+
+<div class="ciel" aria-hidden="true" id="ciel"></div>
+
+<div class="shell">
+  <div class="brand">Genesolia</div>
+  <div class="progress" id="progress">
+    <span class="p0 done"></span><span class="p1"></span><span class="p2"></span>
+  </div>
+
+  <div class="card">
+
+    <!-- ÉTAPE 0 : seuil / pourquoi -->
+    <section class="step active" id="step-0">
+      <div class="tunnel-progress">
+        <span class="done"></span><span></span><span></span><span></span><span></span>
+      </div>
+
+      <div class="tunnel active" id="tunnel-0">
+        <p class="eyebrow">Bienvenue sur Genesolia</p>
+        <h1>Merci pour ta présence ici.</h1>
+        <p class="manifesto">Et si ton âme avait choisi cette famille, ces parents et ces expériences pour vivre son propre chemin d'évolution ?</p>
+        <div class="actions"><button class="btn btn-primary" onclick="tunnelNext(0)">Continuer</button></div>
+      </div>
+
+      <div class="tunnel" id="tunnel-1">
+        <p class="eyebrow">Un parchemin sacré</p>
+        <p class="manifesto">La numérologie et l'astrologie sont comme un parchemin sacré, révélant des indices symboliques sur ta naissance et ton chemin de vie.</p>
+        <p class="lede">Et si certaines clés de ton histoire étaient déjà inscrites dans ces nombres et ces étoiles ?</p>
+        <div class="actions"><button class="btn btn-primary" onclick="tunnelNext(1)">Continuer</button></div>
+      </div>
+
+      <div class="tunnel" id="tunnel-2">
+        <p class="eyebrow">Découvre qui tu deviens</p>
+        <p class="lede">Ta carte de naissance, tes nombres et ta lignée familiale t'invitent à mieux comprendre ce que tu portes.</p>
+        <p class="lede">Car plus tu prends conscience de ton histoire, plus tu es libre d'écrire la suite.</p>
+        <div class="actions"><button class="btn btn-primary" onclick="tunnelNext(2)">Continuer</button></div>
+      </div>
+
+      <div class="tunnel" id="tunnel-3">
+        <p class="eyebrow">Plus grand que toi</p>
+        <p class="manifesto">Selon la vision spirituelle de David R. Hawkins, chaque être qui élève sa conscience contribuerait à l'évolution de la conscience collective.</p>
+        <p class="lede">Et si ta transformation intérieure rayonnait bien au-delà de toi ?</p>
+        <div class="actions"><button class="btn btn-primary" onclick="tunnelNext(3)">Continuer</button></div>
+      </div>
+
+      <div class="tunnel" id="tunnel-4">
+        <p class="eyebrow">Tout commence par toi</p>
+        <p class="manifesto">Merci de prendre soin de toi et d'oser ce merveilleux voyage vers une conscience plus grande.</p>
+        <p class="lede">Chaque transformation commence par un premier pas : celui de mieux se connaître. Et si ce premier pas commençait aujourd'hui ?</p>
+        <div class="actions"><button class="btn btn-primary" onclick="goTo(1)">Voir ma photo de naissance</button></div>
+      </div>
+    </section>
+
+    <!-- ÉTAPE 1 : formulaire -->
+    <section class="step" id="step-1">
+      <p class="eyebrow">Étape 1 · Ta photo de naissance</p>
+      <h1>Qui es-tu, et d'où viens-tu ?</h1>
+      <p class="lede">Écris ta date de naissance, puis celles de tes parents et grands-parents si tu les as. Tu vas voir si un chiffre, un signe ou ce que la numérologie appelle une dette karmique se répète déjà avant toi.</p>
+
+      <fieldset>
+        <legend>Toi</legend>
+        <div class="row">
+          <div class="field">
+            <label for="prenom">Ton prénom</label>
+            <input type="text" id="prenom" placeholder="Ton prénom">
+          </div>
+          <div class="field">
+            <label for="date-moi">Ta date de naissance</label>
+            <input type="date" id="date-moi">
+          </div>
+        </div>
+      </fieldset>
+
+      <button type="button" class="toggle-famille" id="toggle-famille" onclick="toggleFamille()">+ Ajouter mes parents et grands-parents (facultatif)</button>
+      <p class="lede" style="font-size:0.85rem; margin-top:-10px; margin-bottom:18px;">Ces dates servent uniquement à repérer ce qui se répète d'une génération à l'autre, le temps de cette lecture. Facultatif, et non conservé au-delà.</p>
+
+      <div class="famille-zone" id="famille-zone">
+        <div class="famille-bloc">
+          <div class="famille-titre">Ta mère</div>
+          <div class="row">
+            <div class="field"><input type="text" id="prenom-mere" placeholder="Son prénom"></div>
+            <div class="field"><input type="date" id="date-mere"></div>
+          </div>
+        </div>
+        <div class="famille-bloc">
+          <div class="famille-titre">Ton père</div>
+          <div class="row">
+            <div class="field"><input type="text" id="prenom-pere" placeholder="Son prénom"></div>
+            <div class="field"><input type="date" id="date-pere"></div>
+          </div>
+        </div>
+        <div class="famille-bloc">
+          <div class="famille-titre">Une grand-mère ou un grand-père</div>
+          <div class="row">
+            <div class="field"><input type="text" id="prenom-gp" placeholder="Son prénom"></div>
+            <div class="field"><input type="date" id="date-gp"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-secondary" onclick="goTo(0)">Revenir</button>
+        <button class="btn btn-primary" id="btn-calculer" onclick="calculerEtAfficher()" disabled>Voir ce que je porte en arrivant</button>
+      </div>
+    </section>
+
+    <!-- ÉTAPE 2 : résultat mélangé -->
+    <section class="step" id="step-2">
+      <p class="eyebrow">Étape 2 · Ce que tu portes en arrivant</p>
+      <h1 id="titre-resultat">Ta photo de naissance</h1>
+      <div id="resultats"></div>
+      <div id="repetitions"></div>
+      <div class="actions">
+        <button class="btn btn-secondary" onclick="goTo(1)">Revenir</button>
+        <button class="btn btn-primary" onclick="goTo(3)">Comprendre d'où ça vient</button>
+      </div>
+    </section>
+
+    <!-- ÉTAPE 3 : ouverture -->
+    <section class="step" id="step-3">
+      <p class="eyebrow">Étape 3 · Ce cadre, tu peux l'élargir</p>
+      <h1>Plus tu le vois, plus tu es libre.</h1>
+      <p class="lede">Plus tu deviens conscient·e de ce que tu portes, plus tu es libre de le dépasser — et de créer la vie qui te ressemble, pas celle qu'on t'a transmise sans te demander.</p>
+
+      <p class="eyebrow" style="margin-top:28px;">Où en es-tu aujourd'hui ?</p>
+      <div class="portes">
+        <a class="porte" href="genosociogramme.html">
+          <h3>Je veux comprendre mon histoire familiale</h3>
+          <p>Explore ton génosociogramme, retrouve les liens et observe les répétitions de ta lignée.</p>
+          <span class="porte-cta">Découvrir mon arbre</span>
+        </a>
+        <a class="porte" href="abonnement.html">
+          <h3>Je veux avancer dans ma transformation</h3>
+          <p>Entre dans Le Cercle pour explorer tes prises de conscience à ton rythme.</p>
+          <span class="porte-cta">Découvrir Le Cercle</span>
+        </a>
+        <a class="porte" href="ma-spirale.html">
+          <h3>Je veux me reconnecter à moi-même</h3>
+          <p>Avec Ma spirale, prends un instant pour observer tes émotions, tes rêves et ton évolution.</p>
+          <span class="porte-cta">Découvrir Ma spirale</span>
+        </a>
+      </div>
+
+      <p class="eyebrow" style="margin-top:28px;">Pour aller plus loin, quand tu le souhaites</p>
+      <div class="agenda-bloc">
+        <h3>Ton année 2027, mois par mois</h3>
+        <p>Là où ça bouge, là où ça bloque, là où une ouverture est possible. L'énergie propose, tu disposes : rien ne s'impose à qui ne s'y ouvre pas.</p>
+        <button class="btn btn-secondary">Recevoir mes 12 mois 2027</button>
+      </div>
+
+      <div class="discret">
+        <a href="matrice-de-destin.html">Voir aussi : ta matrice de destin</a>
+      </div>
+    </section>
+
+  </div>
+
+  <p class="note-prototype">Prototype de travail — textes et calculs à valider avant mise en ligne.</p>
+</div>
+
+<script>
+  (function(){
+    var c = document.getElementById('ciel');
+    var s = 7;
+    function r(){ s = (s*9301+49297)%233280; return s/233280; }
+    for(var i=0;i<60;i++){
+      var k = document.createElement('i');
+      var z = 1 + r()*r()*6;
+      k.style.cssText = 'left:'+(r()*100)+'%;top:'+(r()*100)+'%;width:'+z+'px;height:'+z+'px;animation-delay:'+(r()*5)+'s;opacity:'+(0.2+r()*0.5);
+      c.appendChild(k);
+    }
+    for(var j=0;j<7;j++){
+      var b = document.createElement('b');
+      var z2 = 12 + r()*22;
+      b.style.cssText = '--s:'+z2+'px;left:'+(r()*92)+'%;top:'+(r()*94)+'%;animation-delay:'+(r()*6)+'s';
+      c.appendChild(b);
+    }
+  })();
+
+  function goTo(n){
+    document.querySelectorAll('.step').forEach(function(s){ s.classList.remove('active'); });
+    document.getElementById('step-' + n).classList.add('active');
+    var dots = document.querySelectorAll('.progress span');
+    dots.forEach(function(d, i){
+      var stepIndex = Math.min(n, 2);
+      if(i <= stepIndex){ d.classList.add('done'); } else { d.classList.remove('done'); }
+    });
+    window.scrollTo({top:0, behavior:'instant'});
+  }
+
+  function tunnelNext(i){
+    var cur = document.getElementById('tunnel-' + i);
+    var next = document.getElementById('tunnel-' + (i+1));
+    if(cur){ cur.classList.remove('active'); }
+    if(next){ next.classList.add('active'); }
+    var tdots = document.querySelectorAll('.tunnel-progress span');
+    tdots.forEach(function(d, idx){
+      if(idx <= i+1){ d.classList.add('done'); } else { d.classList.remove('done'); }
+    });
+    window.scrollTo({top:0, behavior:'instant'});
+  }
+
+  function toggleFamille(){
+    var z = document.getElementById('famille-zone');
+    var open = z.classList.toggle('open');
+    document.getElementById('toggle-famille').textContent = open
+      ? '− Masquer parents et grands-parents'
+      : '+ Ajouter mes parents et grands-parents (facultatif)';
+  }
+
+  // active le bouton de calcul seulement quand prénom + date sont renseignés
+  function checkPret(){
+    var ok = document.getElementById('prenom').value.trim().length > 0
+      && document.getElementById('date-moi').value.length > 0;
+    document.getElementById('btn-calculer').disabled = !ok;
+  }
+  document.getElementById('prenom').addEventListener('input', checkPret);
+  document.getElementById('date-moi').addEventListener('change', checkPret);
+
+  // -- calculs --
+
+  function digitsSum(str){
+    var s = 0;
+    for(var i=0;i<str.length;i++){
+      var c = str.charAt(i);
+      if(c >= '0' && c <= '9'){ s += parseInt(c,10); }
+    }
+    return s;
+  }
+
+  // chemin de vie : on additionne tous les chiffres de la date d'un seul coup (jjmmaaaa),
+  // on réduit jusqu'à un chiffre, sauf si on tombe sur 11, 22 ou 33 (nombres maîtres)
+  function cheminDeVie(dateStr){
+    // dateStr au format AAAA-MM-JJ (input type=date)
+    var parts = dateStr.split('-');
+    var jjmmaaaa = parts[2] + parts[1] + parts[0];
+    var total = digitsSum(jjmmaaaa);
+    var detteKarmique = [13,14,16,19].indexOf(total) !== -1;
+    var valeur = total;
+    while(valeur > 9 && valeur !== 11 && valeur !== 22 && valeur !== 33){
+      var nouvelle = digitsSum(String(valeur));
+      if([13,14,16,19].indexOf(valeur) !== -1){ detteKarmique = true; }
+      valeur = nouvelle;
+    }
+    return { valeur: valeur, detteKarmique: detteKarmique };
+  }
+
+  function signeSolaire(dateStr){
+    var parts = dateStr.split('-');
+    var m = parseInt(parts[1],10), d = parseInt(parts[2],10);
+    var signes = [
+      {nom:'Capricorne', from:[12,22], to:[1,19]},
+      {nom:'Verseau', from:[1,20], to:[2,18]},
+      {nom:'Poissons', from:[2,19], to:[3,20]},
+      {nom:'Bélier', from:[3,21], to:[4,19]},
+      {nom:'Taureau', from:[4,20], to:[5,20]},
+      {nom:'Gémeaux', from:[5,21], to:[6,20]},
+      {nom:'Cancer', from:[6,21], to:[7,22]},
+      {nom:'Lion', from:[7,23], to:[8,22]},
+      {nom:'Vierge', from:[8,23], to:[9,22]},
+      {nom:'Balance', from:[9,23], to:[10,22]},
+      {nom:'Scorpion', from:[10,23], to:[11,21]},
+      {nom:'Sagittaire', from:[11,22], to:[12,21]}
+    ];
+    for(var i=0;i<signes.length;i++){
+      var s = signes[i];
+      if(s.from[0] === s.to[0]){
+        if(m === s.from[0] && d >= s.from[1] && d <= s.to[1]) return s.nom;
+      } else {
+        if((m === s.from[0] && d >= s.from[1]) || (m === s.to[0] && d <= s.to[1])) return s.nom;
+      }
+    }
+    return 'Capricorne';
+  }
+
+  function calculerEtAfficher(){
+    var prenom = document.getElementById('prenom').value.trim() || 'Toi';
+    var dateMoi = document.getElementById('date-moi').value;
+    if(!dateMoi){ return; }
+
+    var moi = { prenom: prenom, chemin: cheminDeVie(dateMoi), signe: signeSolaire(dateMoi) };
+
+    var famille = [];
+    var roles = [
+      {id:'mere', label:'ta mère'},
+      {id:'pere', label:'ton père'},
+      {id:'gp', label:'ton aïeul·e'}
+    ];
+    roles.forEach(function(r){
+      var pr = document.getElementById('prenom-' + r.id).value.trim();
+      var dt = document.getElementById('date-' + r.id).value;
+      if(dt){
+        famille.push({
+          prenom: pr || r.label,
+          label: r.label,
+          chemin: cheminDeVie(dt),
+          signe: signeSolaire(dt)
+        });
+      }
+    });
+
+    document.getElementById('titre-resultat').textContent = 'Ta photo de naissance, ' + prenom;
+
+    var html = '';
+    html += '<div class="resultat-bloc">' +
+      '<div class="resultat-label">Calcul — ton chemin de vie</div>' +
+      '<p class="resultat-valeur">' + moi.chemin.valeur + '</p>' +
+      '<p class="resultat-note"><strong>Lecture possible (symbolique, pas un fait) : </strong>' + (moi.chemin.detteKarmique
+        ? 'ce chemin porte ce que la numérologie appelle une dette karmique — un chiffre qui revient, qu\'on peut choisir de regarder avec conscience.'
+        : 'le nombre qui, selon la numérologie, décrit une énergie de fond pour cette vie.') +
+      '</p></div>';
+
+    html += '<div class="resultat-bloc">' +
+      '<div class="resultat-label">Calcul — ton signe solaire</div>' +
+      '<p class="resultat-valeur">' + moi.signe + '</p>' +
+      '<p class="resultat-note">Basé sur ta date de naissance seule. Sans heure ni lieu de naissance, ce n\'est qu\'un premier repère symbolique : un thème astral complet demande aussi ta lune et ton ascendant.</p>' +
+      '</div>';
+
+    document.getElementById('resultats').innerHTML = html;
+
+    // répétitions trouvées avec la famille
+    var reps = [];
+    famille.forEach(function(f){
+      if(f.chemin.valeur === moi.chemin.valeur){
+        reps.push('Le chemin de vie ' + moi.chemin.valeur + ' revient aussi chez ' + f.prenom + '.');
+      }
+      if(f.signe === moi.signe){
+        reps.push('Le signe ' + moi.signe + ' revient aussi chez ' + f.prenom + '.');
+      }
+    });
+
+    var repHtml = '';
+    if(reps.length > 0){
+      repHtml += '<p class="eyebrow" style="margin-top:22px;">Correspondances trouvées</p>';
+      reps.forEach(function(r){
+        repHtml += '<div class="repetition"><span class="puce"></span><span>' + r + '</span></div>';
+      });
+      repHtml += '<p class="lede" style="font-size:0.88rem; margin-top:6px;">Ce sont des observations, pas une interprétation automatique — à toi de voir ce que ça t\'évoque.</p>';
+    } else if(famille.length > 0){
+      repHtml += '<p class="lede" style="margin-top:22px;">Pas de chiffre ou de signe identique avec ce que tu as renseigné — ce n\'est qu\'un premier regard : l\'arbre complet va bien plus loin.</p>';
+    }
+    document.getElementById('repetitions').innerHTML = repHtml;
+
+    goTo(2);
+  }
+</script>
+
+</body>
+</html>
