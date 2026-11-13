@@ -90,6 +90,11 @@
     .a-maisons summary::-webkit-details-marker{display:none}
     .a-maisons summary span{font-weight:400;color:var(--prune-doux);font-size:.9rem;text-align:right}
     .a-maisons details p{margin-top:.6rem;font-size:.93rem}
+    .a-maisons summary::after{content:'+';flex:none;color:var(--prune-doux);font-weight:400;font-size:1.2rem;line-height:1}
+    .a-maisons details[open] summary::after{content:'−'}
+    .a-plus{margin-top:.8rem;padding-top:.8rem;border-top:1px dashed var(--rose);display:grid;gap:.6rem}
+    .a-plus p{margin:0;font-size:.9rem}
+    .a-plus-t{font-size:.78rem!important;letter-spacing:.08em;text-transform:uppercase;color:var(--prune-doux)}
     .a-maisons details.cle{border-color:var(--champagne)}
     .a-pont{position:relative;overflow:hidden;margin-top:2.4rem;border-radius:var(--rayon);color:#FFF4F6;background:#2E1338;padding:2.6rem 2.4rem}
     .a-pont::before{content:"";position:absolute;inset:0;background:url(assets/formation/spirale.jpg) center/cover;opacity:.45}
@@ -191,6 +196,21 @@
     var ABR = { soleil: 'So', lune: 'Lu', mercure: 'Me', venus: 'Vé', mars: 'Ma', jupiter: 'Ju', saturne: 'Sa', uranus: 'Ur', neptune: 'Ne', pluton: 'Pl', noeud: 'NN' };
     function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
     function S(s) { return T.SIGNES[s].nom; }
+    /* Maisons : le « pour aller plus loin » de chaque maison (signe qui l'ouvre, planètes présentes, lignée, question) */
+    var M_LIGNEE = { 1: 'Dans une lignée, la façon de se présenter se transmet : on garde la tenue, la réserve ou l\'éclat de ceux d\'avant. Qu\'as-tu hérité de la façon d\'arriver dans une pièce ?', 2: 'L\'argent, le manque et la valeur de soi se transmettent souvent de génération en génération, par des phrases entendues ou des silences. Que disait ta famille de l\'argent ?', 3: 'Les frères et sœurs, les non-dits du quotidien et la façon de parler dans la famille dessinent cette maison. Qui avait le droit de parler chez toi ?', 4: 'C\'est la maison de la lignée par excellence : les maisons habitées, les déracinements, ce qui a été gardé ou tu. D\'où viens-tu, vraiment, et qu\'as-tu reçu comme socle ?', 5: 'Qui avait le droit de jouer, de créer, de briller dans ta famille ? Les enfants de la lignée portent parfois les rêves de ceux d\'avant.', 6: 'Le travail, le service et la santé se rejouent d\'une génération à l\'autre : métiers répétés, devoir de s\'épuiser, fierté du labeur.', 7: 'Les couples de la lignée laissent une empreinte : on rejoue ou on répare ce qu\'on a vu. Quel modèle de couple as-tu reçu ?', 8: 'Héritages visibles et invisibles, deuils, secrets : cette maison touche à ce qui se transmet sans se dire. Qu\'est-ce qui n\'a jamais été nommé dans ta famille ?', 9: 'Les départs, les exils et les croyances de la famille. Qui est parti loin avant toi, et qu\'est-ce qui t\'autorise à chercher ton propre sens ?', 10: 'Les ambitions, les réussites et les places non tenues de la lignée. Quelle place est attendue de toi, et laquelle choisis-tu ?', 11: 'Les amitiés, les appartenances et les loyautés de groupe. Qui comptait pour tes ancêtres, et à quel groupe te sens-tu fidèle ?', 12: 'Ce qui est caché, tu ou refoulé dans la lignée : les secrets, les enfermements, les retraits. Quel silence familial pèse encore sur toi ?' };
+    var M_COULEUR = { feu: 'avec élan, spontanéité et envie d\'agir', terre: 'avec concret, patience et besoin de bases solides', air: 'par la parole, les idées et le lien', eau: 'avec ressenti, intuition et mémoire émotionnelle' };
+    function maisonPlus(k, r) {
+      var sg = AS.signeDe(r.cuspides[k]), el = AS.ELEMENT[sg], md = AS.MODE[sg];
+      var h = '<div class="a-plus"><p class="a-plus-t">Pour aller plus loin</p>';
+      h += '<p><b>Cette maison s\'ouvre ' + enS(sg) + '.</b> Tu vis ce domaine ' + M_COULEUR[el] + ' (' + esc(T.ELEMENTS[el].nom.toLowerCase()) + ', ' + esc(T.MODES[md].nom.toLowerCase()) + ').</p>';
+      var pl = Object.keys(NOMS_P).filter(function (p) { return r.planetes[p].maison === k && T.PLANETES[p]; });
+      if (pl.length) h += pl.map(function (p) { return '<p><b>' + NOMS_P[p] + ' est ici</b>, ' + esc(T.PLANETES[p].role) + '. ' + esc(T.PLANETES[p].famille) + '</p>'; }).join('');
+      else h += '<p>Aucune planète dans cette maison : elle est plus discrète dans ton thème, et se lit surtout par son signe.</p>';
+      h += '<p class="a-plus-q"><b>Côté lignée.</b> ' + esc(M_LIGNEE[k]) + '</p>';
+      h += '<p><a href="mon-guide.html">Voir comment le ciel du moment traverse cette maison</a></p></div>';
+      return h;
+    }
+
     function enS(s) { var n = S(s); return (/^[AEIOUÉ]/.test(n) ? 'en ' : 'en ') + n; }
 
     /* ───── Lieu de naissance : liste locale (GeoNames) + Open-Meteo ───── */
@@ -390,7 +410,7 @@
         h += '<h3 class="a-titre" id="a-maisons">Tes maisons</h3><p class="a-sec-intro">Les douze maisons sont les domaines de ta vie. Le signe qui ouvre chaque maison et les planètes qui s\'y trouvent en donnent la couleur.</p><div class="a-maisons">';
         for (var k = 1; k <= 12; k++) {
           var dans = Object.keys(NOMS_P).filter(function (p) { return P[p].maison === k; }).map(function (p) { return NOMS_P[p]; });
-          h += '<details class="' + ([4, 8, 12].indexOf(k) >= 0 ? 'cle' : '') + '"' + (k === 4 ? ' open' : '') + '><summary>' + esc(T.MAISONS[String(k)].titre) + '<span>' + S(AS.signeDe(r.cuspides[k])) + (dans.length ? ' · ' + dans.join(', ') : '') + '</span></summary><p>' + esc(T.MAISONS[String(k)].texte) + '</p></details>';
+          h += '<details class="' + ([4, 8, 12].indexOf(k) >= 0 ? 'cle' : '') + '"' + (k === 4 ? ' open' : '') + '><summary>' + esc(T.MAISONS[String(k)].titre) + '<span>' + S(AS.signeDe(r.cuspides[k])) + (dans.length ? ' · ' + dans.join(', ') : '') + '</span></summary><p>' + esc(T.MAISONS[String(k)].texte) + '</p>' + maisonPlus(k, r) + '</details>';
         }
         h += '</div>';
       }
