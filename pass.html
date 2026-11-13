@@ -549,7 +549,21 @@ body.pa-app #pass{padding-bottom:4.5rem}
   .pa-principe>summary{cursor:pointer}.pa-principe ol{padding-left:1.1rem}
   .pa-recap .pa-puces{margin:.3rem 0 .6rem}
   .pa-curseur{display:flex;align-items:center;gap:.5rem}.pa-curseur input{flex:1}.pa-curseur small{color:#7E5C77;font-size:.8rem}
-</style>
+
+    /* Simplification nov. 2026 : note du jour, légende groupée, fil conducteur */
+    .pa-nj-filrouge{font-style:italic;color:#9A3A68;border-left:3px solid #C99B5F;padding:.15rem 0 .15rem .7rem;margin:0 0 .9rem;font-size:.92rem}
+    .pa-nj-plus{margin:.6rem 0 .9rem}.pa-nj-plus summary{cursor:pointer;color:#9A3A68;font-weight:700;font-size:.88rem;min-height:32px;list-style:none}
+    .pa-nj-plus summary::-webkit-details-marker{display:none}
+    .pa-nj-plus[open] summary{margin-bottom:.5rem}
+    .pa-leg-g{margin:.5rem 0 0;padding:.45rem .6rem;border-radius:10px}
+    .pa-leg-g .pa-leg-t{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;margin:0 0 .25rem}
+    .pa-leg-g .pa-legende{margin:0}
+    .pa-leg-g.lignee{background:rgba(46,19,56,.06)}.pa-leg-g.lignee .pa-leg-t{color:#2E1338}
+    .pa-leg-g.toi{background:rgba(154,58,104,.07)}.pa-leg-g.toi .pa-leg-t{color:#9A3A68}
+    .pa-leg-g.cycles{background:rgba(138,91,192,.08)}.pa-leg-g.cycles .pa-leg-t{color:#8A5BC0}
+    .pa-fil-cond{display:block;width:100%;text-align:left;font:inherit;font-size:.85rem;color:#6E5A66;background:#FFF9F5;border:1px solid #EBCFD5;border-radius:12px;padding:.5rem .8rem;margin:0 0 .9rem;cursor:pointer}
+    .pa-fil-cond b{color:#2E1338}
+  </style>
   <script>window.GENESOLIA_APPLI = { nom: 'Ma spirale', icone: '/assets/icones/pass-apple-180.png' };</script>
 </head>
 <body class="nouveau pa-app">
@@ -575,7 +589,7 @@ body.pa-app #pass{padding-bottom:4.5rem}
   <script src="assets/numerologie.js"></script>
   <script src="assets/astronomy.browser.min.js"></script>
   <script src="assets/pass-enquete.js?v=17"></script>
-  <script src="assets/pass.js?v=47"></script>
+  <script src="assets/pass.js?v=48"></script>
   <script src="assets/spirale-aime.js"></script>
 </body>
 </html>
