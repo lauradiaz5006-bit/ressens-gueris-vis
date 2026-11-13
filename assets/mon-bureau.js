@@ -208,6 +208,10 @@
   var PRIORITE = {
     gen: [
       /* Ajout 13 nov. 2026 : articles en ligne, prets a indexer */
+      'https://genesolia.fr/synchronicite-jung-psychologie.html',
+      'https://genesolia.fr/synchronicite-ou-coincidence-difference.html',
+      'https://genesolia.fr/synchronicites-familiales-generations.html',
+      'https://genesolia.fr/carnet-synchronicites-methode.html',
       'https://genesolia.fr/meme-place-qu-un-ancetre-fratrie.html',
       'https://genesolia.fr/veuvage-precoce-generations.html',
       'https://genesolia.fr/remariages-familles-recomposees-generations.html',
@@ -216,11 +220,7 @@
       'https://genesolia.fr/prenoms-effaces-rome-histoire.html',
       'https://genesolia.fr/prenoms-hebreux-theophores.html',
       'https://genesolia.fr/prenoms-mayas-calendrier.html',
-      'https://genesolia.fr/synchronicite-jung-psychologie.html',
       'https://genesolia.fr/chiffres-prenoms-dates-qui-reviennent.html',
-      'https://genesolia.fr/synchronicite-ou-coincidence-difference.html',
-      'https://genesolia.fr/synchronicites-familiales-generations.html',
-      'https://genesolia.fr/carnet-synchronicites-methode.html',
       'https://genesolia.fr/annee-personnelle-2027.html',
       'https://genesolia.fr/annee-personnelle-1-en-2027.html',
       'https://genesolia.fr/annee-personnelle-2-en-2027.html',
