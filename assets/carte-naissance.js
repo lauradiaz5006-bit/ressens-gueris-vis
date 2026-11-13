@@ -27,10 +27,11 @@
   var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
 
   var ECRANS = [
-    { sur: 'Bienvenue sur Genesolia', h: 'Merci pour ta présence ici.', p: 'Et si ton âme avait choisi cette famille, ces parents et ces expériences pour vivre son propre chemin d’évolution ?' },
-    { sur: 'Un parchemin sacré', h: 'Des indices étaient là dès le premier jour.', p: 'La numérologie et l’astrologie sont comme un parchemin : des indices symboliques sur ta naissance et ton chemin de vie. Et si certaines clés étaient déjà inscrites dans ces nombres et ces étoiles ?' },
-    { sur: 'Découvre qui tu deviens', h: 'Plus tu prends conscience de ton histoire, plus tu es libre d’écrire la suite.', p: 'Ta carte de naissance, tes nombres et ta lignée t’invitent à mieux comprendre ce que tu portes.' },
-    { sur: 'Tout commence par toi', h: 'Et si ce premier pas commençait aujourd’hui ?', p: 'Merci de prendre soin de toi et d’oser ce voyage vers une conscience plus grande.' }
+    { sur: 'Avant de commencer', h: 'Merci pour ta présence ici.', p: 'Et si ton âme avait choisi cette famille, ces parents et ces expériences pour vivre son propre chemin d’évolution ?' },
+    { sur: 'Un parchemin sacré', h: 'Des indices étaient là dès le premier jour.', p: 'La numérologie et l’astrologie sont comme un parchemin sacré, révélant des indices symboliques sur ta naissance et ton chemin de vie.', p2: 'Et si certaines clés de ton histoire étaient déjà inscrites dans ces nombres et ces étoiles ?' },
+    { sur: 'Découvre qui tu deviens', h: 'Plus tu prends conscience de ton histoire, plus tu es libre d’écrire la suite.', p: 'Ta carte de naissance, tes nombres et ta lignée familiale t’invitent à mieux comprendre ce que tu portes.' },
+    { sur: 'Plus grand que toi', h: 'Et si ta transformation intérieure rayonnait bien au-delà de toi ?', p: 'Selon la vision spirituelle de David R. Hawkins, chaque être qui élève sa conscience contribuerait à l’évolution de la conscience collective.' },
+    { sur: 'Tout commence par toi', h: 'Et si ce premier pas commençait aujourd’hui ?', p: 'Merci de prendre soin de toi et d’oser ce merveilleux voyage vers une conscience plus grande.', p2: 'Chaque transformation commence par un premier pas : celui de mieux se connaître.' }
   ];
   var ICONES = {
     arbre: '<svg viewBox="0 0 24 24"><path d="M12 21V9M12 9c-3-3.2-7-1.8-7 1.4S9 13.4 12 10.6M12 9c3-3.2 7-1.8 7 1.4S15 13.4 12 10.6M8 21h8"/></svg>',
@@ -39,7 +40,7 @@
   };
 
   function ecranHtml(e, i, n) {
-    return '<div class="pdn-ecran' + (i === 0 ? ' actif' : '') + '" data-pdn-e="' + i + '"><p class="pdn-sur">' + e.sur + '</p><h3>' + e.h + '</h3><p>' + e.p + '</p>' +
+    return '<div class="pdn-ecran' + (i === 0 ? ' actif' : '') + '" data-pdn-e="' + i + '"><p class="pdn-sur">' + e.sur + '</p><h3>' + e.h + '</h3><p>' + e.p + '</p>' + (e.p2 ? '<p>' + e.p2 + '</p>' : '') +
       '<div class="pdn-actions"><button type="button" class="btn btn-plein" data-pdn-suiv>' + (i < n - 1 ? 'Suivant' : 'Voir ce que je porte en arrivant') + '</button></div></div>';
   }
 
