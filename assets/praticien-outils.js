@@ -75,7 +75,7 @@ window.GenesoliaPratique = (function () {
   /* o : { sb, user, id, nom, cabinet, tiroir } */
   function theme(s) { return (s && String(s.theme || '').trim()) || ''; }
   function notes(o) {
-    var CF = window.GenesoliaCoffre, cle = 'seances-' + o.id, liste = [], filtre = '';
+    var CF = window.GenesoliaCoffre, cle = 'seances-' + o.id, liste = [], filtre = '', chargee = false;
     var clePerso = 'pr-dernier-theme-' + o.id;
     var f = fenetre('<h2>Notes de séance · ' + esc(o.nom || '') + '</h2><p class="pr-o-aide">Chiffrées dans votre Espace praticien. Par défaut, elles ne sont jamais montrées à votre client·e. Cochez « visible » sur une note précise si vous voulez la lui faire lire pendant une séance en ligne. Donnez un thème à vos séances (ex. « Relation à la mère », « Argent ») pour vous y retrouver facilement si vous travaillez plusieurs sujets avec la même personne au fil du temps.</p>' +
       '<form class="pr-o-form" data-note-form><label>Thème de cette séance<input type="text" name="theme" maxlength="80" placeholder="Ex. Relation à la mère, Argent, Couple…"></label><label>Date de la séance<input type="date" name="jour" value="' + new Date().toISOString().slice(0, 10) + '"></label><label>Ce que vous observez<textarea name="texte" maxlength="5000" placeholder="Ce qui est apparu, les pistes à explorer, la prochaine étape…"></textarea></label><label class="pr-o-case"><input type="checkbox" name="visible"> <span>Visible par mon·ma client·e</span></label><p class="pr-o-msg" data-note-msg role="status"></p><div class="pr-o-boutons"><button class="btn btn-plein bt plein" type="submit">Ajouter cette note</button><button class="btn btn-trait bt" type="button" data-export-notes>Exporter en PDF</button></div></form>' +
@@ -117,9 +117,15 @@ window.GenesoliaPratique = (function () {
           g.items.map(unSeance).join('');
       }).join('');
     }
-    function sauver() { return CF.ecrire(o.sb, o.user, cle, { seances: liste }).then(function (r) { if (r && r.error) throw r.error; }); }
+    /* Garde-fou : tant que les notes existantes n'ont pas été relues, on n'enregistre rien.
+       Sans ça, un coffre qui ne répond pas donne une liste vide, et le premier enregistrement
+       remplacerait toutes les notes déjà prises pour ce dossier. */
+    function sauver() {
+      if (!chargee) return Promise.reject(new Error('notes-non-chargees'));
+      return CF.ecrire(o.sb, o.user, cle, { seances: liste }).then(function (r) { if (r && r.error) throw r.error; });
+    }
     if (!CF) { f.querySelector('[data-seances]').innerHTML = '<p class="pr-o-aide">Les notes ne sont pas disponibles ici.</p>'; return f; }
-    CF.lire(o.sb, o.user, cle).then(function (x) { liste = (x && x.seances) || []; dessiner(); }, function () { f.querySelector('[data-seances]').innerHTML = '<p class="pr-o-aide">Les notes n’ont pas pu être chargées.</p>'; });
+    CF.lire(o.sb, o.user, cle).then(function (x) { liste = (x && x.seances) || []; chargee = true; dessiner(); }, function () { f.querySelector('[data-seances]').innerHTML = '<p class="pr-o-aide">Les notes n’ont pas pu être chargées. Rechargez la page avant d’en ajouter une : vos notes sont intactes.</p>'; });
     var form = f.querySelector('[data-note-form]'), m = f.querySelector('[data-note-msg]');
     form.addEventListener('submit', function (e) {
       e.preventDefault(); var t = form.texte.value.trim(); if (!t) { m.textContent = 'Écrivez votre note.'; return; }
@@ -384,7 +390,7 @@ window.GenesoliaPratique = (function () {
   function urlBilan(j) { return 'https://genesolia.fr/bilan.html?b=' + j; }
   /* o : { sb, user, id, nom, cabinet } */
   function bilan(o) {
-    var CF = window.GenesoliaCoffre, cle = 'seances-' + o.id, liste = [], jeton = null, bilanActuel = null, nbPions = 0;
+    var CF = window.GenesoliaCoffre, cle = 'seances-' + o.id, liste = [], jeton = null, bilanActuel = null, nbPions = 0, chargee = false;
     var f = fenetre('<h2>Bilan de suivi · ' + esc(o.nom || '') + '</h2>' +
       '<p class="pr-o-aide">Une page dédiée pour la fin de l’accompagnement, différente du lien « Partager l’arbre ». L’arbre y est toujours inclus ; cochez en plus la constellation et les notes que vous voulez y faire figurer.</p>' +
       '<div class="pr-o-actif" style="background:#FFFBFC"><b>✓ Son arbre</b><br><small>Toujours inclus sur la page du bilan.</small></div>' +
@@ -421,8 +427,9 @@ window.GenesoliaPratique = (function () {
         ' <a href="plateau-visio.html?arbre=' + esc(o.id) + '" target="_blank" rel="noopener">Ouvrir le plateau pour ' + ((bilanActuel && bilanActuel.constellation) ? 'la mettre à jour' : 'en prendre une photo') + '</a>.';
     }, function () { zp.textContent = 'Le plateau n’a pas pu être vérifié.'; });
     if (!CF) { zn.innerHTML = '<p class="pr-o-aide">Les notes ne sont pas disponibles ici.</p>'; }
-    else CF.lire(o.sb, o.user, cle).then(function (x) { liste = (x && x.seances) || []; dessinerNotes(); }, function () { zn.innerHTML = '<p class="pr-o-aide">Les notes n’ont pas pu être chargées.</p>'; });
+    else CF.lire(o.sb, o.user, cle).then(function (x) { liste = (x && x.seances) || []; chargee = true; dessinerNotes(); }, function () { zn.innerHTML = '<p class="pr-o-aide">Les notes n’ont pas pu être chargées. Rechargez la page avant de publier le bilan : vos notes sont intactes.</p>'; });
     function sauverVisible(id, v) {
+      if (!chargee) return Promise.resolve();
       var s = liste.filter(function (x) { return x.id === id; })[0]; if (!s) return Promise.resolve();
       var avant = s.visible; s.visible = v;
       return CF.ecrire(o.sb, o.user, cle, { seances: liste }).then(function (r) { if (r && r.error) throw r.error; }, function () { s.visible = avant; dessinerNotes(); });
@@ -434,7 +441,11 @@ window.GenesoliaPratique = (function () {
     f.addEventListener('click', function (e) {
       if (e.target.closest('[data-bilan-copier]')) { var i = zl.querySelector('input'); if (i) i.select(); copier(urlBilan(jeton), msg); return; }
       if (e.target.closest('[data-bilan-publier]')) {
-        var bt = f.querySelector('[data-bilan-publier]'); bt.disabled = true; msg.textContent = '';
+        var bt = f.querySelector('[data-bilan-publier]');
+        /* Les notes n'ont pas pu être relues : publier maintenant retirerait du bilan
+           toutes celles que la praticienne y avait mises. */
+        if (!chargee) { msg.textContent = 'Les notes de séance n’ont pas pu être relues. Rechargez la page avant de publier, sinon le bilan partirait sans elles.'; return; }
+        bt.disabled = true; msg.textContent = '';
         var notesArr = liste.filter(function (s) { return s.visible; }).map(function (s) { return { jour: s.jour, texte: s.texte }; });
         var nouveauBilan = Object.assign({}, bilanActuel || {}, { maj: new Date().toISOString(), notes: notesArr });
         var suite = jeton
