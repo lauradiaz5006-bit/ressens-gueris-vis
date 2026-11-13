@@ -586,7 +586,7 @@
     'métiers du soin': ['medecin', 'infirmi', 'soignant', 'pharmac', 'kine', 'sage-femme', 'aide-soignant', 'chirurgien', 'dentiste'],
     'enseignement': ['enseignant', 'professeur', 'institut', 'educat', 'formateur', 'maitresse', 'prof '],
     'commerce': ['commerc', 'vendeu', 'boulang', 'bouch', 'epicier', 'marchand', 'representant'],
-    'terre': ['agricult', 'fermier', 'fermiere', 'vigneron', 'paysan', 'eleveu', 'maraich'],
+    'terre': ['agricult', 'fermier', 'fermiere', 'vigneron', 'paysan', 'eleveu', 'maraich', 'laboureur', 'cultivat', 'journalier', 'metayer', 'berger'],
     'artisanat': ['artisan', 'menuisier', 'charpentier', 'couturi', 'tailleur', 'cordonnier', 'macon', 'ebeniste', 'plombier', 'electricien'],
     'uniforme': ['militaire', 'soldat', 'gendarme', 'policier', 'pompier'],
     'foyer': ['au foyer', 'menagere', 'domestique'],
@@ -872,21 +872,53 @@
     var pr = {};
     liste.forEach(function (p) { var k = norm(p.prenom); if (k) (pr[k] = pr[k] || []).push(p); });
     Object.keys(pr).forEach(function (k) { var g = pr[k]; if (g.length >= 2) reps.push({ type: 'prenom', c: COUL.prenom, label: 'Un prénom qui revient : ' + g[0].prenom, desc: g.map(function (p) { var l = lienC(p.id); return (l ? nomBase(p) : nom(p)) + qualif(l); }).join(', ') + '.', ids: g.map(function (p) { return p.id; }) }); });
-    // Métiers
-    var mt = {};
-    liste.forEach(function (p) { if (!p.metier) return; var k = groupeMetier(p.metier) || norm(p.metier); (mt[k] = mt[k] || []).push(p); });
-    Object.keys(mt).forEach(function (k) {
-      var g = mt[k]; if (g.length < 2) return;
-      var lib = GROUPES_METIERS[k] ? k : g[0].metier;
-      reps.push({ type: 'metier', c: COUL.metier, label: 'Même domaine de métier : ' + lib, desc: g.map(function (p) { return nom(p) + ', ' + p.metier; }).join(' · ') + '.', ids: g.map(function (p) { return p.id; }) });
-    });
-
     /* ── Ce qui saute aux yeux dans une lignée (surtout utile pour les grands arbres importés) ── */
     var parentsDe = {}, enfantsDe = {};
     S.rels.forEach(function (r) {
       if (r.type !== 'parent' || !S.people[r.from] || !S.people[r.to]) return;
       (parentsDe[r.to] = parentsDe[r.to] || []).push(r.from);
       (enfantsDe[r.from] = enfantsDe[r.from] || []).push(r.to);
+    });
+    // Métiers : seulement entre personnes du même sang (un ancêtre ou un descendant commun),
+    // pour ne pas relier par « loyauté » deux personnes arrivées dans la famille par alliance.
+    var fermSets = {};
+    function fermeture(id, dict, cle) {
+      var memo = fermSets[cle] = fermSets[cle] || {};
+      if (memo[id]) return memo[id];
+      var s = {}, file = [id];
+      while (file.length) {
+        var c = file.pop(); if (s[c]) continue; s[c] = 1;
+        (dict[c] || []).forEach(function (n) { file.push(n); });
+      }
+      return memo[id] = s;
+    }
+    function memeSang(a, b) {
+      var aa = fermeture(a, parentsDe, 'a'), ab = fermeture(b, parentsDe, 'a');
+      for (var x in aa) if (ab[x]) return true;
+      var da = fermeture(a, enfantsDe, 'd'), db = fermeture(b, enfantsDe, 'd');
+      for (var y in da) if (db[y]) return true;
+      return false;
+    }
+    var mt = {};
+    liste.forEach(function (p) { if (!p.metier) return; var k = groupeMetier(p.metier) || norm(p.metier); (mt[k] = mt[k] || []).push(p); });
+    Object.keys(mt).forEach(function (k) {
+      var g = mt[k]; if (g.length < 2) return;
+      var lib = GROUPES_METIERS[k] ? k : g[0].metier;
+      var restants = g.slice(), grappes = [];
+      while (restants.length) {
+        var gr = [restants.shift()], bouge = true;
+        while (bouge) {
+          bouge = false;
+          for (var i = restants.length - 1; i >= 0; i--) {
+            if (gr.some(function (q) { return memeSang(q.id, restants[i].id); })) { gr.push(restants.splice(i, 1)[0]); bouge = true; }
+          }
+        }
+        grappes.push(gr);
+      }
+      grappes.forEach(function (gr) {
+        if (gr.length < 2) return;
+        reps.push({ type: 'metier', c: COUL.metier, label: 'Même domaine de métier : ' + lib, desc: gr.map(function (p) { return nom(p) + ', ' + p.metier; }).join(' · ') + '.', ids: gr.map(function (p) { return p.id; }) });
+      });
     });
     // 1. Des ancêtres présents par deux branches (mariage entre cousins, « implexe »)
     var bases = moi ? [moi.id] : liste.filter(function (p) { return !enfantsDe[p.id] && parentsDe[p.id]; }).map(function (p) { return p.id; });
