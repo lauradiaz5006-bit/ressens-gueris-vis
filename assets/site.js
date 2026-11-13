@@ -1018,6 +1018,8 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
       liste: ['Ta roue de la vie : où tu en es dans les grands domaines de ta vie', 'Ton mode survie : quand tu es toujours en alerte, à tout tenir à bout de bras, comment tu réagis', 'Tes blessures du cœur : ce qui se rejoue dans tes liens', 'Tes cibles et ta synthèse, gardées dans ton espace'], bouton: 'Commencer mon point de départ' },
     'c1-10': { sur: 'Offert · séance complète', titre: 'Ta séance « Sortir de l’alerte »', image: 'assets/cercle/couv-renaissance-petite.webp',
       liste: ['Cycle 1 · De la peur à la paix', 'L’alarme qui sonne en toi baisse, cran par cran, jusqu’au silence', 'À écouter autant de fois que tu veux'], bouton: 'Écouter ma séance' },
+    'mon-mois': { sur: 'Offert · ton aperçu', titre: 'Ton mois dans Le Cercle', image: 'assets/cercle/couv-renaissance-petite.webp',
+      liste: ['Ce que disent tes nombres ce mois-ci', 'Les dates de ton arbre qui tombent en ce moment', 'Ton guide du mois, à lire en quelques minutes'], bouton: 'Voir ma démo' },
     'c2-10': { sur: 'Offert · séance complète', titre: 'Ta séance « L’arbre des liens »', image: 'assets/cercle/couv-liberation-petite.webp',
       liste: ['Cycle 2 · Comment j’aime', 'Tu dessines l’arbre de tes liens et tu écris comment tu souhaites aimer', 'À écouter autant de fois que tu veux'], bouton: 'Écouter ma séance' }
   };
@@ -1069,6 +1071,16 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
     if (window.GenesoliaMailOffert()) return;   /* déjà donné : on va directement à l'offert */
     e.preventDefault();
     demandeMail({ offre: offre, apres: function (jeton) { location.href = offre === 'point-de-depart' ? href : 'seance-offerte.html?s=' + offre + '&j=' + jeton; } });
+  });
+
+  /* « Voir la démo de ton mois » : on demande l'e-mail une fois, puis la démo s'ouvre.
+     Qui a déjà donné son adresse passe directement, sans qu'on la redemande. */
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href*="mon-mois.html?exemple"]'); if (!a) return;
+    if (window.GenesoliaMailOffert()) return;
+    e.preventDefault();
+    var href = a.getAttribute('href');
+    demandeMail({ offre: 'mon-mois', apres: function () { location.href = href; } });
   });
 
   /* Deuxième petit carré : la première séance audio offerte (cycle 1 ou cycle 2), contre l'e-mail.
