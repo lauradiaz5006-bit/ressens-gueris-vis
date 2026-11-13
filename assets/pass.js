@@ -475,7 +475,9 @@
     return '<span class="pa-bulle" data-bulle="' + cle + '">' + esc(texte) + '</span>';
   }
   function fermerBulles() {
-    [].forEach.call(document.querySelectorAll('[data-bulle]'), function (b) {
+    /* data-bulle sert aussi aux pions de Mon théâtre (span de conseil ici, boutons personnages là-bas) :
+       on ne referme que les petites bulles de conseil (span), jamais les pions de la scène. */
+    [].forEach.call(document.querySelectorAll('span.pa-bulle[data-bulle]'), function (b) {
       setTimeout(function () { marquerVu('b-' + b.getAttribute('data-bulle')); b.classList.add('va'); setTimeout(function () { b.remove(); }, 600); }, 7000);
     });
   }
