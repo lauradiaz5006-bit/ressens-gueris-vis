@@ -1710,7 +1710,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
       zone.innerHTML = liste.slice(0, n).map(function (a) { return '<figure><blockquote>« ' + esc(a.texte) + ' »</blockquote><figcaption>' + esc(a.qui) + (a.verifie ? '<span class="avis-verifie">✓ Avis vérifié</span>' : '') + '</figcaption></figure>'; }).join('');
       if (liste.length === 1) {
         b.classList.add('avis-seul');
-        var titre = b.querySelector('h2'); if (titre) titre.textContent = 'Elle a essayé';
+        var titre = b.querySelector('h2'); if (titre) titre.textContent = 'Témoignage vérifié';
       }
       b.hidden = false;
     });
