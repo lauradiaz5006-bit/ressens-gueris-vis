@@ -947,17 +947,37 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
     b.setAttribute('aria-label', 'Tes choix sur les cookies');
     b.innerHTML =
       '<p class="cookies-titre">Tes choix sur les cookies</p>' +
-      '<p>Umami compte les visites sans cookie et sans t\'identifier. Avec ton accord, Google Analytics nous aide en plus à comprendre comment le site est utilisé (cookies de mesure, gardés 13 mois au plus). Aucune publicité, aucune revente. Tes réponses restent dans ton navigateur ; si tu crées un compte, tes sauvegardes sont stockées en Europe (Irlande). <a href="confidentialite.html#cookies">En savoir plus</a></p>' +
+      /* Sur téléphone le bandeau prenait 44 % de l'écran et recouvrait le bouton principal de la page.
+         Le résumé tient en deux lignes, le texte complet s'ouvre d'un geste, sans quitter la page. */
+      '<p class="cookies-court">Des cookies de mesure, seulement avec ton accord. Aucune publicité, aucune revente. <button type="button" class="cookies-plus" data-cookies-detail aria-expanded="false">Lire le détail</button></p>' +
+      '<p class="cookies-detail" hidden>Umami compte les visites sans cookie et sans t\'identifier. Avec ton accord, Google Analytics nous aide en plus à comprendre comment le site est utilisé (cookies de mesure, gardés 13 mois au plus). Aucune publicité, aucune revente. Tes réponses restent dans ton navigateur ; si tu crées un compte, tes sauvegardes sont stockées en Europe (Irlande). <a href="confidentialite.html#cookies">En savoir plus</a></p>' +
       '<div class="cookies-boutons"><button class="btn btn-trait" type="button" data-choix="non">Refuser</button>' +
       '<button class="btn btn-plein" type="button" data-choix="oui">Accepter</button></div>';
+    var plus = b.querySelector('[data-cookies-detail]'), detail = b.querySelector('.cookies-detail');
+    if (plus && detail) plus.addEventListener('click', function () {
+      var ouvert = detail.hasAttribute('hidden');
+      if (ouvert) detail.removeAttribute('hidden'); else detail.setAttribute('hidden', '');
+      plus.setAttribute('aria-expanded', ouvert ? 'true' : 'false');
+      plus.textContent = ouvert ? 'Masquer le détail' : 'Lire le détail';
+    });
     Array.prototype.forEach.call(b.querySelectorAll('[data-choix]'), function (bt) {
       bt.addEventListener('click', function () {
         window.GenesoliaMesure.enregistrer(bt.getAttribute('data-choix'));
         b.classList.remove('visible');
+        document.body.style.paddingBottom = '';
         if (auto) setTimeout(carreCercle, 200);
       });
     });
     document.body.appendChild(b);
+    /* Le bandeau est posé par-dessus la page : sans cette réserve, le bouton qui se trouve en bas
+       de l'écran reste dessous et on ne peut pas l'atteindre. */
+    function reserver() {
+      var h = b.classList.contains('visible') ? Math.ceil(b.getBoundingClientRect().height) + 24 : 0;
+      document.body.style.paddingBottom = h ? h + 'px' : '';
+    }
+    reserver();
+    if (window.ResizeObserver) { try { new ResizeObserver(reserver).observe(b); } catch (e) {} }
+    window.addEventListener('resize', reserver);
   }
   if (!vu && !window.GenesoliaMesure.pro()) bandeauCookies(true);
   document.addEventListener('click', function (e) {
