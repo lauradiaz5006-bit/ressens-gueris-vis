@@ -29,14 +29,25 @@ create policy "praticien voit ses liens" on public.autorisations_arbre
   using ((select auth.uid()) = praticien_id);
 
 -- La cliente génère un code (7 jours pour être utilisé). Les codes non réclamés précédents sont nettoyés.
+-- Le code fait 8 caractères tirés d'un alphabet sans caractères ambigus (ni 0/O, ni 1/I), soit
+-- 1 099 511 627 776 combinaisons. Il est tiré de gen_random_uuid(), source aléatoire sûre, en évitant
+-- les octets 6 et 8 de l'UUID dont certains bits sont figés (version et variante) : sans cette
+-- précaution un caractère sur huit ne couvrirait que la moitié de l'alphabet.
 create or replace function public.arbre_client_generer_code()
 returns jsonb language plpgsql volatile security definer set search_path to '' as $$
-declare v_code text; v_prenom text; v_i int := 0;
+declare
+  c_alpha constant text := '23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
+  c_pos constant int[] := array[0, 1, 2, 3, 4, 5, 7, 9];
+  v_octets bytea; v_code text; v_prenom text; v_c int; v_i int := 0;
 begin
   delete from public.autorisations_arbre where client_id = auth.uid() and relie_le is null;
   select (t.data #>> '{people,toi,prenom}') into v_prenom from public.arbres t where t.user_id = auth.uid();
   loop
-    v_code := upper(substr(md5(random()::text || clock_timestamp()::text), 1, 6));
+    v_octets := decode(replace(gen_random_uuid()::text, '-', ''), 'hex');
+    v_code := '';
+    for v_c in 1..8 loop
+      v_code := v_code || substr(c_alpha, (get_byte(v_octets, c_pos[v_c]) % 32) + 1, 1);
+    end loop;
     begin
       insert into public.autorisations_arbre (code, client_id, prenom_client) values (v_code, auth.uid(), v_prenom);
       exit;
@@ -50,9 +61,13 @@ end $$;
 -- Le·la praticien·ne saisit le code reçu pour relier l'accès à son propre compte.
 create or replace function public.arbre_client_relier(p_code text)
 returns jsonb language plpgsql volatile security definer set search_path to '' as $$
-declare a public.autorisations_arbre; v_cab text;
+declare a public.autorisations_arbre; v_cab text; v_code text;
 begin
-  select * into a from public.autorisations_arbre where code = upper(trim(coalesce(p_code, ''))) for update;
+  -- Saisie tolérante : tiret de présentation, espaces, minuscules, et le O/I tapé pour un 0/1
+  -- d'un ancien code. Les anciens codes (6 caractères hexadécimaux) continuent de fonctionner.
+  v_code := translate(upper(regexp_replace(coalesce(p_code, ''), '[^A-Za-z0-9]', '', 'g')), 'OI', '01');
+  if v_code = '' then return jsonb_build_object('erreur', 'code'); end if;
+  select * into a from public.autorisations_arbre where code = v_code for update;
   if not found or a.revoque_le is not null or (a.relie_le is null and a.expire_le < now()) then
     return jsonb_build_object('erreur', 'code');
   end if;
