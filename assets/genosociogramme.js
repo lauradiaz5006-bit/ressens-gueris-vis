@@ -3300,7 +3300,7 @@
           }
           var lien = d.ou === 'supp' && d.id ? 'genosociogramme.html?arbre=' + encodeURIComponent(d.id) : 'genosociogramme.html';
           bt.hidden = true;
-          msg.innerHTML = (d.deja ? 'Cet arbre est déjà dans ton espace.' : 'C’est fait : ton arbre est dans ton espace. Il t’appartient, sans les notes de séance.') + ' <a href="' + lien + '">Ouvrir mon arbre</a> · <a href="espace.html">Mon espace</a>';
+          msg.innerHTML = (d.deja ? 'Cet arbre est déjà dans ton espace.' : 'C’est fait : ton arbre est dans ton espace. Il t’appartient, sans les notes de séance.') + ' <a href="' + lien + '">Ouvrir mon arbre</a> · <a href="login.html">Mon espace</a>';
         });
       }).catch(function () { bt.disabled = false; msg.textContent = 'La copie n’a pas abouti. Réessaie dans un instant.'; });
     }
