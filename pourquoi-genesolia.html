@@ -24,9 +24,16 @@
     .pq-diplome .pq-diplome-lien{display:inline-block;color:var(--prune);font-size:.85rem;margin-top:.5rem;text-underline-offset:3px}
     @media(max-width:760px){.pq-diplomes-grille{grid-template-columns:1fr;max-width:34rem;margin-inline:auto}}
   
-    .laura-min{margin:1.1rem 0 1.5rem;padding:1rem 1.2rem;border:1px solid var(--rose,#EBCFD5);border-radius:18px;background:#FFF9F7}
-    .laura-min h2{margin:0 0 .3rem;font-size:1.3rem}
-    .laura-min p{margin:0;font-size:.95rem}
+    .pq-cote{display:grid;gap:1.4rem;width:340px}
+    .laura-min{position:relative;overflow:hidden;margin:0;padding:1.6rem 1.5rem;border:1px solid var(--champagne-clair,#F3DCC0);border-radius:24px;
+      background:linear-gradient(160deg,#FDF2F4,#F9E4EA 65%,#F6DEE6);box-shadow:0 16px 40px rgba(107,47,91,.12)}
+    .laura-min::before{content:"";position:absolute;inset:0;pointer-events:none;
+      background:radial-gradient(58% 55% at 88% 6%,rgba(243,220,192,.85),transparent 70%),radial-gradient(45% 45% at 5% 95%,rgba(243,220,192,.5),transparent 72%)}
+    .laura-min > *{position:relative}
+    .laura-min h2{margin:0 0 .5rem;font-family:var(--manuscrit);font-size:2.1rem;line-height:1.1;color:var(--prune)}
+    .laura-min h2::after{content:"";display:block;width:3.2rem;height:1px;margin-top:.45rem;background:linear-gradient(90deg,var(--champagne,#B98A55),transparent)}
+    .laura-min p{margin:0;font-family:var(--manuscrit);font-size:1.32rem;line-height:1.5;color:#7A4668}
+    @media (max-width:760px){.pq-cote{width:auto}}
       </style>
 
   <script type="application/ld+json">
@@ -56,21 +63,22 @@
 
   <main class="conteneur pourquoi">
     <div class="pq-carte">
-      <img
-        src="assets/laura-pourquoi.webp"
-        width="1200"
-        height="1096"
-        alt="Laura en train d’écrire dans son carnet"
-      >
+      <div class="pq-cote">
+        <img
+          src="assets/laura-pourquoi.webp"
+          width="1200"
+          height="1096"
+          alt="Laura en train d’écrire dans son carnet"
+        >
+
+        <aside class="laura-min">
+          <h2>Salut, je suis Laura</h2>
+          <p>Je suis heureuse de t’accueillir ici. Genesolia, c’est ma passion devenue des outils simples&nbsp;: voir ce qui se répète dans ta vie et dans ta lignée, comprendre d’où ça vient et t’en libérer, à ton rythme. Et pour les praticien·nes, un espace de travail pensé à partir de mes propres besoins.</p>
+        </aside>
+      </div>
 
       <div>
         <h1>Pourquoi Genesolia</h1>
-<div class="laura-min">
-          <div>
-            <h2>Salut, je suis Laura</h2>
-            <p>Je suis heureuse de t’accueillir ici. Genesolia, c’est ma passion devenue des outils simples&nbsp;: voir ce qui se répète dans ta vie et dans ta lignée, comprendre d’où ça vient et t’en libérer, à ton rythme. Et pour les praticien·nes, un espace de travail pensé à partir de mes propres besoins.</p>
-          </div>
-        </div>
 
         <p>Pendant des années, j’ai accompagné des personnes qui savaient déjà presque tout de leur histoire. Elles avaient compris, lu, analysé… et pourtant, les mêmes scénarios revenaient.</p>
 

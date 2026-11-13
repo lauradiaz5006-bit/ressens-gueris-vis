@@ -629,7 +629,6 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
           '<li><a href="mon-mois.html">Mes carnets précédents</a></li>' +
           '<li><a href="blog.html">Blog</a></li>' +
           '<li><a href="pourquoi-genesolia.html">Pourquoi Genesolia</a></li>' +
-          '<li><a href="la-demarche.html">La démarche</a></li>' +
           '<li><a href="abonnements.html">Tarifs</a></li>' +
           '<li><a href="mentions-legales.html">Mentions légales</a></li>' + '<li><a href="cgv.html">Conditions de vente</a></li>' +
           '<li><a href="confidentialite.html">Confidentialité</a></li>' +
@@ -1725,7 +1724,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
    (3,15 % + 0,25 €) et conversion (2 %) inclus, au taux du 21/10/2026 (1 € = 1,58 $ CA), arrondis vers le haut. À revoir tous les 3 mois.
    Seules les pages qui parlent des offres sont converties ; l'arbre imprimé reste en euros (livraison en France). */
 (function () {
-  var PAGES = ['espace-praticien.html', 'praticien.html', 'abonnement.html', 'tarifs.html', 'essai.html', 'login.html', 'mon-suivi.html', 'index.html', '', 'la-demarche.html', 'mon-mois.html', 'mon-guide.html', 'cercle.html', 'seance-offerte.html', 'genosociogramme.html', 'parcours.html'];
+  var PAGES = ['espace-praticien.html', 'praticien.html', 'abonnement.html', 'tarifs.html', 'essai.html', 'login.html', 'mon-suivi.html', 'index.html', '', 'mon-mois.html', 'mon-guide.html', 'cercle.html', 'seance-offerte.html', 'genosociogramme.html', 'parcours.html'];
   var CAD = { '4,99': '8,49', '17,77': '30', '9': '16', '12': '21', '15': '26', '29': '49', '24': '40', '249': '419', '199': '335', '16,58': '28', '10': '17', '27': '45', '24,90': '41', '60': '108', '99': '169', '20,75': '34,92', '19': '32', '240': '400', '190': '320', '0': '0' };   /* 19 et 240 : Espace praticien */
   var CLE = 'genesolia-devise';
   var page = location.pathname.split('/').pop();
@@ -1821,7 +1820,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
     'fil-d-or.html': '', 'comment-faire-son-genosociogramme.html': '', 'questions-a-poser-a-sa-famille.html': '', 'psychogenealogie.html': '', 'heriter.html': '',
     'symboles-genosociogramme.html': '', 'exemple-genosociogramme.html': '', 'genosociogramme-vierge.html': '', 'annuaire.html': ''
   };
-  var CERCLE = ['abonnement.html', 'tarifs.html', 'formation.html', 'parcours.html', 'methode.html', 'la-demarche.html', 'seance-offerte.html', 'dependance-affective.html', 'relation-floue.html'];
+  var CERCLE = ['abonnement.html', 'tarifs.html', 'formation.html', 'parcours.html', 'methode.html', 'seance-offerte.html', 'dependance-affective.html', 'relation-floue.html'];
   if (!document.getElementById('livre-encart-css')) {
     var st = document.createElement('style'); st.id = 'livre-encart-css';
     st.textContent = '.livre-encart{display:grid;grid-template-columns:150px 1fr;gap:1.6rem;align-items:center;padding:1.6rem;border-radius:var(--rayon,22px);background:linear-gradient(140deg,#FBF4EA,#F3E4D6);border:1px solid #EBD3BC;box-shadow:0 12px 34px rgba(107,47,91,.08)}' +
