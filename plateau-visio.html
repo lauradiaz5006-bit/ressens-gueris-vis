@@ -528,7 +528,7 @@
 
       el.addEventListener('pointerdown', function (ev) {
         ev.preventDefault();
-        el.setPointerCapture && el.setPointerCapture(ev.pointerId);
+        try { el.setPointerCapture && el.setPointerCapture(ev.pointerId); } catch (e) {}
         etat.pointeurs.set(ev.pointerId, { x: ev.clientX, y: ev.clientY });
         if (etat.pointeurs.size === 1) {
           etat.bouge = false;

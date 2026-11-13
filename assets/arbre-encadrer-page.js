@@ -905,7 +905,7 @@
     window.addEventListener('resize', function () { if (document.body.contains(o)) ajuster(); });
     vue.addEventListener('dblclick', function (e) { zoom(k > 2.5 ? 1 / k : 2, e.clientX, e.clientY); });
     var pts = {}, depart = null;
-    vue.addEventListener('pointerdown', function (e) { vue.setPointerCapture(e.pointerId); pts[e.pointerId] = [e.clientX, e.clientY]; depart = null; });
+    vue.addEventListener('pointerdown', function (e) { try { vue.setPointerCapture(e.pointerId); } catch (x) {} pts[e.pointerId] = [e.clientX, e.clientY]; depart = null; });
     vue.addEventListener('pointermove', function (e) {
       if (!pts[e.pointerId]) return;
       var ids = Object.keys(pts), av = pts[e.pointerId]; pts[e.pointerId] = [e.clientX, e.clientY];
