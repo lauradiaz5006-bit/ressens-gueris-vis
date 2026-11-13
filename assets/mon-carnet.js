@@ -1789,6 +1789,7 @@
   /* ───── Construction ───── */
   var courante = 0, enCours = false;
   var reduit = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var cadrePositionne = false;   /* positionnement sur la 1re question (cadre) : une seule fois, après le chargement des données */
   function modeLivre() { return window.matchMedia('(min-width: 1200px)').matches; }
   /* Les trois livres se reconnaissent d'un coup d'œil : le carnet en clair (je m'aligne), le suivi en prune (je libère), le module aux couleurs de la formation */
   var THEME = SUIVI ? 'suivi' : MODULE ? 'module' : 'carnet';
@@ -1936,6 +1937,13 @@
     var y = Math.max(0, el.getBoundingClientRect().top + window.pageYOffset - hautFixe() - 8);
     if (Math.abs(window.pageYOffset - y) > 4) window.scrollTo({ top: y, behavior: instant || reduit ? 'auto' : 'smooth' });
   }
+  /* Dans la démo en cadre (iframe sur abonnement.html) : la page s'ouvre déjà sur la première
+     question à remplir, au lieu du haut de page (texte d'intro) qui ne laisse rien voir du
+     carnet dans la hauteur réduite du cadre. */
+  function premierChamp(i) {
+    var pg = racine.querySelector('.mc-page[data-p="' + i + '"]'); if (!pg) return null;
+    return pg.querySelector('textarea[data-k], input[type="text"][data-k], input[type="range"][data-k]');
+  }
   function montrer(i) {
     courante = i;
     racine.querySelectorAll('.mc-page').forEach(function (p) { p.hidden = +p.getAttribute('data-p') !== i; });
@@ -1954,6 +1962,9 @@
     if (o.initial || i === avant || reduit) {
       montrer(i);
       if (!o.initial) defiler(livre, true);
+      else if (!o.ancre && document.documentElement.classList.contains('dans-cadre')) {
+        var champ = premierChamp(i); if (champ) defiler(champ, true);
+      }
     } else if (modeLivre()) {
       defiler(livre, true);
       tourner(avant, i);
@@ -2063,6 +2074,12 @@
     });
     majPhraseJour(); majDatesModule(); majPD(); majJeSuis(); majCoeur();
     progres(); verifierObjectif(); perso(); majRadars(); comparerIntensite(); majMeteoDit(); majBravos(); majAncienAncrage(); majAccompagnement();
+    /* Les réponses connues (coffre ou appareil) peuvent ouvrir des blocs ou allonger la page
+       au-dessus de la question : on reprécise la position une fois, une fois les données là. */
+    if (!cadrePositionne && document.documentElement.classList.contains('dans-cadre')) {
+      cadrePositionne = true;
+      var champ = premierChamp(courante); if (champ) defiler(champ, true);
+    }
   }
   function afficherVal(el) {
     var k = el.getAttribute('data-k'), b = racine.querySelector('[data-val="' + k + '"]'), c = racine.querySelector('[data-curseur="' + k + '"]');
