@@ -2239,9 +2239,10 @@
     return t;
   }
   var ICONES_T = { perso: '<circle cx="8" cy="4.5" r="3"/><path d="M2.5 15c.6-3.6 2.8-5.6 5.5-5.6s4.9 2 5.5 5.6z"/>', desir: '<path d="M8 1.2l1.9 4.3 4.6.4-3.5 3 1.1 4.6L8 11l-4.1 2.5 1.1-4.6-3.5-3 4.6-.4z"/>', symbole: '<path d="M8 1.5l6 6.5-6 6.5-6-6.5z"/>' };
-  function bulleT(p, pl, sel) {
+  function bulleT(p, pl, sel, lienChoisi) {
     var c = p.couleur || '#6B2F5B', ty = typeDe(p);
-    return '<button type="button" class="pa-bulle t-' + ty + (pl.dos ? ' dos' : '') + (sel ? ' sel' : '') + '" data-bulle="' + esc(p.id) + '" style="left:' + pl.x + '%;top:' + pl.y + '%;--t:' + tailleDe(pl) + ';background:' + c + ';color:' + (clair(c) ? '#2E1338' : '#fff') + '" aria-label="' + esc(p.nom + ', ' + lienPerso(p)) + '"><svg viewBox="0 0 16 16" aria-hidden="true">' + ICONES_T[ty] + '</svg><span><b>' + esc(p.nom) + '</b><small>' + esc(lienPerso(p)) + '</small></span></button>';
+    return '<button type="button" class="pa-bulle t-' + ty + (pl.dos ? ' dos' : '') + (sel ? ' sel' : '') + (lienChoisi ? ' lien-choisi' : '') + '" data-bulle="' + esc(p.id) + '" style="left:' + pl.x + '%;top:' + pl.y + '%;--t:' + tailleDe(pl) + ';background:' + c + ';color:' + (clair(c) ? '#2E1338' : '#fff') + '" aria-label="' + esc(p.nom + ', ' + lienPerso(p)) + '"><svg viewBox="0 0 16 16" aria-hidden="true">' + ICONES_T[ty] + '</svg><span><b>' + esc(p.nom) + '</b><small>' + esc(lienPerso(p)) + '</small></span></button>' +
+      '<button type="button" class="pa-bulle-x" data-t-retirer-rapide="' + esc(p.id) + '" style="left:' + pl.x + '%;top:' + pl.y + '%" aria-label="Retirer ' + esc(p.nom) + ' de la scène" title="Retirer de la scène">×</button>';
   }
   /* Ce que la scène montre : entre elle et ce qu'elle désire, qui prend le plus de place, qui est collé à elle */
   function lectureScene(sc) {
@@ -2265,6 +2266,15 @@
     var s = '<svg class="pa-fils" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">';
     Object.keys(sc.places).forEach(function (k) { var pl = sc.places[k], P = poidsDe(pl.poids), pp = persoT(k); if (!pp) return; if (typeDe(pp) === 'desir') { s += '<line class="lien chemin" data-lien="' + esc(k) + '" x1="' + sc.moi.x + '" y1="' + sc.moi.y + '" x2="' + pl.x + '" y2="' + pl.y + '"/>'; return; } s += '<line class="lien" data-lien="' + esc(k) + '" x1="' + sc.moi.x + '" y1="' + sc.moi.y + '" x2="' + pl.x + '" y2="' + pl.y + '" style="stroke:' + P[3] + ';stroke-width:' + P[2] + 'px' + (P[4] ? ';stroke-dasharray:' + P[4] : '') + '"/>'; });
     if (!sc.sansFils) filsDores(sc).forEach(function (f) { var a = sc.places[f.a], b = sc.places[f.b], w = Math.max(poidsDe(a.poids)[2], poidsDe(b.poids)[2]); s += '<line class="or' + (sc.filNouveau === f.cle ? ' nouveau' : '') + '" pathLength="100" data-fil-a="' + esc(f.a) + '" data-fil-b="' + esc(f.b) + '" x1="' + a.x + '" y1="' + a.y + '" x2="' + b.x + '" y2="' + b.y + '" style="stroke-width:' + Math.max(2, w * .5) + 'px"/>'; });
+    (sc.liens || []).forEach(function (l) {
+      var a = sc.places[l.a], b = sc.places[l.b]; if (!a || !b) return;
+      var st = STYLES_LIEN[l.style] || STYLES_LIEN.plein, mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
+      s += '<g data-lien-libre="' + esc(l.id) + '" class="pa-lien-libre" role="button" aria-label="Lien ' + esc(LIBELLES_LIEN[l.style] || '') + '. Touche pour changer.">' +
+        '<line class="ll-hit" x1="' + a.x + '" y1="' + a.y + '" x2="' + b.x + '" y2="' + b.y + '"/>' +
+        '<line class="ll" x1="' + a.x + '" y1="' + a.y + '" x2="' + b.x + '" y2="' + b.y + '" style="stroke:' + st.coul + ';stroke-width:' + st.larg + 'px' + (st.trait ? ';stroke-dasharray:' + st.trait : '') + '"/>' +
+        (l.style === 'coupe' ? '<line class="ll-coupe" x1="' + (mx - 2.6) + '" y1="' + (my - 2.6) + '" x2="' + (mx + 2.6) + '" y2="' + (my + 2.6) + '"/><line class="ll-coupe" x1="' + (mx - 2.6) + '" y1="' + (my + 2.6) + '" x2="' + (mx + 2.6) + '" y2="' + (my - 2.6) + '"/>' : '') +
+        '</g>';
+    });
     return s + '</svg>';
   }
   function miniScene(moi, places) {
@@ -2273,6 +2283,22 @@
   }
   function placeLibre(sc) { var n = Object.keys(sc.places).length, ang = n * 2.4 + .6; return { x: Math.round(50 + 30 * Math.cos(ang)), y: Math.round(50 + 30 * Math.sin(ang)), poids: 'present' }; }
   var choixT = '', photoApres = '', protoPerso = null, entreeApres = '';
+  /* Liens directs entre deux pions quelconques (pas seulement vers moi) : un tap sur le trait fait tourner le style,
+     jusqu'à disparaître — plein (fort) → pointillé (distendu) → coupé (rompu) → pointillé fin (absent) → retiré */
+  var ORDRE_LIEN = ['plein', 'pointille', 'coupe', 'absent'];
+  var STYLES_LIEN = { plein: { larg: 3, trait: '', coul: '#6B2F5B' }, pointille: { larg: 2, trait: '5 4', coul: '#9C5B78' }, coupe: { larg: 2.4, trait: '', coul: '#6B2F5B' }, absent: { larg: 1.3, trait: '2 4', coul: '#CBA9BB' } };
+  var LIBELLES_LIEN = { plein: 'fort', pointille: 'distendu', coupe: 'rompu', absent: 'presque absent' };
+  var modeLien = false, premierLien = '';
+  function lienLibreDe(sc, id) { return (sc.liens || []).filter(function (l) { return l.id === id; })[0] || null; }
+  function cyclerLienLibre(sc, id) {
+    var l = lienLibreDe(sc, id); if (!l) return;
+    var i = ORDRE_LIEN.indexOf(l.style);
+    if (i < 0 || i >= ORDRE_LIEN.length - 1) sc.liens = sc.liens.filter(function (x) { return x.id !== id; });
+    else l.style = ORDRE_LIEN[i + 1];
+    sauver(); rafraichir();
+  }
+  /* Retire de sc.liens tout lien touchant un pion qu'on vient de retirer de la scène */
+  function retirerLiensDe(sc, id) { sc.liens = (sc.liens || []).filter(function (l) { return l.a !== id && l.b !== id; }); }
   /* Le principe du théâtre, à lire en 30 secondes, toujours sur le côté */
   function principeTheatre(ouvert) {
     return '<details class="pa-carte pa-principe"' + (ouvert ? ' open' : '') + '><summary class="pa-etiq">Le principe, en 30 secondes</summary>' +
@@ -2295,12 +2321,12 @@
     /* un fil doré qui vient d'apparaître : tracé sous ses yeux, puis « Qu'est-ce que ça te fait de voir ça ? » */
     F.forEach(function (f) { if (sc.filsVus.indexOf(f.cle) < 0) { sc.filsVus.push(f.cle); sc.filNouveau = f.cle; sauver(); } });
     var dans = Object.keys(sc.places).map(persoT).filter(Boolean), sel = choixT && sc.places[choixT] ? persoT(choixT) : null, fn = sc.filNouveau ? F.filter(function (f) { return f.cle === sc.filNouveau; })[0] : null;
-    h = '<a class="pa-retour" href="#theatre">‹ Mon théâtre</a><input class="pa-titre-in pa-titre-sc" data-t-titre maxlength="60" value="' + esc(sc.titre || '') + '" aria-label="Le nom de ta scène"><p class="pa-sous">Fais glisser chaque personnage là où tu le sens. Touche-le pour noter ce que tu ressens face à lui.</p>' +
+    h = '<a class="pa-retour" href="#theatre">‹ Mon théâtre</a><div class="pa-titre-sc-ligne"><input class="pa-titre-in pa-titre-sc" data-t-titre maxlength="60" value="' + esc(sc.titre || '') + '" aria-label="Le nom de ta scène"><button type="button" class="pa-icone-suppr" data-t-scene-suppr aria-label="Supprimer cette pièce" title="Supprimer cette pièce">🗑</button></div><p class="pa-sous">Fais glisser chaque personnage là où tu le sens. Touche-le pour noter ce que tu ressens face à lui.</p>' +
       '<div class="pa-2col pa-theatre"><div><div class="pa-scene" id="pa-scene">' + svgLiens(sc) +
       '<button type="button" class="pa-bulle moi" data-bulle="moi" style="left:' + sc.moi.x + '%;top:' + sc.moi.y + '%" aria-label="Toi"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="4.5" r="3"/><path d="M2.5 15c.6-3.6 2.8-5.6 5.5-5.6s4.9 2 5.5 5.6z"/></svg><span><b>' + esc(D.prenom || 'Moi') + '</b><small>moi</small></span></button>' +
-      dans.map(function (p) { return bulleT(p, sc.places[p.id], sel === p); }).join('') + (dans.length ? '' : '<p class="pa-scene-vide">Ajoute tes personnages sur la scène</p>') + '</div>' +
-      '<p class="pa-discret pa-sous-scene">Un lien qui s’affine ne veut pas dire que tu aimes moins. Ça veut dire que tu portes moins.</p>' +
-      '<div class="pa-outils"><button type="button" class="pa-bt or" data-t-ajout>Ajouter un personnage</button><button type="button" class="pa-bt clair" data-t-elem="desir">Ce que je désire</button><button type="button" class="pa-bt clair" data-t-elem="symbole">Un symbole</button><button type="button" class="pa-bt clair" data-t-photo>Garder une photo de la scène</button></div></div><div>' + principeTheatre(false);
+      dans.map(function (p) { return bulleT(p, sc.places[p.id], sel === p, modeLien && premierLien === p.id); }).join('') + (dans.length ? '' : '<p class="pa-scene-vide">Ajoute tes personnages sur la scène</p>') + '</div>' +
+      '<p class="pa-discret pa-sous-scene">' + (modeLien ? (premierLien ? 'Touche un deuxième personnage pour créer le lien.' : 'Touche un premier personnage, puis un deuxième, pour les relier.') : 'Un lien qui s’affine ne veut pas dire que tu aimes moins. Ça veut dire que tu portes moins. Touche un lien entre deux personnages pour en changer la nature.') + '</p>' +
+      '<div class="pa-outils"><button type="button" class="pa-bt or" data-t-ajout>Ajouter un personnage</button><button type="button" class="pa-bt clair" data-t-elem="symbole">+ Un objet symbolique</button><button type="button" class="pa-bt clair" data-t-elem="desir">Ce que je désire</button><button type="button" class="pa-bt ' + (modeLien ? 'or' : 'clair') + '" data-t-lien aria-pressed="' + !!modeLien + '">Relier deux personnages</button><button type="button" class="pa-bt clair" data-t-photo>Garder une photo de la scène</button></div></div><div>' + principeTheatre(false);
     if (fn) h += '<section class="pa-carte pa-tiens-c"><p class="pa-etiq">Un lien vient d’apparaître</p><p>' + esc(phraseMiroir(fn)) + '</p><label for="pa-t-prise">Qu’est-ce que ça te fait de voir ça ?</label><textarea id="pa-t-prise" maxlength="600" placeholder="Je vois que je cherche chez Tom ce que je n’ai pas eu de mon père…"></textarea><div class="pa-outils"><button type="button" class="pa-bt or" data-t-prise>Je le note</button><button type="button" class="pa-lien-s" data-t-prise-plus-tard>Plus tard</button></div>' + (sc.schema ? '<p class="pa-discret">Ta réponse rejoint ton schéma comme une prise de conscience.</p>' : '') + '</section>';
     var lec = lectureScene(sc);
     if (lec.length) h += '<section class="pa-carte pa-lecture"><p class="pa-etiq">Ce que ta scène montre · une piste, pas une preuve</p><ul class="pa-echos">' + lec.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul><label for="pa-t-genere">Entre ce que tu veux et ce que tu vis, qu’est-ce que ta scène te dit ?</label><textarea id="pa-t-genere" maxlength="600" placeholder="Je veux l’amour, mais je garde mes ex tout près de moi…"></textarea><div class="pa-outils"><button type="button" class="pa-bt clair" data-t-genere>Je le note</button></div></section>';
@@ -2342,6 +2368,15 @@
     function majLignes() {
       z.querySelectorAll('.pa-fils line.lien').forEach(function (l) { var p = sc.places[l.getAttribute('data-lien')]; if (!p) return; l.setAttribute('x1', sc.moi.x); l.setAttribute('y1', sc.moi.y); l.setAttribute('x2', p.x); l.setAttribute('y2', p.y); });
       z.querySelectorAll('.pa-fils line.or').forEach(function (l) { var a = sc.places[l.getAttribute('data-fil-a')], b2 = sc.places[l.getAttribute('data-fil-b')]; if (a && b2) { l.setAttribute('x1', a.x); l.setAttribute('y1', a.y); l.setAttribute('x2', b2.x); l.setAttribute('y2', b2.y); } });
+      z.querySelectorAll('.pa-bulle-x').forEach(function (x) { var p = sc.places[x.getAttribute('data-t-retirer-rapide')]; if (p) { x.style.left = p.x + '%'; x.style.top = p.y + '%'; } });
+      (sc.liens || []).forEach(function (l) {
+        var a = sc.places[l.a], b2 = sc.places[l.b]; if (!a || !b2) return;
+        var g = z.querySelector('[data-lien-libre="' + l.id + '"]'); if (!g) return;
+        var mx = (a.x + b2.x) / 2, my = (a.y + b2.y) / 2;
+        g.querySelectorAll('line.ll,line.ll-hit').forEach(function (ln) { ln.setAttribute('x1', a.x); ln.setAttribute('y1', a.y); ln.setAttribute('x2', b2.x); ln.setAttribute('y2', b2.y); });
+        var cr = g.querySelectorAll('line.ll-coupe');
+        if (cr.length === 2) { cr[0].setAttribute('x1', mx - 2.6); cr[0].setAttribute('y1', my - 2.6); cr[0].setAttribute('x2', mx + 2.6); cr[0].setAttribute('y2', my + 2.6); cr[1].setAttribute('x1', mx - 2.6); cr[1].setAttribute('y1', my + 2.6); cr[1].setAttribute('x2', mx + 2.6); cr[1].setAttribute('y2', my - 2.6); }
+      });
     }
     z.addEventListener('pointerdown', function (e) {
       var b = e.target.closest('[data-bulle]'); if (!b) return;
@@ -2360,10 +2395,24 @@
     });
     var fin = function () {
       if (!drag) return; var d = drag; drag = null; d.b.classList.remove('prise');
-      if (d.bouge) { sauver(); if (d.id !== 'moi') { choixT = d.id; rafraichir(); } }
-      else if (d.id !== 'moi') { choixT = choixT === d.id ? '' : d.id; rafraichir(); }
+      if (d.bouge) { sauver(); if (d.id !== 'moi') { choixT = d.id; rafraichir(); } return; }
+      if (d.id === 'moi') return;
+      if (modeLien) {
+        if (!premierLien) { premierLien = d.id; rafraichir(); }
+        else if (premierLien !== d.id) {
+          sc.liens = sc.liens || [];
+          var exist = sc.liens.filter(function (l) { return (l.a === premierLien && l.b === d.id) || (l.a === d.id && l.b === premierLien); })[0];
+          if (!exist) sc.liens.push({ id: 'll' + Date.now().toString(36), a: premierLien, b: d.id, style: 'plein' });
+          premierLien = ''; modeLien = false; sauver(); rafraichir();
+        }
+        return;
+      }
+      choixT = choixT === d.id ? '' : d.id; rafraichir();
     };
     z.addEventListener('pointerup', fin); z.addEventListener('pointercancel', fin);
+    z.addEventListener('click', function (e) {
+      var ll = e.target.closest('[data-lien-libre]'); if (ll) { cyclerLienLibre(sc, ll.getAttribute('data-lien-libre')); }
+    });
   }
   /* Créer ou modifier un personnage : ce qu'elle ressent de lui ou d'elle, avec le « tiens… » */
   function ouvrirPersoT(id, pourScene, pre) {
@@ -2509,6 +2558,8 @@
     if (e.target.closest('[data-t-photo]')) { photoScene(sc); return; }
     if (e.target.closest('[data-t-dos]')) { var pl = sc.places[choixT]; if (pl) { pl.dos = !pl.dos; sauver(); rafraichir(); } return; }
     if (e.target.closest('[data-t-fils]')) { sc.sansFils = !sc.sansFils; sauver(); rafraichir(); return; }
+    if (e.target.closest('[data-t-lien]')) { modeLien = !modeLien; premierLien = ''; rafraichir(); return; }
+    var rr = e.target.closest('[data-t-retirer-rapide]'); if (rr) { var idr = rr.getAttribute('data-t-retirer-rapide'); delete sc.places[idr]; retirerLiensDe(sc, idr); if (choixT === idr) choixT = ''; if (premierLien === idr) premierLien = ''; sauver(); rafraichir(); return; }
     if (e.target.closest('[data-t-prise]')) {
       var t = (document.getElementById('pa-t-prise') || {}).value || ''; t = t.trim();
       if (t) { var pr = { date: iso(new Date()), texte: t.slice(0, 600), source: 'Mon théâtre · ' + (sc.titre || '') }, x = sc.schema ? trouverSchema(sc.schema) : null; if (x) { x.prises = x.prises || []; x.prises.push(pr); } else { sc.prises = sc.prises || []; sc.prises.push(pr); } }
@@ -2522,7 +2573,7 @@
     }
     if (e.target.closest('[data-t-prise-plus-tard]')) { sc.filNouveau = ''; sauver(); rafraichir(); return; }
     var lb = e.target.closest('[data-t-liberer]'); if (lb) { var A = persoT(lb.getAttribute('data-t-liberer')); protoPerso = A ? { cle: A.cle, nom: A.nom, lien: lienTon(A), f: genreDe(A) === 'f' } : null; location.hash = 'actions/lignee' + (sc.schema ? '/' + sc.schema : ''); return; }
-    var rt = e.target.closest('[data-t-retirer]'); if (rt) { delete sc.places[rt.getAttribute('data-t-retirer')]; choixT = ''; sauver(); rafraichir(); return; }
+    var rt = e.target.closest('[data-t-retirer]'); if (rt) { var idt = rt.getAttribute('data-t-retirer'); delete sc.places[idt]; retirerLiensDe(sc, idt); choixT = ''; sauver(); rafraichir(); return; }
     if (e.target.closest('[data-t-scene-suppr]') && confirm('Supprimer cette pièce ? Tes personnages restent gardés.')) { theatre().scenes = theatre().scenes.filter(function (s) { return s !== sc; }); sauver(); location.hash = 'theatre'; }
   });
   vue.addEventListener('input', function (e) {
