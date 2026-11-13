@@ -451,6 +451,12 @@
     .pa-bulle-x{position:absolute;transform:translate(calc(-50% + 1.05rem),calc(-50% - 1.05rem)) scale(var(--t,1));width:22px;height:22px;border-radius:50%;border:1.5px solid rgba(255,255,255,.85);background:#6B2F5B;color:#fff;font-size:.85rem;line-height:1;padding:0;cursor:pointer;z-index:4;box-shadow:0 3px 8px rgba(0,0,0,.35)}
     .pa-bulle.lien-choisi{outline:3px solid #9C5B78;outline-offset:2px}
     .pa-lien-libre{cursor:pointer}
+    .pa-lien-moi{cursor:pointer}
+    .pa-fils .pa-lien-moi{pointer-events:auto}
+    .lien-hit{stroke:transparent;stroke-width:6;pointer-events:stroke}
+    .pa-bulle.halo{z-index:2;box-shadow:0 0 0 5px rgba(242,217,160,.3),0 0 32px 9px rgba(242,217,160,.8);animation:pa-halo 2.6s ease-in-out infinite}
+    @keyframes pa-halo{50%{box-shadow:0 0 0 7px rgba(242,217,160,.4),0 0 40px 13px rgba(242,217,160,.9)}}
+    @media (prefers-reduced-motion:reduce){.pa-bulle.halo{animation:none}}
     .ll-hit{stroke:transparent;stroke-width:6;pointer-events:stroke}
     .ll{pointer-events:none;vector-effect:non-scaling-stroke}
     .ll-coupe{stroke:#2E1338;stroke-width:1.6px;vector-effect:non-scaling-stroke;pointer-events:none}
@@ -614,7 +620,7 @@ body.pa-app #pass{padding-bottom:4.5rem}
   <script src="assets/numerologie.js"></script>
   <script src="assets/astronomy.browser.min.js"></script>
   <script src="assets/pass-enquete.js?v=18"></script>
-  <script src="assets/pass.js?v=50"></script>
+  <script src="assets/pass.js?v=51"></script>
   <script src="assets/spirale-aime.js"></script>
 </body>
 </html>

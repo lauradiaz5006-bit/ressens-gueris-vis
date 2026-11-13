@@ -2243,7 +2243,7 @@
   var ICONES_T = { perso: '<circle cx="8" cy="4.5" r="3"/><path d="M2.5 15c.6-3.6 2.8-5.6 5.5-5.6s4.9 2 5.5 5.6z"/>', desir: '<path d="M8 1.2l1.9 4.3 4.6.4-3.5 3 1.1 4.6L8 11l-4.1 2.5 1.1-4.6-3.5-3 4.6-.4z"/>', symbole: '<path d="M8 1.5l6 6.5-6 6.5-6-6.5z"/>' };
   function bulleT(p, pl, sel, lienChoisi) {
     var c = p.couleur || '#6B2F5B', ty = typeDe(p);
-    return '<button type="button" class="pa-bulle t-' + ty + (pl.dos ? ' dos' : '') + (sel ? ' sel' : '') + (lienChoisi ? ' lien-choisi' : '') + '" data-bulle="' + esc(p.id) + '" style="left:' + pl.x + '%;top:' + pl.y + '%;--t:' + tailleDe(pl) + ';background:' + c + ';color:' + (clair(c) ? '#2E1338' : '#fff') + '" aria-label="' + esc(p.nom + ', ' + lienPerso(p)) + '"><svg viewBox="0 0 16 16" aria-hidden="true">' + ICONES_T[ty] + '</svg><span><b>' + esc(p.nom) + '</b><small>' + esc(lienPerso(p)) + '</small></span></button>' +
+    return '<button type="button" class="pa-bulle t-' + ty + (pl.dos ? ' dos' : '') + (pl.halo ? ' halo' : '') + (sel ? ' sel' : '') + (lienChoisi ? ' lien-choisi' : '') + '" data-bulle="' + esc(p.id) + '" style="left:' + pl.x + '%;top:' + pl.y + '%;--t:' + tailleDe(pl) + ';background:' + c + ';color:' + (clair(c) ? '#2E1338' : '#fff') + '" aria-label="' + esc(p.nom + ', ' + lienPerso(p)) + '"><svg viewBox="0 0 16 16" aria-hidden="true">' + ICONES_T[ty] + '</svg><span><b>' + esc(p.nom) + '</b><small>' + esc(lienPerso(p)) + '</small></span></button>' +
       '<button type="button" class="pa-bulle-x" data-t-retirer-rapide="' + esc(p.id) + '" style="left:' + pl.x + '%;top:' + pl.y + '%" aria-label="Retirer ' + esc(p.nom) + ' de la scène" title="Retirer de la scène">×</button>';
   }
   /* Ce que la scène montre : entre elle et ce qu'elle désire, qui prend le plus de place, qui est collé à elle */
@@ -2261,12 +2261,14 @@
     if (colles.length) l.push('Tout près de toi : ' + liste(colles.map(function (k) { return persoT(k).nom; })) + '.');
     var lourds = ids.filter(function (k) { return sc.places[k].poids === 'lourd'; });
     if (lourds.length) l.push('Le lien le plus lourd : ' + liste(lourds.map(function (k) { return persoT(k).nom; })) + '.');
+    var halos = ids.filter(function (k) { return sc.places[k].halo; });
+    if (halos.length) l.push('En ce moment, ' + liste(halos.map(function (k) { return persoT(k).nom; })) + (halos.length > 1 ? ' prennent' : ' prend') + ' toute la place.');
     return l;
   }
   /* Les liens de toi à chacun (épaisseur = ce que ça pèse), et les fils dorés du miroir */
   function svgLiens(sc) {
     var s = '<svg class="pa-fils" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">';
-    Object.keys(sc.places).forEach(function (k) { var pl = sc.places[k], P = poidsDe(pl.poids), pp = persoT(k); if (!pp) return; if (typeDe(pp) === 'desir') { s += '<line class="lien chemin" data-lien="' + esc(k) + '" x1="' + sc.moi.x + '" y1="' + sc.moi.y + '" x2="' + pl.x + '" y2="' + pl.y + '"/>'; return; } s += '<line class="lien" data-lien="' + esc(k) + '" x1="' + sc.moi.x + '" y1="' + sc.moi.y + '" x2="' + pl.x + '" y2="' + pl.y + '" style="stroke:' + P[3] + ';stroke-width:' + P[2] + 'px' + (P[4] ? ';stroke-dasharray:' + P[4] : '') + '"/>'; });
+    Object.keys(sc.places).forEach(function (k) { var pl = sc.places[k], P = poidsDe(pl.poids), pp = persoT(k); if (!pp) return; if (typeDe(pp) === 'desir') { s += '<line class="lien chemin" data-lien="' + esc(k) + '" x1="' + sc.moi.x + '" y1="' + sc.moi.y + '" x2="' + pl.x + '" y2="' + pl.y + '"/>'; return; } s += '<g class="pa-lien-moi" data-lien-moi="' + esc(k) + '" role="button" aria-label="Ton lien avec ' + esc(pp.nom) + ' : ' + esc(P[1]) + '. Touche le trait pour changer."><line class="lien-hit" data-lien="' + esc(k) + '" x1="' + sc.moi.x + '" y1="' + sc.moi.y + '" x2="' + pl.x + '" y2="' + pl.y + '"/><line class="lien" data-lien="' + esc(k) + '" x1="' + sc.moi.x + '" y1="' + sc.moi.y + '" x2="' + pl.x + '" y2="' + pl.y + '" style="stroke:' + P[3] + ';stroke-width:' + P[2] + 'px' + (P[4] ? ';stroke-dasharray:' + P[4] : '') + '"/></g>'; });
     if (!sc.sansFils) filsDores(sc).forEach(function (f) { var a = sc.places[f.a], b = sc.places[f.b], w = Math.max(poidsDe(a.poids)[2], poidsDe(b.poids)[2]); s += '<line class="or' + (sc.filNouveau === f.cle ? ' nouveau' : '') + '" pathLength="100" data-fil-a="' + esc(f.a) + '" data-fil-b="' + esc(f.b) + '" x1="' + a.x + '" y1="' + a.y + '" x2="' + b.x + '" y2="' + b.y + '" style="stroke-width:' + Math.max(2, w * .5) + 'px"/>'; });
     (sc.liens || []).forEach(function (l) {
       var a = sc.places[l.a], b = sc.places[l.b]; if (!a || !b) return;
@@ -2290,7 +2292,14 @@
   var ORDRE_LIEN = ['plein', 'pointille', 'coupe', 'absent'];
   var STYLES_LIEN = { plein: { larg: 3, trait: '', coul: '#6B2F5B' }, pointille: { larg: 2, trait: '5 4', coul: '#9C5B78' }, coupe: { larg: 2.4, trait: '', coul: '#6B2F5B' }, absent: { larg: 1.3, trait: '2 4', coul: '#CBA9BB' } };
   var LIBELLES_LIEN = { plein: 'fort', pointille: 'distendu', coupe: 'rompu', absent: 'presque absent' };
-  var modeLien = false, premierLien = '';
+  var modeLien = false, premierLien = '', dernierTapT = { id: '', t: 0 };
+  /* Un tap sur le trait entre toi et un personnage fait aussi tourner son poids (même geste que les liens libres) */
+  function cyclerPoidsMoi(sc, k) {
+    var pl = sc.places[k]; if (!pl) return;
+    var ks = POIDS.map(function (x) { return x[0]; }), i = ks.indexOf(pl.poids || 'present');
+    pl.poids = ks[(i + 1) % ks.length]; sc.poidsMaj = iso(new Date());
+    sauver(); rafraichir();
+  }
   function lienLibreDe(sc, id) { return (sc.liens || []).filter(function (l) { return l.id === id; })[0] || null; }
   function cyclerLienLibre(sc, id) {
     var l = lienLibreDe(sc, id); if (!l) return;
@@ -2338,6 +2347,7 @@
       h += '<section class="pa-carte pa-face"><p class="pa-etiq">' + (typeDe(sel) === 'desir' ? 'Ce que je désire' : 'Symbole') + ' · ' + esc(sel.nom) + '</p>' + tailleH(ple) +
         (typeDe(sel) === 'symbole' ? '<p class="pa-lab">Ça pèse comment aujourd’hui ?</p><div class="pa-puces" data-groupe="t-poids">' + POIDS.map(function (x) { return '<button type="button" data-v="' + x[0] + '" aria-pressed="' + ((ple.poids || 'present') === x[0]) + '"><i class="pa-trait" style="border-top:' + Math.max(1.5, x[2] * .6) + 'px ' + (x[4] ? 'dashed' : 'solid') + ' ' + x[3] + '"></i>' + esc(x[1]) + '</button>'; }).join('') + '</div>' : '<p class="pa-discret">Un chemin doré va de toi à ce que tu désires. Regarde ce qui se trouve dessus.</p>') +
         '<label for="pa-t-ress">' + (typeDe(sel) === 'desir' ? 'Qu’est-ce que tu ressens en regardant ' + esc(petit(sel.nom)) + ', à cette place ?' : 'Qu’est-ce que tu ressens face à ' + esc(petit(sel.nom)) + ', à cette place ?') + '</label><textarea id="pa-t-ress" data-t-ress="' + esc(sel.id) + '" maxlength="600">' + esc(sc.ressentis[sel.id] || '') + '</textarea>' +
+        '<div class="pa-puces"><button type="button" data-t-halo aria-pressed="' + !!ple.halo + '">Ça prend toute la place en ce moment</button></div>' +
         '<div class="pa-outils"><button type="button" class="pa-bt clair" data-t-elem-mod="' + esc(sel.id) + '">Modifier</button><button type="button" class="pa-lien-s" data-t-retirer="' + esc(sel.id) + '">Retirer de la scène</button></div></section>';
     }
     if (sel && typeDe(sel) === 'perso') {
@@ -2348,7 +2358,7 @@
         '<p class="pa-lab">Ce que je deviens face à ' + (genreDe(sel) === 'f' ? 'elle' : genreDe(sel) === 'm' ? 'lui' : 'lui ou elle') + '</p>' + puces('t-dev', devientProposes().concat((sc.devient[sel.id] || []).filter(function (t) { return devientProposes().indexOf(t) < 0; })), sc.devient[sel.id] || [], true) +
         '<label for="pa-t-role">Quel est son rôle, ici ?</label><input id="pa-t-role" data-t-role="' + esc(sel.id) + '" maxlength="120" value="' + esc((sc.roles || {})[sel.id] || '') + '" placeholder="Celui qui juge, celle qui protège, celui qui s’en va…">' +
         '<label for="pa-t-rep">Qu’est-ce qu’' + (genreDe(sel) === 'f' ? 'elle' : 'il') + ' répète ?</label><input id="pa-t-rep" data-t-rep="' + esc(sel.id) + '" maxlength="160" value="' + esc((sc.repete || {})[sel.id] || '') + '" placeholder="Tu n’y arriveras pas, il faut se débrouiller seule…">' +
-        '<div class="pa-puces"><button type="button" data-t-dos aria-pressed="' + !!pl.dos + '">Il ou elle me tourne le dos</button></div><div class="pa-outils"><button type="button" class="pa-bt clair" data-t-perso="' + esc(sel.id) + '">Modifier le personnage</button><button type="button" class="pa-bt clair" data-t-vers-fil="' + esc(sel.id) + '">Continuer dans mon histoire</button><button type="button" class="pa-lien-s" data-t-retirer="' + esc(sel.id) + '">Retirer de la scène</button></div></section>';
+        '<div class="pa-puces"><button type="button" data-t-dos aria-pressed="' + !!pl.dos + '">Il ou elle me tourne le dos</button><button type="button" data-t-halo aria-pressed="' + !!pl.halo + '">Ça prend toute la place en ce moment</button></div><p class="pa-discret">Sur la scène : deux touches rapides sur un personnage quand il prend toute la place, deux doigts pour l’agrandir ou le réduire, un tap sur un trait pour changer le lien.</p><div class="pa-outils"><button type="button" class="pa-bt clair" data-t-perso="' + esc(sel.id) + '">Modifier le personnage</button><button type="button" class="pa-bt clair" data-t-vers-fil="' + esc(sel.id) + '">Continuer dans mon histoire</button><button type="button" class="pa-lien-s" data-t-retirer="' + esc(sel.id) + '">Retirer de la scène</button></div></section>';
     }
     h += '<section class="pa-carte"><p class="pa-etiq">Le miroir · une piste, pas une preuve</p>' + (F.length ? '<ul class="pa-echos">' + F.map(function (f) { return '<li>' + esc(phraseMiroir(f)) + '</li>'; }).join('') + '</ul><p class="pa-discret">Quelle place prends-tu face à eux ? Qu’est-ce qui se rejoue, de ta lignée à ta vie ?</p>' +
       '<div class="pa-outils">' + F.map(function (f) { return f.a; }).filter(function (v, i, a) { return a.indexOf(v) === i; }).map(function (a) { var A = persoT(a); return '<button type="button" class="pa-bt or" data-t-liberer="' + esc(a) + '">Libérer ce que je porte de ' + esc(A.nom) + ', ' + esc(lienTon(A)) + '</button>'; }).join('') + '</div><div class="pa-puces"><button type="button" data-t-fils aria-pressed="' + !sc.sansFils + '">Montrer les liens</button></div>'
@@ -2368,7 +2378,7 @@
     var z = document.getElementById('pa-scene'); if (!z) return;
     var drag = null;
     function majLignes() {
-      z.querySelectorAll('.pa-fils line.lien').forEach(function (l) { var p = sc.places[l.getAttribute('data-lien')]; if (!p) return; l.setAttribute('x1', sc.moi.x); l.setAttribute('y1', sc.moi.y); l.setAttribute('x2', p.x); l.setAttribute('y2', p.y); });
+      z.querySelectorAll('.pa-fils line.lien, .pa-fils line.lien-hit').forEach(function (l) { var p = sc.places[l.getAttribute('data-lien')]; if (!p) return; l.setAttribute('x1', sc.moi.x); l.setAttribute('y1', sc.moi.y); l.setAttribute('x2', p.x); l.setAttribute('y2', p.y); });
       z.querySelectorAll('.pa-fils line.or').forEach(function (l) { var a = sc.places[l.getAttribute('data-fil-a')], b2 = sc.places[l.getAttribute('data-fil-b')]; if (a && b2) { l.setAttribute('x1', a.x); l.setAttribute('y1', a.y); l.setAttribute('x2', b2.x); l.setAttribute('y2', b2.y); } });
       z.querySelectorAll('.pa-bulle-x').forEach(function (x) { var p = sc.places[x.getAttribute('data-t-retirer-rapide')]; if (p) { x.style.left = p.x + '%'; x.style.top = p.y + '%'; } });
       (sc.liens || []).forEach(function (l) {
@@ -2380,13 +2390,30 @@
         if (cr.length === 2) { cr[0].setAttribute('x1', mx - 2.6); cr[0].setAttribute('y1', my - 2.6); cr[0].setAttribute('x2', mx + 2.6); cr[0].setAttribute('y2', my + 2.6); cr[1].setAttribute('x1', mx - 2.6); cr[1].setAttribute('y1', my + 2.6); cr[1].setAttribute('x2', mx + 2.6); cr[1].setAttribute('y2', my - 2.6); }
       });
     }
+    var pince = null, doigts = {};
+    function ecart(a, b) { return Math.max(1, Math.hypot(a.x - b.x, a.y - b.y)); }
+    function tailleProche(t) { var m = TAILLES[0]; TAILLES.forEach(function (x) { if (Math.abs(x[2] - t) < Math.abs(m[2] - t)) m = x; }); return m; }
     z.addEventListener('pointerdown', function (e) {
       var b = e.target.closest('[data-bulle]'); if (!b) return;
       e.preventDefault(); try { b.setPointerCapture(e.pointerId); } catch (x) {}
-      drag = { b: b, id: b.getAttribute('data-bulle'), x0: e.clientX, y0: e.clientY, bouge: false };
+      doigts[e.pointerId] = { x: e.clientX, y: e.clientY };
+      if (drag && drag.b === b && drag.id !== 'moi' && !pince && sc.places[drag.id]) {
+        /* deuxième doigt sur la même bulle : pincement pour agrandir ou réduire */
+        pince = { b: b, id: drag.id, p1: drag.pid, p2: e.pointerId, d0: ecart(doigts[drag.pid] || { x: drag.x0, y: drag.y0 }, doigts[e.pointerId]), t0: tailleDe(sc.places[drag.id]), t: tailleDe(sc.places[drag.id]) };
+        drag.bouge = false;
+        return;
+      }
+      drag = { b: b, id: b.getAttribute('data-bulle'), pid: e.pointerId, x0: e.clientX, y0: e.clientY, bouge: false };
       b.classList.add('prise');
     });
     z.addEventListener('pointermove', function (e) {
+      if (doigts[e.pointerId]) { doigts[e.pointerId].x = e.clientX; doigts[e.pointerId].y = e.clientY; }
+      if (pince) {
+        var a = doigts[pince.p1], b2 = doigts[pince.p2]; if (!a || !b2) return;
+        pince.t = Math.max(TAILLES[0][2], Math.min(TAILLES[TAILLES.length - 1][2], pince.t0 * ecart(a, b2) / pince.d0));
+        pince.b.style.setProperty('--t', pince.t);
+        return;
+      }
       if (!drag) return;
       if (Math.abs(e.clientX - drag.x0) + Math.abs(e.clientY - drag.y0) > 5) drag.bouge = true;
       if (!drag.bouge) return;
@@ -2395,10 +2422,24 @@
       drag.b.style.left = x + '%'; drag.b.style.top = y + '%';
       var pl = drag.id === 'moi' ? sc.moi : sc.places[drag.id]; pl.x = x; pl.y = y; majLignes();
     });
-    var fin = function () {
+    var fin = function (e) {
+      if (e && e.pointerId != null) delete doigts[e.pointerId];
+      if (pince) {
+        /* fin du pincement : on retient la taille la plus proche */
+        var pl0 = sc.places[pince.id];
+        if (pl0) { pl0.taille = tailleProche(pince.t)[0]; sauver(); }
+        pince = null; drag = null; rafraichir(); return;
+      }
       if (!drag) return; var d = drag; drag = null; d.b.classList.remove('prise');
       if (d.bouge) { sauver(); if (d.id !== 'moi') { choixT = d.id; rafraichir(); } return; }
       if (d.id === 'moi') return;
+      var mt = Date.now();
+      if (!modeLien && dernierTapT.id === d.id && mt - dernierTapT.t < 350 && sc.places[d.id]) {
+        /* deux touches rapides : « ça prend toute la place en ce moment » */
+        sc.places[d.id].halo = !sc.places[d.id].halo;
+        dernierTapT = { id: '', t: 0 }; choixT = d.id; sauver(); rafraichir(); return;
+      }
+      dernierTapT = { id: d.id, t: mt };
       if (modeLien) {
         if (!premierLien) { premierLien = d.id; rafraichir(); }
         else if (premierLien !== d.id) {
@@ -2413,7 +2454,8 @@
     };
     z.addEventListener('pointerup', fin); z.addEventListener('pointercancel', fin);
     z.addEventListener('click', function (e) {
-      var ll = e.target.closest('[data-lien-libre]'); if (ll) { cyclerLienLibre(sc, ll.getAttribute('data-lien-libre')); }
+      var ll = e.target.closest('[data-lien-libre]'); if (ll) { cyclerLienLibre(sc, ll.getAttribute('data-lien-libre')); return; }
+      var lm = e.target.closest('[data-lien-moi]'); if (lm) cyclerPoidsMoi(sc, lm.getAttribute('data-lien-moi'));
     });
   }
   /* Créer ou modifier un personnage : ce qu'elle ressent de lui ou d'elle, avec le « tiens… » */
@@ -2559,6 +2601,7 @@
     var vf = e.target.closest('[data-t-vers-fil]'); if (vf) { persoVersFil(persoT(vf.getAttribute('data-t-vers-fil'))); return; }
     if (e.target.closest('[data-t-photo]')) { photoScene(sc); return; }
     if (e.target.closest('[data-t-dos]')) { var pl = sc.places[choixT]; if (pl) { pl.dos = !pl.dos; sauver(); rafraichir(); } return; }
+    if (e.target.closest('[data-t-halo]')) { var plh = sc.places[choixT]; if (plh) { plh.halo = !plh.halo; sauver(); rafraichir(); } return; }
     if (e.target.closest('[data-t-fils]')) { sc.sansFils = !sc.sansFils; sauver(); rafraichir(); return; }
     if (e.target.closest('[data-t-lien]')) { modeLien = !modeLien; premierLien = ''; rafraichir(); return; }
     var rr = e.target.closest('[data-t-retirer-rapide]'); if (rr) { var idr = rr.getAttribute('data-t-retirer-rapide'); delete sc.places[idr]; retirerLiensDe(sc, idr); if (choixT === idr) choixT = ''; if (premierLien === idr) premierLien = ''; sauver(); rafraichir(); return; }
