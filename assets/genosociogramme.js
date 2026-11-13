@@ -2414,6 +2414,12 @@
     if (horsL.length && !mots.length) h += '<details class="rep-theme-bloc rep-ailleurs"><summary>Ailleurs dans l’arbre <span>' + horsL.length + '</span></summary><p class="rep-aide">Ces pistes ne touchent pas la lignée de ' + esc(prC) + '.</p>' + horsL.map(carte).join('') + '</details>';
     if (ecartees.length) h += '<details class="rep-theme-bloc rep-ecartees"><summary>Pistes écartées <span>' + ecartees.length + '</span></summary>' + ecartees.map(carte).join('') + '</details>';
     if (!idMoi()) h += DOSSIER_CLIENT ? '<p class="rep-aide">Astuce : cochez « C’est mon·ma client·e » sur sa fiche pour repérer le syndrome anniversaire.</p>' : '<p class="rep-aide">Astuce : coche « C’est moi » sur ta fiche pour repérer le syndrome anniversaire.</p>';
+    /* Après la lecture : garder son arbre (espace gratuit), puis aller plus loin (Ma spirale, Le Cercle) */
+    if (!DOSSIER_CLIENT) {
+      var pontVu = false; try { pontVu = localStorage.getItem('geno-pont-espace') === '1'; } catch (e) {}
+      if (!utilisateur && !pontVu) h += '<div class="rep-pont rep-pont-espace"><button type="button" class="rep-pont-x" data-pont-fermer aria-label="Ne plus montrer">×</button><p><b>Ta lecture est apparue.</b> Crée ton espace gratuit pour garder ton arbre sur tous tes appareils et recevoir tes lectures par e-mail.</p><a class="btn btn-plein" href="login.html">Créer mon espace gratuit</a></div>';
+      h += '<div class="rep-pont"><p class="rep-pont-t">Tu veux travailler ce qui se répète ?</p><div class="rep-pont-l"><a href="ma-spirale.html"><b>Ma spirale</b><span>Dépose ce qui revient, relie-le à ta lignée, libère-le à ton rythme.</span></a><a href="abonnement.html"><b>Le Cercle</b><span>Un parcours guidé en 12 étapes. Ton 1<sup>er</sup> mois est offert.</span></a></div></div>';
+    }
     z.innerHTML = h;
     // le menu des thèmes affiche combien de pistes il y a dans chacun
     var selT = $('rep-theme');
@@ -3094,6 +3100,7 @@
     if (t.matches && t.matches('[data-note]')) avisChange(t.getAttribute('data-note'), undefined, t.value.slice(0, 300));
   });
   $('reps').addEventListener('click', function (e) {
+    var pf = e.target.closest('[data-pont-fermer]'); if (pf) { try { localStorage.setItem('geno-pont-espace', '1'); } catch (e2) {} var pd = pf.closest('.rep-pont'); if (pd) pd.remove(); return; }
     var tr = e.target.closest('[data-trou]'); if (tr) { var tid = tr.getAttribute('data-trou'); if (S.people[tid]) choisir(tid); return; }
     var v = e.target.closest('[data-vu]');
     if (v) { vuDepuis = v.getAttribute('data-vu') || null; coteFiltre = ''; recherche = ''; var ch = $('rep-cherche'); if (ch) ch.value = ''; repActive = null; dessiner(); $('reps').scrollTop = 0; return; }
