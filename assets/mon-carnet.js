@@ -2169,6 +2169,16 @@
 
   /* ───── Enregistrement ───── */
   function etat(t) { var e = document.getElementById('mc-etat'); if (e) e.textContent = t; }
+  var aEnvoyer = false;   /* une écriture dans l'espace attend encore la fin du délai */
+  function envoyer() {
+    if (!aEnvoyer || !user || !sb) return;
+    var CF = window.GenesoliaCoffre;
+    if (CF && !CF.accord(user)) { aEnvoyer = false; return; }
+    aEnvoyer = false;
+    clearTimeout(minuteur);
+    (CF ? CF.ecrire(sb, user, CLE, D) : Promise.resolve({ error: 'coffre absent' }))
+      .then(function (r) { etat(r && r.error ? 'Pas enregistré, réessaie plus tard' : 'Enregistré et chiffré dans ton espace privé'); }, function () { etat('Pas enregistré, réessaie plus tard'); });
+  }
   function sauver() {
     try { localStorage.setItem(CLE_LOCALE, JSON.stringify(D)); } catch (e) {}
     clearTimeout(minuteur);
@@ -2176,11 +2186,14 @@
     var CF = window.GenesoliaCoffre;
     if (CF && !CF.accord(user)) { etat('Enregistré sur cet appareil. Genesolia n’y a pas accès.'); return; }
     etat('Enregistrement…');
-    minuteur = setTimeout(function () {
-      (CF ? CF.ecrire(sb, user, CLE, D) : Promise.resolve({ error: 'coffre absent' }))
-        .then(function (r) { etat(r && r.error ? 'Pas enregistré, réessaie plus tard' : 'Enregistré et chiffré dans ton espace privé'); }, function () { etat('Pas enregistré, réessaie plus tard'); });
-    }, 900);
+    aEnvoyer = true;
+    minuteur = setTimeout(envoyer, 900);
   }
+  /* Quitter la page, changer d'onglet ou passer à une autre appli pendant le délai d'attente :
+     sans ce filet, la dernière phrase écrite restait sur l'appareil et n'arrivait jamais dans
+     l'espace — invisible depuis un autre téléphone ou un ordinateur. */
+  window.addEventListener('pagehide', envoyer);
+  document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'hidden') envoyer(); });
   /* Fusion champ par champ : la réponse la plus récente gagne (D.t garde l'heure de chaque réponse) */
   function fusion(a, b) {
     var r = { v: {}, t: {} };
@@ -2219,6 +2232,13 @@
         appliquer(); chargerAccompagnement(); if (T2 || SUIVI) chargerPD();
         if (CF && !CF.accord(user)) { etat('Enregistré sur cet appareil. Genesolia n’y a pas accès.'); CF.demander(document.getElementById('mc-compte'), sb, function () { user.user_metadata = Object.assign({}, user.user_metadata, { coffre_accord: new Date().toISOString() }); sauver(); }); }
         else { etat('Enregistré et chiffré dans ton espace privé'); if (local && Object.keys(local.v || {}).length) sauver(); }
+      }, function () {
+        /* L'espace ne répond pas : on affiche ce qu'il y a sur l'appareil au lieu de laisser
+           un carnet vide. Sans ce repli, la page restait blanche et donnait l'impression
+           que tout le travail avait disparu, alors que rien n'était perdu. */
+        D = local || D;
+        appliquer(); chargerAccompagnement(); if (T2 || SUIVI) chargerPD();
+        etat('Tes réponses sont là, mais ton espace ne répond pas : recharge la page plus tard pour les y enregistrer.');
       });
       sb.from('resultats').select('titre,donnees,cree_le').eq('outil', 'meteo').order('cree_le', { ascending: false }).limit(24).then(function (x) {
         historique = (x && x.data) || [];
