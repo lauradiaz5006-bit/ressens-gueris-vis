@@ -9,7 +9,7 @@
   <meta name="theme-color" content="#6B2F5B">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>M’abonner au Cercle · Genesolia</title>
-  <meta name="description" content="Abonne-toi au Cercle directement : cadeau de Noël à 17,77 € par mois au lieu de 24,90 €, sans engagement, ou 199 € l’année au lieu de 249 €.">
+  <meta name="description" content="Abonne-toi au Cercle directement : offre de lancement à 17,77 € par mois au lieu de 24,90 €, sans engagement, ou 199 € l’année au lieu de 249 €.">
   <link rel="canonical" href="https://genesolia.fr/s-abonner.html">
   <meta name="robots" content="noindex">
   <link rel="stylesheet" href="assets/site.css?v=noel4">
@@ -34,7 +34,7 @@
   <header data-entete></header>
   <main class="sa"><div class="conteneur">
     <div class="sa-boite">
-      <span class="promo-noel">✦ Offre de Noël</span>
+      <span class="promo-noel">✦ Offre de lancement</span>
       <h1>Rejoindre Le Cercle</h1>
       <p>Ton parcours guidé en 12 étapes, une étape chaque mois, pour sortir de ce qui se répète.</p>
       <ul class="sa-liste">
@@ -44,7 +44,7 @@
         <li>Ton appli Le Cercle et ta question du mois</li>
       </ul>
       <div id="sa-zone"><p>Un instant…</p></div>
-      <p class="sa-note">Paiement sécurisé par Stripe. Sans engagement au mois : tu arrêtes quand tu veux, depuis ton espace. Le cadeau de Noël à 17,77 € vaut pour toute inscription jusqu’au 31 décembre, et ce prix te reste tant que tu restes.</p>
+      <p class="sa-note">Paiement sécurisé par Stripe. Sans engagement au mois : tu arrêtes quand tu veux, depuis ton espace. L’offre de lancement à 17,77 € vaut pour toute inscription jusqu’au 31 mars, et ce prix te reste tant que tu restes.</p>
       <p class="sa-note">Pour offrir Le Cercle : <a href="boutique.html#carte-cadeau">la carte cadeau 3 ou 6 mois</a>.</p>
     </div>
   </div></main>
@@ -61,9 +61,9 @@
     function boutons(places, essai) {
       var noel = places > 0 && S.cercleFondatrice;
       z.innerHTML = (essai ? '<p>' + essai + '</p>' : '') + '<div class="sa-choix">' +
-        (noel ? '<a class="btn btn-plein" href="#" data-payer="cercleFondatrice"><span><s>24,90 €</s> 17,77 € par mois</span><small>Cadeau de Noël · 1<sup>er</sup> paiement aujourd’hui</small></a>'
+        (noel ? '<a class="btn btn-plein" href="#" data-payer="cercleFondatrice"><span><s>24,90 €</s> 17,77 € par mois</span><small>Offre de lancement · 1<sup>er</sup> paiement aujourd’hui</small></a>'
               : '<a class="btn btn-plein" href="#" data-payer="cercleMois"><span>24,90 € par mois</span><small>sans engagement</small></a>') +
-        '<a class="btn btn-trait" href="#" data-payer="cercleAnnee"><span><s>249 €</s> 199 € l’année</span><small>offre de Noël, renouvelé chaque année, environ 16,58 € par mois</small></a></div>';
+        '<a class="btn btn-trait" href="#" data-payer="cercleAnnee"><span><s>249 €</s> 199 € l’année</span><small>offre de lancement, renouvelé chaque année, environ 16,58 € par mois</small></a></div>';
     }
     function places() {
       return fetch(URL_SB + '/rest/v1/rpc/places_fondatrice', { method: 'POST', headers: { apikey: CLE, 'Content-Type': 'application/json' }, body: '{}' })
