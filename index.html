@@ -421,6 +421,7 @@
     /* Les petits titres au-dessus des sections : plus grands, à la main */
     .noel-tete p:first-child,
     .abo-sur,
+    .avis-sur,
     .dk-sur,
     .cercle-sur,
     .ouv-sur{
@@ -434,6 +435,10 @@
     .noel-tete p:first-child{color:#A8763F;margin-inline:auto}
     .abo-sur{color:#A8763F}
     .ouv-sur{color:#A8763F;margin-bottom:.9rem}
+    .avis-sur{color:#A8763F;text-align:center;margin:0 auto .3rem}
+    /* s'il n'y a qu'un avis publié, il se centre au lieu de laisser deux colonnes vides */
+    .avis-liste:has(figure:only-child){grid-template-columns:1fr;justify-items:center}
+    .avis-liste:has(figure:only-child) figure{max-width:34rem;text-align:center;padding:2rem 2.2rem;box-shadow:0 14px 40px rgba(107,47,91,.08)}
     .dk-sur,.cercle-sur{color:#F3DCC0!important}
     .cercle-sur sup{font-size:.6em}
 </style>
@@ -565,6 +570,15 @@
       </div>
     </section>
 
+    <section class="bloc avis-publies" data-avis-publies="3" aria-labelledby="avis-titre">
+      <div class="conteneur">
+        <p class="avis-sur">Elles ont essayé</p>
+        <h2 id="avis-titre">Témoignages vérifiés</h2>
+        <div class="avis-liste" data-avis-liste><figure><blockquote>« Quoi de mieux que d'avoir une application personnalisée pour apprendre, comprendre, et qui est capable de t'aider à explorer puis gérer ta lignée, ton passé, ton présent ainsi que tes émotions ? Voilà ce que cette application m'a apporté, et encore plus. »</blockquote><figcaption>Amélie<span class="avis-verifie">✓ Avis vérifié</span></figcaption></figure></div>
+        <p class="avis-lien"><a href="avis.html">Toi aussi, laisse ton avis</a></p>
+      </div>
+    </section>
+
     <section class="bloc" id="cycles">
       <div class="conteneur">
         <div class="bloc-tete">
@@ -688,12 +702,6 @@
             <p class="cercle-prix">Sans carte bancaire · tu peux arrêter à tout moment</p>
           </div>
           <img src="assets/cercle/accueil-carnets.webp" width="300" height="225" alt="Les carnets du Cercle : Renaissance et Libération" loading="lazy">
-        </div>
-
-        <div class="avis-court avis-publies" data-avis-publies="1" aria-labelledby="avis-titre">
-          <h2 id="avis-titre">Témoignage vérifié</h2>
-          <div data-avis-liste><figure><blockquote>« Quoi de mieux que d'avoir une application personnalisée pour apprendre, comprendre, et qui est capable de t'aider à explorer puis gérer ta lignée, ton passé, ton présent ainsi que tes émotions ? »</blockquote><figcaption>Amélie<span class="avis-verifie">✓ Avis vérifié</span></figcaption></figure></div>
-          <p class="avis-lien"><a href="avis.html">Toi aussi, laisse ton avis</a></p>
         </div>
       </div>
     </section>
