@@ -122,10 +122,13 @@
       z.innerHTML = l.map(function (a) {
         return a.relie_le
           ? '<div style="' + ligneStyle + '"><span><b>' + esc(a.cabinet_praticien || 'ton·ta praticien·ne') + '</b><br><small class="tb-aide" style="margin:0">Accès donné le ' + dateFr(a.relie_le) + '</small></span><button class="btn btn-trait" type="button" data-revoquer-pro="' + esc(a.id) + '">Retirer l’accès</button></div>'
-          : '<div style="' + ligneStyle + '"><span><b>Code ' + esc(a.code) + '</b><br><small class="tb-aide" style="margin:0">Pas encore utilisé, valable jusqu’au ' + dateFr(a.expire_le) + '</small></span><button class="btn btn-trait" type="button" data-revoquer-pro="' + esc(a.id) + '">Annuler ce code</button></div>';
+          : '<div style="' + ligneStyle + '"><span><b>Code ' + esc(codeJoli(a.code)) + '</b><br><small class="tb-aide" style="margin:0">Pas encore utilisé, valable jusqu’au ' + dateFr(a.expire_le) + '</small></span><button class="btn btn-trait" type="button" data-revoquer-pro="' + esc(a.id) + '">Annuler ce code</button></div>';
       }).join('');
     });
   }
+  /* Un code de 8 caractères se lit et se dicte mieux en deux groupes de quatre. Les anciens codes
+     de 6 caractères restent affichés tels quels ; la saisie accepte les deux. */
+  function codeJoli(c) { c = String(c || ''); return c.length === 8 ? c.slice(0, 4) + '-' + c.slice(4) : c; }
   function brancherPartagePro() {
     var bt = $('bt-code-pro'); if (!bt) return;
     bt.addEventListener('click', function () {
@@ -134,7 +137,7 @@
         bt.disabled = false;
         var d = r && r.data, m = $('partage-pro-msg');
         if (r.error || !d || d.erreur) { m.textContent = 'Le code n’a pas pu être généré. Réessaie dans un instant.'; return; }
-        m.textContent = 'Ton code : ' + d.code + '. Donne-le à ton·ta praticien·ne (il·elle l’utilisera dans son Espace praticien). Valable 7 jours.';
+        m.textContent = 'Ton code : ' + codeJoli(d.code) + '. Donne-le à ton·ta praticien·ne (il·elle l’utilisera dans son Espace praticien). Valable 7 jours.';
         chargerPartagesPro();
       }, function () { bt.disabled = false; $('partage-pro-msg').textContent = 'Le code n’a pas pu être généré. Réessaie dans un instant.'; });
     });
