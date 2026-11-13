@@ -183,8 +183,8 @@
   <script src="assets/site.js"></script>
   <script src="assets/astronomy.browser.min.js"></script>
   <script src="assets/astrologie.js"></script>
-  <script src="assets/astrologie-textes.js"></script>
-  <script src="assets/livret-astral.js?v=1"></script>
+  <script src="assets/astrologie-textes.js?v=2"></script>
+  <script src="assets/livret-astral.js?v=2"></script>
   <script>
   (function () {
     'use strict';
@@ -197,8 +197,7 @@
     function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
     function S(s) { return T.SIGNES[s].nom; }
     /* Maisons : le « pour aller plus loin » de chaque maison (signe qui l'ouvre, planètes présentes, lignée, question) */
-    var M_LIGNEE = { 1: 'Dans une lignée, la façon de se présenter se transmet : on garde la tenue, la réserve ou l\'éclat de ceux d\'avant. Qu\'as-tu hérité de la façon d\'arriver dans une pièce ?', 2: 'L\'argent, le manque et la valeur de soi se transmettent souvent de génération en génération, par des phrases entendues ou des silences. Que disait ta famille de l\'argent ?', 3: 'Les frères et sœurs, les non-dits du quotidien et la façon de parler dans la famille dessinent cette maison. Qui avait le droit de parler chez toi ?', 4: 'C\'est la maison de la lignée par excellence : les maisons habitées, les déracinements, ce qui a été gardé ou tu. D\'où viens-tu, vraiment, et qu\'as-tu reçu comme socle ?', 5: 'Qui avait le droit de jouer, de créer, de briller dans ta famille ? Les enfants de la lignée portent parfois les rêves de ceux d\'avant.', 6: 'Le travail, le service et la santé se rejouent d\'une génération à l\'autre : métiers répétés, devoir de s\'épuiser, fierté du labeur.', 7: 'Les couples de la lignée laissent une empreinte : on rejoue ou on répare ce qu\'on a vu. Quel modèle de couple as-tu reçu ?', 8: 'Héritages visibles et invisibles, deuils, secrets : cette maison touche à ce qui se transmet sans se dire. Qu\'est-ce qui n\'a jamais été nommé dans ta famille ?', 9: 'Les départs, les exils et les croyances de la famille. Qui est parti loin avant toi, et qu\'est-ce qui t\'autorise à chercher ton propre sens ?', 10: 'Les ambitions, les réussites et les places non tenues de la lignée. Quelle place est attendue de toi, et laquelle choisis-tu ?', 11: 'Les amitiés, les appartenances et les loyautés de groupe. Qui comptait pour tes ancêtres, et à quel groupe te sens-tu fidèle ?', 12: 'Ce qui est caché, tu ou refoulé dans la lignée : les secrets, les enfermements, les retraits. Quel silence familial pèse encore sur toi ?' };
-    var M_COULEUR = { feu: 'avec élan, spontanéité et envie d\'agir', terre: 'avec concret, patience et besoin de bases solides', air: 'par la parole, les idées et le lien', eau: 'avec ressenti, intuition et mémoire émotionnelle' };
+    var M_LIGNEE = T.MAISONS_PLUS.lignee, M_COULEUR = T.MAISONS_PLUS.couleur;
     function maisonPlus(k, r) {
       var sg = AS.signeDe(r.cuspides[k]), el = AS.ELEMENT[sg], md = AS.MODE[sg];
       var h = '<div class="a-plus"><p class="a-plus-t">Pour aller plus loin</p>';

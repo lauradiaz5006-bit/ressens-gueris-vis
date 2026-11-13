@@ -44,10 +44,16 @@
     p += '<section class="page"><p class="sur">Ta génération et ta direction</p><h2>Les planètes lentes</h2><p class="intro">Uranus, Neptune et Pluton restent des années dans un signe : elles décrivent ce que tu partages avec toute ta génération.</p>' + ['uranus', 'neptune', 'pluton'].map(function (k) {
       return P[k] ? '<div class="bloc"><p class="etiq">' + NOMS_P[k] + ' ' + esc(enS(P[k].signe)) + '</p><p>' + esc((T.GENERATIONNELLES[k] || {})[P[k].signe] || '') + '</p></div>' : '';
     }).join('') + (P.noeud ? '<h2 style="margin-top:4mm">Ton Nœud Nord ' + esc(enS(P.noeud.signe)) + '</h2><p>' + esc(T.NOEUD[P.noeud.signe]) + '</p>' : '') + '</section>';
-    if (r.cuspides) p += '<section class="page"><p class="sur">Les domaines de ta vie</p><h2>Tes douze maisons</h2>' + [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(function (k) {
-      var dans = Object.keys(NOMS_P).filter(function (x) { return P[x] && P[x].maison === k; }).map(function (x) { return NOMS_P[x]; });
-      return '<div class="bloc" style="padding:3mm 4mm;margin-bottom:2.5mm"><h3 style="font-size:11.5pt">' + esc(T.MAISONS[String(k)].titre) + ' · ' + esc(S(AS.signeDe(r.cuspides[k]))) + (dans.length ? ' · ' + esc(dans.join(', ')) : '') + '</h3><p style="font-size:9.2pt">' + esc(T.MAISONS[String(k)].texte) + '</p></div>';
-    }).join('') + '</section>';
+    if (r.cuspides) [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]].forEach(function (g, gi) {
+      p += '<section class="page"><p class="sur">Les domaines de ta vie</p><h2>' + (gi ? 'Tes douze maisons (suite)' : 'Tes douze maisons') + '</h2>' + g.map(function (k) {
+        var dans = Object.keys(NOMS_P).filter(function (x) { return P[x] && P[x].maison === k; });
+        var sg = AS.signeDe(r.cuspides[k]), el = AS.ELEMENT[sg], MP = T.MAISONS_PLUS;
+        return '<div class="bloc" style="padding:3mm 4mm;margin-bottom:2.5mm"><h3 style="font-size:11.5pt">' + esc(T.MAISONS[String(k)].titre) + ' · ' + esc(S(sg)) + (dans.length ? ' · ' + esc(dans.map(function (x) { return NOMS_P[x]; }).join(', ')) : '') + '</h3><p style="font-size:9.2pt">' + esc(T.MAISONS[String(k)].texte) + '</p>' +
+          '<p style="font-size:9.2pt;margin-top:1.5mm"><b>Cette maison s\'ouvre ' + esc(enS(sg)) + '.</b> Tu vis ce domaine ' + esc(MP.couleur[el]) + '.</p>' +
+          dans.filter(function (x) { return T.PLANETES[x]; }).map(function (x) { return '<p style="font-size:9.2pt;margin-top:1.5mm"><b>' + NOMS_P[x] + ' est ici</b>, ' + esc(T.PLANETES[x].role) + '. ' + esc(T.PLANETES[x].famille) + '</p>'; }).join('') +
+          '<p style="font-size:9.2pt;margin-top:1.5mm"><b>Côté lignée.</b> ' + esc(MP.lignee[k]) + '</p></div>';
+      }).join('') + '</section>';
+    });
     p += '<section class="page"><p class="sur">Et dans ta famille ?</p><h2>Ton ciel et ta lignée</h2><p>' + esc(T.INTRO.lignee) + '</p>' +
       '<div class="bloc"><p class="etiq">Lune ' + esc(enS(P.lune.signe)) + ' · la mère</p><p>' + esc(T.PLANETES.lune.famille) + '</p></div><div class="bloc"><p class="etiq">Soleil ' + esc(enS(P.soleil.signe)) + ' · le père</p><p>' + esc(T.PLANETES.soleil.famille) + '</p></div>' +
       '<div class="bloc"><p class="etiq">Saturne ' + esc(enS(P.saturne.signe)) + ' · les règles et les ancêtres</p><p>' + esc(T.PLANETES.saturne.famille) + '</p></div>' +
