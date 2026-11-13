@@ -207,6 +207,15 @@
      Le plan du site ne sert plus qu'à repérer les pages NOUVELLES ou modifiées depuis moins de 14 jours. */
   var PRIORITE = {
     gen: [
+      /* Ajout 13 nov. 2026 : articles en ligne, prets a indexer */
+      'https://genesolia.fr/meme-place-qu-un-ancetre-fratrie.html',
+      'https://genesolia.fr/veuvage-precoce-generations.html',
+      'https://genesolia.fr/remariages-familles-recomposees-generations.html',
+      'https://genesolia.fr/transfuge-de-classe-nevrose-de-classe.html',
+      'https://genesolia.fr/genealogie-avant-1600-limites.html',
+      'https://genesolia.fr/prenoms-effaces-rome-histoire.html',
+      'https://genesolia.fr/prenoms-hebreux-theophores.html',
+      'https://genesolia.fr/prenoms-mayas-calendrier.html',
       'https://genesolia.fr/synchronicite-jung-psychologie.html',
       'https://genesolia.fr/chiffres-prenoms-dates-qui-reviennent.html',
       'https://genesolia.fr/synchronicite-ou-coincidence-difference.html',
