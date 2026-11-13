@@ -417,6 +417,25 @@
     @media (max-width:980px){.bq-c{flex-basis:calc((100% - 1.1rem) / 2.2)}}
     @media (max-width:620px){.bq-c{flex-basis:68%}}
     @media (prefers-reduced-motion:reduce){.bq-c,.bq-c-img img,.bq-c-img::after{transition:none}}
+
+    /* Les petits titres au-dessus des sections : plus grands, à la main */
+    .noel-tete p:first-child,
+    .abo-sur,
+    .dk-sur,
+    .cercle-sur,
+    .ouv-sur{
+      font-family:var(--manuscrit);
+      font-size:clamp(1.7rem,2.7vw,2.2rem);
+      font-weight:400;
+      line-height:1.1;
+      letter-spacing:0;
+      text-transform:none;
+      margin-bottom:.5rem}
+    .noel-tete p:first-child{color:#A8763F;margin-inline:auto}
+    .abo-sur{color:#A8763F}
+    .ouv-sur{color:#A8763F;margin-bottom:.9rem}
+    .dk-sur,.cercle-sur{color:#F3DCC0!important}
+    .cercle-sur sup{font-size:.6em}
 </style>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Genesolia", "url": "https://genesolia.fr/", "inLanguage": "fr", "description": "Des outils gratuits pour comprendre ce qui se répète dans ta famille : arbre familial, méthode des deux cycles, numérologie, thème astral, signe maya et rêves."}</script>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/", "logo": "https://genesolia.fr/apple-touch-icon.png", "email": "contact@genesolia.fr", "sameAs": ["https://www.instagram.com/genesolia.officiel/"]}</script>
