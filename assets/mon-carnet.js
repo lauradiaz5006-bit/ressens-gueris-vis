@@ -1871,6 +1871,9 @@
     });
     var c = cible();
     aller(c.p, { initial: true, ancre: c.ancre });
+    /* Aperçu sur la page de vente : on amène le cadre sur la première question à remplir.
+       Le cadre est petit et le texte d'introduction de la semaine le remplit entièrement :
+       sans ça, la visiteuse voit un carnet sans rien à essayer, alors qu'on l'invite à écrire. */
   }
   function amorce(a, pour) {
     var ta = racine.querySelector('.mc-livre textarea[data-k="' + (pour || 'lettre-mois') + '"]'); if (!ta) return;
@@ -2278,9 +2281,14 @@
     }).catch(function () { remplacerD(local || D); appliquer(); invitation(); chargerAccompagnement(); if (T2 || SUIVI) chargerPD(); });
   }
   /* Sans compte : le texte décrit exactement la règle de site.js (window.GenesoliaDonnees) */
+  /* Vrai seulement dans l'aperçu du carnet sur la page de vente (site.js pose la classe) */
+  function dansCadre() { return document.documentElement.classList.contains('dans-cadre'); }
   function invitation() {
     var z = document.getElementById('mc-compte'); if (!z) return;
     etat('Gardé jusqu’à la fermeture du navigateur');
+    /* Dans l'aperçu : la page de vente propose déjà de créer un compte juste en dessous, et le
+       cadre est petit. Toute la place va au carnet lui-même, qu'on vient justement essayer. */
+    if (dansCadre()) { z.hidden = true; return; }
     z.hidden = false;
     z.innerHTML = '<p><b>Sans compte, tes réponses restent dans ce navigateur tant qu’il est ouvert. Quand tu le fermes, elles sont effacées, comme sur les autres sites.</b> Crée ton espace gratuit pour garder ' + (MODULE ? 'ton module et tes réponses' : 'ton carnet, ta météo et ta lettre de dans un an') + ', et les retrouver sur tous tes appareils.</p><a class="btn btn-plein" href="login.html?inscription&amp;retour=' + esc(PAGE_URL) + '">Créer mon espace</a> <a href="login.html?retour=' + esc(PAGE_URL) + '">J’ai déjà un compte</a>';
   }
@@ -2459,6 +2467,9 @@
   function connecteeAvis() { try { var x = JSON.parse(localStorage.getItem('sb-qsvzzkjtjsznfntahvvh-auth-token') || 'null'); return !!(x && (x.access_token || x.refresh_token)); } catch (y) { return false; } }
   function avisEcriture(champ) {
     if (avisVu() || document.getElementById('mc-avis-ecriture')) return;
+    /* Dans l'aperçu de la page de vente, la visiteuse est invitée à écrire pour essayer :
+       une fenêtre par-dessus le cadre couperait net ce qu'on vient de lui proposer. */
+    if (dansCadre()) return;
     var f = document.createElement('div');
     f.className = 'appli-fenetre'; f.id = 'mc-avis-ecriture'; f.setAttribute('role', 'dialog'); f.setAttribute('aria-modal', 'true'); f.setAttribute('aria-labelledby', 'mc-avis-t');
     f.innerHTML = '<div class="appli-carte mc-avis-carte"><h2 id="mc-avis-t">Avant d’écrire</h2>' +
