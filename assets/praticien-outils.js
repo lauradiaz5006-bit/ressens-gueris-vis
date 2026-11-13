@@ -3,7 +3,8 @@
    - lien de partage en lecture : choix de ce que voit le·la client·e, liste des liens actifs, désactivation avant les 14 jours. */
 window.GenesoliaPratique = (function () {
   'use strict';
-  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { styles();
+  return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
   function date(d) { return d ? new Date(d).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) : ''; }
   function marquer(k) { try { localStorage.setItem('pr-fait-' + k, '1'); } catch (e) {} }
 
@@ -26,7 +27,8 @@ window.GenesoliaPratique = (function () {
     '.pr-o-actif{display:grid;gap:.4rem;border:1px solid var(--rose,#F2D6DE);border-radius:14px;padding:.7rem .8rem;margin:0 0 .5rem;background:#FFFBFC;font-size:.9rem}' +
     '.pr-o-actif small{color:var(--prune-doux,#7A5570)}' +
     '.pr-o-url{width:100%;box-sizing:border-box;font:inherit;font-size:.86rem;padding:.6rem .7rem;border:1px solid #E5C6CF;border-radius:10px;color:inherit;background:#fff}' +
-    '.pr-o-desact{color:#A3324B!important}';
+    '.pr-o-desact{color:#A3324B!important}' +
+    '.pr-chargeur{display:flex;align-items:center;gap:.55rem}.pr-chargeur i{width:17px;height:17px;flex:none;border-radius:50%;border:2.5px solid #E5C6CF;border-top-color:#9A3A68;animation:pr-tour .8s linear infinite}@keyframes pr-tour{to{transform:rotate(1turn)}}';
   function styles() { if (document.getElementById('pr-outils-css')) return; var s = document.createElement('style'); s.id = 'pr-outils-css'; s.textContent = CSS; document.head.appendChild(s); }
 
   function fenetre(html, tiroir) {
@@ -80,7 +82,7 @@ window.GenesoliaPratique = (function () {
     var f = fenetre('<h2>Notes de séance · ' + esc(o.nom || '') + '</h2><p class="pr-o-aide">Chiffrées dans votre Espace praticien. Par défaut, elles ne sont jamais montrées à votre client·e. Cochez « visible » sur une note précise si vous voulez la lui faire lire pendant une séance en ligne. Donnez un thème à vos séances (ex. « Relation à la mère », « Argent ») pour vous y retrouver facilement si vous travaillez plusieurs sujets avec la même personne au fil du temps.</p>' +
       '<form class="pr-o-form" data-note-form><label>Thème de cette séance<input type="text" name="theme" maxlength="80" placeholder="Ex. Relation à la mère, Argent, Couple…"></label><label>Date de la séance<input type="date" name="jour" value="' + new Date().toISOString().slice(0, 10) + '"></label><label>Ce que vous observez<textarea name="texte" maxlength="5000" placeholder="Ce qui est apparu, les pistes à explorer, la prochaine étape…"></textarea></label><label class="pr-o-case"><input type="checkbox" name="visible"> <span>Visible par mon·ma client·e</span></label><p class="pr-o-msg" data-note-msg role="status"></p><div class="pr-o-boutons"><button class="btn btn-plein bt plein" type="submit">Ajouter cette note</button><button class="btn btn-trait bt" type="button" data-export-notes>Exporter en PDF</button></div></form>' +
       '<div data-themes-filtre style="margin-top:1rem"></div>' +
-      '<div data-seances><p class="pr-o-aide">Chargement…</p></div>', o.tiroir);
+      '<div data-seances><p class="pr-o-aide pr-chargeur"><i></i>Chargement…</p></div>', o.tiroir);
     try { var dt = localStorage.getItem(clePerso); if (dt) f.querySelector('[name=theme]').value = dt; } catch (e) {}
     function themesDistincts() {
       var vus = {}, out = [];
@@ -173,7 +175,7 @@ window.GenesoliaPratique = (function () {
   function partager(o) {
     var f = fenetre('<h2>Partager l’arbre de ' + esc(o.nom || 'votre client·e') + '</h2>' +
       '<p class="pr-o-aide">Le lien montre l’arbre en lecture, <b>sans vos notes</b>. ' + (o.remise ? 'Le travail est marqué terminé : votre client·e pourra télécharger et garder son arbre.' : 'Tant que « Travail terminé » n’est pas coché dans votre Espace praticien, rien ne peut être téléchargé ni imprimé depuis ce lien.') + '</p>' +
-      '<div data-actifs><p class="pr-o-aide">Chargement des liens…</p></div>' +
+      '<div data-actifs><p class="pr-o-aide pr-chargeur"><i></i>Chargement des liens…</p></div>' +
       (o.actif ? '<h3>Nouveau lien</h3><form class="pr-o-form" data-nouveau-lien>' +
         '<label class="pr-o-case"><input type="checkbox" name="reps" checked> <span>Montrer « Ce qui se répète »</span></label>' +
         '<label class="pr-o-case"><input type="checkbox" name="delicat"> <span>Cacher les pistes délicates : deuils, pertes de grossesse, IVG, départs précoces</span></label>' +
@@ -230,8 +232,8 @@ window.GenesoliaPratique = (function () {
     var f = fenetre('<h2>Questionnaire avant séance' + (o.nom ? ' · ' + esc(o.nom) : '') + '</h2>' +
       '<p class="pr-o-aide">Envoyez ce lien à votre client·e : il·elle remplit chez lui·elle, sans compte, sa famille proche, les dates, les moments marquants et ce qu’il·elle en ressent. Ses réponses arrivent ici, et s’ajoutent automatiquement à son arbre dès que vous ouvrez le dossier. Les personnes déjà présentes sont seulement complétées : rien n’est effacé.</p>' +
       '<h3 style="margin-top:1rem">Vos questions personnalisées</h3><p class="pr-o-aide" style="margin:0 0 .5rem">Affichées à la fin du questionnaire, en plus de l’arbre familial. Elles s’appliquent à tous les liens envoyés ensuite, pas seulement à ce dossier.</p>' +
-      '<form class="pr-o-form" data-q-perso-form><div data-q-perso-liste><p class="pr-o-aide">Chargement…</p></div><button class="btn btn-trait bt" type="button" data-q-perso-ajouter style="margin:.2rem 0">+ Ajouter une question</button><button class="btn btn-trait bt" type="button" data-q-apercu style="margin:.2rem 0 .2rem .5rem">Voir le questionnaire complet (aperçu)</button><p class="pr-o-msg" data-q-perso-msg role="status"></p><div><button class="btn btn-trait bt" type="submit">Enregistrer ces questions</button></div></form>' +
-      '<div data-q-liste style="margin-top:1rem"><p class="pr-o-aide">Chargement…</p></div>' +
+      '<form class="pr-o-form" data-q-perso-form><div data-q-perso-liste><p class="pr-o-aide pr-chargeur"><i></i>Chargement…</p></div><button class="btn btn-trait bt" type="button" data-q-perso-ajouter style="margin:.2rem 0">+ Ajouter une question</button><button class="btn btn-trait bt" type="button" data-q-apercu style="margin:.2rem 0 .2rem .5rem">Voir le questionnaire complet (aperçu)</button><p class="pr-o-msg" data-q-perso-msg role="status"></p><div><button class="btn btn-trait bt" type="submit">Enregistrer ces questions</button></div></form>' +
+      '<div data-q-liste style="margin-top:1rem"><p class="pr-o-aide pr-chargeur"><i></i>Chargement…</p></div>' +
       (o.actif ? '<div class="pr-o-boutons" style="margin-top:.6rem"><button class="btn btn-plein bt plein" type="button" data-q-creer>Créer un lien (valable 21 jours)</button></div><p class="pr-o-msg" data-q-msg role="status"></p>'
         : '<p class="pr-o-aide">Pour envoyer un nouveau questionnaire, il faut l’abonnement. Les réponses déjà reçues restent ici.</p>'));
     var zq = f.querySelector('[data-q-perso-liste]'), qPerso = [], cabNom = '';
@@ -331,7 +333,7 @@ window.GenesoliaPratique = (function () {
   /* o : { sb, user, id, nom } */
   function deontologie(o) {
     var f = fenetre('<h2>Déontologie · ' + esc(o.nom || '') + '</h2><p class="pr-o-aide">Un document de cadre à envoyer à votre client·e avant de démarrer une séance. Le texte de base est le même pour tous vos dossiers ; ajoutez ci-dessous ce qui est propre à votre pratique ou à cette personne. C’est un modèle de départ : relisez-le et adaptez-le à votre façon de travailler.</p>' +
-      '<div data-corps><p class="pr-o-aide">Chargement…</p></div>', o.tiroir);
+      '<div data-corps><p class="pr-o-aide pr-chargeur"><i></i>Chargement…</p></div>', o.tiroir);
     var courant = null;
     function statutTexte(d) {
       if (!d) return '';
@@ -394,9 +396,9 @@ window.GenesoliaPratique = (function () {
     var f = fenetre('<h2>Bilan de suivi · ' + esc(o.nom || '') + '</h2>' +
       '<p class="pr-o-aide">Une page dédiée pour la fin de l’accompagnement, différente du lien « Partager l’arbre ». L’arbre y est toujours inclus ; cochez en plus la constellation et les notes que vous voulez y faire figurer.</p>' +
       '<div class="pr-o-actif" style="background:#FFFBFC"><b>✓ Son arbre</b><br><small>Toujours inclus sur la page du bilan.</small></div>' +
-      '<h3>Sa constellation</h3><p class="pr-o-aide" data-bilan-plateau>Chargement…</p>' +
+      '<h3>Sa constellation</h3><p class="pr-o-aide pr-chargeur" data-bilan-plateau><i></i>Chargement…</p>' +
       '<h3>Notes à inclure</h3><p class="pr-o-aide" style="margin:0 0 .5rem">Cochez celles que vous voulez montrer à votre client·e sur cette page.</p>' +
-      '<div data-bilan-notes><p class="pr-o-aide">Chargement…</p></div>' +
+      '<div data-bilan-notes><p class="pr-o-aide pr-chargeur"><i></i>Chargement…</p></div>' +
       '<div class="pr-o-boutons" style="margin-top:1rem"><button class="btn btn-plein bt plein" type="button" data-bilan-publier>Créer / mettre à jour le bilan</button></div>' +
       '<p class="pr-o-msg" data-bilan-msg role="status"></p>' +
       '<div data-bilan-lien></div>');

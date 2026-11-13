@@ -4549,7 +4549,13 @@
     $('bt-questionnaire-dossier').addEventListener('click', function () { var GP = window.GenesoliaPratique; if (GP && GP.questionnaire) GP.questionnaire({ sb: sb, user: utilisateur, id: ARBRE_ID, nom: arbreNom, actif: new Date(PRATICIEN.acces_jusqu) > new Date() }); });
     $('bt-importer-dossier').addEventListener('click', function () { var b = $('bt-importer'); if (b) b.click(); });
     var q = new URLSearchParams(location.search);
-    if (q.has('seance')) setTimeout(modeSeance, 300);
+    if (q.has('seance')) {
+      var seanceQuandPret = function (essais) {
+        if (ARBRE_ID && !arbreBloque && !Object.keys(S.people).length && essais < 80) return setTimeout(function () { seanceQuandPret(essais + 1); }, 150);
+        if (!arbreBloque) modeSeance();
+      };
+      setTimeout(function () { seanceQuandPret(0); }, 300);
+    }
     else if (q.has('rapport')) setTimeout(function () { var b = $('bt-rapport'); if (b) b.click(); }, 300);
     var jq = (q.get('questionnaire') || '').toLowerCase();
     if (/^[0-9a-f-]{36}$/.test(jq)) setTimeout(function () { importerQuestionnaire(jq); }, 400);
@@ -4759,12 +4765,19 @@
       });
       return;
     }
-    chargerLocal();
-    dessiner(); recentrer();
-    statut(textStatutRepos());
-    if (!sb) { apresChargement(); return; }
+    if (ARBRE_ID) {
+      /* Mode séance / dossier demandé : on n'affiche ni l'arbre local ni « Ton arbre commence par toi »
+         pendant le chargement — en rendez-vous, cet écran vide faisait croire que le dossier avait disparu */
+      statut('Ouverture du dossier…');
+    } else {
+      chargerLocal();
+      dessiner(); recentrer();
+      statut(textStatutRepos());
+    }
+    if (!sb) { if (ARBRE_ID) { arbreBloque = true; statut('Connecte-toi pour ouvrir ce dossier · <a href="login.html">Me connecter</a>'); } apresChargement(); return; }
     sb.auth.getSession().then(function (r) {
-      var s = r && r.data && r.data.session; if (!s) return;
+      var s = r && r.data && r.data.session;
+      if (!s) { if (ARBRE_ID) { arbreBloque = true; statut('Connecte-toi pour ouvrir ce dossier · <a href="login.html">Me connecter</a>'); } return; }
       utilisateur = s.user;
       statut(textStatutRepos());
       chargerListeArbres();
