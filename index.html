@@ -350,6 +350,50 @@
     @media (max-width:1100px){.car-prev{left:4px}.car-next{right:4px}}
     @media (max-width:980px){.car-carte{flex-basis:calc((100% - 1.2rem) / 2)}}
     @media (max-width:620px){.car-carte{flex-basis:84%}.car-nav{display:none}}
+
+    /* Les cadeaux : grandes cartes, voile de verre fumé */
+    .langages-accueil{grid-template-columns:repeat(4,minmax(0,1fr));gap:1.3rem}
+    .langage{position:relative;display:block;padding:0;aspect-ratio:3/4;border-radius:28px;overflow:hidden;border:1px solid rgba(243,220,192,.5);box-shadow:0 20px 46px rgba(46,19,56,.22);background:#2E1338;
+      transition:transform .35s cubic-bezier(.2,.7,.3,1),box-shadow .35s,border-color .35s}
+    .langage:hover,.langage:focus-visible{transform:translateY(-8px);border-color:var(--champagne);box-shadow:0 32px 70px rgba(46,19,56,.38)}
+    .langage img{position:absolute;inset:0;width:100%;height:100%;aspect-ratio:auto;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.3,1)}
+    .langage:hover img{transform:scale(1.07)}
+    .langage::after{content:"";position:absolute;inset:0;pointer-events:none;
+      background:linear-gradient(180deg,rgba(24,7,22,.12) 0%,rgba(24,7,22,.3) 42%,rgba(24,7,22,.86) 100%);transition:opacity .35s}
+    .langage:hover::after{opacity:.82}
+    .langage-txt{position:absolute;left:0;right:0;bottom:0;z-index:1;display:grid;gap:.25rem;padding:1.15rem 1.25rem 1.3rem;
+      background:rgba(18,5,17,.34);-webkit-backdrop-filter:blur(14px) saturate(1.15);backdrop-filter:blur(14px) saturate(1.15);
+      border-top:1px solid rgba(243,220,192,.4)}
+    .langage strong{font:400 1.45rem/1.1 var(--display);color:#fff}
+    .langage-txt span{font-size:.9rem;color:#EFD7BF}
+    .langage-aller{display:inline-flex;align-items:center;gap:.4rem;margin-top:.5rem;font:600 .74rem/1 var(--texte);letter-spacing:.13em;text-transform:uppercase;color:#F3DCC0}
+    .langage-aller svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s}
+    .langage:hover .langage-aller svg{transform:translateX(4px)}
+    @media (max-width:980px){.langages-accueil{grid-template-columns:1fr 1fr}}
+    @media (prefers-reduced-motion:reduce){.langage,.langage img,.langage-aller svg{transition:none}}
+
+    /* Carrousel : on laisse dépasser la carte suivante, et les flèches se voient */
+    .car-carte{flex-basis:calc((100% - 2.6rem) / 3.25)}
+    .car-nav{width:52px;height:52px;background:#fff;border-color:var(--champagne);box-shadow:0 14px 34px rgba(107,47,91,.28)}
+    .car-nav svg{width:22px;height:22px;stroke-width:2.2}
+    .car-prev{left:-20px}.car-next{right:-20px}
+    @media (max-width:1180px){.car-prev{left:6px}.car-next{right:6px}}
+    @media (max-width:980px){.car-carte{flex-basis:calc((100% - 1.2rem) / 2.15)}}
+    @media (max-width:620px){.car-carte{flex-basis:86%}}
+
+    /* Le Cercle : la couverture en grand */
+    .cercle-accueil{grid-template-columns:1fr minmax(0,300px);gap:2.6rem;padding:2.8rem}
+    .cercle-accueil img{width:100%;max-width:300px;height:auto;border-radius:14px;box-shadow:0 34px 70px rgba(0,0,0,.45);transform:rotate(2deg)}
+    @media (max-width:860px){.cercle-accueil{grid-template-columns:1fr;gap:1.8rem;padding:1.8rem}.cercle-accueil img{max-width:240px;justify-self:center}}
+
+    /* Le témoignage, en quelques lignes sous Le Cercle */
+    .avis-court{max-width:44rem;margin:2.6rem auto 0;padding:1.6rem 1.8rem;border-radius:24px;background:linear-gradient(160deg,#FFF9F5,#FCEFF3);border:1px solid var(--champagne-clair);box-shadow:0 16px 40px rgba(107,47,91,.09);text-align:center}
+    .avis-court h2{font-size:1.45rem;margin:0 0 .2rem}
+    .avis-court h2::after{content:"";display:block;width:3.4rem;height:1px;margin:.5rem auto 0;background:linear-gradient(90deg,transparent,var(--champagne),transparent)}
+    .avis-court blockquote{margin:.9rem 0 0;font-size:1.02rem;line-height:1.6;color:var(--prune-doux);display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+    .avis-court figcaption{margin-top:.7rem;font-size:.9rem;color:var(--prune)}
+    .avis-court .avis-verifie{margin-left:.5rem;color:var(--champagne)}
+    .avis-court .avis-lien{margin:1rem 0 0;font-size:.92rem}
 </style>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Genesolia", "url": "https://genesolia.fr/", "inLanguage": "fr", "description": "Des outils gratuits pour comprendre ce qui se répète dans ta famille : arbre familial, méthode des deux cycles, numérologie, thème astral, signe maya et rêves."}</script>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/", "logo": "https://genesolia.fr/apple-touch-icon.png", "email": "contact@genesolia.fr", "sameAs": ["https://www.instagram.com/genesolia.officiel/"]}</script>
@@ -409,32 +453,25 @@
         <div class="langages-accueil">
           <a class="langage" href="theme-numerologique.html">
             <img src="assets/images/blog-nombres-800.webp" width="800" height="420" alt="" loading="lazy">
-            <span class="langage-txt"><strong>Tes numéros</strong><span>Ton thème numérologique, offert</span></span>
+            <span class="langage-txt"><strong>Tes numéros</strong><span>Ton thème numérologique, offert</span><span class="langage-aller">Découvrir<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></span></span>
           </a>
           <a class="langage" href="theme-astral.html">
             <img src="assets/images/blog-ciel-800.webp" width="800" height="420" alt="" loading="lazy">
-            <span class="langage-txt"><strong>Tes astres</strong><span>Ton thème astral, offert</span></span>
+            <span class="langage-txt"><strong>Tes astres</strong><span>Ton thème astral, offert</span><span class="langage-aller">Découvrir<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></span></span>
           </a>
           <a class="langage" href="ton-prenom.html">
             <img src="assets/images/blog-prenom-transmis-psychogenealogie-800.webp" width="800" height="420" alt="" loading="lazy">
-            <span class="langage-txt"><strong>Ton prénom</strong><span>Sa signification et ses nombres</span></span>
+            <span class="langage-txt"><strong>Ton prénom</strong><span>Sa signification et ses nombres</span><span class="langage-aller">Découvrir<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></span></span>
           </a>
           <a class="langage" href="symbolique-des-reves.html">
             <img src="assets/images/blog-reves-800.webp" width="800" height="420" alt="" loading="lazy">
-            <span class="langage-txt"><strong>Tes rêves</strong><span>Leur symbolique, ce qui revient</span></span>
+            <span class="langage-txt"><strong>Tes rêves</strong><span>Leur symbolique, ce qui revient</span><span class="langage-aller">Découvrir<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></span></span>
           </a>
         </div>
         <p class="portes-plus">Signe maya, ciel du mois, jeux en famille… <a href="outils.html">Voir tous les outils</a></p>
       </div>
     </section>
 
-    <section class="bloc avis-publies avis-seul" data-avis-publies="3" aria-labelledby="avis-titre">
-      <div class="conteneur">
-        <h2 id="avis-titre">Témoignage vérifié</h2>
-        <div class="avis-liste" data-avis-liste><figure><blockquote>« Quoi de mieux que d’avoir une application personnalisée pour apprendre, comprendre, et qui est capable de t’aider à explorer puis gérer ta lignée, ton passé, ton présent ainsi que tes émotions ? Voilà ce que cette application m’a apporté, et encore plus. N’hésitez pas, faites comme moi, essayez-la : c’est l’adopter ! Merci pour cette expérience, aussi inédite que concluante. Félicitations pour votre travail, je vous mets 10 sur 10 : très clair, complète et vraiment à la hauteur de mes attentes personnelles. »</blockquote><figcaption>Amélie<span class="avis-verifie">✓ Avis vérifié</span></figcaption></figure></div>
-        <p class="avis-lien"><a href="avis.html">Toi aussi, laisse ton avis</a></p>
-      </div>
-    </section>
 
     <section class="bloc bloc-doux" id="abonnements" aria-labelledby="abo-titre">
       <div class="conteneur">
@@ -568,6 +605,12 @@
             <p class="cercle-prix">Sans carte bancaire · tu peux arrêter à tout moment</p>
           </div>
           <img src="assets/cercle/accueil-carnets.webp" width="300" height="225" alt="Les carnets du Cercle : Renaissance et Libération" loading="lazy">
+        </div>
+
+        <div class="avis-court avis-publies" data-avis-publies="1" aria-labelledby="avis-titre">
+          <h2 id="avis-titre">Témoignage vérifié</h2>
+          <div data-avis-liste><figure><blockquote>« Quoi de mieux que d'avoir une application personnalisée pour apprendre, comprendre, et qui est capable de t'aider à explorer puis gérer ta lignée, ton passé, ton présent ainsi que tes émotions ? »</blockquote><figcaption>Amélie<span class="avis-verifie">✓ Avis vérifié</span></figcaption></figure></div>
+          <p class="avis-lien"><a href="avis.html">Toi aussi, laisse ton avis</a></p>
         </div>
       </div>
     </section>
