@@ -394,6 +394,29 @@
     .avis-court figcaption{margin-top:.7rem;font-size:.9rem;color:var(--prune)}
     .avis-court .avis-verifie{margin-left:.5rem;color:var(--champagne)}
     .avis-court .avis-lien{margin:1rem 0 0;font-size:.92rem}
+
+    /* Noël : l'aperçu de la boutique, en carrousel */
+    .bq-carrousel{margin-top:1.8rem}
+    .bq-carrousel .car-piste{gap:1.1rem}
+    .bq-c{flex:0 0 calc((100% - 3.3rem) / 4.25);min-width:180px;scroll-snap-align:start;display:flex;flex-direction:column;border-radius:22px;overflow:hidden;
+      background:var(--blanc);border:1px solid var(--rose);text-decoration:none;color:var(--prune);box-shadow:0 14px 34px rgba(46,19,56,.12);
+      transition:transform .35s cubic-bezier(.2,.7,.3,1),box-shadow .35s,border-color .35s}
+    .bq-c:hover,.bq-c:focus-visible{transform:translateY(-8px);border-color:var(--champagne);box-shadow:0 28px 58px rgba(46,19,56,.26)}
+    .bq-c-img{position:relative;display:block;overflow:hidden;background:#F6E9EF}
+    .bq-c-img img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.3,1)}
+    .bq-c:hover .bq-c-img img{transform:scale(1.08)}
+    .bq-c-img::after{content:"Voir";position:absolute;right:.7rem;bottom:.7rem;padding:.35rem .8rem;border-radius:999px;
+      font:600 .72rem/1 var(--texte);letter-spacing:.1em;text-transform:uppercase;color:#2E1338;background:rgba(243,220,192,.95);
+      opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s}
+    .bq-c:hover .bq-c-img::after,.bq-c:focus-visible .bq-c-img::after{opacity:1;transform:none}
+    .bq-c-txt{display:grid;gap:.2rem;padding:.9rem 1rem 1.1rem}
+    .bq-c-fam{font:600 .68rem/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:#A8763F}
+    .bq-c b{font:400 1.12rem/1.2 var(--display);font-weight:400}
+    .bq-c-prix{font-size:.85rem;color:var(--prune-doux)}
+    .noel-plus{margin:1.6rem 0 0;text-align:center}
+    @media (max-width:980px){.bq-c{flex-basis:calc((100% - 1.1rem) / 2.2)}}
+    @media (max-width:620px){.bq-c{flex-basis:68%}}
+    @media (prefers-reduced-motion:reduce){.bq-c,.bq-c-img img,.bq-c-img::after{transition:none}}
 </style>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Genesolia", "url": "https://genesolia.fr/", "inLanguage": "fr", "description": "Des outils gratuits pour comprendre ce qui se répète dans ta famille : arbre familial, méthode des deux cycles, numérologie, thème astral, signe maya et rêves."}</script>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/", "logo": "https://genesolia.fr/apple-touch-icon.png", "email": "contact@genesolia.fr", "sameAs": ["https://www.instagram.com/genesolia.officiel/"]}</script>
@@ -580,13 +603,46 @@
 
     <script>(function () { if (new Date() > new Date('2027-01-06T23:59:59')) { var n = document.getElementById('noel'); if (n) n.hidden = true; } })();</script>
     <section class="noel" id="noel" aria-labelledby="noel-titre"><div class="conteneur">
-      <div class="noel-tete"><p>Noël</p><h2 id="noel-titre">Des cadeaux qui ont du sens</h2><p>Un livre à remplir en famille, quelques mois du Cercle à offrir, ou Ma spirale pour soi.</p></div>
-      <div class="noel-grille">
-        <a href="https://www.amazon.fr/dp/B0HP7WPZQD" target="_blank" rel="noopener"><img src="assets/noel/noel-racines-540.webp" srcset="assets/noel/noel-racines-540.webp 540w, assets/noel/noel-racines-1080.webp 1080w" sizes="(max-width:900px) 50vw, 25vw" width="540" height="675" loading="lazy" alt="Noël : le livre Racines, à offrir, sur Amazon"></a>
-        <a href="enquete-de-ma-lignee.html"><img src="assets/noel/noel-enquete-540.webp" srcset="assets/noel/noel-enquete-540.webp 540w, assets/noel/noel-enquete-1080.webp 1080w" sizes="(max-width:900px) 50vw, 25vw" width="540" height="675" loading="lazy" alt="Noël : le livre L’enquête de ma lignée, à remplir en famille"></a>
-        <a href="boutique.html#carte-cadeau"><img src="assets/noel/noel-cercle-540.webp?v=3" srcset="assets/noel/noel-cercle-540.webp?v=3 540w, assets/noel/noel-cercle-1080.webp?v=3 1080w" sizes="(max-width:900px) 50vw, 25vw" width="540" height="675" loading="lazy" alt="Offre Le Cercle : carte cadeau 3 mois à 49 €, 6 mois à 99 €"></a>
-        <a href="ma-spirale.html"><img src="assets/pass/ma-spirale-visuel-540.webp" srcset="assets/pass/ma-spirale-visuel-540.webp 540w, assets/pass/ma-spirale-visuel-1080.webp 1080w" sizes="(max-width:900px) 50vw, 25vw" width="540" height="675" loading="lazy" alt="Noël : Ma spirale, l’appli pour ton enquête de lignée"></a>
+      <div class="noel-tete"><p>Noël</p><h2 id="noel-titre">Des cadeaux qui ont du sens</h2><p>Un aperçu de la boutique : les livres, l’arbre en poster, la carte cadeau du Cercle, les affiches et le reste.</p></div>
+      <div class="carrousel bq-carrousel" data-carrousel>
+        <button class="car-nav car-prev" type="button" aria-label="Articles précédents"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <div class="car-piste">
+          <a class="bq-c" href="https://www.amazon.fr/dp/B0HP7WPZQD" target="_blank" rel="noopener">
+            <span class="bq-c-img"><img src="assets/noel/noel-racines-540.webp" width="540" height="675" alt="Le livre Racines, à offrir" loading="lazy"></span>
+            <span class="bq-c-txt"><span class="bq-c-fam">Livre</span><b>Racines</b><span class="bq-c-prix">18,99 €</span></span>
+          </a>
+          <a class="bq-c" href="enquete-de-ma-lignee.html">
+            <span class="bq-c-img"><img src="assets/noel/noel-enquete-540.webp" width="540" height="675" alt="Le livre L’enquête de ma lignée, à remplir en famille" loading="lazy"></span>
+            <span class="bq-c-txt"><span class="bq-c-fam">Livre</span><b>L’enquête de ma lignée</b><span class="bq-c-prix">À remplir en famille</span></span>
+          </a>
+          <a class="bq-c" href="boutique.html#arbre-poster">
+            <span class="bq-c-img"><img src="assets/cadeaux/arbre-dore.webp" width="476" height="640" alt="L’arbre de la famille, imprimé et encadré" loading="lazy"></span>
+            <span class="bq-c-txt"><span class="bq-c-fam">Poster</span><b>L’arbre de la famille</b><span class="bq-c-prix">Ta lignée imprimée</span></span>
+          </a>
+          <a class="bq-c" href="boutique.html#carte-cadeau">
+            <span class="bq-c-img"><img src="assets/noel/noel-cercle-540.webp?v=3" width="540" height="675" alt="La carte cadeau du Cercle : 3 mois à 49 €, 6 mois à 99 €" loading="lazy"></span>
+            <span class="bq-c-txt"><span class="bq-c-fam">Carte cadeau</span><b>Le Cercle à offrir</b><span class="bq-c-prix">3 mois 49 € · 6 mois 99 €</span></span>
+          </a>
+          <a class="bq-c" href="boutique.html">
+            <span class="bq-c-img"><img src="assets/boutique/calendrier.webp" width="800" height="800" alt="Le calendrier 2027 : douze mois, douze phrases" loading="lazy"></span>
+            <span class="bq-c-txt"><span class="bq-c-fam">Maison</span><b>Le calendrier 2027</b><span class="bq-c-prix">Douze phrases pour l’année</span></span>
+          </a>
+          <a class="bq-c" href="boutique.html">
+            <span class="bq-c-img"><img src="assets/boutique/racines-force-mur.webp" width="800" height="800" alt="Une affiche Genesolia encadrée sur un mur" loading="lazy"></span>
+            <span class="bq-c-txt"><span class="bq-c-fam">Affiches</span><b>Ton mur de phrases</b><span class="bq-c-prix">A4 et A3, à mélanger</span></span>
+          </a>
+          <a class="bq-c" href="boutique.html">
+            <span class="bq-c-img"><img src="assets/boutique/sweat-excuse-rose.webp" width="800" height="800" alt="Un sweat Genesolia avec sa phrase" loading="lazy"></span>
+            <span class="bq-c-txt"><span class="bq-c-fam">À porter</span><b>Sweats et t-shirts</b><span class="bq-c-prix">Sa phrase, tous les jours</span></span>
+          </a>
+          <a class="bq-c" href="boutique.html">
+            <span class="bq-c-img"><img src="assets/boutique/mug-ancetres.webp" width="800" height="800" alt="Un mug Genesolia avec sa phrase" loading="lazy"></span>
+            <span class="bq-c-txt"><span class="bq-c-fam">Maison</span><b>Mugs et coques</b><span class="bq-c-prix">Les petits cadeaux</span></span>
+          </a>
+        </div>
+        <button class="car-nav car-next" type="button" aria-label="Articles suivants"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
       </div>
+      <p class="noel-plus"><a class="btn btn-plein" href="boutique.html">Voir toute la boutique</a></p>
     </div></section>
 
     <section class="bloc" aria-labelledby="cercle-accueil-titre">
@@ -694,19 +750,21 @@
 
   <script>
   (function () {
-    var c = document.querySelector('[data-carrousel]'); if (!c) return;
-    var piste = c.querySelector('.car-piste'), prec = c.querySelector('.car-prev'), suiv = c.querySelector('.car-next');
-    function pas() { var carte = piste.querySelector('.car-carte'); return carte ? carte.getBoundingClientRect().width + 19 : 280; }
-    function etat() {
-      var max = piste.scrollWidth - piste.clientWidth - 2;
-      prec.disabled = piste.scrollLeft <= 2;
-      suiv.disabled = piste.scrollLeft >= max;
-    }
-    prec.addEventListener('click', function () { piste.scrollBy({ left: -pas(), behavior: 'smooth' }); });
-    suiv.addEventListener('click', function () { piste.scrollBy({ left: pas(), behavior: 'smooth' }); });
-    piste.addEventListener('scroll', etat, { passive: true });
-    window.addEventListener('resize', etat);
-    etat();
+    [].forEach.call(document.querySelectorAll('[data-carrousel]'), function (c) {
+      var piste = c.querySelector('.car-piste'), prec = c.querySelector('.car-prev'), suiv = c.querySelector('.car-next');
+      if (!piste || !prec || !suiv) return;
+      function pas() { var carte = piste.querySelector('.car-carte, .bq-c'); return carte ? carte.getBoundingClientRect().width + 19 : 280; }
+      function etat() {
+        var max = piste.scrollWidth - piste.clientWidth - 2;
+        prec.disabled = piste.scrollLeft <= 2;
+        suiv.disabled = piste.scrollLeft >= max;
+      }
+      prec.addEventListener('click', function () { piste.scrollBy({ left: -pas(), behavior: 'smooth' }); });
+      suiv.addEventListener('click', function () { piste.scrollBy({ left: pas(), behavior: 'smooth' }); });
+      piste.addEventListener('scroll', etat, { passive: true });
+      window.addEventListener('resize', etat);
+      etat();
+    });
   })();
   </script>
 
