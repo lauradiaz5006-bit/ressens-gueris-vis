@@ -2047,6 +2047,9 @@
   function valeurDe(el) { return el.type === 'checkbox' ? el.checked : el.hasAttribute('data-radio') ? (el.checked ? el.value : undefined) : el.value; }
   function appliquer() {
     racine.querySelectorAll('.mc-livre [data-k]').forEach(function (el) {
+      /* le champ dans lequel la personne écrit n'est jamais réécrit : réassigner sa valeur pendant
+         la frappe déplace le curseur et avale le début du texte (frappe rapide + réponse de l'espace) */
+      if (el === document.activeElement && (el.tagName === 'TEXTAREA' || (el.tagName === 'INPUT' && !/^(checkbox|radio|range)$/.test(el.type)))) return;
       var k = el.getAttribute('data-k'), v = D.v[k];
       if (v === undefined) { if (el.type === 'range') afficherVal(el); return; }
       if (el.type === 'checkbox') el.checked = !!v;
@@ -2212,8 +2215,11 @@
      premiers caractères tapés ensuite se retrouvent alors insérés avant le reste, qui lui ne bouge pas :
      le début du texte semble avoir disparu, alors qu'il a juste été réécrit à la mauvaise place. */
   function remplacerD(nouveau) {
-    var actif = document.activeElement && document.activeElement.getAttribute && document.activeElement.getAttribute('data-k');
-    var garde = actif ? D.v[actif] : undefined;
+    var el = document.activeElement, actif = el && el.getAttribute && el.getAttribute('data-k');
+    /* la valeur gardée est celle affichée à l'écran : avec la frappe rapide, D peut avoir un
+       temps de retard sur le champ, et garder D effaçait les derniers caractères tapés */
+    var garde = actif && (el.tagName === 'TEXTAREA' || el.tagName === 'INPUT') ? valeurDe(el) : undefined;
+    if (garde === undefined && actif) garde = D.v[actif];
     D = nouveau;
     if (actif && garde !== undefined) { D.v[actif] = garde; D.t = D.t || {}; D.t[actif] = Date.now(); }
   }
