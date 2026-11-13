@@ -316,7 +316,20 @@
     <section class="bloc entree-voyage" aria-labelledby="ev-titre" style="padding:3.2rem 0;background:linear-gradient(180deg,#FDF3EF,#FFF9F7)">
       <div class="conteneur">
         <div class="bloc-tete" style="text-align:center;margin-inline:auto"><h2 id="ev-titre">Ta carte de naissance : ce que tu portes en arrivant</h2><p>Un petit voyage en trois pas : tes nombres, ton signe, et ce qui se répète peut-être déjà avant toi.</p></div>
-        <div id="pdn-zone"></div>
+        <div class="ev-grille">
+          <figure class="ev-laura">
+            <img src="assets/laura-photo.webp?v=1" width="640" height="640" alt="Laura, la créatrice de Genesolia" loading="lazy">
+            <figcaption>Laura, créatrice de Genesolia,<br>t’accompagne dans ce voyage</figcaption>
+          </figure>
+          <div id="pdn-zone"></div>
+        </div>
+        <style>
+          .ev-grille{display:grid;grid-template-columns:auto 1fr;gap:2.2rem;align-items:center;max-width:62rem;margin-inline:auto}
+          .ev-laura{margin:0;text-align:center}
+          .ev-laura img{width:190px;height:190px;border-radius:50%;object-fit:cover;border:3px solid var(--champagne);box-shadow:0 14px 36px rgba(107,47,91,.16)}
+          .ev-laura figcaption{margin-top:.7rem;font-size:.88rem;color:var(--prune-doux)}
+          @media (max-width:760px){.ev-grille{grid-template-columns:1fr;gap:1.4rem}.ev-laura img{width:130px;height:130px}}
+        </style>
       </div>
     </section>
 
