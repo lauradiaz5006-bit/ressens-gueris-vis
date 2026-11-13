@@ -494,7 +494,7 @@
       h += '<p class="ce-titre-liste">Aide</p><div class="ce-carte ce-liste">' +
         (installee ? '' : '<a href="#" data-installer-appli><div><b>Installer l’appli Le Cercle</b><span>Une icône sur ton écran d’accueil</span></div></a>') +
         ligne('assets/cercle/le-cercle-mode-d-emploi.pdf', 'Le mode d’emploi du Cercle', 'PDF de 12 pages, chaque écran expliqué') + '</div>' +
-        '<p class="ce-pied-moi"><a href="confidentialite.html">Mes données</a> · <a href="mentions-legales.html">Mentions légales</a> · <button type="button" class="ce-lien" data-deconnexion>Me déconnecter</button></p>';
+        '<p class="ce-pied-moi"><a href="confidentialite.html">Mes données</a> · <a href="mentions-legales.html">Mentions légales</a> · <button type="button" class="ce-lien" data-deconnexion>Me déconnecter</button> · <a href="index.html">Sortir de l’appli</a></p>';
       afficher(h);
       var bd = vue.querySelector('[data-deconnexion]');
       if (bd) bd.addEventListener('click', function () { bd.disabled = true; (sb ? sb.auth.signOut() : Promise.resolve()).then(function () { location.href = 'login.html'; }, function () { location.href = 'login.html'; }); });
