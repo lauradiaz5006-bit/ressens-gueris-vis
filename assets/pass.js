@@ -439,6 +439,18 @@
   }
 
   /* ── Sans le Pass ── */
+  /* Pied de l'appli : se déconnecter sans passer par l'écran « ce n'est pas le bon compte ».
+     Le drapeau garantit un seul écouteur, quel que soit le nombre de rendus de la vue. */
+  if (!document.documentElement.hasAttribute('data-pa-deco')) {
+  document.documentElement.setAttribute('data-pa-deco', '1');
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest || !e.target.closest('[data-pa-deconnexion]')) return;
+    if (!confirm('Te déconnecter de Ma spirale ?')) return;
+    var fin = function () { location.href = 'login.html?retour=pass.html'; };
+    if (sb) sb.auth.signOut().then(fin, fin); else fin();
+  });
+  }
+
   function vuePorte() {
     var u = !!D.user;
     afficher('<section class="pa-carte pa-porte"><img src="assets/icones/pass-192.png" alt="" width="84" height="84" style="border-radius:22px;box-shadow:0 10px 26px rgba(31,11,42,.25)">' +
