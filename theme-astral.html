@@ -184,7 +184,8 @@
   <script src="assets/astronomy.browser.min.js"></script>
   <script src="assets/astrologie.js"></script>
   <script src="assets/astrologie-textes.js?v=2"></script>
-  <script src="assets/livret-astral.js?v=2"></script>
+  <script src="assets/maisons-signes.js"></script>
+  <script src="assets/livret-astral.js?v=3"></script>
   <script>
   (function () {
     'use strict';
@@ -201,7 +202,8 @@
     function maisonPlus(k, r) {
       var sg = AS.signeDe(r.cuspides[k]), el = AS.ELEMENT[sg], md = AS.MODE[sg];
       var h = '<div class="a-plus"><p class="a-plus-t">Pour aller plus loin</p>';
-      h += '<p><b>Cette maison s\'ouvre ' + enS(sg) + '.</b> Tu vis ce domaine ' + M_COULEUR[el] + ' (' + esc(T.ELEMENTS[el].nom.toLowerCase()) + ', ' + esc(T.MODES[md].nom.toLowerCase()) + ').</p>';
+      var MS = window.MAISONS_SIGNES && window.MAISONS_SIGNES[String(k)] && window.MAISONS_SIGNES[String(k)][sg];
+      h += '<p><b>Ta maison ' + k + ' s\'ouvre ' + enS(sg) + '.</b> ' + (MS ? esc(MS) : 'Tu vis ce domaine ' + M_COULEUR[el] + ' (' + esc(T.ELEMENTS[el].nom.toLowerCase()) + ', ' + esc(T.MODES[md].nom.toLowerCase()) + ').') + '</p>';
       var pl = Object.keys(NOMS_P).filter(function (p) { return r.planetes[p].maison === k && T.PLANETES[p]; });
       if (pl.length) h += pl.map(function (p) { return '<p><b>' + NOMS_P[p] + ' est ici</b>, ' + esc(T.PLANETES[p].role) + '. ' + esc(T.PLANETES[p].famille) + '</p>'; }).join('');
       else h += '<p>Aucune planète dans cette maison : elle est plus discrète dans ton thème, et se lit surtout par son signe.</p>';
