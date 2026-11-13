@@ -289,6 +289,66 @@
     .psy-grille .psy-texte{color:var(--prune-doux)}
     .psy-grille h2{color:var(--prune);margin-bottom:.8rem}
     @media (max-width:640px){.psy-grille{grid-template-columns:1fr;text-align:center}.psy-illu{margin-inline:auto}}
+
+    /* Bande « Ton agenda astro » : halos flous rose poudré et or, bords fondus */
+    .dk-bande{position:relative;overflow:hidden;background:linear-gradient(110deg,#2E1338 0%,#5A2750 48%,#7C3C6A 100%)}
+    .dk-bande::before{content:"";position:absolute;inset:-25%;pointer-events:none;filter:blur(60px);background:
+      radial-gradient(38% 55% at 12% 18%,rgba(236,190,210,.55),transparent 70%),
+      radial-gradient(42% 60% at 88% 82%,rgba(243,220,192,.5),transparent 70%),
+      radial-gradient(45% 50% at 62% 22%,rgba(248,214,200,.3),transparent 72%)}
+    .dk-bande::after{content:"";position:absolute;inset:0;pointer-events:none;background:
+      linear-gradient(180deg,rgba(253,243,239,.92),rgba(253,243,239,0) 13%,rgba(253,243,239,0) 87%,rgba(253,243,239,.92))}
+    .dk-bande .dk-b{position:relative;z-index:1}
+
+    /* Bienvenue : deux blocs, droite et gauche */
+    .entree-voyage{padding:4.5rem 0!important;background:
+      radial-gradient(55% 60% at 12% 18%,rgba(248,214,200,.55),transparent 70%),
+      radial-gradient(55% 60% at 88% 85%,rgba(236,190,210,.45),transparent 70%),
+      linear-gradient(180deg,#FDF3EF,#FFF9F7)!important}
+    .ev-tete{text-align:center;margin:0 auto 2.6rem}
+    .ev-tete h2{font-size:clamp(2.3rem,4.6vw,3.4rem)}
+    .ev-tete p{margin-inline:auto;max-width:38rem}
+    .ev-grille{display:grid;grid-template-columns:1fr 1fr;gap:2.2rem;align-items:stretch;max-width:70rem;margin-inline:auto}
+    .ev-laura,.ev-carte{display:flex;flex-direction:column;justify-content:center;padding:2.4rem;border-radius:30px;border:1px solid var(--rose);box-shadow:0 22px 52px rgba(107,47,91,.1);background:var(--blanc)}
+    .ev-laura{margin:0;align-items:center;text-align:center;border-color:var(--champagne-clair);background:linear-gradient(160deg,#FFF9F5,#FCEFF3 55%,#F7E1EB)}
+    .ev-halo{display:block;padding:8px;border-radius:50%;background:radial-gradient(circle,#fff 45%,rgba(243,220,192,.95) 72%,rgba(243,220,192,0))}
+    .ev-laura img{display:block;width:min(240px,52vw);height:min(240px,52vw);border-radius:50%;object-fit:cover;box-shadow:0 18px 44px rgba(107,47,91,.22)}
+    .ev-laura figcaption{margin-top:1.1rem;font-size:1rem;color:var(--prune-doux)}
+    .ev-qui{margin-top:1.3rem}
+    @media (max-width:860px){.entree-voyage{padding:3rem 0!important}.ev-grille{grid-template-columns:1fr;gap:1.3rem}.ev-laura,.ev-carte{padding:1.6rem}}
+
+    /* Les cadeaux : des cartes illustrées */
+    .langages-accueil{grid-template-columns:repeat(4,minmax(0,1fr));gap:1.2rem}
+    .langage{display:flex;flex-direction:column;gap:0;padding:0;min-height:0;overflow:hidden;border-radius:24px;border:1px solid var(--rose);background:var(--blanc);box-shadow:0 16px 38px rgba(107,47,91,.08);transition:transform .25s,box-shadow .25s,border-color .25s}
+    .langage:hover{transform:translateY(-5px);border-color:var(--champagne);box-shadow:0 24px 52px rgba(107,47,91,.17)}
+    .langage img{display:block;width:100%;aspect-ratio:1;object-fit:cover}
+    .langage-txt{display:grid;gap:.25rem;padding:1.1rem 1.2rem 1.4rem;background:linear-gradient(180deg,#FFF9F5,#FBEAF0)}
+    .langage strong{font:400 1.32rem var(--display)}
+    .langage-txt span{font-size:.92rem;color:var(--prune-doux)}
+    @media (max-width:860px){.langages-accueil{grid-template-columns:1fr 1fr}}
+
+    /* Les trois abonnements : le petit titre au-dessus */
+    .abo-sur{font:600 .8rem/1 var(--texte);letter-spacing:.18em;text-transform:uppercase;color:#A8763F;text-align:center;margin:0 auto .9rem}
+
+    /* Carrousel d'articles */
+    .carrousel{position:relative}
+    .car-piste{display:flex;gap:1.2rem;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:.5rem .2rem 1.2rem;scrollbar-width:none;-ms-overflow-style:none}
+    .car-piste::-webkit-scrollbar{display:none}
+    .car-carte{flex:0 0 calc((100% - 3.6rem) / 4);min-width:235px;scroll-snap-align:start;display:flex;flex-direction:column;border-radius:24px;overflow:hidden;background:var(--blanc);border:1px solid var(--rose);text-decoration:none;color:var(--prune);box-shadow:0 16px 38px rgba(107,47,91,.08);transition:transform .25s,box-shadow .25s,border-color .25s}
+    .car-carte:hover{transform:translateY(-5px);border-color:var(--champagne);box-shadow:0 24px 52px rgba(107,47,91,.17)}
+    .car-carte img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover}
+    .car-txt{padding:1.1rem 1.2rem 1.4rem;display:grid;gap:.4rem}
+    .car-cat{font:600 .74rem/1 var(--texte);letter-spacing:.13em;text-transform:uppercase;color:#A8763F}
+    .car-carte h3{font-size:1.18rem;line-height:1.3}
+    .car-carte p{font-size:.93rem;color:var(--prune-doux)}
+    .car-nav{position:absolute;top:40%;z-index:2;width:46px;height:46px;border-radius:50%;border:1px solid var(--champagne-clair);background:rgba(255,255,255,.96);box-shadow:0 12px 28px rgba(107,47,91,.2);cursor:pointer;display:grid;place-items:center;transition:transform .2s,opacity .2s}
+    .car-nav:hover{transform:scale(1.08)}
+    .car-nav[disabled]{opacity:.35;cursor:default;transform:none}
+    .car-nav svg{width:20px;height:20px;fill:none;stroke:var(--prune);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    .car-prev{left:-16px}.car-next{right:-16px}
+    @media (max-width:1100px){.car-prev{left:4px}.car-next{right:4px}}
+    @media (max-width:980px){.car-carte{flex-basis:calc((100% - 1.2rem) / 2)}}
+    @media (max-width:620px){.car-carte{flex-basis:84%}.car-nav{display:none}}
 </style>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Genesolia", "url": "https://genesolia.fr/", "inLanguage": "fr", "description": "Des outils gratuits pour comprendre ce qui se répète dans ta famille : arbre familial, méthode des deux cycles, numérologie, thème astral, signe maya et rêves."}</script>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/", "logo": "https://genesolia.fr/apple-touch-icon.png", "email": "contact@genesolia.fr", "sameAs": ["https://www.instagram.com/genesolia.officiel/"]}</script>
@@ -328,24 +388,17 @@
       </div>
     </section>
 
-    <section class="bloc entree-voyage" aria-labelledby="ev-titre" style="padding:3.2rem 0;background:linear-gradient(180deg,#FDF3EF,#FFF9F7)">
+    <section class="bloc entree-voyage" aria-labelledby="ev-titre">
       <div class="conteneur">
-        <div class="bloc-tete" style="text-align:center;margin-inline:auto"><h2 id="ev-titre">Ta carte de naissance : ce que tu portes en arrivant</h2><p>Un petit voyage en trois pas : ta date de naissance, un premier indice, et la suite qui te ressemble.</p></div>
+        <div class="bloc-tete ev-tete"><h2 id="ev-titre">Bienvenue</h2><p>Un petit voyage en trois pas : ta date de naissance, un premier indice, et la suite qui te ressemble.</p></div>
         <div class="ev-grille">
           <figure class="ev-laura">
-            <img src="assets/laura-photo.webp?v=1" width="640" height="640" alt="Laura, la créatrice de Genesolia" loading="lazy">
+            <span class="ev-halo"><img src="assets/laura-photo.webp?v=1" width="640" height="640" alt="Laura, la créatrice de Genesolia" loading="lazy"></span>
             <figcaption>Laura, créatrice de Genesolia,<br>t’accompagne dans ce voyage</figcaption>
             <a class="btn btn-trait ev-qui" href="la-demarche.html">Qui suis-je&nbsp;?</a>
           </figure>
-          <div id="pdn-zone"></div>
+          <div class="ev-carte"><div id="pdn-zone"></div></div>
         </div>
-        <style>
-          .ev-grille{display:grid;grid-template-columns:auto 1fr;gap:2.2rem;align-items:center;max-width:62rem;margin-inline:auto}
-          .ev-laura{margin:0;text-align:center}
-          .ev-laura img{width:190px;height:190px;border-radius:50%;object-fit:cover;border:3px solid var(--champagne);box-shadow:0 14px 36px rgba(107,47,91,.16)}
-          .ev-laura figcaption{margin-top:.7rem;font-size:.88rem;color:var(--prune-doux)}
-          @media (max-width:760px){.ev-grille{grid-template-columns:1fr;gap:1.4rem}.ev-laura img{width:130px;height:130px}}
-        </style>
       </div>
     </section>
 
@@ -353,10 +406,22 @@
       <div class="conteneur">
         <div class="bloc-tete" style="text-align:center;margin-inline:auto"><h2>Tes cadeaux : quatre langages pour voir d’où ça vient</h2><p>Tes numéros, tes astres, ton prénom, tes rêves : des outils offerts, à explorer quand tu veux.</p></div>
         <div class="langages-accueil">
-          <a class="langage" href="theme-numerologique.html"><span class="langage-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 4L7 20M17 4l-2 16M4.5 9h16M3.5 15h16"/></svg></span><strong>Tes numéros</strong><span>Ton thème numérologique gratuit</span></a>
-          <a class="langage" href="theme-astral.html"><span class="langage-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><path d="M12 8l1.2 2.8 3 .2-2.3 2 .7 3L12 14.4 9.4 16l.7-3-2.3-2 3-.2z"/></svg></span><strong>Tes astres</strong><span>Ton thème astral gratuit</span></a>
-          <a class="langage" href="ton-prenom.html"><span class="langage-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 19l3.5-12h1L13 19M6.3 15h5.4"/><path d="M15 9.5c1.5-1.4 4.5-1 4.5 1.5V19M19.5 13.5c-3-.4-5 .4-5 2.6 0 1.6 1.2 2.4 2.5 2.4s2.5-1 2.5-2"/></svg></span><strong>Ton prénom</strong><span>Sa signification et ses nombres</span></a>
-          <a class="langage" href="symbolique-des-reves.html"><span class="langage-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 4a8 8 0 1 0 5 13A7 7 0 0 1 15 4z"/></svg></span><strong>Tes rêves</strong><span>Leur symbolique, ce qui revient</span></a>
+          <a class="langage" href="theme-numerologique.html">
+            <img src="assets/guide/guide-nombres.webp" width="320" height="320" alt="" loading="lazy">
+            <span class="langage-txt"><strong>Tes numéros</strong><span>Ton thème numérologique, offert</span></span>
+          </a>
+          <a class="langage" href="theme-astral.html">
+            <img src="assets/guide/guide-etoiles.webp" width="320" height="320" alt="" loading="lazy">
+            <span class="langage-txt"><strong>Tes astres</strong><span>Ton thème astral, offert</span></span>
+          </a>
+          <a class="langage" href="ton-prenom.html">
+            <img src="assets/guide/guide-transmission.webp" width="320" height="320" alt="" loading="lazy">
+            <span class="langage-txt"><strong>Ton prénom</strong><span>Sa signification et ses nombres</span></span>
+          </a>
+          <a class="langage" href="symbolique-des-reves.html">
+            <img src="assets/guide/guide-reves.webp" width="320" height="320" alt="" loading="lazy">
+            <span class="langage-txt"><strong>Tes rêves</strong><span>Leur symbolique, ce qui revient</span></span>
+          </a>
         </div>
         <p class="portes-plus">Signe maya, ciel du mois, jeux en famille… <a href="outils.html">Voir tous les outils</a></p>
       </div>
@@ -364,7 +429,7 @@
 
     <section class="bloc avis-publies avis-seul" data-avis-publies="3" aria-labelledby="avis-titre">
       <div class="conteneur">
-        <h2 id="avis-titre">Elle a essayé</h2>
+        <h2 id="avis-titre">Témoignage vérifié</h2>
         <div class="avis-liste" data-avis-liste><figure><blockquote>« Quoi de mieux que d’avoir une application personnalisée pour apprendre, comprendre, et qui est capable de t’aider à explorer puis gérer ta lignée, ton passé, ton présent ainsi que tes émotions ? Voilà ce que cette application m’a apporté, et encore plus. N’hésitez pas, faites comme moi, essayez-la : c’est l’adopter ! Merci pour cette expérience, aussi inédite que concluante. Félicitations pour votre travail, je vous mets 10 sur 10 : très clair, complète et vraiment à la hauteur de mes attentes personnelles. »</blockquote><figcaption>Amélie<span class="avis-verifie">✓ Avis vérifié</span></figcaption></figure></div>
         <p class="avis-lien"><a href="avis.html">Toi aussi, laisse ton avis</a></p>
       </div>
@@ -373,7 +438,7 @@
     <section class="bloc bloc-doux" id="abonnements" aria-labelledby="abo-titre">
       <div class="conteneur">
         <div class="offres-accueil">
-          <p class="cercle-sur">Trois abonnements</p>
+          <p class="abo-sur">Trois abonnements</p>
           <h2 id="abo-titre">Tout commence gratuitement. Va plus loin quand tu veux.</h2>
           <div class="abo-grille">
             <a class="abo abo-spirale" href="ma-spirale.html">
@@ -441,23 +506,35 @@
     <section class="bloc" id="blog-accueil" aria-labelledby="blog-titre">
       <div class="conteneur">
         <div class="bloc-tete" style="text-align:center;margin-inline:auto"><h2 id="blog-titre">Les derniers articles</h2><p>Place dans la fratrie, veuvage précoce, remariages, transfuge de classe : ce qui se répète d'une génération à l'autre, expliqué simplement.</p></div>
-        <div class="blog-cartes">
-          <a href="meme-place-qu-un-ancetre-fratrie.html">
-            <img src="assets/images/blog-filles-garcons-fratrie-800.webp" width="800" height="420" alt="" loading="lazy">
-            <div><span>Ce qui se répète</span><h3>Même place qu'un ancêtre dans la fratrie</h3><p>Ce que dit Walter Toman sur la place dans la fratrie, et comment repérer ces échos dans ton arbre.</p></div>
-          </a>
-          <a href="veuvage-precoce-generations.html">
-            <img src="assets/images/blog-deuil-non-fait-mort-jeune-800.webp" width="800" height="420" alt="" loading="lazy">
-            <div><span>Ce qui se répète</span><h3>Veuves de génération en génération</h3><p>Le veuvage précoce qui se répète dans les familles, et ce qu'il transmet.</p></div>
-          </a>
-          <a href="remariages-familles-recomposees-generations.html">
-            <img src="assets/images/blog-etapes-du-couple-800.webp" width="800" height="420" alt="" loading="lazy">
-            <div><span>Couple</span><h3>Plusieurs unions à chaque génération</h3><p>Ce qu'en disent McGoldrick et Irène Théry sur les remariages et les familles recomposées.</p></div>
-          </a>
-          <a href="transfuge-de-classe-nevrose-de-classe.html">
-            <img src="assets/images/blog-argent-et-lignee-800.webp" width="800" height="420" alt="" loading="lazy">
-            <div><span>Ce qui se répète</span><h3>Transfuge de classe : réussir plus que ses parents</h3><p>La névrose de classe selon Vincent de Gaulejac, les transclasses de Chantal Jaquet, et comment se libérer de la culpabilité.</p></div>
-          </a>
+        <div class="carrousel" data-carrousel>
+          <button class="car-nav car-prev" type="button" aria-label="Articles précédents"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <div class="car-piste">
+            <a class="car-carte" href="meme-place-qu-un-ancetre-fratrie.html">
+              <img src="assets/images/blog-filles-garcons-fratrie-800.webp" width="800" height="420" alt="" loading="lazy">
+              <span class="car-txt"><span class="car-cat">Ce qui se répète</span><h3>Même place qu'un ancêtre dans la fratrie</h3><p>Ce que dit Walter Toman sur la place dans la fratrie, et comment repérer ces échos dans ton arbre.</p></span>
+            </a>
+            <a class="car-carte" href="veuvage-precoce-generations.html">
+              <img src="assets/images/blog-deuil-non-fait-mort-jeune-800.webp" width="800" height="420" alt="" loading="lazy">
+              <span class="car-txt"><span class="car-cat">Ce qui se répète</span><h3>Veuves de génération en génération</h3><p>Le veuvage précoce qui se répète dans les familles, et ce qu'il transmet.</p></span>
+            </a>
+            <a class="car-carte" href="remariages-familles-recomposees-generations.html">
+              <img src="assets/images/blog-etapes-du-couple-800.webp" width="800" height="420" alt="" loading="lazy">
+              <span class="car-txt"><span class="car-cat">Couple</span><h3>Plusieurs unions à chaque génération</h3><p>Ce qu'en disent McGoldrick et Irène Théry sur les remariages et les familles recomposées.</p></span>
+            </a>
+            <a class="car-carte" href="transfuge-de-classe-nevrose-de-classe.html">
+              <img src="assets/images/blog-argent-et-lignee-800.webp" width="800" height="420" alt="" loading="lazy">
+              <span class="car-txt"><span class="car-cat">Ce qui se répète</span><h3>Transfuge de classe : réussir plus que ses parents</h3><p>La névrose de classe selon Vincent de Gaulejac, et comment se libérer de la culpabilité.</p></span>
+            </a>
+            <a class="car-carte" href="le-ciel-du-mois.html">
+              <img src="assets/images/blog-ciel-800.webp" width="800" height="420" alt="" loading="lazy">
+              <span class="car-txt"><span class="car-cat">Chaque mois</span><h3>Le ciel du mois : lune, éclipses, rétrogrades</h3><p>Les phénomènes réels du ciel, les nombres du mois, un geste et une question pour ta famille.</p></span>
+            </a>
+            <a class="car-carte" href="annee-personnelle-2027.html">
+              <img src="assets/images/blog-annee-personnelle-800.webp" width="800" height="420" alt="" loading="lazy">
+              <span class="car-txt"><span class="car-cat">Numérologie</span><h3>Année personnelle 2027 : calcule la tienne</h3><p>Ton année en numérologie, de 1 à 9 : ce qu'elle t'invite à vivre, mois par mois.</p></span>
+            </a>
+          </div>
+          <button class="car-nav car-next" type="button" aria-label="Articles suivants"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
         </div>
         <p class="portes-plus"><a href="blog.html">Tous les articles</a></p>
       </div>
@@ -569,6 +646,24 @@
         });
       });
     })();
+  </script>
+
+  <script>
+  (function () {
+    var c = document.querySelector('[data-carrousel]'); if (!c) return;
+    var piste = c.querySelector('.car-piste'), prec = c.querySelector('.car-prev'), suiv = c.querySelector('.car-next');
+    function pas() { var carte = piste.querySelector('.car-carte'); return carte ? carte.getBoundingClientRect().width + 19 : 280; }
+    function etat() {
+      var max = piste.scrollWidth - piste.clientWidth - 2;
+      prec.disabled = piste.scrollLeft <= 2;
+      suiv.disabled = piste.scrollLeft >= max;
+    }
+    prec.addEventListener('click', function () { piste.scrollBy({ left: -pas(), behavior: 'smooth' }); });
+    suiv.addEventListener('click', function () { piste.scrollBy({ left: pas(), behavior: 'smooth' }); });
+    piste.addEventListener('scroll', etat, { passive: true });
+    window.addEventListener('resize', etat);
+    etat();
+  })();
   </script>
 
   <script>
