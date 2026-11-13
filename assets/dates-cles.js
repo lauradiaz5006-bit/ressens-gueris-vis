@@ -136,7 +136,9 @@
     '.dk-err{color:#A3324A;font-weight:600;margin:0;min-height:1.2em;font-size:.92rem}.dk-f .btn{width:100%;justify-content:center}' +
     '.dk-liste{list-style:none;margin:1rem 0;padding:0;display:grid;gap:.7rem}.dk-liste li{background:#fff;border:1px solid var(--rose);border-radius:14px;padding:.8rem 1rem;line-height:1.5;font-size:.95rem}' +
     '.dk-liste span{display:block;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:#A9773F;font-weight:700}.dk-liste b{display:block;font-family:var(--display);font-weight:400;font-size:1.15rem}.dk-liste a{color:var(--prune);font-weight:600}' +
-    '.dk-ok{text-align:center}.dk-ok .btn{margin:.4rem auto}';
+    '.dk-ok{text-align:center}.dk-ok .btn{margin:.4rem auto}' +
+    '.dk-carte .appli-fermer{position:sticky;top:-1.6rem;float:right;margin:-1.6rem -1.2rem 0 0;z-index:6;background:var(--nacre);border:1px solid var(--rose);border-radius:50%;width:2.6rem;height:2.6rem;display:grid;place-items:center;font-size:1.5rem;box-shadow:0 2px 8px rgba(46,19,56,.12)}' +
+    '.dk-fin{width:100%;justify-content:center;margin-top:1rem}';
   function ouvrir() {
     if (!document.getElementById('dk-css')) { var st = document.createElement('style'); st.id = 'dk-css'; st.textContent = CSS; document.head.appendChild(st); }
     var an = anneeVisee(), f = document.createElement('div');
@@ -155,7 +157,7 @@
       '<p class="a-mini" style="margin:0;font-size:.8rem;color:var(--prune-doux)">Le calcul se fait sur ton appareil. Avec ton heure et ta ville, tes dates sont encore plus précises.</p></form></div>';
     document.body.appendChild(f);
     var fo = f.querySelector('form'), err = f.querySelector('.dk-err'), dl = f.querySelector('#dk-villes');
-    f.addEventListener('click', function (e) { if (e.target === f || e.target.closest('.appli-fermer')) f.remove(); });
+    f.addEventListener('click', function (e) { if (e.target === f || e.target.closest('.appli-fermer') || e.target.closest('.appli-fermer-bas')) f.remove(); });
     fo.ville.addEventListener('focus', function () { villes().catch(function () {}); }, { once: true });
     fo.ville.addEventListener('input', function () {
       if (!VILLES) return; var q = cle(this.value); if (q.length < 2) return;
@@ -185,9 +187,10 @@
         if (window.umami) try { window.umami.track('dates-cles', { heure: r.heure ? 'oui' : 'non' }); } catch (x) {}
         f.querySelector('.dk-carte').innerHTML = '<button type="button" class="appli-fermer" aria-label="Fermer">×</button><div class="dk-ok"><img src="/assets/icones/icone-192.png" alt="" width="64" height="64">' +
           '<h2>' + esc(prenom) + ', tes dates clés ' + r.annee + '</h2><p>Ton fichier agenda se télécharge : ouvre-le, et toutes tes périodes s’ajoutent à ton calendrier. Tu les reçois aussi par e-mail.</p>' +
+          (/iPhone|iPad/.test(navigator.userAgent) ? '<p style="font-size:.85rem">Sur iPhone : touche la flèche de téléchargement en haut de Safari, ouvre le fichier, puis «&nbsp;Ajouter tout&nbsp;» dans Calendrier.</p>' : '') +
           '<button class="btn btn-plein" type="button" data-dk-re>Télécharger à nouveau</button></div>' + liste(r) +
           (r.asc ? '' : '<p class="dk-sous" style="font-size:.9rem">Avec ton heure et ta ville de naissance, tu aurais aussi les dates liées à ta Lune, ton ascendant et ta vocation.</p>') +
-          '<div class="dk-ok"><p>Pour vivre ces périodes pas à pas, Le Cercle t’accompagne toute l’année.</p><a class="btn btn-trait" href="abonnement.html">Découvrir Le Cercle, 1<sup>er</sup> mois offert</a></div>';
+          '<div class="dk-ok"><p>Pour vivre ces périodes pas à pas, Le Cercle t’accompagne toute l’année.</p><a class="btn btn-trait" href="abonnement.html">Découvrir Le Cercle, 1<sup>er</sup> mois offert</a><button type="button" class="btn btn-trait dk-fin appli-fermer-bas">Fermer</button></div>';
         f.querySelector('[data-dk-re]').addEventListener('click', function () { telecharger(r); });
       }).catch(function () { bt.disabled = false; bt.textContent = 'Recevoir mes dates clés'; err.textContent = 'Le calcul n’a pas fonctionné. Réessaie dans un instant.'; });
     });
