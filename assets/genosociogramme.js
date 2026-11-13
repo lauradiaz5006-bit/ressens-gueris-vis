@@ -4055,7 +4055,7 @@
     if (!l.length) h += '<p>Rien n’apparaît encore. Ajoute les dates, les métiers et les événements marquants de chacun : les répétitions apparaissent toutes seules.</p>';
     if (R.length) h += '<h2>Les répétitions visibles</h2>' + R.map(carte).join('');
     if (A.length) h += (R.length ? '<h2>Ce que l’arbre fait apparaître</h2>' : '') + A.map(carte).join('');
-    if (REPS_PHOTO) h += '<div style="break-before:page"><h2>La Constellation Familiale</h2><p>Photo du plateau enregistrée pour ce dossier.</p><img src="' + REPS_PHOTO + '" style="width:100%;border-radius:4mm;margin-top:3mm" alt="Constellation Familiale"></div>';
+    if (REPS_PHOTO) h += '<div class="page"><h2>La Constellation Familiale</h2><p>Photo du plateau enregistrée pour ce dossier.</p><img src="' + REPS_PHOTO + '" style="display:block;max-width:100%;max-height:220mm;border-radius:4mm;margin-top:3mm" alt="Constellation Familiale"></div>';
     return h + '<p class="pied">Généré le ' + esc(dateLongue(d)) + ' sur genesolia.fr. Ce sont des pistes de lecture symbolique, pas des vérités sur ta famille. Elles ne remplacent pas un avis médical ou psychologique.</p></body></html>';
   }
   var REPS_PHOTO = null;   /* photo du plateau de constellation (bilan.constellation), jointe au PDF « Ce qui se répète » d'un dossier praticien */
