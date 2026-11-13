@@ -689,10 +689,10 @@
       var CERCLE = ['cercleMois', 'cercleFondatrice', 'cercleAn', 'cercleAnnee'];
       function bouton(cle, texte, plein) { return S[cle] ? '<a class="btn ' + (plein ? 'btn-plein' : 'btn-trait') + '" href="#" data-payer="' + cle + '">' + texte + '</a>' : ''; }
       Promise.all([
-        sb.from('acces_premium').select('offre, valide_jusqu, note').eq('user_id', user.id).maybeSingle(),
+        sb.from('acces_premium').select('offre, valide_jusqu, note').eq('user_id', user.id),
         S.cercleFondatrice ? sb.rpc('places_fondatrice') : Promise.resolve({ data: 0 })
       ]).then(function (r) {
-        var a = r[0] && r[0].data, places = Number(r[1] && r[1].data) || 0;
+        var a = window.GenesoliaLigneAcces(r[0] && r[0].data), places = Number(r[1] && r[1].data) || 0;
         var m = (user && user.user_metadata) || {};
         var valide = a && a.valide_jusqu && new Date(a.valide_jusqu) > new Date();
         var paye = !!(a && /^Stripe/.test(a.note || '') && valide);
