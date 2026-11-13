@@ -108,13 +108,16 @@ window.GenesoliaCoffre = (function () {
     };
     zone.querySelector('[data-coffre-non]').onclick = function () { zone.hidden = true; };
   }
-  /* Lecture et écriture chiffrées, avec repli sur la table si les fonctions ne sont pas encore installées */
+  /* Lecture chiffrée. Si le coffre ne répond pas, on signale l'échec au lieu de renvoyer « vide » :
+     un vide silencieux fait croire à la page que la personne n'a encore rien écrit, et le prochain
+     enregistrement remplace tout ce qu'elle avait écrit avant. Chaque appelant a déjà son repli
+     (garder la copie de l'appareil, ou afficher « n'a pas pu être chargé ») ; c'est celui-là qui doit
+     prendre la main. Un coffre qui répond « rien » (pas encore d'écrit) renvoie bien null, sans erreur. */
   function lire(sb, user, mois) {
     var rpc = mois === null ? sb.rpc('parcours_lire') : sb.rpc('carnet_lire', { p_mois: mois });
     return rpc.then(function (r) {
-      if (!r.error) return r.data;
-      var q = mois === null ? sb.from('parcours').select('data').eq('user_id', user.id) : sb.from('carnets').select('data').eq('user_id', user.id).eq('mois', mois);
-      return q.maybeSingle().then(function (x) { return x && x.data ? x.data.data : null; });
+      if (r && r.error) throw r.error;
+      return r ? r.data : null;
     });
   }
   /* Écriture TOUJOURS chiffrée : plus de repli en clair (les fonctions sont installées). En cas d'erreur, rien n'est écrit en clair : l'appelant réessaie. */
