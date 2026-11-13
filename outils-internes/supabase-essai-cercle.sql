@@ -31,7 +31,7 @@ begin
     into usr from auth.users where id = u;
   if usr.email is null or usr.email_confirmed_at is null then return jsonb_build_object('ok', false, 'statut', 'confirmation'); end if;
 
-  select * into a from public.acces_premium where user_id = u;
+  select * into a from public.acces_premium where user_id = u order by valide_jusqu desc nulls last limit 1;
   if found and a.valide_jusqu > now() then
     return jsonb_build_object('ok', true, 'statut', 'deja', 'fin', a.valide_jusqu);
   end if;

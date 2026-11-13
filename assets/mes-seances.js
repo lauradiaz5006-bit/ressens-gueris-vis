@@ -1,6 +1,6 @@
 /* Genesolia · Le Cercle · « Mes séances »
    Les séances se débloquent une par une, au fil des étapes : à l'étape N, les séances 1 à N de chaque cycle autorisé sont débloquées
-   (cycle 1 seul pour l'offre « cycle1 », cycles 1 et 2 pour Le Cercle). La page rappelle le point de départ et marque « Pour toi ».
+   Réservé aux membres du Cercle (offres abonnement, offert, cercle, admin) : les deux cycles. La page rappelle le point de départ et marque « Pour toi ».
    Au premier « Écouter », la séance est enregistrée comme ouverte par le serveur (ouvrir_seance), dans l'ordre des étapes.
    Le compte est fait par le serveur (fonction ouvrir_seance) ; l'écoute passe par la fonction « seance-audio » (lien d'une heure).
    Textes et règles : outils-internes/supabase-seances.sql et assets/seances.js. */
@@ -8,7 +8,8 @@
   var SB_URL = 'https://qsvzzkjtjsznfntahvvh.supabase.co', SB_KEY = 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg';
   var CAT = window.GENESOLIA_SEANCES || { cycles: {}, liste: [] };
   var racine = document.getElementById('seances');
-  var sb = null, user = null, jeton = '', acces = null, ouvertes = {}, PD = null, base = true, choix = '';
+  var sb = null, user = null, jeton = '', acces = null, debutAcces = null, ouvertes = {}, PD = null, base = true, choix = '';
+  var OFFRES_MEMBRE = ['abonnement', 'offert', 'cercle', 'admin'];   /* mêmes offres que site.js : « pass », « pro » et « rapport » ne sont pas membres */
   try { sb = window.supabase.createClient(SB_URL, SB_KEY); } catch (e) {}
   var MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
   var ORDRE = [10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -23,16 +24,13 @@
   function dateCourte(d) { return d.getDate() + (d.getDate() === 1 ? 'er' : '') + ' ' + MOIS[d.getMonth()]; }
 
   /* ───── Ce qu'on sait de la personne ───── */
-  function cyclesPermis() { if (!acces) return []; return acces.offre === 'cycle1' ? [1] : [1, 2]; }
-  function credits(cy) {
-    if (!acces) return 0;
-    var n = 0; Object.keys(ouvertes).forEach(function (k) { if (ouvertes[k] === cy) n++; });
-    return Math.max(0, moisDepuis(acces.cree_le) - n);
-  }
-  function prochaine() { return acces ? plusMois(acces.cree_le, moisDepuis(acces.cree_le)) : null; }
+  /* Les séances font partie du Cercle : mêmes offres que partout ailleurs sur le site (site.js, chargerAcces).
+     « pass » (Ma spirale), « pro » et « rapport » ne sont PAS membres et n'ouvrent aucune séance. */
+  function cyclesPermis() { return acces ? [1, 2] : []; }
   function etapeDe(s) { return ORDRE.indexOf(s.mois) + 1; }
-  /* Le parcours démarre le jour de l'inscription : le premier mois (étape 1) est offert, la séance 1 est débloquée tout de suite */
-  function debut() { return acces ? new Date(acces.cree_le) : new Date(); }
+  /* Le parcours démarre le jour de l'inscription : le premier mois (étape 1) est offert, la séance 1 est débloquée tout de suite.
+     Il démarre au plus ancien accès encore valide : offrir un mois de plus ne remet pas le parcours à zéro. */
+  function debut() { return debutAcces || new Date(); }
   function etapeEnCours() { return acces ? Math.min(moisDepuis(debut()), 12) : 0; }
   function debloquee(s) { return !!acces && cyclesPermis().indexOf(s.cycle) >= 0 && (etapeDe(s) <= etapeEnCours() || !!ouvertes[s.id]); }
   function abonner(t) { return '<p class="ms-verrou ms-abonne">' + t + ' <a href="abonnement.html">Tu veux t’abonner ?</a></p>'; }
@@ -100,7 +98,7 @@
     if (!user) h += '<section class="ms-encadre"><h2>Connecte-toi pour retrouver tes séances</h2><p><a class="btn btn-plein" href="login.html">Me connecter</a></p></section>';
     else if (!acces) h += '<section class="ms-encadre"><h2>Tes séances arrivent avec Le Cercle</h2><p>Les séances audio font partie de l’abonnement au Cercle : la première se débloque dès ton entrée, puis une nouvelle à chaque étape. Tu peux les découvrir ci-dessous.</p><p><a class="btn btn-plein" href="abonnement.html">Tu veux t’abonner ?</a></p></section>';
     /* plus d'encadré « Ce que tu veux travailler » : les séances suivent les étapes, il n'y a pas de choix à faire */
-    if (!base) h += '<p class="ms-note ms-attente">L’ouverture des séances se met en place : elle sera disponible très bientôt.</p>';
+    if (!base) h += '<p class="ms-note ms-attente">Tes séances ne se chargent pas pour l’instant. Recharge la page, et si ça continue écris-nous à contact@genesolia.fr.</p>';
     /* d'abord les séances débloquées (la plus récente en premier), puis, cycle par cycle, celles qui arrivent */
     var actives = CAT.liste.filter(debloquee).sort(function (a, b) { return (etapeDe(b) - etapeDe(a)) || (a.cycle - b.cycle); });
     if (actives.length) h += '<section class="ms-cycle ms-actives"><h2>À écouter maintenant</h2><p class="ms-cycle-st">Tes séances débloquées, à réécouter aussi souvent que tu veux.</p>' +
@@ -183,8 +181,19 @@
         chargerPD()
       ]).then(function (v) {
         var maintenant = new Date();
-        acces = (v[0] || []).filter(function (a) { return a.valide_jusqu && new Date(a.valide_jusqu) > maintenant; }).sort(function (a, b) { return new Date(b.valide_jusqu) - new Date(a.valide_jusqu); })[0] || null;
-        if (acces && !acces.cree_le) acces.cree_le = maintenant.toISOString();
+        var membre = (v[0] || []).filter(function (a) { return OFFRES_MEMBRE.indexOf(a.offre) >= 0 && a.valide_jusqu; });
+        acces = membre.filter(function (a) { return new Date(a.valide_jusqu) > maintenant; })
+                      .sort(function (a, b) { return new Date(b.valide_jusqu) - new Date(a.valide_jusqu); })[0] || null;
+        /* Le parcours part du plus ancien accès de la période en cours : on remonte les accès qui se suivent
+           (chacun fini il y a moins de 60 jours), pour qu'un mois offert en plus, ou un renouvellement en retard,
+           n'efface pas les étapes déjà franchies. Un retour après une longue coupure repart bien de l'étape 1. */
+        var RECENT = 60 * 24 * 3600 * 1000;
+        debutAcces = membre.filter(function (a) { return new Date(a.valide_jusqu) > maintenant - RECENT; })
+          .reduce(function (d, a) {
+            if (!a.cree_le) return d;
+            var x = new Date(a.cree_le);
+            return (!d || x < d) ? x : d;
+          }, null) || (acces ? maintenant : null);
         (v[1] || []).forEach(function (o) { ouvertes[o.seance] = o.cycle; });
         PD = v[2];
         afficher();
