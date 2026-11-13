@@ -77,8 +77,8 @@
           '<a class="btn btn-trait" href="login.html?inscription&retour=s-abonner.html"><span>Créer mon compte</span><small>gratuit, une minute</small></a></div>';
         return;
       }
-      Promise.all([sb.from('acces_premium').select('offre,valide_jusqu,note').eq('user_id', user.id).maybeSingle(), places()]).then(function (r) {
-        var a = r[0] && r[0].data, n = Number(r[1]), valide = a && new Date(a.valide_jusqu) > new Date();
+      Promise.all([sb.from('acces_premium').select('offre,valide_jusqu,note').eq('user_id', user.id), places()]).then(function (r) {
+        var a = window.GenesoliaLigneAcces(r[0] && r[0].data), n = Number(r[1]), valide = a && new Date(a.valide_jusqu) > new Date();
         if (valide && /^Stripe/.test(a.note || '')) { z.innerHTML = '<p><b>Ton abonnement au Cercle est actif.</b></p><div class="sa-choix"><a class="btn btn-plein" href="cercle.html"><span>Ouvrir mon Cercle</span></a></div>'; return; }
         var essai = valide && /essai/i.test(a.note || '') ? 'Ton mois offert court jusqu’au <b>' + new Date(a.valide_jusqu).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' }) + '</b> : abonne-toi maintenant, ton accès continue sans coupure.' : '';
         boutons(isNaN(n) ? 1 : n, essai);

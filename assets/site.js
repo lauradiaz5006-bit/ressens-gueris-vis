@@ -1572,6 +1572,15 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
     var el = e.target.closest('[data-payer]'); if (!el) return;
     e.preventDefault(); payer(el.getAttribute('data-payer'), el);
   });
+  /* La ligne d'accès qui compte, quand un compte en a plusieurs (essai puis abonnement, mois offert en plus) :
+   la plus lointaine encore valide, sinon la plus récente. maybeSingle() échouait dès deux lignes et renvoyait
+   null, ce qui faisait passer un membre pour un non-membre. */
+window.GenesoliaLigneAcces = function (lignes) {
+  var l = (lignes || []).filter(function (x) { return x && x.valide_jusqu; });
+  var m = new Date();
+  var valides = l.filter(function (x) { return new Date(x.valide_jusqu) > m; });
+  return (valides.length ? valides : l).sort(function (x, y) { return new Date(y.valide_jusqu) - new Date(x.valide_jusqu); })[0] || null;
+};
   window.GenesoliaAcces = { payant: estPayant, verifier: aAcces, proposer: proposerAchat, produit: produit, membre: membre, pass: pass, spirale: spirale, etape: etape, etapesSuivi: ETAPES_SUIVI, ouvrirParEtapes: ouvrirParEtapes, payer: payer };
   /* Membres du Cercle : plus d'encart « carnet offert » ni de petit carré ; à la place, le lien vers leurs deux livres du mois */
   /* Membre qui arrive sur la page de vente (lien « Le Cercle » resté de sa visite avant connexion) : direct dans son espace. ?voir=1 pour relire la page. */

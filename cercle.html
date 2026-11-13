@@ -499,8 +499,8 @@
       var bd = vue.querySelector('[data-deconnexion]');
       if (bd) bd.addEventListener('click', function () { bd.disabled = true; (sb ? sb.auth.signOut() : Promise.resolve()).then(function () { location.href = 'login.html'; }, function () { location.href = 'login.html'; }); });
       var za = vue.querySelector('[data-abo]');
-      if (za && sb) sb.from('acces_premium').select('offre, valide_jusqu, note').maybeSingle().then(function (q) {
-        var a = q && q.data; if (!a || !a.valide_jusqu) return;
+      if (za && sb) sb.from('acces_premium').select('offre, valide_jusqu, note').then(function (q) {
+        var a = window.GenesoliaLigneAcces(q && q.data); if (!a || !a.valide_jusqu) return;
         var fin = new Date(a.valide_jusqu).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
         var essai = /essai/i.test(a.note || '');
         var paye = /^Stripe/.test(a.note || ''), Sx = window.GENESOLIA_STRIPE || {};
