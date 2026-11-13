@@ -327,7 +327,7 @@
     /* l'outil parle du dossier de la personne accompagnée, pas de la famille de la praticienne */
     var h1 = document.querySelector('.titre-arbre h1'); if (h1 && h1.firstChild && h1.firstChild.nodeType === 3) h1.firstChild.nodeValue = 'Dossier client·e';
     var lm = $('fp-moi-ligne'); if (lm && lm.lastChild && lm.lastChild.nodeType === 3) lm.lastChild.nodeValue = ' C’est mon·ma client·e';
-    [['bt-rapport', 'Le rapport'], ['bt-encadrer', 'Arbre à encadrer'], ['fa-titre', 'Sa lignée dans les étoiles'], ['fn-titre', 'Sa lignée en nombres'], ['fr-titre', 'Le rapport de son arbre']].forEach(function (x) { var e = $(x[0]); if (e) e.textContent = x[1]; });
+    [['bt-rapport', 'Le rapport'], ['bt-encadrer', 'Arbre à encadrer'], ['fe-titre', 'Sa lignée dans les étoiles'], ['fn-titre', 'Sa lignée en nombres'], ['fr-titre', 'Le rapport de son arbre']].forEach(function (x) { var e = $(x[0]); if (e) e.textContent = x[1]; });
     var ft = $('fr-titre'), fp = ft && ft.parentNode.querySelector('p');
     if (fp) fp.textContent = 'Les répétitions de son arbre expliquées, avec des pistes de réflexion et un geste à essayer pour chacune.';
     outilsCabinet();
