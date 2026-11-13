@@ -186,7 +186,7 @@
         try { localStorage.setItem('genesolia-dates-cles', JSON.stringify({ a: r.annee, t: Date.now() })); } catch (x) {}
         if (window.umami) try { window.umami.track('dates-cles', { heure: r.heure ? 'oui' : 'non' }); } catch (x) {}
         f.querySelector('.dk-carte').innerHTML = '<button type="button" class="appli-fermer" aria-label="Fermer">×</button><div class="dk-ok"><img src="/assets/icones/icone-192.png" alt="" width="64" height="64">' +
-          '<h2>' + esc(prenom) + ', tes dates clés ' + r.annee + '</h2><p>Ton fichier agenda se télécharge : ouvre-le, et toutes tes périodes s’ajoutent à ton calendrier. Tu les reçois aussi par e-mail.</p>' +
+          '<h2>' + esc(prenom) + ', tes dates clés ' + r.annee + '</h2><p>Ton fichier agenda se télécharge : ouvre-le, et toutes tes périodes s’ajoutent à ton calendrier. <span id="dk-mail">Tu les reçois aussi par e-mail.</span></p>' +
           (/iPhone|iPad/.test(navigator.userAgent) ? '<p style="font-size:.85rem">Sur iPhone : touche la flèche de téléchargement en haut de Safari, ouvre le fichier, puis «&nbsp;Ajouter tout&nbsp;» dans Calendrier.</p>' : '') +
           '<button class="btn btn-plein" type="button" data-dk-re>Télécharger à nouveau</button></div>' + liste(r) +
           (r.asc ? '' : '<p class="dk-sous" style="font-size:.9rem">Avec ton heure et ta ville de naissance, tu aurais aussi les dates liées à ta Lune, ton ascendant et ta vocation.</p>') +
@@ -199,7 +199,8 @@
   function lienRetour(e) { return 'https://genesolia.fr/dates-cles.html#' + btoa(JSON.stringify({ d: e.date, h: e.heure || '', z: e.tz, a: e.lat, o: e.lon, y: e.annee })); }
   function envoyer(corps, prenom, email) {
     fetch(FN, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(corps) })
-      .then(function (r) { if (!r.ok) throw new Error('fn'); })
+      .then(function (r) { if (!r.ok) throw new Error('fn'); return r.json().catch(function () { return {}; }); })
+      .then(function (j) { var m = document.getElementById('dk-mail'); if (m && j && j.deja) m.textContent = 'Tu as déjà reçu ce mail avec cette adresse : cherche-le dans tes spams ou « Promotions ». Il n’est envoyé qu’une fois par adresse.'; })
       .catch(function () { /* fonction pas encore en place : la demande est au moins rangée dans « demandes » */
         if (window.GenesoliaEnvoyer) window.GenesoliaEnvoyer('Dates clés ' + corps.annee, { prenom: prenom, email: email, annee: String(corps.annee), lien: corps.lien }, '').catch(function () {});
       });
