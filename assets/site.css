@@ -7,6 +7,8 @@
 @font-face{font-family:'Gilda Display';font-style:normal;font-weight:400;font-display:swap;src:url(polices/gilda-display-latin-400-normal.woff2) format('woff2')}
 @font-face{font-family:'Nunito Sans';font-style:normal;font-weight:400;font-display:swap;src:url(polices/nunito-sans-latin-400-normal.woff2) format('woff2')}
 @font-face{font-family:'Nunito Sans';font-style:normal;font-weight:600 700;font-display:swap;src:url(polices/nunito-sans-latin-600-normal.woff2) format('woff2')}
+@font-face{font-family:'Caveat';font-style:normal;font-weight:400;font-display:swap;src:url(polices/caveat-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'Caveat';font-style:normal;font-weight:600 700;font-display:swap;src:url(polices/caveat-latin-600-normal.woff2) format('woff2')}
 :root{
   --nacre:#FFF9F7;          /* fond principal, blanc rosé */
   --rose:#F7E6E8;           /* fonds secondaires, rose poudré */
@@ -20,6 +22,7 @@
   --rayon:22px;
   --mesure:36rem;
   --display:'Gilda Display',Georgia,serif;
+  --manuscrit:'Caveat','Segoe Script','Bradley Hand',cursive;
   --texte:'Nunito Sans',system-ui,sans-serif;
 }
 
