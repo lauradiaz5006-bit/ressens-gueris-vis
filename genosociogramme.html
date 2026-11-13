@@ -110,7 +110,24 @@
     .rep-bloc{display:grid;gap:.15rem}
     /* panneau large : les cartes en deux colonnes (grille), les menus et les titres sur toute la largeur */
     .panneau.deux-colonnes .reps-groupe,.panneau.deux-colonnes .rep-theme-bloc[open],.panneau.deux-colonnes .exos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem;align-items:start}
-    .panneau.deux-colonnes .reps-groupe > .exos-titre,.panneau.deux-colonnes .reps-groupe > .rep-aide,.panneau.deux-colonnes .rep-theme-bloc > summary,.panneau.deux-colonnes .rep-theme-bloc > .rep-aide,.panneau.deux-colonnes .exos > .exos-titre,.panneau.deux-colonnes .exos > .rep-aide{grid-column:1/-1}
+    .panneau.deux-colonnes .reps-groupe > .exos-titre,.panneau.deux-colonnes .reps-groupe > .rep-aide,.panneau.deux-colonnes .rep-theme-bloc > summary,.panneau.deux-colonnes .rep-theme-bloc > .rep-aide,.panneau.deux-colonnes .exos > .exos-titre,.panneau.deux-colonnes .exos > .rep-pont{position:relative;margin:1rem .15rem .5rem;padding:1rem 1.1rem;border:1px solid #EBCFD5;border-radius:16px;background:linear-gradient(140deg,#FFF9F5,#FBF0F2)}
+    .rep-pont-t,.rep-pont-espace p b{font-weight:700;color:#4A2142}
+    .rep-pont-t{margin:0 0 .6rem}
+    .rep-pont p{margin:0 0 .7rem;font-size:.92rem;color:#6B4761}
+    .rep-pont-l{display:grid;gap:.55rem}
+    .rep-pont-l a{display:block;padding:.65rem .85rem;border:1px solid #EBCFD5;border-radius:12px;background:#fff;text-decoration:none;color:inherit}
+    .rep-pont-l a b{display:block;color:#6B2F5B}
+    .rep-pont-l a span{font-size:.85rem;color:#8E6383}
+    .rep-pont .btn{font-size:.92rem;padding:.55rem 1.1rem}
+    .rep-pont-x{position:absolute;top:.35rem;right:.45rem;border:0;background:none;font-size:1.1rem;line-height:1;color:#8E6383;cursor:pointer;padding:.3rem}
+    .mt-pont{position:relative;margin:1.1rem 0 .4rem;padding:1rem 1.1rem;border:1px solid #EBCFD5;border-radius:16px;background:linear-gradient(140deg,#FFF9F5,#FBF0F2)}
+    .mt-pont p{margin:0 0 .7rem;font-size:.95rem;color:#6B4761}
+    .mt-pont p b,.mt-pont-t{color:#4A2142;font-weight:700}
+    .mt-pont-t{display:block;margin:0 0 .6rem}
+    .mt-pont a:not(.btn){display:block;padding:.7rem .9rem;border:1px solid #EBCFD5;border-radius:12px;background:#fff;text-decoration:none;color:inherit;margin-bottom:.55rem}
+    .mt-pont a:not(.btn) b{display:block;color:#6B2F5B}
+    .mt-pont a:not(.btn) span{font-size:.88rem;color:#8E6383}
+    .rep-aide{grid-column:1/-1}
     .panneau.deux-colonnes .reps-enfants{grid-template-columns:repeat(3,minmax(0,1fr))}
     .bt-reps-pdf{font:600 .74rem/1 var(--texte);padding:.4rem .7rem;border:1px solid var(--rose);border-radius:99px;background:var(--blanc);color:var(--prune);cursor:pointer}.bt-reps-pdf:hover{border-color:var(--prune)}.bt-reps-pdf[hidden]{display:none}
     .compte{background:var(--prune);color:var(--blanc);font:600 .75rem/1 var(--texte);border-radius:999px;padding:.3rem .55rem}
@@ -1040,11 +1057,11 @@
   <script src="assets/guematrie.js"></script>
   <script src="assets/prenoms-echos.js?v=1"></script>
   <script src="assets/praticien-outils.js?v=12"></script>
-  <script src="assets/genosociogramme.js?v=2026-11-13a"></script>
+  <script src="assets/genosociogramme.js?v=2026-11-13b"></script>
   <script src="assets/import-arbre.js?v=2026-10-26"></script>
   <script src="assets/tutoriel-arbre.js?v=2026-10-21"></script>
   <script src="assets/date-deroulante.js?v=1"></script>
-  <script src="assets/arbre-telephone.js?v=2026-11-12c"></script>
+  <script src="assets/arbre-telephone.js?v=2026-11-13b"></script>
   <script>
   /* Le bouton de la barre déclenche le même import que celui de « Sauvegardes » */
   document.getElementById('bt-importer-barre').addEventListener('click', function () { document.getElementById('bt-importer').click(); });
