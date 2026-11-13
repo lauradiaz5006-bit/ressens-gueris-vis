@@ -221,7 +221,15 @@
     return '<h2 class="mt-h2">Ce qui se répète <span>' + L.total + '</span></h2>' +
       (pt.length ? '<p class="mt-groupe">' + esc(L.titrePortrait) + '</p>' + pt.map(carteR).join('') : '') +
       (r.length ? (pt.length ? '<p class="mt-groupe">' + (CLI() ? 'Dans sa lignée' : 'Dans ta lignée') + '</p>' : '') + r.map(carteR).join('') : '') +
+      (CLI() ? '' : pontOffres()) +
       (G.imprimerReps ? '<button type="button" class="btn btn-trait mt-reps-pdf" data-reps-pdf data-compte="la liste de ce qui se répète">Enregistrer la liste en PDF</button>' : '') + '<p class="mt-discret">Ce sont des pistes de lecture, pas des vérités sur ta famille.</p>';
+  }
+  /* Après la lecture : garder son arbre (espace gratuit), puis aller plus loin (Ma spirale, Le Cercle) */
+  function pontOffres() {
+    var co = !!(G.connecte && G.connecte()), vu = false;
+    try { vu = localStorage.getItem('geno-pont-espace') === '1'; } catch (e) {}
+    return (!co && !vu ? '<div class="mt-pont mt-pont-espace"><p><b>Ta lecture est apparue.</b> Crée ton espace gratuit pour garder ton arbre sur tous tes appareils et recevoir tes lectures par e-mail.</p><a class="btn btn-plein" href="login.html">Créer mon espace gratuit</a></div>' : '') +
+      '<div class="mt-pont"><p class="mt-pont-t">Tu veux travailler ce qui se répète ?</p><a href="ma-spirale.html"><b>Ma spirale</b><span>Dépose ce qui revient, relie-le à ta lignée, libère-le à ton rythme.</span></a><a href="abonnement.html"><b>Le Cercle</b><span>Un parcours guidé en 12 étapes. Ton 1<sup>er</sup> mois est offert.</span></a></div>';
   }
   function vueRapport(e) {
     var n = Object.keys(e.people).length;
