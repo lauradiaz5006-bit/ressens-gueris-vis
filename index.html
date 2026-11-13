@@ -281,6 +281,14 @@
     .abo-btn{margin-top:auto;background:#fff;color:#2E1338;pointer-events:none}
     .abo-cercle .abo-btn{background:#F3DCC0}
     @media (max-width:900px){.abo-grille{grid-template-columns:1fr;max-width:26rem;margin-inline:auto}.abo-cercle{transform:none}.abo-cercle:hover{transform:translateY(-6px)}}
+    /* Qui suis-je, sous la photo de Laura */
+    .ev-qui{margin-top:.8rem;display:inline-block}
+    /* Psychogénéalogie : une petite illustration à côté du texte */
+    .psy-grille{display:grid;grid-template-columns:auto 1fr;gap:2rem;align-items:center;max-width:52rem;margin-inline:auto}
+    .psy-illu{width:150px;height:150px;border-radius:50%;object-fit:cover;box-shadow:0 14px 36px rgba(107,47,91,.16)}
+    .psy-grille .psy-texte{color:var(--prune-doux)}
+    .psy-grille h2{color:var(--prune);margin-bottom:.8rem}
+    @media (max-width:640px){.psy-grille{grid-template-columns:1fr;text-align:center}.psy-illu{margin-inline:auto}}
 </style>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Genesolia", "url": "https://genesolia.fr/", "inLanguage": "fr", "description": "Des outils gratuits pour comprendre ce qui se répète dans ta famille : arbre familial, méthode des deux cycles, numérologie, thème astral, signe maya et rêves."}</script>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/", "logo": "https://genesolia.fr/apple-touch-icon.png", "email": "contact@genesolia.fr", "sameAs": ["https://www.instagram.com/genesolia.officiel/"]}</script>
@@ -299,12 +307,24 @@
             <a class="btn btn-plein btn-grand" href="genosociogramme.html">Dessiner mon arbre, gratuit</a>
             <a class="btn btn-trait btn-grand" href="#abonnements">Voir les abonnements</a>
           </div>
-          <p class="rassurance">Génosociogramme en ligne gratuit, sans inscription pour commencer. Les calculs se font sur ton appareil.</p>
         </div>
 
         <figure class="ouv-visuel">
           <img src="assets/images/arbre-lumiere-1000.webp" srcset="assets/images/arbre-lumiere-600.webp 600w, assets/images/arbre-lumiere-1000.webp 1000w" sizes="(max-width:860px) 85vw, 540px" width="1000" height="1000" alt="L’arbre de lumière Genesolia : ses racines dorées, ses feuilles roses et or, et le cercle des lunes" fetchpriority="high">
         </figure>
+      </div>
+    </section>
+
+    <section class="aimant dk-bande" aria-label="Ton agenda astro offert">
+      <div class="conteneur dk-b">
+        <img src="assets/images/dates-cles-agenda.webp" width="560" height="614" alt="Un agenda avec trois dates clés de l’année et leurs phrases" loading="lazy">
+        <div>
+          <p class="dk-sur">Offert · ton agenda astro</p>
+          <h2>Ton agenda astro ciblé</h2>
+          <p>Tes périodes de l’année, calculées à partir de ta date de naissance, chacune avec sa phrase clé : à écrire sur ton agenda. Tu le reçois après tes infos, et aussi par e-mail.</p>
+          <ul class="dk-points"><li>Tes périodes d’ouverture, d’amour, de changement</li><li>Un petit rappel juste avant chacune</li><li>Un lien pour aller plus loin, à chaque date</li></ul>
+          <button class="btn" type="button" data-dates-cles>Recevoir mon agenda astro</button>
+        </div>
       </div>
     </section>
 
@@ -315,6 +335,7 @@
           <figure class="ev-laura">
             <img src="assets/laura-photo.webp?v=1" width="640" height="640" alt="Laura, la créatrice de Genesolia" loading="lazy">
             <figcaption>Laura, créatrice de Genesolia,<br>t’accompagne dans ce voyage</figcaption>
+            <a class="btn btn-trait ev-qui" href="la-demarche.html">Qui suis-je&nbsp;?</a>
           </figure>
           <div id="pdn-zone"></div>
         </div>
@@ -328,29 +349,24 @@
       </div>
     </section>
 
-    <section class="bloc" id="cycles">
+    <section class="bloc bloc-doux" id="commencer">
       <div class="conteneur">
-        <div class="bloc-tete">
-          <h2>Au centre : deux besoins, deux cycles</h2>
-          <p>Ce qui se répète dans ta vie touche presque toujours à l'un de ces deux besoins. Savoir lequel, c'est savoir où regarder, dans ta vie comme dans ton histoire familiale.</p>
+        <div class="bloc-tete" style="text-align:center;margin-inline:auto"><h2>Tes cadeaux : quatre langages pour voir d’où ça vient</h2><p>Tes numéros, tes astres, ton prénom, tes rêves : des outils offerts, à explorer quand tu veux.</p></div>
+        <div class="langages-accueil">
+          <a class="langage" href="theme-numerologique.html"><span class="langage-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 4L7 20M17 4l-2 16M4.5 9h16M3.5 15h16"/></svg></span><strong>Tes numéros</strong><span>Ton thème numérologique gratuit</span></a>
+          <a class="langage" href="theme-astral.html"><span class="langage-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><path d="M12 8l1.2 2.8 3 .2-2.3 2 .7 3L12 14.4 9.4 16l.7-3-2.3-2 3-.2z"/></svg></span><strong>Tes astres</strong><span>Ton thème astral gratuit</span></a>
+          <a class="langage" href="ton-prenom.html"><span class="langage-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 19l3.5-12h1L13 19M6.3 15h5.4"/><path d="M15 9.5c1.5-1.4 4.5-1 4.5 1.5V19M19.5 13.5c-3-.4-5 .4-5 2.6 0 1.6 1.2 2.4 2.5 2.4s2.5-1 2.5-2"/></svg></span><strong>Ton prénom</strong><span>Sa signification et ses nombres</span></a>
+          <a class="langage" href="symbolique-des-reves.html"><span class="langage-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 4a8 8 0 1 0 5 13A7 7 0 0 1 15 4z"/></svg></span><strong>Tes rêves</strong><span>Leur symbolique, ce qui revient</span></a>
         </div>
-        <div class="deux">
-          <article>
-            <img class="illu" src="assets/accueil/racine.webp?v=2" width="960" height="540" alt="Le cycle des racines : des racines d'arbre dans la terre, symbole de la sécurité et de l'histoire familiale" loading="lazy">
-            <h3>Cycle 1 · La racine</h3>
-            <p class="cy-q">Survivre, être en sécurité, avoir sa place.</p>
-            <p>Tu le reconnais à la peur de manquer, à l'insécurité qui revient même quand tout va bien, au besoin de tout contrôler, à la difficulté de demander ou de prendre ta place.</p>
-            <p class="cy-bl">Blessures souvent liées : <a href="blessure-de-rejet.html">le rejet</a>, <a href="blessure-d-humiliation.html">l'humiliation</a>, <a href="blessure-d-injustice.html">l'injustice</a>.</p>
-          </article>
-          <article class="haut">
-            <img class="illu" src="assets/accueil/coeur.webp?v=2" width="960" height="540" alt="Le cycle du cœur : une lumière en forme de cœur, symbole du besoin d'aimer et d'être aimé·e" loading="lazy">
-            <h3>Cycle 2 · Le cœur</h3>
-            <p class="cy-q">Aimer, être aimé·e, la façon dont tu aimes.</p>
-            <p>Tu le reconnais aux relations qui se ressemblent, parfois jusqu'à la relation toxique, à la peur d'être quitté·e, au besoin de tout donner pour être choisi·e, à la confiance qui se brise toujours au même endroit.</p>
-            <p class="cy-bl">Blessures souvent liées : <a href="blessure-d-abandon.html">l'abandon</a>, <a href="blessure-de-trahison.html">la trahison</a>.</p>
-          </article>
-        </div>
-        <div class="actions" style="margin-top:1.6rem"><a class="btn btn-plein" href="methode.html">Comprendre la méthode des deux cycles</a><a class="btn btn-trait" href="parcours.html">Trouver mon cycle (10 min)</a><a class="btn btn-trait" href="blessures-de-l-ame.html">Les cinq blessures de l'âme</a></div>
+        <p class="portes-plus">Signe maya, ciel du mois, jeux en famille… <a href="outils.html">Voir tous les outils</a></p>
+      </div>
+    </section>
+
+    <section class="bloc avis-publies avis-seul" data-avis-publies="3" aria-labelledby="avis-titre">
+      <div class="conteneur">
+        <h2 id="avis-titre">Elle a essayé</h2>
+        <div class="avis-liste" data-avis-liste><figure><blockquote>« Quoi de mieux que d’avoir une application personnalisée pour apprendre, comprendre, et qui est capable de t’aider à explorer puis gérer ta lignée, ton passé, ton présent ainsi que tes émotions ? Voilà ce que cette application m’a apporté, et encore plus. N’hésitez pas, faites comme moi, essayez-la : c’est l’adopter ! Merci pour cette expérience, aussi inédite que concluante. Félicitations pour votre travail, je vous mets 10 sur 10 : très clair, complète et vraiment à la hauteur de mes attentes personnelles. »</blockquote><figcaption>Amélie<span class="avis-verifie">✓ Avis vérifié</span></figcaption></figure></div>
+        <p class="avis-lien"><a href="avis.html">Toi aussi, laisse ton avis</a></p>
       </div>
     </section>
 
@@ -396,24 +412,54 @@
       </div>
     </section>
 
-    <section class="bloc avis-publies avis-seul" data-avis-publies="3" aria-labelledby="avis-titre">
+    <section class="bloc" id="cycles">
       <div class="conteneur">
-        <h2 id="avis-titre">Elle a essayé</h2>
-        <div class="avis-liste" data-avis-liste><figure><blockquote>« Quoi de mieux que d’avoir une application personnalisée pour apprendre, comprendre, et qui est capable de t’aider à explorer puis gérer ta lignée, ton passé, ton présent ainsi que tes émotions ? Voilà ce que cette application m’a apporté, et encore plus. N’hésitez pas, faites comme moi, essayez-la : c’est l’adopter ! Merci pour cette expérience, aussi inédite que concluante. Félicitations pour votre travail, je vous mets 10 sur 10 : très clair, complète et vraiment à la hauteur de mes attentes personnelles. »</blockquote><figcaption>Amélie<span class="avis-verifie">✓ Avis vérifié</span></figcaption></figure></div>
-        <p class="avis-lien"><a href="avis.html">Toi aussi, laisse ton avis</a></p>
+        <div class="bloc-tete">
+          <h2>Au centre : deux besoins, deux cycles</h2>
+          <p>Ce qui se répète dans ta vie touche presque toujours à l'un de ces deux besoins. Savoir lequel, c'est savoir où regarder, dans ta vie comme dans ton histoire familiale.</p>
+        </div>
+        <div class="deux">
+          <article>
+            <img class="illu" src="assets/accueil/racine.webp?v=2" width="960" height="540" alt="Le cycle des racines : des racines d'arbre dans la terre, symbole de la sécurité et de l'histoire familiale" loading="lazy">
+            <h3>Cycle 1 · La racine</h3>
+            <p class="cy-q">Survivre, être en sécurité, avoir sa place.</p>
+            <p>Tu le reconnais à la peur de manquer, à l'insécurité qui revient même quand tout va bien, au besoin de tout contrôler, à la difficulté de demander ou de prendre ta place.</p>
+            <p class="cy-bl">Blessures souvent liées : <a href="blessure-de-rejet.html">le rejet</a>, <a href="blessure-d-humiliation.html">l'humiliation</a>, <a href="blessure-d-injustice.html">l'injustice</a>.</p>
+          </article>
+          <article class="haut">
+            <img class="illu" src="assets/accueil/coeur.webp?v=2" width="960" height="540" alt="Le cycle du cœur : une lumière en forme de cœur, symbole du besoin d'aimer et d'être aimé·e" loading="lazy">
+            <h3>Cycle 2 · Le cœur</h3>
+            <p class="cy-q">Aimer, être aimé·e, la façon dont tu aimes.</p>
+            <p>Tu le reconnais aux relations qui se ressemblent, parfois jusqu'à la relation toxique, à la peur d'être quitté·e, au besoin de tout donner pour être choisi·e, à la confiance qui se brise toujours au même endroit.</p>
+            <p class="cy-bl">Blessures souvent liées : <a href="blessure-d-abandon.html">l'abandon</a>, <a href="blessure-de-trahison.html">la trahison</a>.</p>
+          </article>
+        </div>
+        <div class="actions" style="margin-top:1.6rem"><a class="btn btn-plein" href="methode.html">Comprendre la méthode des deux cycles</a><a class="btn btn-trait" href="parcours.html">Trouver mon cycle (10 min)</a><a class="btn btn-trait" href="blessures-de-l-ame.html">Les cinq blessures de l'âme</a></div>
       </div>
     </section>
 
-    <section class="bloc bloc-doux" id="commencer">
+    <section class="bloc" id="blog-accueil" aria-labelledby="blog-titre">
       <div class="conteneur">
-        <div class="bloc-tete" style="text-align:center;margin-inline:auto"><h2>Tes cadeaux : quatre langages pour voir d’où ça vient</h2><p>Tes numéros, tes astres, ton prénom, tes rêves : des outils offerts, à explorer quand tu veux.</p></div>
-        <div class="langages-accueil">
-          <a class="langage" href="theme-numerologique.html"><span class="langage-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 4L7 20M17 4l-2 16M4.5 9h16M3.5 15h16"/></svg></span><strong>Tes numéros</strong><span>Ton thème numérologique gratuit</span></a>
-          <a class="langage" href="theme-astral.html"><span class="langage-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><path d="M12 8l1.2 2.8 3 .2-2.3 2 .7 3L12 14.4 9.4 16l.7-3-2.3-2 3-.2z"/></svg></span><strong>Tes astres</strong><span>Ton thème astral gratuit</span></a>
-          <a class="langage" href="ton-prenom.html"><span class="langage-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 19l3.5-12h1L13 19M6.3 15h5.4"/><path d="M15 9.5c1.5-1.4 4.5-1 4.5 1.5V19M19.5 13.5c-3-.4-5 .4-5 2.6 0 1.6 1.2 2.4 2.5 2.4s2.5-1 2.5-2"/></svg></span><strong>Ton prénom</strong><span>Sa signification et ses nombres</span></a>
-          <a class="langage" href="symbolique-des-reves.html"><span class="langage-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 4a8 8 0 1 0 5 13A7 7 0 0 1 15 4z"/></svg></span><strong>Tes rêves</strong><span>Leur symbolique, ce qui revient</span></a>
+        <div class="bloc-tete" style="text-align:center;margin-inline:auto"><h2 id="blog-titre">Les derniers articles</h2><p>Place dans la fratrie, veuvage précoce, remariages, transfuge de classe : ce qui se répète d'une génération à l'autre, expliqué simplement.</p></div>
+        <div class="blog-cartes">
+          <a href="meme-place-qu-un-ancetre-fratrie.html">
+            <img src="assets/images/blog-filles-garcons-fratrie-800.webp" width="800" height="420" alt="" loading="lazy">
+            <div><span>Ce qui se répète</span><h3>Même place qu'un ancêtre dans la fratrie</h3><p>Ce que dit Walter Toman sur la place dans la fratrie, et comment repérer ces échos dans ton arbre.</p></div>
+          </a>
+          <a href="veuvage-precoce-generations.html">
+            <img src="assets/images/blog-deuil-non-fait-mort-jeune-800.webp" width="800" height="420" alt="" loading="lazy">
+            <div><span>Ce qui se répète</span><h3>Veuves de génération en génération</h3><p>Le veuvage précoce qui se répète dans les familles, et ce qu'il transmet.</p></div>
+          </a>
+          <a href="remariages-familles-recomposees-generations.html">
+            <img src="assets/images/blog-etapes-du-couple-800.webp" width="800" height="420" alt="" loading="lazy">
+            <div><span>Couple</span><h3>Plusieurs unions à chaque génération</h3><p>Ce qu'en disent McGoldrick et Irène Théry sur les remariages et les familles recomposées.</p></div>
+          </a>
+          <a href="transfuge-de-classe-nevrose-de-classe.html">
+            <img src="assets/images/blog-argent-et-lignee-800.webp" width="800" height="420" alt="" loading="lazy">
+            <div><span>Ce qui se répète</span><h3>Transfuge de classe : réussir plus que ses parents</h3><p>La névrose de classe selon Vincent de Gaulejac, les transclasses de Chantal Jaquet, et comment se libérer de la culpabilité.</p></div>
+          </a>
         </div>
-        <p class="portes-plus">Signe maya, ciel du mois, jeux en famille… <a href="outils.html">Voir tous les outils</a></p>
+        <p class="portes-plus"><a href="blog.html">Tous les articles</a></p>
       </div>
     </section>
 
@@ -428,25 +474,35 @@
       </div>
     </div></section>
 
-    <section class="aimant dk-bande" aria-label="Tes dates clés offertes">
-      <div class="conteneur dk-b">
-        <img src="assets/images/dates-cles-agenda.webp" width="560" height="614" alt="Un agenda avec trois dates clés de l’année et leurs phrases" loading="lazy">
-        <div>
-          <p class="dk-sur">Offert · ton année</p>
-          <h2>Tes dates clés 2027</h2>
-          <p>Tes périodes de l’année, calculées à partir de ta date de naissance, chacune avec sa phrase clé. Tu les mets dans ton agenda en un clic, et tu les reçois aussi par e-mail.</p>
-          <ul class="dk-points"><li>Tes périodes d’ouverture, d’amour, de changement</li><li>Un petit rappel juste avant chacune</li><li>Un lien pour aller plus loin, à chaque date</li></ul>
-          <button class="btn" type="button" data-dates-cles>Recevoir mes dates clés</button>
+    <section class="bloc" aria-labelledby="cercle-accueil-titre">
+      <div class="conteneur">
+        <div class="cercle-accueil">
+          <div>
+            <p class="cercle-sur">Le Cercle · 1<sup>er</sup> mois offert</p>
+            <h2 id="cercle-accueil-titre">Ouvre ton mois, et vois si Le Cercle est fait pour toi.</h2>
+            <p>Des exercices, des lectures ciblées avec ta numérologie et ton astrologie, et des audios pour un vrai travail de fond, chaque mois.</p>
+            <form data-cercle-mail class="aimant-f" style="flex-wrap:wrap">
+              <input type="text" name="prenom" placeholder="Ton prénom" autocomplete="given-name" required>
+              <input type="email" name="email" placeholder="Ton e-mail" autocomplete="email" required>
+              <button class="btn btn-plein" type="submit">Ouvrir mon mois offert</button>
+              <p class="aimant-err" aria-live="polite"></p>
+            </form>
+            <p class="cercle-prix">Sans carte bancaire · tu peux arrêter à tout moment</p>
+          </div>
+          <img src="assets/cercle/accueil-carnets.webp" width="300" height="225" alt="Les carnets du Cercle : Renaissance et Libération" loading="lazy">
         </div>
       </div>
     </section>
 
     <section class="bloc" id="psychogenealogie-texte">
       <div class="conteneur">
-        <div class="bloc-tete" style="text-align:center;margin-inline:auto"><h2>Qu'est-ce que la psychogénéalogie ?</h2></div>
-        <div style="max-width:46rem;margin:0 auto;color:var(--prune-doux)">
-          <p>La psychogénéalogie, parfois appelée transmission transgénérationnelle, part d'une idée simple&nbsp;: certains schémas reviennent d'une génération à l'autre sans qu'on les ait choisis, parce qu'une histoire non dite continue, sans bruit, à orienter les choix de celles et ceux qui viennent après.</p>
-          <p style="margin-top:1rem">Concrètement, ça commence par le génosociogramme&nbsp;: ton arbre familial, enrichi des dates et des liens, qui fait apparaître les répétitions. <a href="psychogenealogie.html">En savoir plus sur la psychogénéalogie</a>.</p>
+        <div class="psy-grille">
+          <img class="psy-illu" src="assets/images/arbre-lumiere-600.webp" width="600" height="600" alt="" loading="lazy">
+          <div class="psy-texte">
+            <h2>Qu'est-ce que la psychogénéalogie ?</h2>
+            <p>La psychogénéalogie, parfois appelée transmission transgénérationnelle, part d'une idée simple&nbsp;: certains schémas reviennent d'une génération à l'autre sans qu'on les ait choisis, parce qu'une histoire non dite continue, sans bruit, à orienter les choix de celles et ceux qui viennent après.</p>
+            <p style="margin-top:1rem">Concrètement, ça commence par le génosociogramme&nbsp;: ton arbre familial, enrichi des dates et des liens, qui fait apparaître les répétitions. <a href="psychogenealogie.html">En savoir plus sur la psychogénéalogie</a>.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -513,6 +569,23 @@
         });
       });
     })();
+  </script>
+
+  <script>
+  (function () {
+    var f = document.querySelector('[data-cercle-mail]'); if (!f) return;
+    f.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var err = f.querySelector('.aimant-err'), b = f.querySelector('button');
+      var prenom = f.prenom.value.trim(), email = f.email.value.trim();
+      if (!prenom || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'Indique ton prénom et une adresse e-mail valide.'; return; }
+      err.textContent = ''; b.disabled = true; b.textContent = 'Envoi…';
+      var d = new FormData(f); d.append('source', 'accueil-cercle');
+      (window.GenesoliaEnvoyer ? window.GenesoliaEnvoyer('Le Cercle - accueil', d, '') : Promise.reject()).then(function () {
+        f.outerHTML = '<p class="aimant-merci">Merci ' + prenom.replace(/[<>&]/g, '') + ', direction ton mois offert : <a class="btn btn-plein" href="abonnement.html">Ouvrir Le Cercle</a></p>';
+      }).catch(function () { b.disabled = false; b.textContent = 'Ouvrir mon mois offert'; err.textContent = 'L’envoi n’a pas fonctionné. Réessaie dans un instant.'; });
+    });
+  })();
   </script>
 
   <script>
