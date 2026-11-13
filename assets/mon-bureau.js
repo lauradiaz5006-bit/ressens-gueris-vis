@@ -208,6 +208,9 @@
   var PRIORITE = {
     gen: [
       /* Ajout 13 nov. 2026 : articles en ligne, prets a indexer */
+      'https://genesolia.fr/signe-astrologique-qui-revient-famille.html',
+      'https://genesolia.fr/chemin-de-vie-qui-se-repete-famille.html',
+      'https://genesolia.fr/nombre-maitre-heritage-familial.html',
       'https://genesolia.fr/synchronicite-jung-psychologie.html',
       'https://genesolia.fr/synchronicite-ou-coincidence-difference.html',
       'https://genesolia.fr/synchronicites-familiales-generations.html',
