@@ -332,7 +332,7 @@ window.GenesoliaPratique = (function () {
   function urlD(j) { return 'https://genesolia.fr/deontologie.html?d=' + j; }
   /* o : { sb, user, id, nom } */
   function deontologie(o) {
-    var f = fenetre('<h2>Déontologie · ' + esc(o.nom || '') + '</h2><p class="pr-o-aide">Un document de cadre à envoyer à votre client·e avant de démarrer une séance. Le texte de base est le même pour tous vos dossiers ; ajoutez ci-dessous ce qui est propre à votre pratique ou à cette personne. C’est un modèle de départ : relisez-le et adaptez-le à votre façon de travailler.</p>' +
+    var f = fenetre('<h2>Déontologie · ' + esc(o.nom || '') + '</h2><p class="pr-o-aide">Un document de cadre à envoyer à votre client·e avant de démarrer une séance. Le texte de base est le même pour tous vos dossiers ; ajoutez ci-dessous ce qui est propre à votre pratique ou à cette personne. C’est un modèle de départ : relisez-le et adaptez-le à votre façon de travailler. Pour votre propre pratique, voyez aussi <a href="deontologie-praticien.html" target="_blank" rel="noopener">notre cadre de déontologie praticien·ne</a>.</p>' +
       '<div data-corps><p class="pr-o-aide pr-chargeur"><i></i>Chargement…</p></div>', o.tiroir);
     var courant = null;
     function statutTexte(d) {

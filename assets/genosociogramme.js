@@ -4055,12 +4055,14 @@
     if (!l.length) h += '<p>Rien n’apparaît encore. Ajoute les dates, les métiers et les événements marquants de chacun : les répétitions apparaissent toutes seules.</p>';
     if (R.length) h += '<h2>Les répétitions visibles</h2>' + R.map(carte).join('');
     if (A.length) h += (R.length ? '<h2>Ce que l’arbre fait apparaître</h2>' : '') + A.map(carte).join('');
+    if (REPS_PHOTO) h += '<div style="break-before:page"><h2>La Constellation Familiale</h2><p>Photo du plateau enregistrée pour ce dossier.</p><img src="' + REPS_PHOTO + '" style="width:100%;border-radius:4mm;margin-top:3mm" alt="Constellation Familiale"></div>';
     return h + '<p class="pied">Généré le ' + esc(dateLongue(d)) + ' sur genesolia.fr. Ce sont des pistes de lecture symbolique, pas des vérités sur ta famille. Elles ne remplacent pas un avis médical ou psychologique.</p></body></html>';
   }
+  var REPS_PHOTO = null;   /* photo du plateau de constellation (bilan.constellation), jointe au PDF « Ce qui se répète » d'un dossier praticien */
   function imprimerReps(btn, avecArbre) {
     var t0 = btn ? btn.textContent : '';
     if (btn) { btn.disabled = true; btn.textContent = 'Préparation du PDF…'; }
-    polices().then(function (css) { return pdfDepuisHtml(htmlReps(css, avecArbre ? svgExport(css) : null), nomFichier(avecArbre ? 'arbre-et-ce-qui-se-repete' : 'ce-qui-se-repete')); })
+    Promise.all([polices(), chargerPhotoConstellation().catch(function () { return null; })]).then(function (rr) { REPS_PHOTO = rr[1]; var css = rr[0]; return pdfDepuisHtml(htmlReps(css, avecArbre ? svgExport(css) : null), nomFichier(avecArbre ? 'arbre-et-ce-qui-se-repete' : 'ce-qui-se-repete')); })
       .then(function () { if (btn) { btn.disabled = false; btn.textContent = t0; } }, function () { if (btn) { btn.disabled = false; btn.textContent = t0; } imprimerRepsFenetre(btn, avecArbre); });
   }
   function imprimerRepsFenetre(btn, avecArbre) {
