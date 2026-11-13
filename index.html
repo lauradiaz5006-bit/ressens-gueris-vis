@@ -313,6 +313,26 @@
 
 
 
+    <section class="bloc entree-voyage" aria-labelledby="ev-titre" style="padding:3.2rem 0;background:linear-gradient(180deg,#FDF3EF,#FFF9F7)">
+      <div class="conteneur">
+        <div class="bloc-tete" style="text-align:center;margin-inline:auto"><h2 id="ev-titre">Ta carte de naissance : ce que tu portes en arrivant</h2><p>Un petit voyage en trois pas : tes nombres, ton signe, et ce qui se répète peut-être déjà avant toi.</p></div>
+        <div class="ev-grille">
+          <figure class="ev-laura">
+            <img src="assets/laura-photo.webp?v=1" width="640" height="640" alt="Laura, la créatrice de Genesolia" loading="lazy">
+            <figcaption>Laura, créatrice de Genesolia,<br>t’accompagne dans ce voyage</figcaption>
+          </figure>
+          <div id="pdn-zone"></div>
+        </div>
+        <style>
+          .ev-grille{display:grid;grid-template-columns:auto 1fr;gap:2.2rem;align-items:center;max-width:62rem;margin-inline:auto}
+          .ev-laura{margin:0;text-align:center}
+          .ev-laura img{width:190px;height:190px;border-radius:50%;object-fit:cover;border:3px solid var(--champagne);box-shadow:0 14px 36px rgba(107,47,91,.16)}
+          .ev-laura figcaption{margin-top:.7rem;font-size:.88rem;color:var(--prune-doux)}
+          @media (max-width:760px){.ev-grille{grid-template-columns:1fr;gap:1.4rem}.ev-laura img{width:130px;height:130px}}
+        </style>
+      </div>
+    </section>
+
     <script>(function () { if (new Date() > new Date('2027-01-06T23:59:59')) { var n = document.getElementById('noel'); if (n) n.hidden = true; } })();</script>
 
 
@@ -396,20 +416,6 @@
         <a href="ma-spirale.html"><img src="assets/pass/ma-spirale-visuel-540.webp" srcset="assets/pass/ma-spirale-visuel-540.webp 540w, assets/pass/ma-spirale-visuel-1080.webp 1080w" sizes="(max-width:900px) 50vw, 25vw" width="540" height="675" loading="lazy" alt="Noël : Ma spirale, l’appli pour ton enquête de lignée"></a>
       </div>
     </div></section>
-    <section class="bloc laura" id="laura" aria-labelledby="laura-titre">
-      <div class="conteneur">
-        <div class="laura-carte">
-          <span class="laura-halo"><img class="laura-img" src="assets/laura-photo.webp?v=1" width="640" height="640" alt="Laura, la créatrice de Genesolia" loading="lazy"></span>
-          <div class="laura-txt">
-            <h2 id="laura-titre">Salut, je suis Laura</h2>
-            <p>Ce sont des événements de ma propre vie qui m’ont menée jusqu’ici. En cherchant à les comprendre, j’ai découvert la psychogénéalogie, et elle ne m’a plus quittée. Je m’y suis formée, puis j’ai accompagné des personnes pendant plusieurs années, avec la psychogénéalogie, l’hypnose et l’EMDR.</p>
-            <p>Cette passion, je l’ai mise dans Genesolia : des outils simples pour voir ce qui se répète dans ta vie et dans ta lignée, comprendre d’où ça vient et t’en libérer, à ton rythme. Et pour les praticien·nes, un espace de travail pensé à partir de mes propres besoins, pour construire l’arbre ensemble, en séance, et garder le fil de chaque accompagnement.</p>
-            <p class="laura-sig">Je suis heureuse de t’accueillir ici.</p>
-            <a class="btn btn-trait" href="pourquoi-genesolia.html">Pourquoi Genesolia</a> <a class="btn btn-trait" href="methode.html">Découvrir ma méthode des deux cycles</a>
-          </div>
-        </div>
-      </div>
-    </section>
     <section class="bloc" id="cycles">
       <div class="conteneur">
         <div class="bloc-tete">
@@ -494,6 +500,7 @@
   <footer data-pied></footer>
 
   <script src="assets/site.js?v=avis2"></script>
+  <script src="assets/carte-naissance.js?v=1" defer></script>
   <script>
     (function () {
       var S = {
