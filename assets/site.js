@@ -361,9 +361,10 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
 (function () {
   var MARQUE = 'Genesolia';
   var MENU = [
-    ['genosociogramme.html', 'Ton arbre familial'],
-    ['', 'Tes numéros & astres', [['theme-numerologique.html', 'Tes numéros'], ['theme-astral.html', 'Tes astres'], ['ton-signe-maya.html', 'Ton signe maya']]],
     ['blog.html', 'Comprendre'],
+    ['genosociogramme.html', 'Ton arbre familial'],
+    ['theme-numerologique.html', 'Tes numéros'],
+    ['theme-astral.html', 'Tes astres'],
     ['offert.html', 'Tes cadeaux'],
     ['abonnements.html', 'Abonnement'],   /* une page : Ma spirale, Le Cercle, Espace pro (un sous-menu reste possible : ['', 'Nom', [[page, nom], …]]) */
     ['boutique.html', 'Boutique']
