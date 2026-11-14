@@ -245,7 +245,9 @@
       'https://genesolia.fr/lettre-du-mois.html',
       'https://genesolia.fr/lettre-dans-un-an.html',
       'https://genesolia.fr/ciel-janvier-2027.html',
-      'https://genesolia.fr/ciel-fevrier-2027.html'
+      'https://genesolia.fr/ciel-fevrier-2027.html',
+      /* Ajout 14 nov. 2026 : page "Explorée, non indexée" depuis le 16/10, malgré 10 liens internes */
+      'https://genesolia.fr/genosociogramme-vierge.html'
     ],
     str: [
       'https://www.strakara.fr/blog/stocker-palettes-valence-a7-vallee-du-rhone.html',
