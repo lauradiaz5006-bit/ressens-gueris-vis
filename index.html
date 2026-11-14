@@ -20,6 +20,11 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://genesolia.fr/assets/partage/genesolia-accueil.jpg">
   <link rel="canonical" href="https://genesolia.fr/">
+  <script>
+    if (location.hostname !== "genesolia.fr") {
+      location.replace("https://genesolia.fr/" + location.pathname.replace(/^\/ressens-gueris-vis\//, "") + location.search + location.hash);
+    }
+  </script>
   <link rel="preload" href="assets/polices/gilda-display-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/polices/nunito-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/polices/nunito-sans-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
