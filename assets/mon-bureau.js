@@ -298,7 +298,19 @@
       'https://www.strakara.fr/blog/prestataire-itinerant-depot-professionnel.html',
       'https://www.strakara.fr/caution-swikly.html',
       'https://www.strakara.fr/checklist-stockage-professionnel.html',
-      'https://www.strakara.fr/devenir-partenaire-affaires.html'
+      'https://www.strakara.fr/devenir-partenaire-affaires.html',
+      /* Ajout 14 nov. 2026 : pages "Détectée, non indexée" du rapport GSC du 14 nov., jamais explorées par Google */
+      'https://www.strakara.fr/calculette-prix-logistique.html',
+      'https://www.strakara.fr/calculette-prix-palette.html',
+      'https://www.strakara.fr/blog/stockage-professionnel-chartres-entrepot-flexible-entreprises.html',
+      'https://www.strakara.fr/blog/stockage-palettes-romilly-sur-seine-solutions-logistiques-aube.html',
+      'https://www.strakara.fr/blog/hote-occupant-lyon.html',
+      'https://www.strakara.fr/blog/stockage-ecommerce-brest-picking-expedition.html',
+      'https://www.strakara.fr/blog/stockage-ecommerce-solution-choisir.html',
+      'https://www.strakara.fr/blog/stockage-externalise-rentable-pme.html',
+      'https://www.strakara.fr/blog/strakara-coordination-facturation-etat-lieux-caution.html',
+      'https://www.strakara.fr/blog/garde-meuble-vs-stockage-professionnel.html',
+      'https://www.strakara.fr/blog/sous-traitant-industriel-atelier-flexible.html'
     ]
   };
   function rangPrio(cle, url) { return (PRIORITE[cle] || []).indexOf(url); }
