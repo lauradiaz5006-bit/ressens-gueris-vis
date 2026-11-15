@@ -180,12 +180,20 @@
   }
   function texteLimite(lim) {
     var debut = lim >= 100000 ? 'Tu as atteint le nombre d’arbres de ta formule.'
-      : lim > 0 ? 'Tu as déjà tes 3 arbres : c’est le maximum de ta formule. L’Espace praticien permet des arbres illimités.'
-      : 'Avec la formule gratuite, tu as un arbre. Le Cercle te permet d’avoir 3 arbres, et l’Espace praticien des arbres illimités.';
-    return debut + '<br><a href="abonnement.html">Découvrir Le Cercle</a> · <a href="espace-praticien.html">Découvrir l’Espace praticien</a>';
+      : lim > 0 ? 'Tu as atteint le nombre d’arbres de ton abonnement. Chaque arbre en plus : 5,99 € par mois.'
+      : 'Ton compte comprend 1 arbre. Chaque arbre en plus : 5,99 € par mois (2 en plus : 11,98 € par mois, etc.).';
+    return debut + '<br><button type="button" class="btn btn-trait" data-payer="arbreSupp" data-bientot-texte="Bientôt disponible : écris-nous à contact@genesolia.fr pour ajouter un arbre." style="margin:.6rem 0">Ajouter un arbre · 5,99 €/mois</button><br><a href="espace-praticien.html">Arbres illimités avec l’Espace praticien</a>';
+  }
+  /* Arbres en plus (5,99 €/mois par arbre) : relit l'abonnement Stripe, seulement si la personne en a un */
+  function syncArbres() {
+    return sb.from('achats').select('id', { count: 'exact', head: true }).eq('user_id', user.id).eq('produit', 'arbreSupp').then(function (r) {
+      if (!r || r.error || !r.count) return;
+      return sb.functions.invoke('arbres-sync');
+    }).then(function () {}, function () {});
   }
   function limite(t) { var z = $('arbres-limite'); z.innerHTML = t || ''; z.hidden = !t; }
   function chargerArbresSupp() {
+    syncArbres();
     sb.from('arbres_supp').select('id,nom,data,maj').eq('user_id', user.id).order('cree_le', { ascending: true }).then(function (r) {
       var tousSupp = r.error ? [] : (r.data || []);
       arbresSupp = tousSupp.filter(function (a) { return !(a.data && a.data.dossier === 'client'); });   /* les dossiers client·es sont dans Mon cabinet */
@@ -200,7 +208,7 @@
   }
   function creerArbre() {
     var b = $('bt-creer-arbre'); b.disabled = true; limite('');
-    sb.rpc('limite_arbres_supp', { uid: user.id }).then(function (r) {
+    syncArbres().then(function () { return sb.rpc('limite_arbres_supp', { uid: user.id }); }).then(function (r) {
       var lim = r && !r.error && r.data != null ? Number(r.data) : null;
       if (lim !== null && arbresSupp.length >= lim) { limite(texteLimite(lim)); return; }
       var nom = prompt('Nom du nouvel arbre (par exemple « Famille de Paul » ou « Dossier Mme D. ») :', '');
