@@ -4426,6 +4426,7 @@
     listeSupp.forEach(function (a) { h += lienArbre(a.id, a.nom || 'Autre arbre'); });
     if (erreurListe) h += '<p class="ma-aide">Tes autres arbres n’ont pas pu être chargés pour l’instant.</p>';
     h += '<span class="ma-sep"></span><button type="button" class="ma-action" data-arbre-action="creer">+ Créer un autre arbre</button>';
+    if (!ARBRE_ID && !PRATICIEN) h += '<button type="button" class="ma-action" data-arbre-action="praticien">Donner accès à mon·ma praticien·ne</button>';
     if (ARBRE_ID && !arbreBloque) h += '<button type="button" class="ma-action" data-arbre-action="renommer">Renommer cet arbre</button><button type="button" class="ma-action danger" data-arbre-action="supprimer">Supprimer cet arbre</button>';
     if (msg) h += '<div class="ma-message" role="status">' + msg + '</div>';
     m.innerHTML = h;
@@ -4446,6 +4447,17 @@
     Promise.resolve(p).then(function () { location.href = url; }, function () { location.href = url; });
   }
   function nomValide(n) { return n == null ? null : (String(n).trim().slice(0, 80) || null); }
+  /* Code à donner à son·sa praticien·ne : accès en lecture seule à l'arbre principal (voir aussi Mon espace) */
+  function codePraticien() {
+    dessinerMenuArbres('<p>Un instant…</p>');
+    var avant = (enAttente && !arbreBloque) ? envoyer() : null;
+    Promise.resolve(avant).catch(function () {}).then(function () { return sb.rpc('arbre_client_generer_code'); }).then(function (r) {
+      var d = r && r.data;
+      if (!r || r.error || !d || d.erreur) { dessinerMenuArbres('<p>Le code n’a pas pu être généré. Réessaie dans un instant.</p>'); return; }
+      var code = String(d.code || ''); code = code.length === 8 ? code.slice(0, 4) + '-' + code.slice(4) : code;
+      dessinerMenuArbres('<p><b>Ton code : ' + esc(code) + '</b></p><p>Donne-le à ton·ta praticien·ne : il·elle le saisit dans son Espace praticien et voit ton arbre, en lecture seule. Valable 7 jours. Tu peux retirer l’accès à tout moment depuis <a href="login.html">Mon espace</a>.</p>');
+    }, function () { dessinerMenuArbres('<p>Le code n’a pas pu être généré. Réessaie dans un instant.</p>'); });
+  }
   function creerArbre() {
     dessinerMenuArbres('<p>Un instant…</p>');
     sb.rpc('limite_arbres_supp', { uid: utilisateur.id }).then(function (r) {
@@ -4490,7 +4502,7 @@
     if (a) { e.preventDefault(); if (!a.classList.contains('courant')) allerVers(a.getAttribute('href')); else basculerMenuArbres(false); return; }
     var b = e.target.closest('[data-arbre-action]'); if (!b || !utilisateur || !sb) return;
     var act = b.getAttribute('data-arbre-action');
-    if (act === 'creer') creerArbre(); else if (act === 'renommer') renommerArbre(); else if (act === 'supprimer') supprimerArbre();
+    if (act === 'creer') creerArbre(); else if (act === 'renommer') renommerArbre(); else if (act === 'supprimer') supprimerArbre(); else if (act === 'praticien') codePraticien();
   });
   document.addEventListener('click', function () { if (!$('menu-arbres').hidden) basculerMenuArbres(false); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !$('menu-arbres').hidden) { basculerMenuArbres(false); $('bt-arbres').focus(); } });
