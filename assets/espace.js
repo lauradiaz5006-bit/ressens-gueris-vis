@@ -137,9 +137,14 @@
         bt.disabled = false;
         var d = r && r.data, m = $('partage-pro-msg');
         if (r.error || !d || d.erreur) { m.textContent = 'Le code n’a pas pu être généré. Réessaie dans un instant.'; return; }
-        m.textContent = 'Ton code : ' + codeJoli(d.code) + '. Donne-le à ton·ta praticien·ne (il·elle l’utilisera dans son Espace praticien). Valable 7 jours.';
+        var lien = 'https://genesolia.fr/pro.html?acces=' + String(d.code || '');
+        m.innerHTML = '<b>Envoie ce lien à ton·ta praticien·ne</b> (abonné·e à Genesolia) : en l’ouvrant, il·elle voit ton arbre en lecture seule.<br><input type="text" readonly value="' + esc(lien) + '" onclick="this.select()" style="width:100%;max-width:30rem;box-sizing:border-box;margin:.4rem 0;padding:.5rem .6rem;border:1px solid var(--rose);border-radius:10px;font:inherit"><br><button type="button" class="btn btn-trait" data-copier-lien="' + esc(lien) + '">Copier le lien</button><br><small>Ou donne-lui seulement le code : <b>' + esc(codeJoli(d.code)) + '</b>. Valable 7 jours.</small>';
         chargerPartagesPro();
       }, function () { bt.disabled = false; $('partage-pro-msg').textContent = 'Le code n’a pas pu être généré. Réessaie dans un instant.'; });
+    });
+    document.addEventListener('click', function (e) {
+      var cp = e.target.closest('[data-copier-lien]'); if (!cp) return;
+      try { navigator.clipboard.writeText(cp.getAttribute('data-copier-lien')).then(function () { cp.textContent = 'Lien copié ✓'; }, function () { cp.textContent = 'Sélectionne le lien ci-dessus'; }); } catch (x) { cp.textContent = 'Sélectionne le lien ci-dessus'; }
     });
     document.addEventListener('click', function (e) {
       var b = e.target.closest('[data-revoquer-pro]'); if (!b) return;

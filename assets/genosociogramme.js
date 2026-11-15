@@ -4455,7 +4455,8 @@
       var d = r && r.data;
       if (!r || r.error || !d || d.erreur) { dessinerMenuArbres('<p>Le code n’a pas pu être généré. Réessaie dans un instant.</p>'); return; }
       var code = String(d.code || ''); code = code.length === 8 ? code.slice(0, 4) + '-' + code.slice(4) : code;
-      dessinerMenuArbres('<p><b>Ton code : ' + esc(code) + '</b></p><p>Donne-le à ton·ta praticien·ne : il·elle le saisit dans son Espace praticien et voit ton arbre, en lecture seule. Valable 7 jours. Tu peux retirer l’accès à tout moment depuis <a href="login.html">Mon espace</a>.</p>');
+      var lien = 'https://genesolia.fr/pro.html?acces=' + String(d.code || '');
+      dessinerMenuArbres('<p><b>Envoie ce lien à ton·ta praticien·ne</b> (abonné·e à Genesolia) : en l’ouvrant, il·elle voit ton arbre en lecture seule.</p><p><input type="text" readonly value="' + esc(lien) + '" onclick="this.select()" style="width:100%;box-sizing:border-box;padding:.4rem .5rem;border:1px solid #F2D6DE;border-radius:8px;font:inherit;font-size:.85rem"></p><p><button type="button" class="bt plein" data-copier-lien="' + esc(lien) + '">Copier le lien</button></p><p>Ou donne-lui seulement le code : <b>' + esc(code) + '</b>. Valable 7 jours. Tu peux retirer l’accès à tout moment depuis <a href="login.html">Mon espace</a>.</p>');
     }, function () { dessinerMenuArbres('<p>Le code n’a pas pu être généré. Réessaie dans un instant.</p>'); });
   }
   /* Arbres en plus (5,99 €/mois par arbre) : relit l'abonnement Stripe, seulement si la personne en a un */
@@ -4507,6 +4508,8 @@
     e.stopPropagation();
     var a = e.target.closest('[data-aller]');
     if (a) { e.preventDefault(); if (!a.classList.contains('courant')) allerVers(a.getAttribute('href')); else basculerMenuArbres(false); return; }
+    var cp = e.target.closest('[data-copier-lien]');
+    if (cp) { var u = cp.getAttribute('data-copier-lien'); try { navigator.clipboard.writeText(u).then(function () { cp.textContent = 'Lien copié ✓'; }, function () { cp.textContent = 'Sélectionne le lien ci-dessus'; }); } catch (x) { cp.textContent = 'Sélectionne le lien ci-dessus'; } return; }
     var py = e.target.closest('[data-payer]');
     if (py) { e.preventDefault(); if (window.GenesoliaAcces && window.GenesoliaAcces.payer) window.GenesoliaAcces.payer(py.getAttribute('data-payer'), py); return; }
     var b = e.target.closest('[data-arbre-action]'); if (!b || !utilisateur || !sb) return;

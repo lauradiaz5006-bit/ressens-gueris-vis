@@ -119,6 +119,21 @@
     chargerDossiers();
     sondage();
     chargerLibreService();
+    appliquerCodeEnAttente();
+  }
+  /* Lien reçu d'une cliente (pro.html?acces=XXXX) : le code est gardé (même si la connexion passe d'abord par login.html), puis relié tout seul */
+  try {
+    var mc = /[?&]acces=([A-Za-z0-9-]{4,12})/.exec(location.search);
+    if (mc) { localStorage.setItem('genesolia-code-client', JSON.stringify({ c: mc[1], t: Date.now() })); history.replaceState(null, '', location.pathname); }
+  } catch (e) {}
+  function appliquerCodeEnAttente() {
+    var f = document.getElementById('pr-code-form'), x = null; if (!f) return;
+    try { x = JSON.parse(localStorage.getItem('genesolia-code-client') || 'null'); } catch (e) {}
+    if (!x || !x.c || Date.now() - x.t > 7 * 864e5) { try { localStorage.removeItem('genesolia-code-client'); } catch (e) {} return; }
+    try { localStorage.removeItem('genesolia-code-client'); } catch (e) {}
+    f.code.value = x.c;
+    var m = document.getElementById('pr-code-msg'); if (m) m.textContent = 'Lien reçu de votre cliente : liaison en cours…';
+    if (f.requestSubmit) f.requestSubmit(); else f.querySelector('button[type=submit]').click();
   }
   function chargerLibreService() {
     var z = document.getElementById('pr-libre-liste'); if (!z) return;
