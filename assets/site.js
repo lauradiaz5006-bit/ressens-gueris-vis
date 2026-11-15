@@ -266,7 +266,7 @@ window.GENESOLIA_STRIPE = {
   cercleAnnee: new Date() < new Date('2027-04-01T00:00:00+02:00') ? 'https://buy.stripe.com/28E4gsfTTcox3M10U743S0u' : 'https://buy.stripe.com/eVq7sE2336096Yd1Yb43S0f',
   passMois: 'https://buy.stripe.com/9B600cbDD0FPeqFgT543S0s',   /* Ma spirale, offre de Noël 4,99 €/mois, 7 jours offerts */
   pass3Mois: '',      /* Ma spirale 27 € les 3 mois : retirée pour l'instant (lien Stripe : https://buy.stripe.com/14AdR28rragp1DT8mz43S0k) */
-  arbreSupp: '',   /* Arbre en plus 5,99 €/mois : lien de paiement Stripe à coller ici (quantité modifiable par la cliente) */
+  arbreSupp: 'https://buy.stripe.com/4gM4gs7nn3S196lgT543S0v',   /* Arbre en plus 5,99 €/mois (quantité modifiable par la cliente) : table arbres_en_plus, fonction arbres-sync */
   praticienMois: 'https://buy.stripe.com/00w8wIdLLcoxcixauH43S0e',      /* Espace praticien 24 €/mois */
   praticienFondateur: 'https://buy.stripe.com/fZueV64bb4W5cixcCP43S0b', /* Espace praticien, offre de Noël 19 €/mois (abonnements pris avant le 31/12/2026) */
   praticienFondateurAn: 'https://buy.stripe.com/3cI7sE0YZ1JTeqF9qD43S0p', /* Espace praticien, offre de Noël 190 € l'année (avant le 31/12/2026) */
