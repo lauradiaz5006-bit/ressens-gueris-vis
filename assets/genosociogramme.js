@@ -4407,9 +4407,9 @@
   }
   function texteLimite(lim) {
     var debut = lim >= 100000 ? 'Tu as atteint le nombre d’arbres de ta formule.'
-      : lim > 0 ? 'Tu as déjà tes 3 arbres : c’est le maximum de ta formule. L’Espace praticien permet des arbres illimités.'
-      : 'Avec la formule gratuite, tu as un arbre. Le Cercle te permet d’avoir 3 arbres, et l’Espace praticien des arbres illimités.';
-    return '<p>' + debut + '</p><p><a href="abonnement.html">Découvrir Le Cercle</a> · <a href="espace-praticien.html">Découvrir l’Espace praticien</a></p>';
+      : lim > 0 ? 'Tu as atteint le nombre d’arbres de ton abonnement. Chaque arbre en plus : 5,99 € par mois.'
+      : 'Ton compte comprend 1 arbre. Chaque arbre en plus : 5,99 € par mois (2 en plus : 11,98 € par mois, etc.).';
+    return '<p>' + debut + '</p><p><button type="button" class="bt plein" data-payer="arbreSupp" data-bientot-texte="Bientôt disponible : écris-nous à contact@genesolia.fr pour ajouter un arbre.">Ajouter un arbre · 5,99 €/mois</button></p><p><a href="espace-praticien.html">Arbres illimités avec l’Espace praticien</a></p>';
   }
   function lienArbre(id, nom, info) {
     var courant = (id || null) === ARBRE_ID;
@@ -4458,9 +4458,16 @@
       dessinerMenuArbres('<p><b>Ton code : ' + esc(code) + '</b></p><p>Donne-le à ton·ta praticien·ne : il·elle le saisit dans son Espace praticien et voit ton arbre, en lecture seule. Valable 7 jours. Tu peux retirer l’accès à tout moment depuis <a href="login.html">Mon espace</a>.</p>');
     }, function () { dessinerMenuArbres('<p>Le code n’a pas pu être généré. Réessaie dans un instant.</p>'); });
   }
+  /* Arbres en plus (5,99 €/mois par arbre) : relit l'abonnement Stripe, seulement si la personne en a un */
+  function syncArbres() {
+    return sb.from('achats').select('id', { count: 'exact', head: true }).eq('user_id', utilisateur.id).eq('produit', 'arbreSupp').then(function (r) {
+      if (!r || r.error || !r.count) return;
+      return sb.functions.invoke('arbres-sync');
+    }).then(function () {}, function () {});
+  }
   function creerArbre() {
     dessinerMenuArbres('<p>Un instant…</p>');
-    sb.rpc('limite_arbres_supp', { uid: utilisateur.id }).then(function (r) {
+    syncArbres().then(function () { return sb.rpc('limite_arbres_supp', { uid: utilisateur.id }); }).then(function (r) {
       var lim = r && !r.error && r.data != null ? Number(r.data) : null;
       if (lim !== null && (listeSupp || []).length >= lim) { dessinerMenuArbres(texteLimite(lim)); return; }
       dessinerMenuArbres();
@@ -4500,6 +4507,8 @@
     e.stopPropagation();
     var a = e.target.closest('[data-aller]');
     if (a) { e.preventDefault(); if (!a.classList.contains('courant')) allerVers(a.getAttribute('href')); else basculerMenuArbres(false); return; }
+    var py = e.target.closest('[data-payer]');
+    if (py) { e.preventDefault(); if (window.GenesoliaAcces && window.GenesoliaAcces.payer) window.GenesoliaAcces.payer(py.getAttribute('data-payer'), py); return; }
     var b = e.target.closest('[data-arbre-action]'); if (!b || !utilisateur || !sb) return;
     var act = b.getAttribute('data-arbre-action');
     if (act === 'creer') creerArbre(); else if (act === 'renommer') renommerArbre(); else if (act === 'supprimer') supprimerArbre(); else if (act === 'praticien') codePraticien();
