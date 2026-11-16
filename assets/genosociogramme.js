@@ -1723,8 +1723,7 @@
   /* ───────── Dessin ───────── */
   function symbole(p, rayon) {
     var r = rayon;
-    if (p.sex === 'm') return '<rect x="' + (-r) + '" y="' + (-r) + '" width="' + (2 * r) + '" height="' + (2 * r) + '" rx="3"';
-    if (p.sex === 'f') return '<circle r="' + r + '"';
+    if (p.sex === 'm' || p.sex === 'f') return '<rect x="' + (-r) + '" y="' + (-r) + '" width="' + (2 * r) + '" height="' + (2 * r) + '" rx="8"';   // rectangle arrondi : bleu pour un homme, rose pour une femme
     return '<path d="M0 ' + (-r - 4) + 'L' + (r + 4) + ' 0L0 ' + (r + 4) + 'L' + (-r - 4) + ' 0Z"';
   }
   // contour d'une personne : petit rond (fausse couche, IVG), triangle (grossesse en cours) ou symbole du sexe
@@ -1739,7 +1738,7 @@
     if (g === 'fc') return '<circle r="' + (RP * 0.75) + '" fill="' + PRUNE + '" stroke="' + PRUNE + '" stroke-width="1.6"/>';
     if (g === 'ivg') return croix(RP * 0.7, 2.2);
     if (g === 'encours') return forme(p, RP) + ' fill="#FFFFFF" stroke="' + PRUNE + '" stroke-width="1.8" stroke-linejoin="round"/>';
-    return symbole(p, RP) + ' fill="#FFFFFF" stroke="' + PRUNE + '" stroke-width="1.6"/>' + croix(p.sex === 'm' ? RP : x, 1.4);   // mort-né
+    return symbole(p, RP) + ' fill="#FFFFFF" stroke="' + PRUNE + '" stroke-width="1.6"/>' + croix(p.sex === 'u' ? x : RP * 0.85, 1.4);   // mort-né
   }
   function dessinPersonne(p, pos, o) {
     var moi = (vuDepuis && S.people[vuDepuis] && !o.export) ? p.id === vuDepuis : p.role === 'moi', sel = o.sel === p.id, att = o.attenue && o.attenue.indexOf(p.id) < 0;
@@ -1759,9 +1758,9 @@
       return h + '</g>';
     }
     if (moi) h += symbole(p, R + 5) + ' fill="none" stroke="' + PRUNE + '" stroke-width="1.6"/>';
-    h += symbole(p, R) + ' fill="' + (moi ? '#FBE6EA' : '#FFFFFF') + '" stroke="' + PRUNE + '" stroke-width="1.8"/>';
+    h += symbole(p, R) + ' fill="' + (p.sex === 'm' ? '#CFE3F7' : p.sex === 'f' ? '#F8D3E3' : '#EDE3F3') + '" stroke="' + (p.sex === 'm' ? '#6FA3D6' : p.sex === 'f' ? '#D97BA6' : PRUNE) + '" stroke-width="1.8"/>';
     if (DATE_VUE ? decedeEn(p, DATE_VUE) : decede(p)) {
-      var d = p.sex === 'f' ? R * 0.7 : p.sex === 'm' ? R : R * 0.72;
+      var d = p.sex === 'u' ? R * 0.72 : R * 0.85;
       h += '<path d="M' + (-d) + ' ' + (-d) + 'L' + d + ' ' + d + 'M' + d + ' ' + (-d) + 'L' + (-d) + ' ' + d + '" stroke="' + PRUNE + '" stroke-width="1.6" stroke-linecap="round"/>';
     } else {
       var age = DATE_VUE ? ageEn(p, DATE_VUE) : ageActuel(p);
@@ -3250,7 +3249,7 @@
     var ly = H - 24, lx = m;
     var leg = [['m', 'Homme'], ['f', 'Femme'], ['u', 'Non précisé']];
     leg.forEach(function (l) {
-      h += '<g transform="translate(' + (lx + 8) + ',' + (ly - 4) + ')">' + symbole({ sex: l[0] }, 7) + ' fill="#fff" stroke="' + PRUNE + '" stroke-width="1.3"/></g>';
+      h += '<g transform="translate(' + (lx + 8) + ',' + (ly - 4) + ')">' + symbole({ sex: l[0] }, 7) + ' fill="' + (l[0] === 'm' ? '#CFE3F7' : l[0] === 'f' ? '#F8D3E3' : '#fff') + '" stroke="' + (l[0] === 'm' ? '#6FA3D6' : l[0] === 'f' ? '#D97BA6' : PRUNE) + '" stroke-width="1.3"/></g>';
       h += '<text x="' + (lx + 22) + '" y="' + ly + '" font-family="\'Nunito Sans\',sans-serif" font-size="11" fill="' + PRUNE_DOUX + '">' + l[1] + '</text>';
       lx += 22 + l[1].length * 6.6 + 26;
     });
