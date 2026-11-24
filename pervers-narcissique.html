@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pervers narcissique : pourquoi on reste, et ce que ça répète dans la lignée · Genesolia</title>
+  <meta name="description" content="Pervers narcissique : le cycle qui s’installe, pourquoi il est si difficile de partir et ce que cette relation rejoue dans ta lignée. Repères et pistes, sans diagnostic.">
+  <link rel="canonical" href="https://genesolia.fr/pervers-narcissique.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Pervers narcissique : pourquoi on reste, et ce que ça répète dans la lignée">
+  <meta property="og:description" content="Pervers narcissique : le cycle qui s’installe, pourquoi il est si difficile de partir et ce que cette relation rejoue dans ta lignée. Repères et pistes, sans diagnostic.">
+  <meta property="og:image" content="https://genesolia.fr/assets/partage/genesolia.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Un arbre lumineux aux racines dorées">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(52rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+    .article .encart{margin:2rem 0}
+
+    .facettes{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0;list-style:none}
+    .facettes li{background:var(--blanc);border:1px solid var(--rose);border-radius:16px;padding:1.1rem 1.2rem}
+    .facettes strong{display:block;font-family:var(--display);font-weight:400;font-size:1.2rem;margin-bottom:.2rem}
+    .facettes span{color:var(--prune-doux);font-size:.97rem}
+
+    .cocher{margin:1.8rem 0;padding:1.6rem 1.6rem 1.4rem;border-radius:var(--rayon);background:linear-gradient(180deg,#FCEFF3,var(--blanc) 80%);border:1px solid var(--rose-fonce)}
+    .cocher .titre{font-family:var(--display);font-size:1.3rem;margin-bottom:.8rem}
+    .cocher ul{list-style:none;display:grid;gap:.15rem}
+    .cocher label{display:flex;gap:.8rem;align-items:flex-start;padding:.45rem 0;cursor:pointer}
+    .cocher input{flex-shrink:0;width:1.15rem;height:1.15rem;margin-top:.25rem;accent-color:var(--prune)}
+    .cocher .note{margin-top:.9rem}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+
+    .deux{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0}
+    .deux div{padding:1.3rem 1.3rem 1.2rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc)}
+    .deux .c2{background:linear-gradient(180deg,#FCEFF3,var(--blanc) 75%)}
+    .deux .c1{background:linear-gradient(180deg,#FBF1EE,var(--blanc) 75%)}
+    .deux .nom{font-family:var(--display);color:var(--champagne)}
+    .deux h3{margin:.1rem 0 .5rem}
+    .deux p{color:var(--prune-doux);font-size:.97rem}
+
+    .exercice{list-style:none;counter-reset:ex;margin:1.6rem 0;display:grid;gap:0}
+    .exercice li{counter-increment:ex;display:grid;grid-template-columns:2.6rem 1fr;gap:.2rem 1rem;padding:1.2rem 0;border-top:1px solid var(--rose)}
+    .exercice li::before{content:counter(ex);grid-row:span 2;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.15rem;background:var(--champagne-clair)}
+    .exercice li:last-child::before{background:var(--prune);color:var(--blanc)}
+    .exercice h3{margin:0;font-size:1.2rem}
+    .exercice p{color:var(--prune-doux)}
+
+    .gestes{margin:1.4rem 0;padding-left:1.2rem;display:grid;gap:.6rem}
+    .gestes li::marker{color:var(--champagne)}
+
+    .securite{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:start}
+    .securite svg{width:36px;height:36px;margin-top:.15rem}
+
+    .article .actions{margin-top:1.6rem}
+
+    @media (max-width:640px){
+      .facettes,.deux{grid-template-columns:1fr}
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .securite{grid-template-columns:1fr;gap:.8rem}
+      .article .actions .btn{width:100%}
+    }
+    .voisins{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+    .voisins a{border:1px solid var(--rose-fonce);border-radius:999px;padding:.3rem .9rem;text-decoration:none;font-size:.95rem;background:var(--blanc)}
+    .voisins a[aria-current]{background:var(--prune);color:var(--blanc);border-color:var(--prune)}
+    .faq dt{font-weight:600;margin-top:1.4rem}
+    .faq dd{margin:.4rem 0 0;color:var(--prune-doux)}
+    .note-fin{font-size:.93rem;color:var(--prune-doux);margin-top:2.4rem}
+    .article .actions{display:flex;flex-wrap:wrap;gap:.6rem}
+    .sommaire{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.6rem}
+    .sommaire a{text-decoration:none;font-size:.95rem;padding:.45rem 1rem;border-radius:999px;background:var(--blanc);border:1px solid var(--rose-fonce)}
+    .sommaire a:hover{border-color:var(--prune)}
+    .article h2[id]{scroll-margin-top:5rem}
+  </style>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Article", "headline": "Pervers narcissique : pourquoi on reste, et ce que ça répète dans la lignée", "description": "Pervers narcissique : le cycle qui s’installe, pourquoi il est si difficile de partir et ce que cette relation rejoue dans ta lignée. Repères et pistes, sans diagnostic.", "image": "https://genesolia.fr/assets/partage/genesolia.jpg", "datePublished": "2026-11-24", "dateModified": "2026-11-24", "inLanguage": "fr", "author": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}, "publisher": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}, "url": "https://genesolia.fr/pervers-narcissique.html", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://genesolia.fr/pervers-narcissique.html"}}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Qu’est-ce qu’un pervers narcissique ?", "acceptedAnswer": {"@type": "Answer", "text": "L’expression désigne, dans le langage courant, une personne qui se valorise en rabaissant l’autre, alterne chaleur et froid, culpabilise et isole. Elle vient de la « perversion narcissique » décrite par Paul-Claude Racamier. Ce n’est pas un diagnostic médical, et personne ne peut poser une étiquette sur quelqu’un à distance."}}, {"@type": "Question", "name": "Quels sont les signes d’une relation avec un pervers narcissique ?", "acceptedAnswer": {"@type": "Answer", "text": "On retrouve souvent une phase d’idéalisation très intense, puis des critiques et des dévalorisations, une alternance de froid et de chaud, un isolement progressif de l’entourage, de la culpabilisation et un doute croissant sur ses propres perceptions. Ce sont des repères, pas une preuve."}}, {"@type": "Question", "name": "Pourquoi reste-t-on avec un pervers narcissique ?", "acceptedAnswer": {"@type": "Answer", "text": "Plusieurs mécanismes se cumulent : l’espoir de retrouver le début de la relation, un lien fort créé par l’alternance de douleur et de réconfort, la honte et l’isolement, des raisons concrètes (enfants, logement, argent) et parfois la peur de la réaction de l’autre. Rester n’est pas un signe de faiblesse."}}, {"@type": "Question", "name": "Un pervers narcissique peut-il changer ?", "acceptedAnswer": {"@type": "Answer", "text": "Ce n’est pas à toi de le ou la faire changer, et cela ne doit pas devenir la condition pour te protéger. Ton énergie est mieux placée dans ta sécurité, ton entourage et un accompagnement adapté."}}, {"@type": "Question", "name": "Peut-on être pervers narcissique homme ou femme ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui. L’expression ne dépend pas du genre : on retrouve ces mécanismes chez des hommes comme chez des femmes, dans un couple, une famille ou un cadre professionnel."}}, {"@type": "Question", "name": "Quel lien entre pervers narcissique et histoire familiale ?", "acceptedAnswer": {"@type": "Answer", "text": "En psychogénéalogie, on observe parfois qu’une relation de ce type rejoue des éléments plus anciens : un parent imprévisible, un rôle de sauveur appris enfant, une loyauté familiale qui fait tout supporter. Ce sont des pistes de lecture, jamais des causes ni des preuves, et elles n’excusent en rien l’autre."}}]}]</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://genesolia.fr/blog.html"}, {"@type": "ListItem", "position": 3, "name": "Pervers narcissique : pourquoi on reste, et ce que ça répète dans la lignée", "item": "https://genesolia.fr/pervers-narcissique.html"}]}</script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d’Ariane"><a href="blog.html">Blog</a><span aria-hidden="true">/</span><a href="blog.html#emotions-et-relations">Émotions et relations</a><span aria-hidden="true">/</span>Pervers narcissique</nav>
+        <h1>Pervers narcissique : pourquoi on reste, et ce que ça répète dans la lignée</h1>
+        <p class="intro">Tu te demandes si la personne avec qui tu vis, ou celle qui t’a élevé·e, est un « pervers narcissique ». Tu doutes de tes souvenirs, tu t’excuses sans savoir de quoi, tu restes alors qu’une part de toi sait. Cet article ne pose aucun diagnostic sur quelqu’un : il décrit un cycle, explique pourquoi on y reste (ce n’est pas de la faiblesse) et regarde ce que cette relation peut rejouer dans l’histoire de ta famille.</p>
+        <nav class="sommaire" aria-label="Sur cette page"><a href="#definition">De quoi parle-t-on ?</a><a href="#cycle">Le cycle</a><a href="#rester">Pourquoi on reste</a><a href="#lignee">Ce que ça répète</a><a href="#arbre">Le voir dans ton arbre</a><a href="#securite">Se mettre en sécurité</a><a href="#questions">Questions</a></nav>
+        <p class="publie">Publié le 24 novembre 2026 · lecture 12 min</p>
+      </div>
+    </section>
+    <figure class="bandeau-photo"><img src="assets/images/genesolia-1600.webp" srcset="assets/images/genesolia-800.webp 800w, assets/images/genesolia-1600.webp 1600w" sizes="(max-width: 1140px) 100vw, 1100px" width="1600" height="841" alt="Un arbre lumineux aux racines dorées" loading="lazy" decoding="async"></figure>
+
+    <article class="article">
+      <div class="colonne">
+        <h2 id="definition">« Pervers narcissique » : de quoi parle-t-on ?</h2>
+        <p>L’expression vient du psychanalyste Paul-Claude Racamier, qui a décrit dans les années 1980 la « perversion narcissique » : une façon de se protéger de sa propre fragilité en la faisant porter à l’autre, en le ou la dévalorisant. Elle s’est ensuite diffusée auprès du grand public, notamment avec les livres de la psychiatre Marie-France Hirigoyen sur le harcèlement moral.</p>
+        <p>Il faut le dire clairement : « pervers narcissique » n’est pas un diagnostic médical. Il ne figure pas comme tel dans les classifications officielles. Le <em>trouble de la personnalité narcissique</em>, lui, est une catégorie clinique distincte, qu’on ne peut pas poser à distance. Si nous gardons l’expression ici, c’est parce que des milliers de personnes la tapent chaque mois pour mettre un mot sur ce qu’elles vivent, et que ce vécu, lui, est bien réel.</p>
+        <p class="rappel"><strong>Ce que nous ne ferons pas.</strong> Nous n’étiquetterons personne. Ce qui compte pour toi, ce n’est pas de savoir si l’autre « est » ou « n’est pas » ceci ou cela, mais de repérer ce qui se passe dans la relation : est-ce que tu es en sécurité, est-ce que tu es encore toi, est-ce que tu peux dire non ? Cela peut concerner un conjoint ou une conjointe, un parent, un·e collègue, un·e ami·e. Et cela concerne autant les hommes que les femmes, dans les deux rôles.</p>
+
+        <h2 id="cycle">Le cycle : comment ça se met en place</h2>
+        <p>Dans les récits de ce type de relation, on retrouve souvent la même séquence. Elle n’arrive pas d’un coup : elle s’installe lentement, ce qui explique qu’on ne la voie pas.</p>
+        <ul class="pistes">
+          <li><strong>L’idéalisation</strong><span>Au début, tout est intense : attention constante, messages, promesses, impression d’être enfin vu·e et compris·e. On parle parfois de « bombardement d’amour ». C’est cette phase que tu garderas en tête longtemps après.</span></li>
+          <li><strong>La dévalorisation</strong><span>Puis arrivent les petites piques, les comparaisons, l’ironie, les silences punitifs. Tu es « trop sensible », « jamais contente », « compliqué·e ». Ce que tu fais n’est plus jamais tout à fait bien.</span></li>
+          <li><strong>L’alternance</strong><span>Après la douleur, la chaleur revient : excuses, cadeaux, tendresse. Tu retrouves « la vraie personne ». Cette alternance de froid et de chaud est ce qui crée l’attachement le plus fort, parce qu’on ne sait jamais quand la douceur reviendra.</span></li>
+          <li><strong>L’isolement</strong><span>Peu à peu, tes proches deviennent un problème : ils ne te comprennent pas, ils sont jaloux, ils ne t’aiment pas vraiment. Tu vois moins tes amis, ta famille. Le monde se rétrécit.</span></li>
+          <li><strong>Le doute sur toi-même</strong><span>On te dit que tu as mal compris, que cela ne s’est pas passé comme ça, que tu exagères. On parle de <em>gaslighting</em>, du nom d’un film où un mari fait douter sa femme de sa perception. À force, tu ne te fais plus confiance.</span></li>
+        </ul>
+        <p>Ce schéma ressemble à ce que la psychologue Lenore Walker a décrit dans les années 1970 comme le « cycle de la violence » : montée de la tension, explosion, justification, puis « lune de miel ». Le harcèlement moral au sein du couple est d’ailleurs reconnu par le Code pénal français depuis 2010.</p>
+        <div class="cocher">
+          <p class="titre">Est-ce que je reconnais ce cycle ?</p>
+          <ul>
+            <li><label><input type="checkbox"> Je marche sur des œufs : je surveille son humeur avant de parler.</label></li>
+            <li><label><input type="checkbox"> Je m’excuse souvent, même quand je ne sais pas ce que j’ai fait.</label></li>
+            <li><label><input type="checkbox"> Après une dispute, j’ai l’impression que tout est de ma faute.</label></li>
+            <li><label><input type="checkbox"> Je doute de mes souvenirs : « c’est peut-être moi qui exagère ».</label></li>
+            <li><label><input type="checkbox"> Je vois moins mes proches qu’avant, parfois pour éviter les reproches.</label></li>
+            <li><label><input type="checkbox"> Les bons moments me font oublier les mauvais, jusqu’à la fois suivante.</label></li>
+            <li><label><input type="checkbox"> Je n’ose plus dire à mes amis comment ça se passe vraiment.</label></li>
+            <li><label><input type="checkbox"> J’ai peur de la réaction si je dis non, ou si je pars.</label></li>
+          </ul>
+          <p class="note discret">Plusieurs cases cochées ne prouvent rien sur l’autre. Elles disent seulement que tu vis peut-être quelque chose de lourd, et que tu mérites d’en parler à quelqu’un.</p>
+        </div>
+
+        <h2 id="rester">Pourquoi on reste (et pourquoi ce n’est pas de la faiblesse)</h2>
+        <p>« Pourquoi tu ne pars pas ? » est la question qui fait le plus de mal. Elle suppose que partir serait simple. Or plusieurs mécanismes se cumulent, et aucun ne relève du manque de caractère.</p>
+        <ul class="pistes">
+          <li><strong>L’espoir de retrouver le début</strong><span>Tu as vu cette personne tendre, attentive, merveilleuse. Une part de toi reste convaincue que si tu fais mieux, si tu comprends mieux, elle reviendra.</span></li>
+          <li><strong>Le lien créé par l’alternance</strong><span>Les chercheurs Donald Dutton et Susan Painter ont décrit dès 1981 le « lien traumatique » : l’attachement se renforce quand la douleur et le réconfort viennent de la même personne. Ce qui rassure vient de ce qui blesse, et le lien devient plus difficile à défaire.</span></li>
+          <li><strong>L’emprise et la honte</strong><span>On t’a répété que tu étais le problème. Tu as honte de ce que tu as accepté, tu n’oses pas en parler, et plus tu te tais, plus tu es seul·e.</span></li>
+          <li><strong>Des raisons très concrètes</strong><span>Des enfants, un logement, de l’argent, un cadre de vie à deux. Partir est aussi un défi pratique, qui demande du temps, de l’aide et souvent de la préparation.</span></li>
+          <li><strong>La peur de la réaction</strong><span>Quand le départ peut déclencher de la colère, des menaces ou du chantage, rester peut sembler plus sûr. Cette peur-là est légitime : elle se prépare avec des professionnel·les (voir plus bas).</span></li>
+        </ul>
+        <p>Une part de ces mécanismes rejoint ce que décrit l’article sur la <a href="dependance-affective.html">dépendance affective</a>, et la douleur de se sentir trompé·e rejoint la <a href="blessure-de-trahison.html">blessure de trahison</a>. Mais attention : on peut ne pas être « dépendant·e affectif·ve » du tout et se retrouver pris·e dans ce cycle. L’emprise n’exige pas de fragilité préalable.</p>
+
+        <h2 id="lignee">Ce que cette relation peut répéter dans ta lignée</h2>
+        <p>Ici, nous quittons le terrain des faits pour celui des <strong>pistes de lecture</strong>. En psychogénéalogie, on observe parfois que certaines relations en rejouent d’autres, plus anciennes. Ce n’est ni une preuve ni une cause : c’est une grille pour te poser de bonnes questions.</p>
+        <ul class="pistes">
+          <li><strong>« L’amour, c’est ça »</strong><span>Si tu as grandi avec un parent imprévisible, froid ou critique, l’intensité mêlée de douleur peut te sembler familière, donc « normale ». L’article sur l’<a href="imago-choix-amoureux.html">imago et le choix amoureux</a> explore pourquoi on retrouve parfois, adulte, les traits de celui ou celle qui nous a élevé·e.</span></li>
+          <li><strong>Le rôle de celle ou celui qui sauve</strong><span>Un enfant qui a dû rassurer, soutenir ou apaiser un parent apprend que son rôle est de porter les émotions des autres. C’est la <a href="enfant-parentifie-parentification.html">parentification</a> : adulte, on cherche souvent à « réparer » quelqu’un qui ne veut pas l’être.</span></li>
+          <li><strong>La loyauté qui fait tout supporter</strong><span>« Dans la famille, on ne se plaint pas. » Les <a href="loyaute-familiale-invisible.html">loyautés invisibles</a> peuvent pousser à reproduire ce que la mère, la grand-mère ou le père ont enduré en silence, comme une façon de leur rester fidèle.</span></li>
+          <li><strong>Des modèles de couple marqués par la soumission ou le contrôle</strong><span>Une arrière-grand-mère qui « supportait tout », un grand-père qui décidait de tout, un divorce impossible : ces modèles dessinent ce qu’on croit possible, ou impossible, en amour. Voir aussi les <a href="schemas-repetitifs-en-amour.html">schémas répétitifs en amour</a>.</span></li>
+          <li><strong>Des silences et des secrets</strong><span>Violences non dites, mariages subis, enfants placés ou reniés : ce qui n’a pas pu être dit dans une famille se rejoue parfois sous une autre forme. Voir la <a href="memoire-transgenerationnelle.html">mémoire transgénérationnelle</a> et les <a href="secret-de-famille.html">secrets de famille</a>.</span></li>
+          <li><strong>Un lien mère-fille ou père-enfant déjà marqué</strong><span>Si la relation avec un parent était déjà faite de reproches et de culpabilité, ton système s’y est habitué. Lis la <a href="relation-mere-fille-toxique.html">relation mère-fille toxique</a> et la page sur le <a href="parent-pervers-narcissique.html">parent pervers narcissique</a>.</span></li>
+        </ul>
+        <p class="rappel"><strong>Comprendre n’est pas excuser.</strong> Voir ce que ta lignée a rejoué ne diminue en rien la responsabilité de l’autre dans ce qu’il ou elle t’a fait. Et ce n’est pas non plus une accusation contre tes ancêtres : eux aussi ont fait avec ce qu’ils avaient reçu.</p>
+
+        <h2 id="arbre">Le voir dans ton arbre : un petit exercice</h2>
+        <p>Dans ton <a href="genosociogramme.html">génosociogramme</a>, tu peux poser sur trois ou quatre générations ce qui se répète. Pas pour trouver un coupable, mais pour voir un motif.</p>
+        <ol class="exercice">
+          <li><h3>Dessine les couples de ta famille</h3><p>Parents, grands-parents, arrière-grands-parents si tu les connais. Pour chaque couple, note en quelques mots comment ça se passait : qui décidait, qui s’effaçait, qui se taisait.</p></li>
+          <li><h3>Repère les relations tendues ou coupées</h3><p>Marque les liens de conflit, de peur ou de rupture. Y a-t-il des femmes ou des hommes qui sont restés malgré tout, ou qui sont partis très tard ?</p></li>
+          <li><h3>Cherche les phrases de famille</h3><p>« Il faut savoir faire des concessions », « une femme ne quitte pas son mari », « on ne lave pas son linge sale en public ». Quelles phrases entendais-tu, et que protègent-elles ?</p></li>
+          <li><h3>Remonte du présent avec le fil d’or</h3><p>Le <a href="fil-d-or.html">fil d’or</a> part de ce que tu ressens aujourd’hui et remonte vers ta famille. Écris une situation récente où tu t’es sentie petite ou coupable, et regarde à qui elle fait penser.</p></li>
+          <li><h3>Note ce qui t’appartient et ce qui ne t’appartient pas</h3><p>Ce que tu as hérité (une peur, une loyauté, une règle) et ce que tu peux choisir de poser. Cette lecture est symbolique : elle sert à retrouver de la liberté, pas à expliquer l’autre.</p></li>
+        </ol>
+
+        <h2 id="securite">D’abord ta sécurité</h2>
+        <p>Si ce que tu lis te parle fort, voici quelques repères simples. Ils ne remplacent pas l’avis de professionnel·les.</p>
+        <ul class="gestes">
+          <li><strong>Parle à une personne de confiance.</strong> Un·e ami·e, un membre de la famille, un·e collègue. Rompre le silence est déjà un pas.</li>
+          <li><strong>Garde des traces.</strong> Messages, courriels, photos, certificats médicaux : conserve-les en lieu sûr (chez une personne de confiance, ou dans un compte que l’autre ne connaît pas).</li>
+          <li><strong>Ne prépare pas un départ seul·e.</strong> Les associations d’aide aux victimes savent comment organiser un départ en sécurité, y compris en cas de peur de la réaction.</li>
+          <li><strong>En France</strong> : le <strong>3919</strong> (Violences Femmes Info) est gratuit, anonyme et accessible 24 h sur 24, 7 jours sur 7. En cas de danger immédiat, appelle le <strong>17</strong>.</li>
+          <li><strong>Au Québec</strong> : SOS violence conjugale, <strong>1 800 363-9010</strong>, 24 h sur 24.</li>
+          <li><strong>Un accompagnement</strong> par une psychologue, un psychiatre ou un·e psychothérapeute peut aider à retrouver ses repères. Ce site propose une lecture symbolique, il ne remplace ni un suivi ni un avis médical.</li>
+        </ul>
+        <p>Pour aller plus loin dans ton histoire, quand tu te sens en sécurité, tu peux suivre un parcours à ton rythme avec <a href="abonnement.html">Le Cercle</a> ou noter tes ressentis jour après jour avec <a href="ma-spirale.html">Ma spirale</a>.</p>
+
+
+        <h2 id="questions">Questions fréquentes</h2>
+        <dl class="faq">
+          <dt>Qu’est-ce qu’un pervers narcissique ?</dt><dd>L’expression désigne, dans le langage courant, une personne qui se valorise en rabaissant l’autre, alterne chaleur et froid, culpabilise et isole. Elle vient de la « perversion narcissique » décrite par Paul-Claude Racamier. Ce n’est pas un diagnostic médical, et personne ne peut poser une étiquette sur quelqu’un à distance.</dd>
+          <dt>Quels sont les signes d’une relation avec un pervers narcissique ?</dt><dd>On retrouve souvent une phase d’idéalisation très intense, puis des critiques et des dévalorisations, une alternance de froid et de chaud, un isolement progressif de l’entourage, de la culpabilisation et un doute croissant sur ses propres perceptions. Ce sont des repères, pas une preuve.</dd>
+          <dt>Pourquoi reste-t-on avec un pervers narcissique ?</dt><dd>Plusieurs mécanismes se cumulent : l’espoir de retrouver le début de la relation, un lien fort créé par l’alternance de douleur et de réconfort, la honte et l’isolement, des raisons concrètes (enfants, logement, argent) et parfois la peur de la réaction de l’autre. Rester n’est pas un signe de faiblesse.</dd>
+          <dt>Un pervers narcissique peut-il changer ?</dt><dd>Ce n’est pas à toi de le ou la faire changer, et cela ne doit pas devenir la condition pour te protéger. Ton énergie est mieux placée dans ta sécurité, ton entourage et un accompagnement adapté.</dd>
+          <dt>Peut-on être pervers narcissique homme ou femme ?</dt><dd>Oui. L’expression ne dépend pas du genre : on retrouve ces mécanismes chez des hommes comme chez des femmes, dans un couple, une famille ou un cadre professionnel.</dd>
+          <dt>Quel lien entre pervers narcissique et histoire familiale ?</dt><dd>En psychogénéalogie, on observe parfois qu’une relation de ce type rejoue des éléments plus anciens : un parent imprévisible, un rôle de sauveur appris enfant, une loyauté familiale qui fait tout supporter. Ce sont des pistes de lecture, jamais des causes ni des preuves, et elles n’excusent en rien l’autre.</dd>
+        </dl>
+        <div class="actions">
+          <a class="btn btn-plein" href="genosociogramme.html">Faire mon génosociogramme</a>
+          <a class="btn btn-trait" href="fil-d-or.html">Le fil d’or</a>
+        </div>
+
+        <p class="note-fin">Ces contenus proposent une lecture symbolique de développement personnel, en complément de tout suivi médical ou psychologique. « Pervers narcissique » est une expression courante, pas un diagnostic : aucun texte ne peut dire qui est quelqu’un ni poser un diagnostic à distance. Les liens familiaux évoqués sont des pistes de réflexion, jamais des preuves ni des causes. Si tu te sens en danger, appelle le 3919 (France) ou le 17 en cas d’urgence.</p>
+        <nav class="voisins" aria-label="Dans la même série"><a href="dependance-affective.html">Dépendance affective</a><a href="blessure-de-trahison.html">Blessure de trahison</a><a href="relation-mere-fille-toxique.html">Relation mère-fille</a><a href="pervers-narcissique.html" aria-current="page">Pervers narcissique</a><a href="parent-pervers-narcissique.html">Parent pervers narcissique</a><a href="adulte-enfant-parent-pervers-narcissique.html">Adulte, enfant d’un parent pervers narcissique</a><a href="imago-choix-amoureux.html">Imago et choix amoureux</a><a href="schemas-repetitifs-en-amour.html">Schémas en amour</a></nav>
+      </div>
+    </article>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="dependance-affective.html"><h3>Dépendance affective</h3><p>Les signes, les racines familiales et des pistes pour t’en libérer.</p></a>
+          <a class="outil" href="blessure-de-trahison.html"><h3>La blessure de trahison</h3><p>Quand la confiance a été brisée, et ce qu’elle rejoue en toi.</p></a>
+          <a class="outil" href="relation-mere-fille-toxique.html"><h3>Relation mère-fille toxique</h3><p>Ce que ta lignée féminine rejoue, et comment retrouver ta place.</p></a>
+          <a class="outil" href="parent-pervers-narcissique.html"><h3>Parent pervers narcissique</h3><p>Repérer le schéma chez un père ou une mère.</p></a>
+          <a class="outil" href="adulte-enfant-parent-pervers-narcissique.html"><h3>Adulte, enfant d’un parent pervers narcissique</h3><p>Reprendre tes repères une fois devenu·e grand·e.</p></a>
+          <a class="outil" href="genosociogramme.html"><h3>Ton génosociogramme</h3><p>Poser ta famille sur trois ou quatre générations et repérer ce qui revient.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>
