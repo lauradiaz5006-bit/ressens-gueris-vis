@@ -207,6 +207,10 @@
      Le plan du site ne sert plus qu'à repérer les pages NOUVELLES ou modifiées depuis moins de 14 jours. */
   var PRIORITE = {
     gen: [
+      /* Ajout 24 nov. 2026 : 3 nouveaux articles pervers narcissique (pilier + 2 complémentaires), à demander en premier */
+      'https://genesolia.fr/pervers-narcissique.html',
+      'https://genesolia.fr/parent-pervers-narcissique.html',
+      'https://genesolia.fr/adulte-enfant-parent-pervers-narcissique.html',
       /* Ajout 13 nov. 2026 : articles en ligne, prets a indexer */
       'https://genesolia.fr/signe-astrologique-qui-revient-famille.html',
       'https://genesolia.fr/chemin-de-vie-qui-se-repete-famille.html',
