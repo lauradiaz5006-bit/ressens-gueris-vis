@@ -779,6 +779,48 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
     piedPage.parentNode.insertBefore(zoneCadeau, piedPage);
   }
 
+  /* Bas des articles (pages avec une navigation « voisins ») : le carnet des deux cycles en PDF contre l'e-mail, puis les offres.
+     Même enregistrement que l'ancien formulaire du carnet (table demandes + N8N « genesolia-carnet »). */
+  (function () {
+    var voisins = document.querySelector('article nav.voisins, .article nav.voisins');
+    if (!voisins || tunnel || document.getElementById('recevoir-ciel') || document.querySelector('.capture-article')) return;
+    var deja = false; try { deja = localStorage.getItem('carnet-inscrit') === 'oui'; } catch (e) {}
+    var z = document.createElement('section');
+    z.className = 'capture-article';
+    z.setAttribute('aria-label', 'Carnet gratuit');
+    z.style.cssText = 'margin:2rem 0;padding:1.5rem;border-radius:var(--rayon);background:linear-gradient(135deg,#FFF6EC,#FCEFF3);border:1px solid var(--champagne-clair)';
+    var offres = '<p style="margin:1rem 0 0;font-size:.95rem">Pour aller plus loin : <a href="formation.html">la formation « Sors de la boucle »</a> (module 1 offert) · <a href="essai.html">Le Cercle, 1er mois offert</a></p>';
+    if (deja) { z.innerHTML = '<h2 style="margin:0 0 .4rem">Aller plus loin</h2>' + offres; voisins.parentNode.insertBefore(z, voisins.nextSibling); return; }
+    z.innerHTML = '<h2 style="margin:0 0 .4rem">Reçois le carnet des deux cycles, gratuit</h2>' +
+      '<p style="margin:0 0 1rem;color:var(--prune-doux)">Un PDF pour repérer ce qui se répète dans ta famille et mettre des mots dessus, à ton rythme.</p>' +
+      '<form novalidate><label for="ca-prenom" style="display:block;font-weight:600;margin-bottom:.3rem">Ton prénom</label>' +
+      '<input id="ca-prenom" name="prenom" type="text" autocomplete="given-name" style="width:100%;padding:.8rem 1rem;font:inherit;border:1px solid var(--rose);border-radius:var(--rayon);margin-bottom:.8rem">' +
+      '<label for="ca-email" style="display:block;font-weight:600;margin-bottom:.3rem">Ton e-mail</label>' +
+      '<input id="ca-email" name="email" type="email" autocomplete="email" style="width:100%;padding:.8rem 1rem;font:inherit;border:1px solid var(--rose);border-radius:var(--rayon);margin-bottom:.8rem">' +
+      '<input name="_gotcha" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">' +
+      '<label style="display:flex;gap:.5rem;align-items:flex-start;margin-bottom:1rem;font-size:.92rem"><input name="accord" type="checkbox" style="margin-top:.25rem"><span>Je suis d’accord pour recevoir le carnet et quelques e-mails de Genesolia. Je peux me désinscrire à tout moment. <a href="confidentialite.html">Mes données</a></span></label>' +
+      '<button class="btn btn-plein" type="submit">Recevoir le PDF</button><p class="ca-erreur" role="status" style="margin:.7rem 0 0;min-height:1.2em"></p></form>' + offres;
+    voisins.parentNode.insertBefore(z, voisins.nextSibling);
+    var form = z.querySelector('form');
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var err = form.querySelector('.ca-erreur'), btn = form.querySelector('button');
+      var prenom = form.prenom.value.trim(), email = form.email.value.trim();
+      if (!prenom || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'Indique ton prénom et une adresse e-mail valide.'; return; }
+      if (!form.accord.checked) { err.textContent = 'Coche la case d’accord pour recevoir le carnet.'; return; }
+      err.textContent = ''; btn.disabled = true; btn.textContent = 'Envoi en cours…';
+      var data = new FormData(form);
+      data.append('source', page);
+      data.append('_subject', 'Nouvelle inscription : carnet des deux cycles');
+      envoyerFormulaire('Carnet des deux cycles', data, 'genesolia-carnet').then(function () {
+        try { localStorage.setItem('carnet-inscrit', 'oui'); } catch (e) {}
+        if (window.umami) try { window.umami.track('carnet-article', { page: page }); } catch (x) {}
+        form.innerHTML = '<p style="margin:0 0 .8rem"><strong>Merci ' + prenom.replace(/[<>&"]/g, '') + ' !</strong> Ton carnet se télécharge.</p><a class="btn btn-plein" href="' + CARNET + '" download="carnet-des-deux-cycles-genesolia.pdf">Télécharger mon carnet</a>';
+        telecharger();
+      }).catch(function () { btn.disabled = false; btn.textContent = 'Recevoir le PDF'; err.textContent = 'L’envoi n’a pas fonctionné. Réessaie dans un instant.'; });
+    });
+  })();
+
   document.querySelectorAll('[data-cadeau]').forEach(function (el, n) {
     var id = 'cadeau-' + n;
     el.className = 'cadeau';
