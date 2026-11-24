@@ -141,6 +141,28 @@
       </div>
     </article>
 
+    <section class="bloc" id="recevoir-ciel"><div class="conteneur" style="max-width:40rem">
+      <form class="rc-form" novalidate style="padding:1.6rem;border-radius:var(--rayon);background:var(--blanc);border:1px solid var(--rose)">
+        <h2 style="margin:0 0 .4rem">Reçois ton ciel du mois par e-mail</h2>
+        <p style="margin:0 0 1rem;color:var(--prune-doux)">Une fois par mois : les dates à retenir (lune, éclipses, rétrogrades) et les nombres du mois. Pas de publicité, désinscription en un clic.</p>
+        <label for="rc-email" style="display:block;font-weight:600;margin-bottom:.3rem">Ton e-mail</label>
+        <input id="rc-email" name="email" type="email" required autocomplete="email" placeholder="prenom@exemple.fr" style="width:100%;padding:.8rem 1rem;font:inherit;border:1px solid var(--rose);border-radius:var(--rayon);margin-bottom:.8rem">
+        <input name="_gotcha" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
+        <button class="btn btn-plein" type="submit">Je veux le recevoir</button>
+        <p class="rc-retour" role="status" style="margin:.8rem 0 0;min-height:1.2em"></p>
+        <p style="margin:.6rem 0 0;font-size:.85rem;color:var(--prune-doux)">Ton e-mail sert uniquement à t’envoyer ce courrier. <a href="confidentialite.html">Mes données</a></p>
+      </form>
+    </div></section>
+    <script>
+    (function(){var f=document.querySelector('.rc-form');if(!f)return;f.addEventListener('submit',function(e){e.preventDefault();
+      var r=f.querySelector('.rc-retour'),b=f.querySelector('button'),m=f.email.value.trim();
+      if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(m)){r.textContent='Vérifie ton adresse e-mail.';return;}
+      if(!window.GenesoliaEnvoyer){r.textContent='Réessaie dans un instant.';return;}
+      b.disabled=true;
+      window.GenesoliaEnvoyer('Ciel du mois par e-mail',{email:m,_gotcha:f._gotcha.value},null).then(function(){f.innerHTML='<p style="margin:0"><strong>Merci !</strong> Tu recevras le prochain ciel du mois à cette adresse.</p>';if(window.umami)try{window.umami.track('ciel-du-mois-email');}catch(x){}}).catch(function(){b.disabled=false;r.textContent='L’envoi n’a pas fonctionné. Réessaie dans un instant.';});
+    });})();
+    </script>
+
     <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
 
     <section class="bloc">
