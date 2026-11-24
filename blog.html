@@ -28,6 +28,13 @@
     .article-carte .meta{margin-top:auto;font-size:.88rem;color:var(--prune-doux)}
     @media (max-width:760px){.articles{grid-template-columns:1fr}}
     .hist-bandeau{display:grid;gap:.3rem;padding:1.4rem 1.6rem;border-radius:var(--rayon);background:linear-gradient(130deg,#3A1745,#6B2F5B 60%,#C96F63);color:#fff;text-decoration:none}.hist-bandeau b{font-family:var(--display);font-weight:400;font-size:1.6rem}.hist-bandeau span{color:#F6E3EC}.hist-bandeau .hb-sur{font:700 .75rem/1 var(--texte);letter-spacing:.06em;text-transform:uppercase;color:#F7C7BE}
+    .rb-label{display:block;font-weight:600;margin-bottom:.4rem}
+    .rb-form input{width:100%;padding:.85rem 1rem;font:inherit;font-size:1rem;border:1px solid var(--rose);border-radius:var(--rayon);background:var(--blanc);color:inherit}
+    .rb-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.8rem}
+    .rb-tags button{font:inherit;font-size:.9rem;padding:.4rem .85rem;border-radius:999px;border:1px solid var(--rose);background:var(--blanc);color:inherit;cursor:pointer}
+    .rb-tags button[aria-pressed="true"]{background:var(--prune);color:#fff;border-color:var(--prune)}
+    .rb-etat{margin:.7rem 0 0;color:var(--prune-doux);font-size:.92rem;min-height:1.2em}
+    .rb-actif .hors-filtre{display:none}
   </style>
   <meta property="og:image" content="https://genesolia.fr/assets/partage/psychogenealogie.jpg">
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Le blog", "item": "https://genesolia.fr/blog.html"}]}</script>
@@ -43,7 +50,24 @@
       </div>
     </section>
 
-    <section class="bloc" style="padding-bottom:0"><div class="conteneur">
+    <section class="bloc" id="recherche-blog" style="padding-bottom:0"><div class="conteneur" style="max-width:46rem">
+      <form role="search" class="rb-form" onsubmit="return false">
+        <label for="rb-q" class="rb-label">Chercher un article</label>
+        <input id="rb-q" type="search" placeholder="Un mot, un thème : pervers narcissique, prénom, rêve…" autocomplete="off">
+      </form>
+      <div class="rb-tags" aria-label="Thèmes">
+        <button type="button" data-q="narcissique">Pervers narcissique</button>
+        <button type="button" data-q="relation">Relations</button>
+        <button type="button" data-q="blessure">Blessures</button>
+        <button type="button" data-q="fratrie">Fratrie</button>
+        <button type="button" data-q="nombre">Nombres</button>
+        <button type="button" data-q="prénom">Prénoms</button>
+        <button type="button" data-q="rêve">Rêves</button>
+        <button type="button" data-q="ciel">Ciel</button>
+      </div>
+      <p class="rb-etat" id="rb-etat" role="status" aria-live="polite"></p>
+    </div></section>
+    <section class="bloc hors-filtre" style="padding-bottom:0"><div class="conteneur">
       <a class="methode-une" href="methode.html" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:0;overflow:hidden;border-radius:28px;text-decoration:none;color:#FFF4F6;background:linear-gradient(140deg,#2E1338,#6B2F5B);box-shadow:0 24px 60px rgba(46,19,56,.18)">
         <img src="assets/images/deux-cycles-800.webp" width="800" height="420" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover">
         <span style="display:block;padding:2rem 2.2rem">
@@ -56,7 +80,7 @@
       <style>@media (max-width:760px){.methode-une{grid-template-columns:1fr!important}}</style>
     </div></section>
 
-    <section class="bloc" style="padding-bottom:0"><div class="conteneur"><a class="hist-bandeau" href="histoires.html"><span class="hb-sur">Nouveau</span><b>Histoires de familles</b><span>Dix histoires courtes pour comprendre ce qui se transmet d'une génération à l'autre. Deux minutes chacune.</span></a></div></section>
+    <section class="bloc hors-filtre" style="padding-bottom:0"><div class="conteneur"><a class="hist-bandeau" href="histoires.html"><span class="hb-sur">Nouveau</span><b>Histoires de familles</b><span>Dix histoires courtes pour comprendre ce qui se transmet d'une génération à l'autre. Deux minutes chacune.</span></a></div></section>
 
     <section class="bloc" id="derniers-articles" style="padding-bottom:0">
       <div class="conteneur"><div class="bloc-tete"><span class="theme" style="display:block;margin-bottom:.3rem">Nouveau · 24 novembre 2026</span><h2>Les derniers articles</h2><p>Le signe qui revient dans une famille, le chemin de vie partagé, les nombres maîtres en héritage — et aussi la place dans la fratrie, le veuvage précoce, les remariages, le transfuge de classe. La série « Prénoms » s’enrichit de quatre épisodes, plus bas.</p></div></div>
@@ -757,5 +781,33 @@
   <script src="assets/site.js"></script>
   <script src="assets/notifs.js?v=2"></script>
   <script>if (window.GenesoliaNotifs) window.GenesoliaNotifs.encart(document.getElementById('blog-rappels'), { titre: 'Être prévenu·e des nouveaux articles', texte: 'Le ciel du mois, Mercure rétrograde, chaque nouvel article et chaque nouveau test\u00a0: une notification au plus par jour, que tu peux couper quand tu veux.' });</script>
+  <script>
+  (function(){
+    var q=document.getElementById('rb-q'),etat=document.getElementById('rb-etat');
+    if(!q)return;
+    var cartes=[].slice.call(document.querySelectorAll('.article-carte')),btns=[].slice.call(document.querySelectorAll('.rb-tags button'));
+    function n(s){return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')}
+    var textes=cartes.map(function(c){return n(c.textContent)});
+    function filtrer(){
+      var v=n(q.value.trim()),mots=v.split(/\s+/).filter(Boolean),nb=0;
+      document.body.classList.toggle('rb-actif',mots.length>0);
+      cartes.forEach(function(c,i){
+        var ok=mots.every(function(m){return textes[i].indexOf(m)>-1});
+        c.style.display=ok?'':'none'; if(ok)nb++;
+      });
+      [].forEach.call(document.querySelectorAll('section.bloc'),function(s){
+        if(!s.querySelector('.article-carte'))return;
+        var vis=[].some.call(s.querySelectorAll('.article-carte'),function(c){return c.style.display!=='none'});
+        s.style.display=(!mots.length||vis)?'':'none';
+      });
+      btns.forEach(function(b){b.setAttribute('aria-pressed',n(b.dataset.q)===v?'true':'false')});
+      etat.textContent=!mots.length?'':(nb?nb+(nb>1?' articles trouvés':' article trouvé'):'Aucun article ne correspond : essaie un mot plus simple.');
+    }
+    q.addEventListener('input',filtrer);
+    btns.forEach(function(b){b.addEventListener('click',function(){q.value=(n(q.value.trim())===n(b.dataset.q))?'':b.dataset.q;filtrer()})});
+    try{var p=new URLSearchParams(location.search).get('q');if(p){q.value=p;}}catch(e){}
+    filtrer();
+  })();
+  </script>
 </body>
 </html>
