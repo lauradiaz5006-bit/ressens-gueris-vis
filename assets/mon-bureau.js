@@ -563,7 +563,9 @@
       IX[cle].etat = 'ok'; IX[cle].urls = u;
     }).catch(function () { IX[cle].etat = 'erreur'; });
   }
-  function marques() { var m = {}; de('indexe').forEach(function (l) { var d = l.data; if (!m[d.url] || m[d.url].le < d.le) m[d.url] = { le: d.le, ligne: l }; }); return m; }
+  /* Pages marquées « fait » par erreur : les marques faites jusqu'à cette date (incluse) sont ignorées, la page revient dans la liste */
+  var A_REDEMANDER = { 'https://genesolia.fr/adulte-enfant-parent-pervers-narcissique.html': '2026-11-25' };
+  function marques() { var m = {}; de('indexe').forEach(function (l) { var d = l.data; if (A_REDEMANDER[d.url] && String(d.le).slice(0, 10) <= A_REDEMANDER[d.url]) return; if (!m[d.url] || m[d.url].le < d.le) m[d.url] = { le: d.le, ligne: l }; }); return m; }
   function aIndexer(cle) {
     var m = marques(), limite14 = iso(plusJours(AUJ, -14)), limite30 = iso(plusJours(AUJ, -30));
     var vus = {}, tous = IX[cle].urls.slice();
