@@ -68,9 +68,14 @@
       .evt label:first-child{grid-column:1/-1}
       .actions .btn{width:100%}
     }
+    .sources{margin:1.6rem 0;padding:1.3rem 1.4rem;border-radius:16px;border:1px solid var(--rose);background:#FBF8F6;font-size:.92rem}
+    .sources .titre{font-family:var(--display);font-size:1.1rem;margin-bottom:.5rem}
+    .sources ul{margin:0;padding-left:1.2rem}
+    .sources li{margin:.3rem 0}
   </style>
-  <script type="application/ld+json">[{"@context":"https://schema.org","@type":"WebApplication","name":"Calculateur de syndrome d'anniversaire","url":"https://genesolia.fr/calcul-syndrome-anniversaire.html","applicationCategory":"LifestyleApplication","operatingSystem":"Tous","inLanguage":"fr","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"description":"Repère les âges, les jours de l'année et les naissances proches d'un deuil qui reviennent dans une famille, avec la part du hasard."},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Comment repérer un syndrome d'anniversaire dans sa famille ?","acceptedAnswer":{"@type":"Answer","text":"Note les dates de naissance, de décès et des événements marquants de ta famille, puis compare les âges et les jours de l'année. Cet outil le fait pour toi et signale les coïncidences, sans rien conclure."}},{"@type":"Question","name":"Une coïncidence de dates prouve-t-elle un syndrome d'anniversaire ?","acceptedAnswer":{"@type":"Answer","text":"Non. Plus une famille compte de dates, plus les coïncidences sont attendues par simple hasard. L'outil affiche cette probabilité pour t'aider à garder la juste mesure."}},{"@type":"Question","name":"Mes données sont-elles envoyées quelque part ?","acceptedAnswer":{"@type":"Answer","text":"Non. Tout se calcule dans ton navigateur. Tes saisies restent sur ton appareil."}}]}]</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Calculateur de syndrome d'anniversaire", "url": "https://genesolia.fr/calcul-syndrome-anniversaire.html", "applicationCategory": "LifestyleApplication", "operatingSystem": "Tous", "inLanguage": "fr", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "description": "Repère les âges, les jours de l'année et les naissances proches d'un deuil qui reviennent dans une famille, avec la part du hasard."}</script>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Calculateur de syndrome d'anniversaire", "item": "https://genesolia.fr/calcul-syndrome-anniversaire.html"}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Comment repérer un syndrome d'anniversaire dans sa famille ?", "acceptedAnswer": {"@type": "Answer", "text": "Note les dates de naissance, de décès et des événements marquants de ta famille, puis compare les âges et les jours de l'année. Cet outil le fait pour toi et signale les coïncidences, sans rien conclure."}}, {"@type": "Question", "name": "Une coïncidence de dates prouve-t-elle un syndrome d'anniversaire ?", "acceptedAnswer": {"@type": "Answer", "text": "Non. Plus une famille compte de dates, plus les coïncidences sont attendues par simple hasard. L'outil affiche cette probabilité pour t'aider à garder la juste mesure."}}, {"@type": "Question", "name": "Mes données sont-elles envoyées quelque part ?", "acceptedAnswer": {"@type": "Answer", "text": "Non. Tout se calcule dans ton navigateur. Tes saisies restent sur ton appareil."}}, {"@type": "Question", "name": "Qui a inventé le syndrome d'anniversaire ?", "acceptedAnswer": {"@type": "Answer", "text": "Le terme est popularisé par Anne Ancelin Schützenberger (Aïe, mes aïeux !, 1993). L'idée de réactions d'anniversaire existe déjà en psychanalyse (Josephine Hilgard, 1953)."}}, {"@type": "Question", "name": "Une date qui revient dans ma famille a-t-elle forcément un sens ?", "acceptedAnswer": {"@type": "Answer", "text": "Non. Avec plusieurs dizaines de dates, des coïncidences se produisent par hasard. Elle devient une piste quand elle te parle ou quand l'événement ancien n'a jamais été raconté."}}]}</script>
 </head>
 <body class="nouveau">
   <header data-entete></header>
@@ -113,16 +118,63 @@
           <li><strong>La part du hasard.</strong> Avec le nombre de dates que tu as saisies, l'outil calcule la probabilité que deux d'entre elles tombent le même jour par simple hasard.</li>
         </ul>
 
+                <h2>D'où vient l'idée de syndrome d'anniversaire ?</h2>
+        <p>Le terme est popularisé en France par la psychologue et psychothérapeute Anne Ancelin Schützenberger, notamment dans son livre <em>Aïe, mes aïeux !</em> (1993). Elle y décrit des familles où des événements (un décès, une maladie, une naissance) semblaient se produire au même âge ou à la même date d'une génération à l'autre. L'idée a un précédent en psychanalyse : dès 1953, la psychiatre Josephine Hilgard décrit des « réactions d'anniversaire » chez des parents qui traversaient une crise quand leur enfant atteignait l'âge qu'ils avaient eux-mêmes lors d'une épreuve ancienne, comme la perte de l'un de leurs parents. Ces travaux ont montré que des dates anciennes peuvent faire resurgir des émotions, sans qu'on sache l'expliquer par un mécanisme précis ni mesurer l'effet.</p>
+        <p>Le deuil, lui, est mieux documenté : les chercheurs sur le deuil décrivent depuis longtemps des « réactions d'anniversaire » au sens courant, c'est-à-dire un regain de tristesse autour de la date d'un décès ou d'un événement. C'est un fait banal et bien établi. Que cela puisse se transmettre d'une génération à l'autre est, en revanche, une hypothèse. Le <a href="syndrome-anniversaire.html">syndrome d'anniversaire</a> et le <a href="syndrome-du-gisant.html">syndrome du gisant</a> ont leur article dédié.</p>
+        <h2>Le hasard est plus inventif qu'on ne croit</h2>
+        <p>Les mathématiques des coïncidences expliquent pourquoi l'outil affiche la part du hasard. Le « problème des anniversaires », formulé par Richard von Mises en 1939, montre que dans un groupe de 23 personnes, la probabilité que deux soient nées le même jour dépasse 50 %, et dépasse 99 % à 57 personnes : le nombre de paires possibles croît très vite. Dans un arbre de trente personnes, il y a 435 paires : il serait étonnant de ne trouver aucune date partagée. Les statisticiens Persi Diaconis et Frederick Mosteller (1989) l'expliquent par la « loi des très grands nombres » : avec assez d'occasions, des événements très improbables finissent par se produire.</p>
+        <p>Notre cerveau, de son côté, cherche des motifs : on appelle <em>apophénie</em> (terme créé par Klaus Conrad en 1958) la tendance à voir des liens là où il n'y en a pas. Ce n'est pas un défaut : c'est ce qui nous permet d'apprendre. Mais cela veut dire qu'une coïncidence rare à nos yeux est souvent banale statistiquement.</p>
+        <h2>Ce que la recherche a observé sur les dates et les décès</h2>
+        <p>Quelques études se sont penchées sur le lien entre dates symboliques et décès. En 1988, le sociologue David Phillips et Elliot King ont rapporté, dans <em>The Lancet</em>, que les décès de personnes juives baissaient juste avant la Pâque juive, puis remontaient après : l'idée est qu'une échéance importante peut retarder l'issue de quelques jours. Des analyses plus récentes de séries de décès (par exemple en Suisse, Ajdacic-Gross et collègues, 2012) ont rapporté un petit excès de décès autour des anniversaires. Ces résultats sont discutés, portent sur de grandes populations et sur de petits effets : ils ne disent rien d'une famille en particulier.</p>
+        <h3>Six questions pour interroger une coïncidence</h3>
+        <ol>
+          <li>L'événement ancien a-t-il été raconté dans la famille, ou tu l'as découvert ?</li>
+          <li>Quelle émotion ressens-tu en voyant cette date ou cet âge ?</li>
+          <li>La situation se ressemble-t-elle vraiment, ou seulement le chiffre ?</li>
+          <li>Combien de dates as-tu saisies ? Plus il y en a, plus les coïncidences sont probables.</li>
+          <li>Quelqu'un d'autre dans la famille a-t-il fait le même rapprochement ?</li>
+          <li>Qu'est-ce que tu as envie de faire de cette information : en parler, vérifier, laisser de côté ?</li>
+        </ol>
+        <p>Si une réponse te touche, l'exercice <a href="exercice-ressenti-ancetre.html">ce que je ressens, ce qu'il ou elle a vécu</a> t'aide à poursuivre en douceur.</p>
+
+                <h2>Un exemple pas à pas</h2>
+        <p>Imaginons une famille fictive. Marthe est née en 1920 et son mari est mort à 41 ans, en 1961. Sa fille Odile est née en 1950 et a perdu son premier enfant à l'âge de 41 ans. Le petit-fils, Paul, né en 1982, approche de ses 41 ans. L'outil signalera : « âge qui revient : 41 ans (deux personnes), et une troisième approche de cet âge ». Faut-il y voir un message ? Pas forcément. Il faut d'abord vérifier les faits (les dates sont-elles exactes ? les âges bien calculés ?), puis se demander si l'histoire d'Odile a été racontée à Paul, et ce que l'âge de 41 ans réveille en lui. Souvent, c'est le fait de <em>savoir</em> qui pèse, et non la date elle-même : un jeune homme qui sait que son grand-père est mort à 41 ans peut vivre cet âge avec une inquiétude qu'il n'aurait pas sans cette information. En parler avec un proche, ou avec un·e professionnel·le, aide alors à remettre cet âge à sa place.</p>
+        <h2>Vérifier tes dates avant d'interpréter</h2>
+        <p>Les erreurs de date sont fréquentes dans les histoires familiales : un acte de naissance transcrit avec un jour de décalage, une année de décès confondue avec celle de l'enterrement, une date « officielle » différente de la date vécue (déclaration tardive). Avant de tirer des conclusions, vérifie dans la mesure du possible les dates sur des actes d'état civil : en France, tu peux demander des copies d'actes à la mairie, ou consulter aux archives départementales (souvent en ligne) les registres de naissances et de mariages de plus de 75 ans. Une coïncidence bâtie sur une date approximative n'a pas de valeur.</p>
+        <h2>Quand l'outil ne suffit pas</h2>
+        <p>Si une date réveille chez toi une angoisse forte (par exemple à l'approche de l'âge où un parent est décédé), ne reste pas seul·e avec elle : un·e médecin ou un·e psychologue peut t'aider à distinguer ce qui relève de l'histoire familiale de ce qui relève de ton état du moment. L'outil est une aide à la réflexion, pas un avis médical.</p>
+
+                <h2>Pourquoi les dates marquent la mémoire</h2>
+        <p>Les psychologues Roger Brown et James Kulik ont décrit en 1977 les « souvenirs flash » : la mémoire très vivace de la façon dont on a appris un événement marquant, comme l'annonce d'un décès. Ces souvenirs sont souvent très nets, mais pas toujours exacts : leur précision subjective dépasse leur exactitude. Pour une famille, cela veut dire que la date d'un deuil peut rester gravée dans la mémoire de ceux qui l'ont vécu, et se transmettre dans les récits. Une date qui « pèse » ne prouve donc rien sur un mécanisme caché : elle montre surtout combien un événement a marqué ceux qui en parlent.</p>
+
+                <p>Un dernier repère : si tu saisis peu de dates, l'outil trouvera peu de coïncidences, et si tu en saisis beaucoup, il en trouvera beaucoup, y compris sans aucun lien. C'est pourquoi la partie « hasard » compte autant que la partie « répétitions ». Prends l'habitude de lire les deux ensemble, puis de te demander si le rapprochement s'appuie sur une histoire connue de ta famille.</p>
+
+        <p>Garde aussi en tête que cet outil fonctionne sur ton appareil : tes dates ne sont ni envoyées ni enregistrées, ce qui te laisse libre d'essayer plusieurs combinaisons.</p>
+
         <h2>Lire les résultats avec justesse</h2>
         <p>Le <a href="syndrome-anniversaire.html">syndrome d'anniversaire</a> est une hypothèse de la psychogénéalogie : l'idée qu'un événement familial pourrait se rejouer à un même âge ou à une même date, d'une génération à l'autre. Rien ne le démontre, et beaucoup de coïncidences s'expliquent par le hasard. Dans un groupe de 23 personnes, il y a déjà plus d'une chance sur deux que deux soient nées le même jour.</p>
         <p class="rappel"><strong>Une coïncidence n'est pas un message.</strong> Elle devient une piste quand elle te parle : quand l'événement ancien n'a jamais été raconté, quand l'âge réveille en toi une émotion, ou quand la situation se ressemble aussi. Sinon, laisse-la de côté. Un âge qui revient n'annonce rien de ce qui va t'arriver.</p>
         <p>Pour aller plus loin, tu peux dessiner toute ta famille dans le <a href="genosociogramme.html">génosociogramme gratuit</a> : il repère aussi les prénoms, les métiers et les épreuves qui se répètent, et l'outil ci-dessus peut ensuite reprendre ton arbre en un clic.</p>
+
+                <div class="sources">
+          <p class="titre">Sources de cet article</p>
+          <ul>
+            <li>Anne Ancelin Schützenberger, <em>Aïe, mes aïeux !</em>, Desclée de Brouwer, 1993.</li>
+            <li>Josephine R. Hilgard, « Anniversary reactions in parents precipitated by children », <em>Psychiatry</em>, 1953.</li>
+            <li>Richard von Mises, « Über Aufteilungs- und Besetzungswahrscheinlichkeiten », 1939 (problème des anniversaires).</li>
+            <li>Persi Diaconis et Frederick Mosteller, « Methods for studying coincidences », <em>Journal of the American Statistical Association</em>, 1989.</li>
+            <li>David P. Phillips et Elliot W. King, « Death takes a holiday: mortality surrounding major social occasions », <em>The Lancet</em>, 1988.</li>
+            <li>Vladeta Ajdacic-Gross et al., « Death has a preference for birthdays », <em>Annals of Epidemiology</em>, 2012.</li>
+          </ul>
+        </div>
 
         <h2>Questions fréquentes</h2>
         <dl class="faq">
           <dt>Comment repérer un syndrome d'anniversaire dans sa famille ?</dt><dd>Note les dates de naissance, de décès et des événements marquants de ta famille, puis compare les âges et les jours de l'année. Cet outil le fait pour toi et signale les coïncidences, sans rien conclure.</dd>
           <dt>Une coïncidence de dates prouve-t-elle un syndrome d'anniversaire ?</dt><dd>Non. Plus une famille compte de dates, plus les coïncidences sont attendues par simple hasard. L'outil affiche cette probabilité pour t'aider à garder la juste mesure.</dd>
           <dt>Mes données sont-elles envoyées quelque part ?</dt><dd>Non. Tout se calcule dans ton navigateur. Tes saisies restent sur ton appareil.</dd>
+                  <dt>Qui a inventé le syndrome d'anniversaire ?</dt><dd>Le terme est popularisé par Anne Ancelin Schützenberger (<em>Aïe, mes aïeux !</em>, 1993). L'idée de réactions d'anniversaire existe déjà en psychanalyse (Josephine Hilgard, 1953).</dd>
+          <dt>Une date qui revient dans ma famille a-t-elle forcément un sens ?</dt><dd>Non. Avec plusieurs dizaines de dates, des coïncidences se produisent par hasard. Elle devient une piste quand elle te parle ou quand l'événement ancien n'a jamais été raconté.</dd>
         </dl>
         <p style="margin-top:2.2rem;font-size:.93rem;color:var(--prune-doux)">Lecture symbolique, pour réfléchir. Si une date ou un âge réveille une inquiétude forte, parles-en à une personne de confiance ou à un·e professionnel·le de l'accompagnement.</p>
       </div>
