@@ -208,6 +208,15 @@
   var PRIORITE = {
     gen: [
       /* Ajout 27 nov. 2026 : 20 articles enrichis (>2000 mots, sources, FAQ), à redemander en premier */
+      'https://genesolia.fr/annee-personnelle-1-en-2027.html',
+      'https://genesolia.fr/annee-personnelle-2-en-2027.html',
+      'https://genesolia.fr/annee-personnelle-3-en-2027.html',
+      'https://genesolia.fr/annee-personnelle-4-en-2027.html',
+      'https://genesolia.fr/annee-personnelle-5-en-2027.html',
+      'https://genesolia.fr/annee-personnelle-6-en-2027.html',
+      'https://genesolia.fr/annee-personnelle-7-en-2027.html',
+      'https://genesolia.fr/annee-personnelle-8-en-2027.html',
+      'https://genesolia.fr/annee-personnelle-9-en-2027.html',
       'https://genesolia.fr/blessure-de-rejet.html',
       'https://genesolia.fr/blessure-d-abandon.html',
       'https://genesolia.fr/blessure-de-trahison.html',
