@@ -208,6 +208,13 @@
   var PRIORITE = {
     gen: [
       /* Ajout 27 nov. 2026 : 20 articles enrichis (>2000 mots, sources, FAQ), à redemander en premier */
+      'https://genesolia.fr/nombre-maitre-11.html',
+      'https://genesolia.fr/nombre-maitre-22.html',
+      'https://genesolia.fr/nombre-maitre-33.html',
+      'https://genesolia.fr/calcul-syndrome-anniversaire.html',
+      'https://genesolia.fr/d-ou-vient-la-matrice-du-destin.html',
+      'https://genesolia.fr/d-ou-vient-la-theorie-de-l-attachement.html',
+      'https://genesolia.fr/mercure-retrograde-2027.html',
       'https://genesolia.fr/annee-personnelle-1-en-2027.html',
       'https://genesolia.fr/annee-personnelle-2-en-2027.html',
       'https://genesolia.fr/annee-personnelle-3-en-2027.html',
