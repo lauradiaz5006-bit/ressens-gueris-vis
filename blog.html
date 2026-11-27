@@ -35,6 +35,8 @@
     .rb-tags button[aria-pressed="true"]{background:var(--prune);color:#fff;border-color:var(--prune)}
     .rb-etat{margin:.7rem 0 0;color:var(--prune-doux);font-size:.92rem;min-height:1.2em}
     .rb-actif .hors-filtre{display:none}
+    .rb-lien{font-size:.9rem;padding:.4rem .85rem;border-radius:999px;border:1px solid var(--rose);background:var(--blanc);color:inherit;text-decoration:none}.rb-lien:hover{background:var(--prune);color:#fff}
+    html{scroll-behavior:smooth}.bloc[id]{scroll-margin-top:5rem}
   </style>
   <meta property="og:image" content="https://genesolia.fr/assets/partage/psychogenealogie.jpg">
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Le blog", "item": "https://genesolia.fr/blog.html"}]}</script>
@@ -82,8 +84,10 @@
 
     <section class="bloc hors-filtre" style="padding-bottom:0"><div class="conteneur"><a class="hist-bandeau" href="histoires.html"><span class="hb-sur">Nouveau</span><b>Histoires de familles</b><span>Dix histoires courtes pour comprendre ce qui se transmet d'une génération à l'autre. Deux minutes chacune.</span></a></div></section>
 
-    <section class="bloc" id="derniers-articles" style="padding-bottom:0">
-      <div class="conteneur"><div class="bloc-tete"><span class="theme" style="display:block;margin-bottom:.3rem">Nouveau · 24 novembre 2026</span><h2>Les derniers articles</h2><p>Le signe qui revient dans une famille, le chemin de vie partagé, les nombres maîtres en héritage — et aussi la place dans la fratrie, le veuvage précoce, les remariages, le transfuge de classe. La série « Prénoms » s’enrichit de quatre épisodes, plus bas.</p></div></div>
+    <section class="bloc hors-filtre" style="padding-bottom:0"><div class="conteneur" style="max-width:56rem"><p class="rb-label" style="margin-bottom:.5rem">Parcourir par thème</p><div class="rb-tags" aria-label="Aller à un thème"><a href="#relations" class="rb-lien">Relations, couple et emprise</a><a href="#blessures" class="rb-lien">Les blessures de l’âme</a><a href="#psychogenealogie" class="rb-lien">Comprendre la psychogénéalogie</a><a href="#fratrie-deuil" class="rb-lien">Fratrie, deuil et naissances</a><a href="#ancetres" class="rb-lien">Ancêtres, Toussaint et autels</a><a href="#emotions" class="rb-lien">Émotions et vision de vie</a><a href="#reves" class="rb-lien">Symbolique des rêves</a><a href="#nombres" class="rb-lien">Numérologie</a><a href="#origines" class="rb-lien">Aux origines</a><a href="#prenoms" class="rb-lien">Prénoms et généalogie</a><a href="#synchronicite" class="rb-lien">Synchronicité et heures miroirs</a><a href="#ciel" class="rb-lien">Ciel et astrologie</a></div></div></section>
+
+    <section class="bloc" id="relations" style="padding-bottom:0">
+      <div class="conteneur"><div class="bloc-tete"><h2>Relations, couple et emprise</h2><p>Pervers narcissique, dépendance affective, étapes du couple, relations floues : ce qui se joue entre deux personnes, et ce que ta famille y a mis.</p></div></div>
       <div class="conteneur articles">
         <a class="article-carte" href="pervers-narcissique.html">
           <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
@@ -106,40 +110,12 @@
           <p>Ce qu’on porte, pourquoi on le retrouve en amour, et comment reprendre sa place.</p>
           <span class="meta">24 novembre 2026 · 18 min de lecture</span>
         </a>
-        <a class="article-carte" href="signe-astrologique-qui-revient-famille.html">
-          <img class="carte-photo" src="assets/images/blog-ciel-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Tes astres</span>
-          <h2>Même signe astrologique dans la famille</h2>
-          <p>Trois Scorpions à table ? Calendrier des conceptions, phrases de famille, couleur de la lignée : trois lectures d'un signe qui revient.</p>
-          <span class="meta">13 novembre 2026 · 10 min de lecture</span>
-        </a>
-        <a class="article-carte" href="chemin-de-vie-qui-se-repete-famille.html">
-          <img class="carte-photo" src="assets/images/blog-nombres-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Tes nombres</span>
-          <h2>Le même chemin de vie dans la famille</h2>
-          <p>Le même nombre que ta mère ou ta grand-mère ? Calcul exact, nombres maîtres, année personnelle et lecture symbolique.</p>
-          <span class="meta">13 novembre 2026 · 12 min de lecture</span>
-        </a>
-        <a class="article-carte" href="nombre-maitre-heritage-familial.html">
-          <img class="carte-photo" src="assets/images/blog-nombres-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Tes nombres</span>
-          <h2>Nombre maître (11, 22, 33) : un héritage familial ?</h2>
-          <p>Quand le 11, le 22 ou le 33 circule dans une lignée : ce que ces nombres portent, et comment les reconnaître chez les tiens.</p>
-          <span class="meta">13 novembre 2026 · 10 min de lecture</span>
-        </a>
-        <a class="article-carte" href="meme-place-qu-un-ancetre-fratrie.html">
-          <img class="carte-photo" src="assets/images/blog-filles-garcons-fratrie-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Ce qui se répète</span>
-          <h2>Même place qu'un ancêtre dans la fratrie</h2>
-          <p>Ce que dit Walter Toman sur la place dans la fratrie, et comment repérer ces échos dans ton arbre.</p>
-          <span class="meta">13 novembre 2026 · 10 min de lecture</span>
-        </a>
-        <a class="article-carte" href="veuvage-precoce-generations.html">
-          <img class="carte-photo" src="assets/images/blog-deuil-non-fait-mort-jeune-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Ce qui se répète</span>
-          <h2>Veuves de génération en génération</h2>
-          <p>Le veuvage précoce qui se répète dans les familles, et ce qu'il transmet.</p>
-          <span class="meta">13 novembre 2026 · 9 min de lecture</span>
+        <a class="article-carte" href="schemas-repetitifs-en-amour.html">
+          <img class="carte-photo" src="assets/images/relations-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Schémas répétitifs</span>
+          <h2>Schémas répétitifs en amour : repérer ce qui se rejoue</h2>
+          <p>Toujours le même type de personne, la même fin ? Ce que ton histoire familiale peut éclairer, et un exercice pour faire autrement.</p>
+          <span class="meta">7 octobre 2026 · 7 min de lecture</span>
         </a>
         <a class="article-carte" href="remariages-familles-recomposees-generations.html">
           <img class="carte-photo" src="assets/images/blog-etapes-du-couple-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
@@ -148,6 +124,228 @@
           <p>Ce qu'en disent McGoldrick et Irène Théry sur les remariages et les familles recomposées.</p>
           <span class="meta">13 novembre 2026 · 8 min de lecture</span>
         </a>
+        <a class="article-carte" href="imago-choix-amoureux.html">
+          <img class="carte-photo" src="assets/images/blog-imago-choix-amoureux-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Couple</span>
+          <h2>L’imago : pourquoi je choisis toujours le même type de partenaire</h2>
+          <p>L’exercice des deux cercles, les rôles qu’on rejoue en amour et les pistes de ta lignée.</p>
+          <span class="meta">12 octobre 2026 · 11 min de lecture</span>
+        </a>
+        <a class="article-carte" href="etapes-du-couple.html">
+          <img class="carte-photo" src="assets/images/blog-etapes-du-couple-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Couple</span>
+          <h2>Les étapes du couple : crise des 3 ans, des 7 ans et après</h2>
+          <p>Fusion, individuation, adaptation, redécouverte : ce qui se joue à chaque étape, et les modèles de couple hérités.</p>
+          <span class="meta">12 octobre 2026 · 11 min de lecture</span>
+        </a>
+        <a class="article-carte" href="dependance-affective.html">
+          <img class="carte-photo" src="assets/images/blog-dependance-affective-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Couple</span>
+          <h2>Dépendance affective : la reconnaître et s’en libérer</h2>
+          <p>Les signes, les racines familiales et des pistes concrètes pour aimer par choix plutôt que par peur.</p>
+          <span class="meta">12 octobre 2026 · 11 min de lecture</span>
+        </a>
+        <a class="article-carte" href="conjoint-meme-prenom-que-son-pere.html">
+          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Psychogénéalogie</span>
+          <h2>Épouser quelqu'un qui porte le prénom de son père ou de sa mère : hasard ou écho ?</h2>
+          <p>Ton conjoint porte le prénom de ton père, de ta mère ou d'un frère disparu ? Choix amoureux selon Freud et la thérapie Imago, lecture…</p>
+          <span class="meta">12 novembre 2026 · 8 min de lecture</span>
+        </a>
+        <a class="article-carte" href="relation-floue.html">
+          <img class="carte-photo" src="assets/images/relations-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Ta vie en réel</span>
+          <h2>Relation floue : pourquoi c'est si dur de demander « on est quoi ? »</h2>
+          <p>Reconnaître une relation floue, comprendre pourquoi on accepte le flou, et oser poser la question, avec des phrases prêtes à dire.</p>
+          <span class="meta">7 octobre 2026 · 6 min de lecture</span>
+        </a>
+        <a class="article-carte" href="relation-mere-fille-toxique.html">
+          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Psychogénéalogie</span>
+          <h2>Relation mère fille toxique : ce qui se transmet</h2>
+          <p>Les signes, ce que ta lignée féminine rejoue, et comment retrouver ta place sans couper le lien.</p>
+          <span class="meta">31 octobre 2026 · 9 min de lecture</span>
+        </a>
+        <a class="article-carte" href="conflits-avec-ses-parents.html">
+          <img class="carte-photo" src="assets/images/psychogenealogie-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Ta vie en réel</span>
+          <h2>Toujours en conflit avec tes parents ? Ce qui se joue vraiment</h2>
+          <p>Pourquoi ça clashe à 20 ans, ce que leurs inquiétudes racontent, et une méthode en cinq étapes pour sortir des disputes.</p>
+          <span class="meta">7 octobre 2026 · 7 min de lecture</span>
+        </a>
+        <a class="article-carte" href="se-sentir-seule.html">
+          <img class="carte-photo" src="assets/images/suivi-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Ta vie en réel</span>
+          <h2>Se sentir seule, même entourée</h2>
+          <p>Ce n'est ni rare ni un défaut. Ce qui peut se jouer, et cinq petites actions pour recréer du lien.</p>
+          <span class="meta">7 octobre 2026 · 5 min de lecture</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="bloc" id="blessures" style="padding-bottom:0">
+      <div class="conteneur"><div class="bloc-tete"><h2>Les blessures de l’âme</h2><p>Rejet, abandon, humiliation, trahison, injustice : chaque blessure, son masque, et son écho en amour.</p></div></div>
+      <div class="conteneur articles">
+        <a class="article-carte" href="blessure-rejet-ou-abandon.html">
+          <img class="carte-photo" src="assets/images/etat-interieur-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Blessures</span>
+          <h2>Blessure de rejet ou d&#x27;abandon : comment faire la différence</h2>
+          <p>La différence en un tableau et un exemple concret, avec le comparatif des cinq blessures.</p>
+          <span class="meta">7 octobre 2026 · 6 min de lecture</span>
+        </a>
+        <a class="article-carte" href="masques-des-5-blessures.html">
+          <img class="carte-photo" src="assets/images/etat-interieur-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Blessures</span>
+          <h2>Les cinq masques des blessures de l&#x27;âme</h2>
+          <p>Fuyant, dépendant, masochiste, contrôlant, rigide : ce que chaque masque protège, et comment l'alléger.</p>
+          <span class="meta">7 octobre 2026 · 8 min de lecture</span>
+        </a>
+        <a class="article-carte" href="blessure-humiliation-relation-amoureuse.html">
+          <img class="carte-photo" src="assets/images/relations-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Blessures</span>
+          <h2>Blessure d'humiliation et relation amoureuse : la reconnaître en amour</h2>
+          <p>Honte, effacement, besoin de faire plaisir : les signes, le masque en amour, et ce que ta famille t'a appris à cacher.</p>
+          <span class="meta">31 octobre 2026 · 9 min de lecture</span>
+        </a>
+        <a class="article-carte" href="blessure-de-rejet.html">
+          <img class="carte-photo" src="assets/images/etat-interieur-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Blessures</span>
+          <h2>La blessure de rejet : la reconnaître, comprendre d'où elle vient</h2>
+          <p>Blessure de rejet : ses signes, le masque du fuyant, le parent souvent concerné, ce qu'elle rejoue en amour et au travail, et son histoire familiale.</p>
+          <span class="meta">7 octobre 2026 · 12 min de lecture</span>
+        </a>
+        <a class="article-carte" href="blessure-d-abandon.html">
+          <img class="carte-photo" src="assets/images/etat-interieur-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Blessures</span>
+          <h2>La blessure d'abandon : la reconnaître, comprendre d'où elle vient</h2>
+          <p>Blessure d'abandon : ses signes, le masque du dépendant, le parent souvent concerné, ce qu'elle rejoue en amour et au travail, et son histoire…</p>
+          <span class="meta">7 octobre 2026 · 10 min de lecture</span>
+        </a>
+        <a class="article-carte" href="blessure-de-trahison.html">
+          <img class="carte-photo" src="assets/images/etat-interieur-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Blessures</span>
+          <h2>La blessure de trahison : la reconnaître, comprendre d'où elle vient</h2>
+          <p>Blessure de trahison : ses signes, le masque du contrôlant, le parent souvent concerné, ce qu'elle rejoue en amour et au travail, et son histoire…</p>
+          <span class="meta">7 octobre 2026 · 10 min de lecture</span>
+        </a>
+        <a class="article-carte" href="blessure-d-humiliation.html">
+          <img class="carte-photo" src="assets/images/etat-interieur-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Blessures</span>
+          <h2>La blessure d'humiliation : la reconnaître, comprendre d'où elle vient</h2>
+          <p>Blessure d'humiliation : ses signes, quel parent est souvent concerné, le masque du masochiste, ce qu'elle rejoue en amour et au travail, et dans…</p>
+          <span class="meta">7 octobre 2026 · 11 min de lecture</span>
+        </a>
+        <a class="article-carte" href="blessure-d-injustice.html">
+          <img class="carte-photo" src="assets/images/etat-interieur-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Blessures</span>
+          <h2>La blessure d'injustice : la reconnaître, comprendre d'où elle vient</h2>
+          <p>Blessure d'injustice : ses signes, le masque du rigide, la colère, ce qu'elle rejoue au travail et en amour, le parent souvent concerné et la famille.</p>
+          <span class="meta">7 octobre 2026 · 11 min de lecture</span>
+        </a>
+        <a class="article-carte" href="blessure-abandon-relation-amoureuse.html">
+          <img class="carte-photo" src="assets/images/relations-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Blessures</span>
+          <h2>Blessure d&#x27;abandon et relation amoureuse</h2>
+          <p>Quand la peur d'être quitté·e prend la place : les signes, l'histoire familiale et des pistes.</p>
+          <span class="meta">7 octobre 2026 · 7 min de lecture</span>
+        </a>
+        <a class="article-carte" href="blessure-trahison-relation-amoureuse.html">
+          <img class="carte-photo" src="assets/images/relations-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Blessures</span>
+          <h2>Blessure de trahison et relation amoureuse</h2>
+          <p>Méfiance, contrôle, jalousie : retrouver confiance, et voir d'où vient la peur d'être trompé·e.</p>
+          <span class="meta">7 octobre 2026 · 7 min de lecture</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="bloc" id="psychogenealogie" style="padding-bottom:0">
+      <div class="conteneur"><div class="bloc-tete"><h2>Comprendre la psychogénéalogie</h2><p>Les notions de base, d’où elles viennent, et comment les repérer dans ton arbre.</p></div></div>
+      <div class="conteneur articles">
+        <a class="article-carte" href="genogramme-vs-genosociogramme.html">
+          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Psychogénéalogie</span>
+          <h2>Génogramme vs génosociogramme : la différence</h2>
+          <p>Définition, symboles, origine en travail social, et ce qui distingue les deux outils.</p>
+          <span class="meta">10 novembre 2026 · 6 min de lecture</span>
+        </a>
+        <a class="article-carte" href="constellation-familiale.html">
+          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Psychogénéalogie</span>
+          <h2>Constellation familiale : définition et faire seul·e</h2>
+          <p>Ce que c'est vraiment, comment ça se passe en groupe, et ce qu'on peut explorer de son côté.</p>
+          <span class="meta">10 novembre 2026 · 8 min de lecture</span>
+        </a>
+        <a class="article-carte" href="memoire-transgenerationnelle.html">
+          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Psychogénéalogie</span>
+          <h2>La mémoire transgénérationnelle</h2>
+          <p>Ce qui se transmet en silence d'une génération à l'autre, et ce qu'on peut vraiment en dire.</p>
+          <span class="meta">7 octobre 2026 · 8 min de lecture</span>
+        </a>
+        <a class="article-carte" href="loyaute-familiale-invisible.html">
+          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Psychogénéalogie</span>
+          <h2>Les loyautés familiales invisibles</h2>
+          <p>Ces fidélités qui nous lient sans le savoir, et comment les transformer en fidélités choisies.</p>
+          <span class="meta">7 octobre 2026 · 7 min de lecture</span>
+        </a>
+        <a class="article-carte" href="syndrome-du-gisant.html">
+          <img class="carte-photo" src="assets/images/blog-deuil-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Psychogénéalogie</span>
+          <h2>Le syndrome du gisant</h2>
+          <p>Porter, sans le savoir, la vie d'un mort : la notion du Dr Sellam, un exemple sur cinq générations et ses limites.</p>
+          <span class="meta">7 octobre 2026 · 8 min de lecture</span>
+        </a>
+        <a class="article-carte" href="informations-avant-genosociogramme.html">
+          <img class="carte-photo" src="assets/images/genosociogramme-vierge-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Génosociogramme</span>
+          <h2>Quelles informations rassembler avant de faire son génosociogramme</h2>
+          <p>Les informations à réunir, thème par thème, où les trouver, et une liste à cocher à imprimer.</p>
+          <span class="meta">7 octobre 2026 · 7 min de lecture</span>
+        </a>
+        <a class="article-carte" href="questions-a-poser-a-sa-famille.html">
+          <img class="carte-photo" src="assets/images/psychogenealogie-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Famille</span>
+          <h2>Les questions à poser à sa famille pour compléter son arbre</h2>
+          <p>Comment s'y prendre avec tes parents et grands-parents, une trentaine de questions, et quoi faire des réponses.</p>
+          <span class="meta">7 octobre 2026 · 8 min de lecture</span>
+        </a>
+        <a class="article-carte" href="arbre-de-vie-arbre-genealogique-genosociogramme.html">
+          <img class="carte-photo" src="assets/images/arbre-de-vie-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Arbre de vie</span>
+          <h2>Arbre de vie, arbre généalogique, génosociogramme : trois arbres à ne pas confondre</h2>
+          <p>À quoi sert chacun, ce qu'on y note, d'où il vient, et comment les utiliser ensemble.</p>
+          <span class="meta">7 octobre 2026 · 6 min de lecture</span>
+        </a>
+        <a class="article-carte" href="secret-de-famille.html">
+          <img class="carte-photo" src="assets/images/blog-secret-de-famille-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Ce qui se répète</span>
+          <h2>Secrets de famille : non-dits, fantômes et zones d'ombre</h2>
+          <p>Tisseron, Abraham et Torok, les indices dans l'arbre, les archives : chercher un secret de famille sans accuser.</p>
+          <span class="meta">8 octobre 2026 · 11 min de lecture</span>
+        </a>
+        <a class="article-carte" href="guerre-et-memoire-familiale.html">
+          <img class="carte-photo" src="assets/images/blog-guerre-et-memoire-familiale-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Ce qui se répète</span>
+          <h2>La guerre dans l'arbre : mémoire familiale et silences</h2>
+          <p>1914, 1940, l'Algérie : ce que les guerres laissent dans la mémoire des familles, et comment retrouver leur trace.</p>
+          <span class="meta">8 octobre 2026 · 11 min de lecture</span>
+        </a>
+        <a class="article-carte" href="argent-et-lignee.html">
+          <img class="carte-photo" src="assets/images/blog-argent-et-lignee-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Ce qui se répète</span>
+          <h2>Argent et histoire familiale : quand les revers se répètent</h2>
+          <p>Faillites sur plusieurs générations, héritages qui divisent, transfuges de classe : ce que l'argent transmet.</p>
+          <span class="meta">8 octobre 2026 · 11 min de lecture</span>
+        </a>
+        <a class="article-carte" href="peur-de-manquer-d-argent.html">
+          <img class="carte-photo" src="assets/images/blog-argent-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Psychogénéalogie</span>
+          <h2>La peur de manquer d&#x27;argent</h2>
+          <p>Quand l'insécurité vient de plus loin que toi, et des pistes concrètes pour l'apaiser.</p>
+          <span class="meta">7 octobre 2026 · 7 min de lecture</span>
+        </a>
         <a class="article-carte" href="transfuge-de-classe-nevrose-de-classe.html">
           <img class="carte-photo" src="assets/images/blog-argent-et-lignee-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
           <span class="theme">Ce qui se répète</span>
@@ -155,331 +353,239 @@
           <p>La névrose de classe selon Vincent de Gaulejac, les transclasses de Chantal Jaquet, et comment se libérer de la culpabilité.</p>
           <span class="meta">13 novembre 2026 · 9 min de lecture</span>
         </a>
-      </div>
-    </section>
-    <section class="bloc" style="padding-bottom:0">
-      <div class="conteneur"><a class="article-carte" href="le-ciel-du-mois.html" style="display:flex">
-          <img class="carte-photo" src="assets/images/blog-ciel-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-        <span class="theme">Chaque mois</span>
-        <h2>Le ciel du mois : lune, éclipses, rétrogrades et nombres</h2>
-        <p>Les phénomènes réels du ciel, les nombres du mois, la saison, un geste et une question pour ta famille.</p>
-        <span class="meta">Mis à jour chaque mois</span>
-      </a></div>
-    </section>
-
-    <section class="bloc" style="padding-bottom:0">
-      <div class="conteneur"><div class="bloc-tete"><h2>Préparer 2027</h2></div></div>
-      <div class="conteneur articles">
-        <a class="article-carte" href="annee-universelle-2027.html">
-          <img class="carte-photo" src="assets/images/blog-annee-11-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Numérologie</span>
-          <h2>Année universelle 2027 : ce que le nombre 2 (et le 11) raconte</h2>
-          <p>Le calcul, l'histoire du 11 et ce que l'année 2027 peut t'inviter à regarder, en remontant aux sources.</p>
-          <span class="meta">27 novembre 2026 · 15 min de lecture</span>
+        <a class="article-carte" href="implexe-mariage-entre-cousins.html">
+          <img class="carte-photo" src="assets/images/blog-implexe-mariage-entre-cousins-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Ce qui se répète</span>
+          <h2>L'implexe : quand le même ancêtre apparaît dans deux branches</h2>
+          <p>Mariages entre cousins, ancêtres communs, dispenses de l'Église, règles d'alliance dans le monde : ce que l'implexe raconte d'une famille.</p>
+          <span class="meta">8 octobre 2026 · 10 min de lecture</span>
         </a>
-        <a class="article-carte" href="annee-universelle-calcul-origine.html">
-          <img class="carte-photo" src="assets/images/blog-calcul-roue-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Numérologie</span>
-          <h2>Année universelle : calcul, origine et limites de la méthode</h2>
-          <p>D'où vient vraiment le calcul : base dix, Atlantic City, calendriers. Ce que la méthode dit, et ce qu'elle ne dit pas.</p>
-          <span class="meta">27 novembre 2026 · 16 min de lecture</span>
+        <a class="article-carte" href="metiers-transmis-genealogie.html">
+          <img class="carte-photo" src="assets/images/blog-metiers-transmis-genealogie-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Ce qui se répète</span>
+          <h2>Le métier transmis de génération en génération</h2>
+          <p>Reprendre le métier de son père, rompre avec lui, voir un métier sauter une génération : héritage, loyauté et liberté.</p>
+          <span class="meta">8 octobre 2026 · 11 min de lecture</span>
         </a>
-        <a class="article-carte" href="annee-universelle-cycle-9-ans.html">
-          <img class="carte-photo" src="assets/images/blog-cycle-neuf-spirale-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Numérologie</span>
-          <h2>Le cycle de neuf ans en numérologie : de 2025 à 2034</h2>
-          <p>Les neuf années une à une, le neuf dans les traditions du monde et la magie arithmétique du 9.</p>
-          <span class="meta">27 novembre 2026 · 37 min de lecture</span>
+        <a class="article-carte" href="triangle-familial-enfant-pris-entre-ses-parents.html">
+          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Psychogénéalogie</span>
+          <h2>Conflit de loyauté chez l'enfant : le triangle familial et la loyauté clivée</h2>
+          <p>Conflit de loyauté : définition, triangle familial (Bowen, Minuchin), loyauté clivée, enfant messager ou confident, et comment sortir de ce rôle.</p>
+          <span class="meta">12 novembre 2026 · 11 min de lecture</span>
         </a>
-        <a class="article-carte" href="histoire-du-calendrier.html">
-          <img class="carte-photo" src="assets/images/blog-calendrier-parchemin-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Histoire</span>
-          <h2>Histoire du calendrier : d'Hénoch au grégorien</h2>
-          <p>Un calendrier transmis par un ange, des Veilleurs, Sirius, une année de 445 jours et dix jours effacés en 1582.</p>
-          <span class="meta">27 novembre 2026 · 12 min de lecture</span>
+        <a class="article-carte" href="famille-toxique-couper-les-ponts.html">
+          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Psychogénéalogie</span>
+          <h2>Famille toxique : pourquoi on coupe les ponts</h2>
+          <p>Famille toxique et coupure émotionnelle : ce que Bowen a observé, pourquoi la distance se répète d’une génération à l’autre, et comment en sortir.</p>
+          <span class="meta">12 novembre 2026 · 12 min de lecture</span>
         </a>
-        <a class="article-carte" href="annee-personnelle-2027.html">
-          <img class="carte-photo" src="assets/images/blog-annee-personnelle-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Numérologie</span>
-          <h2>Année personnelle 2027 : calcule la tienne</h2>
-          <p>Ton année en numérologie, de 1 à 9 : ce qu'elle t'invite à vivre en amour, au travail, mois par mois et dans ton histoire familiale.</p>
-          <span class="meta">7 octobre 2026 · 5 min de lecture</span>
+        <a class="article-carte" href="enfant-parentifie-parentification.html">
+          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Psychogénéalogie</span>
+          <h2>Parentification : quand l'enfant porte ses parents</h2>
+          <p>Parentification : définition, exemples et signes à l'âge adulte. Un enfant parentifié prend en charge, trop tôt, les besoins matériels ou…</p>
+          <span class="meta">12 novembre 2026 · 10 min de lecture</span>
         </a>
-        <a class="article-carte" href="nombres-maitres.html">
-          <img class="carte-photo" src="assets/images/blog-nombres-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Numérologie</span>
-          <h2>Les nombres maîtres 11, 22 et 33</h2>
-          <p>Définition, calcul, fréquence réelle selon la méthode, et ce que chaque nombre maître dit de toi et de ta lignée.</p>
+        <a class="article-carte" href="adoption-placement-psychogenealogie.html">
+          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Psychogénéalogie</span>
+          <h2>Adoption et placement dans l'arbre : la blessure primitive et ce qui se transmet</h2>
+          <p>Adoption, placement en famille d'accueil, enfant confié à des proches : la blessure primitive selon Nancy Verrier, ce que la psychogénéalogie…</p>
+          <span class="meta">12 novembre 2026 · 12 min de lecture</span>
+        </a>
+        <a class="article-carte" href="syndrome-anniversaire.html">
+          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Psychogénéalogie</span>
+          <h2>Le syndrome d'anniversaire : faits, hypothèses et coïncidences</h2>
+          <p>Syndrome d'anniversaire en psychogénéalogie : définition, origine, exemple et limites. Comment distinguer une répétition d'une simple coïncidence.</p>
+          <span class="meta">27 novembre 2026 · 10 min de lecture</span>
+        </a>
+        <a class="article-carte" href="place-dans-la-fratrie.html">
+          <img class="carte-photo" src="assets/images/genosociogramme-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Psychogénéalogie</span>
+          <h2>La place dans la fratrie</h2>
+          <p>Aîné·e, milieu, cadet·te : ce que disent les recherches, et ce qu'apporte la psychogénéalogie.</p>
           <span class="meta">7 octobre 2026 · 7 min de lecture</span>
         </a>
-        <a class="article-carte" href="mercure-retrograde-2027.html">
-          <img class="carte-photo" src="assets/images/blog-ciel-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Le ciel</span>
-          <h2>Mercure rétrograde 2027 : les dates et leur signification</h2>
-          <p>Les trois périodes de l'année, heure de Paris et du Québec, et une question pour ta famille à chacune.</p>
+        <a class="article-carte" href="conflit-familial-noel.html">
+          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Psychogénéalogie</span>
+          <h2>Conflit familial à Noël : pourquoi les disputes reviennent</h2>
+          <p>Le syndrome de Noël, les rôles que chacun·e reprend à table, ce qui se rejoue d'une génération à l'autre, et des repères pour fêter autrement.</p>
+          <span class="meta">31 octobre 2026 · 16 min de lecture</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="bloc" id="fratrie-deuil" style="padding-bottom:0">
+      <div class="conteneur"><div class="bloc-tete"><h2>Fratrie, deuil et naissances</h2><p>La place dans la fratrie, les deuils de la lignée, les enfants qui ne sont pas nés ou qui remplacent.</p></div></div>
+      <div class="conteneur articles">
+        <a class="article-carte" href="meme-place-qu-un-ancetre-fratrie.html">
+          <img class="carte-photo" src="assets/images/blog-filles-garcons-fratrie-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Ce qui se répète</span>
+          <h2>Même place qu'un ancêtre dans la fratrie</h2>
+          <p>Ce que dit Walter Toman sur la place dans la fratrie, et comment repérer ces échos dans ton arbre.</p>
+          <span class="meta">13 novembre 2026 · 10 min de lecture</span>
+        </a>
+        <a class="article-carte" href="filles-garcons-fratrie.html">
+          <img class="carte-photo" src="assets/images/blog-filles-garcons-fratrie-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Ce qui se répète</span>
+          <h2>Fille ou garçon attendu : ce que racontent les fratries</h2>
+          <p>Que des filles, le garçon tant attendu, le même nombre d'enfants d'une génération à l'autre : lire les fratries de ton arbre.</p>
+          <span class="meta">8 octobre 2026 · 11 min de lecture</span>
+        </a>
+        <a class="article-carte" href="enfant-de-remplacement.html">
+          <img class="carte-photo" src="assets/images/blog-reves-recurrents-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Psychogénéalogie</span>
+          <h2>L&#x27;enfant de remplacement</h2>
+          <p>Naître après un enfant disparu : exemples, vécu à l'âge adulte et pistes pour trouver sa place.</p>
           <span class="meta">7 octobre 2026 · 7 min de lecture</span>
         </a>
-        <a class="article-carte" href="annee-personnelle-1-en-2027.html">
-          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Tes nombres</span>
-          <h2>Année personnelle 1 en 2027 : une année de commencement</h2>
-          <p>Année personnelle 1 en 2027 : commencer, oser, choisir pour toi. Ce que l'année t'apporte en amour, au travail, mois par mois et dans ton histoire…</p>
-          <span class="meta">7 octobre 2026 · 11 min de lecture</span>
+        <a class="article-carte" href="jumeau-perdu.html">
+          <img class="carte-photo" src="assets/images/blog-filles-garcons-fratrie-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Psychogénéalogie</span>
+          <h2>Le jumeau perdu</h2>
+          <p>Jumeau évanescent, manque sans nom, transmission dans la lignée : ce que l&#x27;on sait, et quatre étapes pour lui rendre sa place.</p>
+          <span class="meta">23 octobre 2026 · 5 min de lecture</span>
         </a>
-        <a class="article-carte" href="annee-personnelle-2-en-2027.html">
-          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Tes nombres</span>
-          <h2>Année personnelle 2 en 2027 : une année de patience et de liens</h2>
-          <p>Année personnelle 2 en 2027 : patience, lien, écoute. Ce que l'année t'apporte en amour, au travail, mois par mois et dans ton histoire familiale.</p>
-          <span class="meta">7 octobre 2026 · 10 min de lecture</span>
+        <a class="article-carte" href="deuil-non-fait-mort-jeune.html">
+          <img class="carte-photo" src="assets/images/blog-deuil-non-fait-mort-jeune-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Ce qui se répète</span>
+          <h2>Le deuil non fait : quand une mort jeune traverse les générations</h2>
+          <p>Morts jeunes, premier enfant perdu, mère partie tôt : ce que deviennent les deuils qui n'ont pas pu se faire, et les rites du monde.</p>
+          <span class="meta">8 octobre 2026 · 12 min de lecture</span>
         </a>
-        <a class="article-carte" href="annee-personnelle-3-en-2027.html">
-          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Tes nombres</span>
-          <h2>Année personnelle 3 en 2027 : une année d'expression</h2>
-          <p>Année personnelle 3 en 2027 : expression, création, rencontres. Ce que l'année t'apporte en amour, au travail, mois par mois et dans ton histoire…</p>
-          <span class="meta">7 octobre 2026 · 10 min de lecture</span>
+        <a class="article-carte" href="projet-sens-conception-deuil.html">
+          <img class="carte-photo" src="assets/images/blog-projet-sens-conception-deuil-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Ce qui se répète</span>
+          <h2>Le projet sens : être conçu·e pendant un deuil</h2>
+          <p>Ce que la famille vivait pendant ton attente : la notion de Marc Fréchet, la période de conception, et ses limites.</p>
+          <span class="meta">8 octobre 2026 · 11 min de lecture</span>
         </a>
-        <a class="article-carte" href="annee-personnelle-4-en-2027.html">
-          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Tes nombres</span>
-          <h2>Année personnelle 4 en 2027 : une année de construction</h2>
-          <p>Année personnelle 4 en 2027 : construction, stabilité, effort. Ce que l'année t'apporte en amour, au travail, mois par mois et dans ton histoire…</p>
-          <span class="meta">7 octobre 2026 · 10 min de lecture</span>
+        <a class="article-carte" href="devenir-parent-au-meme-age.html">
+          <img class="carte-photo" src="assets/images/blog-devenir-parent-au-meme-age-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Ce qui se répète</span>
+          <h2>La répétition des âges dans la famille</h2>
+          <p>Devenir parent au même âge, vivre un même événement au même âge : réactions d'anniversaire et rites de passage du monde entier.</p>
+          <span class="meta">8 octobre 2026 · 11 min de lecture</span>
         </a>
-        <a class="article-carte" href="annee-personnelle-5-en-2027.html">
-          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Tes nombres</span>
-          <h2>Année personnelle 5 en 2027 : une année de changement</h2>
-          <p>Année personnelle 5 en 2027 : changement, liberté, mouvement. Ce que l'année t'apporte en amour, au travail, mois par mois et dans ton histoire…</p>
-          <span class="meta">7 octobre 2026 · 10 min de lecture</span>
+        <a class="article-carte" href="veuvage-precoce-generations.html">
+          <img class="carte-photo" src="assets/images/blog-deuil-non-fait-mort-jeune-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Ce qui se répète</span>
+          <h2>Veuves de génération en génération</h2>
+          <p>Le veuvage précoce qui se répète dans les familles, et ce qu'il transmet.</p>
+          <span class="meta">13 novembre 2026 · 9 min de lecture</span>
         </a>
-        <a class="article-carte" href="annee-personnelle-6-en-2027.html">
+        <a class="article-carte" href="enfants-non-nes-fausse-couche-ivg-fratrie.html">
           <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Tes nombres</span>
-          <h2>Année personnelle 6 en 2027 : une année de foyer et d'engagements</h2>
-          <p>Année personnelle 6 en 2027 : foyer, engagement, responsabilité. Ce que l'année t'apporte en amour, au travail, mois par mois et dans ton histoire…</p>
-          <span class="meta">7 octobre 2026 · 10 min de lecture</span>
+          <span class="theme">Psychogénéalogie</span>
+          <h2>Fausse couche, IVG, enfant mort-né : la place des enfants non nés dans la fratrie</h2>
+          <p>Deuil périnatal, fausse couche, IVG, enfant mort-né : faut-il les compter dans sa fratrie ? Ce qu'en disent Schützenberger, Dumas, Bayle et Porot,…</p>
+          <span class="meta">12 novembre 2026 · 10 min de lecture</span>
         </a>
-        <a class="article-carte" href="annee-personnelle-7-en-2027.html">
+        <a class="article-carte" href="aine-apres-une-fausse-couche.html">
           <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Tes nombres</span>
-          <h2>Année personnelle 7 en 2027 : une année d'introspection</h2>
-          <p>Année personnelle 7 en 2027 : recul, compréhension, intériorité. Ce que l'année t'apporte en amour, au travail, mois par mois et dans ton histoire…</p>
-          <span class="meta">7 octobre 2026 · 10 min de lecture</span>
+          <span class="theme">Psychogénéalogie</span>
+          <h2>Aîné·e après une fausse couche : quand on est l'aîné de fait, mais pas le premier</h2>
+          <p>Tu es l'aîné·e de ta fratrie, mais ta mère avait perdu une grossesse avant toi ? Rang de naissance et place de fait, lecture symbolique,…</p>
+          <span class="meta">12 novembre 2026 · 11 min de lecture</span>
         </a>
-        <a class="article-carte" href="annee-personnelle-8-en-2027.html">
+        <a class="article-carte" href="grossesse-perdue-meme-age-que-sa-mere.html">
           <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Tes nombres</span>
-          <h2>Année personnelle 8 en 2027 : une année de réalisation</h2>
-          <p>Année personnelle 8 en 2027 : réalisation, ambition, concret. Ce que l'année t'apporte en amour, au travail, mois par mois et dans ton histoire…</p>
-          <span class="meta">7 octobre 2026 · 10 min de lecture</span>
+          <span class="theme">Psychogénéalogie</span>
+          <h2>Perdre une grossesse au même âge que sa mère : un syndrome d'anniversaire ?</h2>
+          <p>Une fausse couche au même âge que sa mère ou sa grand-mère : syndrome d'anniversaire, transparence psychique de la grossesse, ce que dit la…</p>
+          <span class="meta">12 novembre 2026 · 9 min de lecture</span>
         </a>
-        <a class="article-carte" href="annee-personnelle-9-en-2027.html">
-          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Tes nombres</span>
-          <h2>Année personnelle 9 en 2027 : une année de fin de cycle</h2>
-          <p>Année personnelle 9 en 2027 : fin de cycle, tri, transmission. Ce que l'année t'apporte en amour, au travail, mois par mois et dans ton histoire…</p>
-          <span class="meta">7 octobre 2026 · 10 min de lecture</span>
-        </a>
-        <a class="article-carte" href="nombre-maitre-11.html">
-          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Tes nombres</span>
-          <h2>Le nombre maître 11 : l'inspiration, et ce qu'elle demande</h2>
-          <p>Nombre maître 11 en numérologie : symbolique, chemin de vie 11, forces et défis, le 11 en couple, les métiers qui lui ressemblent et ce qu'il dit…</p>
-          <span class="meta">7 octobre 2026 · 10 min de lecture</span>
-        </a>
-        <a class="article-carte" href="nombre-maitre-22.html">
-          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Tes nombres</span>
-          <h2>Le nombre maître 22 : le grand bâtisseur</h2>
-          <p>Nombre maître 22 en numérologie : symbolique, chemin de vie 22, forces et défis, le 22 en couple, les métiers qui lui ressemblent et ce qu'il dit…</p>
-          <span class="meta">7 octobre 2026 · 10 min de lecture</span>
-        </a>
-        <a class="article-carte" href="nombre-maitre-33.html">
-          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Tes nombres</span>
-          <h2>Le nombre maître 33 : le don et la transmission</h2>
-          <p>Nombre maître 33 en numérologie : symbolique, chemin de vie 33, forces et défis, le 33 en couple, ses métiers, sa rareté et sa place dans une lignée.</p>
-          <span class="meta">7 octobre 2026 · 10 min de lecture</span>
-        </a>
-        <a class="article-carte" href="d-ou-vient-la-matrice-du-destin.html">
-          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Tes nombres</span>
-          <h2>D'où vient la Matrice de destin ?</h2>
-          <p>La Matrice de destin vient d'une méthode née en 2006. D'où elle vient vraiment, pourquoi on en entend parler seulement maintenant, et son lien…</p>
-          <span class="meta">8 novembre 2026 · 10 min de lecture</span>
-        </a>
-        <a class="article-carte" href="d-ou-vient-la-theorie-de-l-attachement.html">
-          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Tes nombres</span>
-          <h2>D'où vient la théorie de l'attachement ?</h2>
-          <p>Des oies de Konrad Lorenz aux guenons de Harlow, de Bowlby à Ainsworth : l'histoire de la théorie de l'attachement, ses 4 styles, et ce qui se…</p>
-          <span class="meta">9 novembre 2026 · 10 min de lecture</span>
+        <a class="article-carte" href="premier-noel-sans-deuil.html">
+          <img class="carte-photo" src="assets/images/blog-deuil-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Deuil et lignée</span>
+          <h2>Premier Noël sans toi : traverser les fêtes après un deuil</h2>
+          <p>Noël, anniversaire, fête des mères : traverser les premières fêtes, et le rituel de la bougie pour accompagner l'être cher vers la lumière.</p>
+          <span class="meta">31 octobre 2026 · 11 min de lecture</span>
         </a>
       </div>
     </section>
 
-    <section class="bloc" id="origines-numerologie">
-      <div class="conteneur">
-        <div class="bloc-tete"><h2>Aux origines de la numérologie</h2><p>De Sumer à aujourd'hui : une série pour comprendre d'où viennent vraiment les nombres qu'on utilise en numérologie, entre faits archéologiques et traditions.</p></div>
-      </div>
+    <section class="bloc" id="ancetres" style="padding-bottom:0">
+      <div class="conteneur"><div class="bloc-tete"><h2>Ancêtres, Toussaint et autels</h2><p>Honorer tes ancêtres, créer un autel, regarder les deuils de ta lignée.</p></div></div>
       <div class="conteneur articles">
-        <a class="article-carte" href="origine-numerologie-mesopotamie.html">
-          <img class="carte-photo" src="assets/images/numerologie-mesopotamie-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Numérologie</span>
-          <h2>Les nombres sacrés de Mésopotamie</h2>
-          <p>Sumer, l'écriture cunéiforme, le système en base 60 : le premier épisode d'une série sur l'origine des nombres.</p>
-          <span class="meta">10 novembre 2026 · 9 min de lecture</span>
+        <a class="article-carte" href="autel-des-ancetres.html">
+          <img class="carte-photo" src="assets/images/autel-ancetres-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Autel des ancêtres</span>
+          <h2>Comment créer un autel des ancêtres</h2>
+          <p>D'où vient la pratique, où le placer, que mettre dessus, la libation, quoi dire, et ce que la psychogénéalogie en retient.</p>
+          <span class="meta">2 novembre 2026 · 11 min de lecture</span>
         </a>
-        <a class="article-carte" href="origine-numerologie-egypte-chine.html">
-          <img class="carte-photo" src="assets/images/numerologie-egypte-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Numérologie</span>
-          <h2>L'Égypte et la Chine antiques</h2>
-          <p>L'Œil d'Horus et ses fractions, les nombres gravés sur les os oraculaires chinois : épisode 2 de la série.</p>
-          <span class="meta">10 novembre 2026 · 8 min de lecture</span>
+        <a class="article-carte" href="que-mettre-sur-un-autel-des-ancetres.html">
+          <img class="carte-photo" src="assets/images/autel-decembre-768.webp" width="768" height="512" alt="" loading="lazy" decoding="async">
+          <span class="theme">Autel des ancêtres</span>
+          <h2>Que mettre sur un autel des ancêtres</h2>
+          <p>La liste objet par objet : le nom écrit, la lumière, l'eau, le pain, l'objet qui vient d'eux. D'où vient chaque geste, et ce qu'on évite.</p>
+          <span class="meta">1er décembre 2026 · 11 min de lecture</span>
         </a>
-        <a class="article-carte" href="origine-numerologie-pythagore-grece.html">
-          <img class="carte-photo" src="assets/images/numerologie-grece-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Numérologie</span>
-          <h2>Pythagore et la Grèce antique</h2>
-          <p>Ce qu'on sait vraiment de lui, la Tétractys, et le mythe construit après sa mort. Épisode 3 de la série.</p>
-          <span class="meta">10 novembre 2026 · 9 min de lecture</span>
+        <a class="article-carte" href="creer-son-autel-de-saison.html">
+          <img class="carte-photo" src="assets/images/autel-de-saison-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Autel de saison</span>
+          <h2>Créer son autel de saison : les quatre éléments, le matériel et le sens</h2>
+          <p>D'où vient cette tradition très ancienne, les quatre éléments qui structurent un autel, ce qu'il te faut vraiment et comment t'en servir au quotidien.</p>
+          <span class="meta">2 novembre 2026 · 9 min de lecture</span>
         </a>
-        <a class="article-carte" href="origine-numerologie-gematrie-hebraique.html">
-          <img class="carte-photo" src="assets/images/numerologie-gematrie-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Numérologie</span>
-          <h2>La gématrie hébraïque</h2>
-          <p>Des premiers rabbins à la Kabbale médiévale : comment les lettres sont devenues des nombres. Épisode 4 de la série.</p>
-          <span class="meta">10 novembre 2026 · 10 min de lecture</span>
-        </a>
-        <a class="article-carte" href="origine-numerologie-moderne.html">
-          <img class="carte-photo" src="assets/images/numerologie-moderne-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Numérologie</span>
-          <h2>La naissance de la numérologie moderne</h2>
-          <p>Balliett, Julia Seton Sears, Juno Jordan, et le mythe de la continuité avec Pythagore. Épisode 5, le dernier de la série.</p>
-          <span class="meta">10 novembre 2026 · 9 min de lecture</span>
+        <a class="article-carte" href="toussaint-ancetres-et-deuils.html">
+          <img class="carte-photo" src="assets/images/psychogenealogie-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Toussaint</span>
+          <h2>Toussaint : honorer tes ancêtres et regarder les deuils de ta lignée</h2>
+          <p>D'où viennent ces fêtes, les deuils restés en suspens, des questions à poser en famille et des gestes simples.</p>
+          <span class="meta">7 octobre 2026 · 7 min de lecture</span>
         </a>
       </div>
     </section>
 
-    <section class="bloc" id="origines-prenoms">
-      <div class="conteneur"><div class="bloc-tete"><h2>D'où viennent les prénoms</h2></div></div>
+    <section class="bloc" id="emotions" style="padding-bottom:0">
+      <div class="conteneur"><div class="bloc-tete"><h2>Émotions et vision de vie</h2><p>Nommer ce que tu ressens, choisir ce que tu construis.</p></div></div>
       <div class="conteneur articles">
-        <a class="article-carte" href="origine-prenoms-fonction-nom.html">
-          <img class="carte-photo" src="assets/images/prenoms-fonction-nom-800.webp?v=2" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Prénoms</span>
-          <h2>La fonction du nom à travers l'histoire</h2>
-          <p>Mésopotamie, Grèce, Rome : pourquoi un prénom n'a jamais été qu'une étiquette. Épisode 1 d'une nouvelle série.</p>
-          <span class="meta">10 novembre 2026 · 9 min de lecture</span>
+        <a class="article-carte" href="emotion-ou-sentiment.html">
+          <img class="carte-photo" src="assets/images/blog-emotion-ou-sentiment-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Émotions</span>
+          <h2>Émotion ou sentiment : quelle différence, et pourquoi ça change tout</h2>
+          <p>La vague et le climat : reconnaître l’émotion et le sentiment, les émotions permises dans ta famille, et la lettre à ta colère.</p>
+          <span class="meta">12 octobre 2026 · 10 min de lecture</span>
         </a>
-        <a class="article-carte" href="prenoms-hebreux-theophores.html">
-          <img class="carte-photo" src="assets/images/prenoms-hebreux-800.webp?v=2" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Prénoms</span>
-          <h2>Les prénoms hébreux théophores</h2>
-          <p>Daniel, Jonathan, Isaïe, Michaël : comment ces prénoms portent le nom d'un dieu, et pourquoi ils ont changé de forme. Épisode 2 de la série.</p>
-          <span class="meta">10 novembre 2026 · 9 min de lecture</span>
+        <a class="article-carte" href="emotions-et-hormones.html">
+          <img class="carte-photo" src="assets/images/blog-emotions-et-hormones-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Émotions</span>
+          <h2>Émotions et hormones : ce que ton corps fait quand tu ressens</h2>
+          <p>Cortisol, ocytocine, dopamine, sérotonine, endorphines expliqués simplement, et ce que l’épigénétique dit, avec prudence.</p>
+          <span class="meta">12 octobre 2026 · 10 min de lecture</span>
         </a>
-        <a class="article-carte" href="prenoms-mayas-calendrier.html">
-          <img class="carte-photo" src="assets/images/prenoms-mayas-800.webp?v=2" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Prénoms</span>
-          <h2>Les Maya, les Aztèques et le prénom du jour de naissance</h2>
-          <p>Chez les Maya, les Aztèques et les Akan, le prénom ne se choisit pas : il se lit dans le calendrier. Épisode 3 de la série.</p>
-          <span class="meta">10 novembre 2026 · 9 min de lecture</span>
+        <a class="article-carte" href="cinq-elements-emotions.html">
+          <img class="carte-photo" src="assets/images/blog-cinq-elements-emotions-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Émotions</span>
+          <h2>Les 5 éléments et les émotions</h2>
+          <p>Colère et Bois, joie et Feu, souci et Terre, tristesse et Métal, peur et Eau : une lecture symbolique au fil des saisons.</p>
+          <span class="meta">12 octobre 2026 · 10 min de lecture</span>
         </a>
-        <a class="article-carte" href="prenoms-effaces-rome-histoire.html">
-          <img class="carte-photo" src="assets/images/prenoms-effaces-800.webp?v=2" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Prénoms</span>
-          <h2>Les prénoms effacés de l'histoire romaine</h2>
-          <p>Des filles sans vrai prénom individuel, des empereurs au nom rayé des pierres : deux formes d'effacement. Épisode 4 de la série.</p>
-          <span class="meta">10 novembre 2026 · 9 min de lecture</span>
+        <a class="article-carte" href="tableau-de-vision.html">
+          <img class="carte-photo" src="assets/images/blog-tableau-de-vision-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Vision</span>
+          <h2>Tableau de vision : comment créer ton vision board</h2>
+          <p>Les 6 étapes, des idées par domaine de vie, et un outil gratuit pour en faire ton fond d’écran.</p>
+          <span class="meta">12 octobre 2026 · 9 min de lecture</span>
         </a>
-        <a class="article-carte" href="genealogie-avant-1600-limites.html">
-          <img class="carte-photo" src="assets/images/genealogie-1600-800.webp?v=2" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Prénoms</span>
-          <h2>Pourquoi les généalogies s'arrêtent presque toutes vers 1600</h2>
-          <p>1539, 1579, 1563 : les trois textes qui ont créé les registres, et pourquoi le mur d'avant est administratif. Épisode 5, le dernier de la série.</p>
-          <span class="meta">10 novembre 2026 · 10 min de lecture</span>
-        </a>
-      </div>
-    </section>
-
-    <section class="bloc" id="synchronicite">
-      <div class="conteneur">
-        <div class="bloc-tete"><h2>Synchronicité</h2><p>Un phénomène reconnu en psychologie, pas un signe magique : cinq articles pour comprendre la synchronicité selon Jung et l'utiliser comme porte vers la lecture symbolique de ta vie et de ta lignée, puis les quatre heures miroirs (10h10, 11h11, 20h20, 22h22).</p></div>
-      </div>
-      <div class="conteneur articles">
-        <a class="article-carte" href="synchronicite-jung-psychologie.html">
-          <img class="carte-photo" src="assets/images/synchronicite-jung-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Synchronicité</span>
-          <h2>Ce que Jung en disait vraiment</h2>
-          <p>Le scarabée d'or, la collaboration avec le physicien Pauli, et ce qu'en dit la science aujourd'hui. Épisode 1 d'une nouvelle série.</p>
-          <span class="meta">10 novembre 2026 · 9 min de lecture</span>
-        </a>
-        <a class="article-carte" href="chiffres-prenoms-dates-qui-reviennent.html">
-          <img class="carte-photo" src="assets/images/chiffres-qui-reviennent-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Synchronicité</span>
-          <h2>Pourquoi certains chiffres reviennent</h2>
-          <p>Illusion de fréquence, loi des grands nombres, et le « syndrome d'anniversaire » familial. Épisode 2 de la série.</p>
-          <span class="meta">10 novembre 2026 · 9 min de lecture</span>
-        </a>
-        <a class="article-carte" href="synchronicite-ou-coincidence-difference.html">
-          <img class="carte-photo" src="assets/images/synchronicite-coincidence-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Synchronicité</span>
-          <h2>Synchronicité ou coïncidence</h2>
-          <p>Comment faire la différence, avec une grille de lecture simple en trois questions. Épisode 3 de la série.</p>
-          <span class="meta">10 novembre 2026 · 8 min de lecture</span>
-        </a>
-        <a class="article-carte" href="synchronicites-familiales-generations.html">
-          <img class="carte-photo" src="assets/images/synchronicites-familiales-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Synchronicité</span>
-          <h2>Les synchronicités familiales</h2>
-          <p>Le génosociogramme, le syndrome d'anniversaire et le projet-sens, quand l'histoire se répète. Épisode 4 de la série.</p>
-          <span class="meta">10 novembre 2026 · 9 min de lecture</span>
-        </a>
-        <a class="article-carte" href="carnet-synchronicites-methode.html">
-          <img class="carte-photo" src="assets/images/carnet-synchronicites-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Synchronicité</span>
-          <h2>Tenir un carnet de synchronicités</h2>
-          <p>La méthode simple, en quatre étapes, pour repérer les messages de ta vie. Épisode 5, le dernier de la série.</p>
-          <span class="meta">10 novembre 2026 · 7 min de lecture</span>
-        </a>
-        <a class="article-carte" href="heure-miroir-1010-signification.html">
-          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Synchronicité</span>
-          <h2>10h10 : ce que ça peut vouloir dire, et ce que dit ta lignée</h2>
-          <p>Tu vois souvent 10h10 ? Ce que dit la numérologie (le nombre 1, l'élan du commencement), et ce que ça peut évoquer dans ta lignée.</p>
-          <span class="meta">10 novembre 2026 · 6 min de lecture</span>
-        </a>
-        <a class="article-carte" href="heure-miroir-1111-signification.html">
-          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Synchronicité</span>
-          <h2>11h11 : ce que ça peut vouloir dire, et ce que dit ta lignée</h2>
-          <p>Tu vois souvent 11h11 ? Ce que dit la numérologie (le nombre maître 11), pourquoi tu le remarques, et ce que ça peut évoquer dans ta lignée.</p>
-          <span class="meta">10 novembre 2026 · 7 min de lecture</span>
-        </a>
-        <a class="article-carte" href="heure-miroir-2020-signification.html">
-          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Synchronicité</span>
-          <h2>20h20 : ce que ça peut vouloir dire, et ce que dit ta lignée</h2>
-          <p>Tu vois souvent 20h20 ? Ce que dit la numérologie (le nombre 2, le lien et la coopération), et ce que ça peut évoquer dans ta lignée.</p>
-          <span class="meta">10 novembre 2026 · 6 min de lecture</span>
-        </a>
-        <a class="article-carte" href="heure-miroir-2222-signification.html">
-          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Synchronicité</span>
-          <h2>22h22 : ce que ça peut vouloir dire, et ce que dit ta lignée</h2>
-          <p>Tu vois souvent 22h22 ? Ce que dit la numérologie (le nombre maître 22, le grand bâtisseur), et ce que ça peut évoquer dans ta lignée.</p>
-          <span class="meta">10 novembre 2026 · 7 min de lecture</span>
+        <a class="article-carte" href="liste-des-valeurs.html">
+          <img class="carte-photo" src="assets/images/blog-liste-des-valeurs-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Vision</span>
+          <h2>Liste des valeurs personnelles : 100 valeurs pour trouver les tiennes</h2>
+          <p>Choisir tes 5 valeurs, les noter sur 10, voir celles qui viennent de ta famille. Avec un PDF à imprimer.</p>
+          <span class="meta">12 octobre 2026 · 9 min de lecture</span>
         </a>
       </div>
     </section>
 
-
-    <section class="bloc" id="reves">
-      <div class="conteneur">
-        <div class="bloc-tete"><h2>Symbolique des rêves</h2><p>De Jung aux civilisations anciennes et aux peuples autochtones : une série en treize articles pour comprendre la langue des rêves et ce qu'elle dit de ton histoire familiale.</p></div>
-      </div>
+    <section class="bloc" id="reves" style="padding-bottom:0">
+      <div class="conteneur"><div class="bloc-tete"><h2>Symbolique des rêves</h2><p>De Jung aux civilisations anciennes et aux peuples autochtones : une série en treize articles pour comprendre la langue des rêves et ce qu’elle dit de ton histoire familiale.</p></div></div>
       <div class="conteneur articles">
         <a class="article-carte" href="symbolique-des-reves.html">
           <img class="carte-photo" src="assets/images/blog-reves-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
@@ -572,54 +678,6 @@
           <p>Jambes lourdes, cri bloqué, aide qui ne vient pas : ce que disent ces cauchemars, ce que fait le corps, et ce que porte ta lignée.</p>
           <span class="meta">23 octobre 2026 · 6 min de lecture</span>
         </a>
-      </div>
-    </section>
-
-    <section class="bloc" style="padding-bottom:0">
-      <div class="conteneur"><div class="bloc-tete"><h2>Toussaint, Noël et mémoire des ancêtres</h2></div></div>
-      <div class="conteneur articles">
-        <a class="article-carte" href="autel-des-ancetres.html">
-          <img class="carte-photo" src="assets/images/autel-ancetres-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Autel des ancêtres</span>
-          <h2>Comment créer un autel des ancêtres</h2>
-          <p>D'où vient la pratique, où le placer, que mettre dessus, la libation, quoi dire, et ce que la psychogénéalogie en retient.</p>
-          <span class="meta">2 novembre 2026 · 11 min de lecture</span>
-        </a>
-        <a class="article-carte" href="que-mettre-sur-un-autel-des-ancetres.html">
-          <img class="carte-photo" src="assets/images/autel-decembre-768.webp" width="768" height="512" alt="" loading="lazy" decoding="async">
-          <span class="theme">Autel des ancêtres</span>
-          <h2>Que mettre sur un autel des ancêtres</h2>
-          <p>La liste objet par objet : le nom écrit, la lumière, l'eau, le pain, l'objet qui vient d'eux. D'où vient chaque geste, et ce qu'on évite.</p>
-          <span class="meta">1er décembre 2026 · 11 min de lecture</span>
-        </a>
-        <a class="article-carte" href="creer-son-autel-de-saison.html">
-          <img class="carte-photo" src="assets/images/autel-de-saison-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Autel de saison</span>
-          <h2>Créer son autel de saison : les quatre éléments, le matériel et le sens</h2>
-          <p>D'où vient cette tradition très ancienne, les quatre éléments qui structurent un autel, ce qu'il te faut vraiment et comment t'en servir au quotidien.</p>
-          <span class="meta">2 novembre 2026 · 9 min de lecture</span>
-        </a>
-        <a class="article-carte" href="conflit-familial-noel.html">
-          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Psychogénéalogie</span>
-          <h2>Conflit familial à Noël : pourquoi les disputes reviennent</h2>
-          <p>Le syndrome de Noël, les rôles que chacun·e reprend à table, ce qui se rejoue d'une génération à l'autre, et des repères pour fêter autrement.</p>
-          <span class="meta">31 octobre 2026 · 16 min de lecture</span>
-        </a>
-        <a class="article-carte" href="premier-noel-sans-deuil.html">
-          <img class="carte-photo" src="assets/images/blog-deuil-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Deuil et lignée</span>
-          <h2>Premier Noël sans toi : traverser les fêtes après un deuil</h2>
-          <p>Noël, anniversaire, fête des mères : traverser les premières fêtes, et le rituel de la bougie pour accompagner l'être cher vers la lumière.</p>
-          <span class="meta">31 octobre 2026 · 11 min de lecture</span>
-        </a>
-        <a class="article-carte" href="toussaint-ancetres-et-deuils.html">
-          <img class="carte-photo" src="assets/images/psychogenealogie-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Toussaint</span>
-          <h2>Toussaint : honorer tes ancêtres et regarder les deuils de ta lignée</h2>
-          <p>D'où viennent ces fêtes, les deuils restés en suspens, des questions à poser en famille et des gestes simples.</p>
-          <span class="meta">7 octobre 2026 · 7 min de lecture</span>
-        </a>
         <a class="article-carte" href="rever-de-ses-grands-parents-decedes.html">
           <img class="carte-photo" src="assets/images/blog-deuil-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
           <span class="theme">Toussaint</span>
@@ -630,71 +688,245 @@
       </div>
     </section>
 
-    <section class="bloc" id="emotions-et-relations">
-      <div class="conteneur"><div class="bloc-tete"><h2>Émotions, couple et vision</h2><p>Comprendre ce que tu ressens, ce qui se rejoue en amour, et ce que tu choisis de construire : une série en huit articles, avec des exercices, un outil de fond d’écran et une liste de valeurs à imprimer.</p></div></div>
+    <section class="bloc" id="nombres" style="padding-bottom:0">
+      <div class="conteneur"><div class="bloc-tete"><h2>Numérologie : ton année et tes nombres</h2><p>Année 2027, année personnelle de 1 à 9, nombres maîtres, chemin de vie.</p></div></div>
       <div class="conteneur articles">
-        <a class="article-carte" href="emotion-ou-sentiment.html">
-          <img class="carte-photo" src="assets/images/blog-emotion-ou-sentiment-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Émotions</span>
-          <h2>Émotion ou sentiment : quelle différence, et pourquoi ça change tout</h2>
-          <p>La vague et le climat : reconnaître l’émotion et le sentiment, les émotions permises dans ta famille, et la lettre à ta colère.</p>
-          <span class="meta">12 octobre 2026 · 10 min de lecture</span>
+        <a class="article-carte" href="annee-universelle-2027.html">
+          <img class="carte-photo" src="assets/images/blog-annee-11-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Numérologie</span>
+          <h2>Année universelle 2027 : ce que le nombre 2 (et le 11) raconte</h2>
+          <p>Le calcul, l'histoire du 11 et ce que l'année 2027 peut t'inviter à regarder, en remontant aux sources.</p>
+          <span class="meta">27 novembre 2026 · 15 min de lecture</span>
         </a>
-        <a class="article-carte" href="emotions-et-hormones.html">
-          <img class="carte-photo" src="assets/images/blog-emotions-et-hormones-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Émotions</span>
-          <h2>Émotions et hormones : ce que ton corps fait quand tu ressens</h2>
-          <p>Cortisol, ocytocine, dopamine, sérotonine, endorphines expliqués simplement, et ce que l’épigénétique dit, avec prudence.</p>
-          <span class="meta">12 octobre 2026 · 10 min de lecture</span>
+        <a class="article-carte" href="annee-universelle-calcul-origine.html">
+          <img class="carte-photo" src="assets/images/blog-calcul-roue-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Numérologie</span>
+          <h2>Année universelle : calcul, origine et limites de la méthode</h2>
+          <p>D'où vient vraiment le calcul : base dix, Atlantic City, calendriers. Ce que la méthode dit, et ce qu'elle ne dit pas.</p>
+          <span class="meta">27 novembre 2026 · 16 min de lecture</span>
         </a>
-        <a class="article-carte" href="cinq-elements-emotions.html">
-          <img class="carte-photo" src="assets/images/blog-cinq-elements-emotions-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Émotions</span>
-          <h2>Les 5 éléments et les émotions</h2>
-          <p>Colère et Bois, joie et Feu, souci et Terre, tristesse et Métal, peur et Eau : une lecture symbolique au fil des saisons.</p>
-          <span class="meta">12 octobre 2026 · 10 min de lecture</span>
+        <a class="article-carte" href="annee-universelle-cycle-9-ans.html">
+          <img class="carte-photo" src="assets/images/blog-cycle-neuf-spirale-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Numérologie</span>
+          <h2>Le cycle de neuf ans en numérologie : de 2025 à 2034</h2>
+          <p>Les neuf années une à une, le neuf dans les traditions du monde et la magie arithmétique du 9.</p>
+          <span class="meta">27 novembre 2026 · 37 min de lecture</span>
         </a>
-        <a class="article-carte" href="imago-choix-amoureux.html">
-          <img class="carte-photo" src="assets/images/blog-imago-choix-amoureux-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Couple</span>
-          <h2>L’imago : pourquoi je choisis toujours le même type de partenaire</h2>
-          <p>L’exercice des deux cercles, les rôles qu’on rejoue en amour et les pistes de ta lignée.</p>
-          <span class="meta">12 octobre 2026 · 11 min de lecture</span>
+        <a class="article-carte" href="annee-personnelle-2027.html">
+          <img class="carte-photo" src="assets/images/blog-annee-personnelle-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Numérologie</span>
+          <h2>Année personnelle 2027 : calcule la tienne</h2>
+          <p>Ton année en numérologie, de 1 à 9 : ce qu'elle t'invite à vivre en amour, au travail, mois par mois et dans ton histoire familiale.</p>
+          <span class="meta">7 octobre 2026 · 5 min de lecture</span>
         </a>
-        <a class="article-carte" href="etapes-du-couple.html">
-          <img class="carte-photo" src="assets/images/blog-etapes-du-couple-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Couple</span>
-          <h2>Les étapes du couple : crise des 3 ans, des 7 ans et après</h2>
-          <p>Fusion, individuation, adaptation, redécouverte : ce qui se joue à chaque étape, et les modèles de couple hérités.</p>
-          <span class="meta">12 octobre 2026 · 11 min de lecture</span>
+        <a class="article-carte" href="annee-personnelle-1-en-2027.html">
+          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Tes nombres</span>
+          <h2>Année personnelle 1 en 2027 : une année de commencement</h2>
+          <p>Année personnelle 1 en 2027 : commencer, oser, choisir pour toi. Ce que l'année t'apporte en amour, au travail, mois par mois et dans ton histoire…</p>
+          <span class="meta">7 octobre 2026 · 11 min de lecture</span>
         </a>
-        <a class="article-carte" href="dependance-affective.html">
-          <img class="carte-photo" src="assets/images/blog-dependance-affective-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Couple</span>
-          <h2>Dépendance affective : la reconnaître et s’en libérer</h2>
-          <p>Les signes, les racines familiales et des pistes concrètes pour aimer par choix plutôt que par peur.</p>
-          <span class="meta">12 octobre 2026 · 11 min de lecture</span>
+        <a class="article-carte" href="annee-personnelle-2-en-2027.html">
+          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Tes nombres</span>
+          <h2>Année personnelle 2 en 2027 : une année de patience et de liens</h2>
+          <p>Année personnelle 2 en 2027 : patience, lien, écoute. Ce que l'année t'apporte en amour, au travail, mois par mois et dans ton histoire familiale.</p>
+          <span class="meta">7 octobre 2026 · 10 min de lecture</span>
         </a>
-        <a class="article-carte" href="tableau-de-vision.html">
-          <img class="carte-photo" src="assets/images/blog-tableau-de-vision-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Vision</span>
-          <h2>Tableau de vision : comment créer ton vision board</h2>
-          <p>Les 6 étapes, des idées par domaine de vie, et un outil gratuit pour en faire ton fond d’écran.</p>
-          <span class="meta">12 octobre 2026 · 9 min de lecture</span>
+        <a class="article-carte" href="annee-personnelle-3-en-2027.html">
+          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Tes nombres</span>
+          <h2>Année personnelle 3 en 2027 : une année d'expression</h2>
+          <p>Année personnelle 3 en 2027 : expression, création, rencontres. Ce que l'année t'apporte en amour, au travail, mois par mois et dans ton histoire…</p>
+          <span class="meta">7 octobre 2026 · 10 min de lecture</span>
         </a>
-        <a class="article-carte" href="liste-des-valeurs.html">
-          <img class="carte-photo" src="assets/images/blog-liste-des-valeurs-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Vision</span>
-          <h2>Liste des valeurs personnelles : 100 valeurs pour trouver les tiennes</h2>
-          <p>Choisir tes 5 valeurs, les noter sur 10, voir celles qui viennent de ta famille. Avec un PDF à imprimer.</p>
-          <span class="meta">12 octobre 2026 · 9 min de lecture</span>
+        <a class="article-carte" href="annee-personnelle-4-en-2027.html">
+          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Tes nombres</span>
+          <h2>Année personnelle 4 en 2027 : une année de construction</h2>
+          <p>Année personnelle 4 en 2027 : construction, stabilité, effort. Ce que l'année t'apporte en amour, au travail, mois par mois et dans ton histoire…</p>
+          <span class="meta">7 octobre 2026 · 10 min de lecture</span>
+        </a>
+        <a class="article-carte" href="annee-personnelle-5-en-2027.html">
+          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Tes nombres</span>
+          <h2>Année personnelle 5 en 2027 : une année de changement</h2>
+          <p>Année personnelle 5 en 2027 : changement, liberté, mouvement. Ce que l'année t'apporte en amour, au travail, mois par mois et dans ton histoire…</p>
+          <span class="meta">7 octobre 2026 · 10 min de lecture</span>
+        </a>
+        <a class="article-carte" href="annee-personnelle-6-en-2027.html">
+          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Tes nombres</span>
+          <h2>Année personnelle 6 en 2027 : une année de foyer et d'engagements</h2>
+          <p>Année personnelle 6 en 2027 : foyer, engagement, responsabilité. Ce que l'année t'apporte en amour, au travail, mois par mois et dans ton histoire…</p>
+          <span class="meta">7 octobre 2026 · 10 min de lecture</span>
+        </a>
+        <a class="article-carte" href="annee-personnelle-7-en-2027.html">
+          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Tes nombres</span>
+          <h2>Année personnelle 7 en 2027 : une année d'introspection</h2>
+          <p>Année personnelle 7 en 2027 : recul, compréhension, intériorité. Ce que l'année t'apporte en amour, au travail, mois par mois et dans ton histoire…</p>
+          <span class="meta">7 octobre 2026 · 10 min de lecture</span>
+        </a>
+        <a class="article-carte" href="annee-personnelle-8-en-2027.html">
+          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Tes nombres</span>
+          <h2>Année personnelle 8 en 2027 : une année de réalisation</h2>
+          <p>Année personnelle 8 en 2027 : réalisation, ambition, concret. Ce que l'année t'apporte en amour, au travail, mois par mois et dans ton histoire…</p>
+          <span class="meta">7 octobre 2026 · 10 min de lecture</span>
+        </a>
+        <a class="article-carte" href="annee-personnelle-9-en-2027.html">
+          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Tes nombres</span>
+          <h2>Année personnelle 9 en 2027 : une année de fin de cycle</h2>
+          <p>Année personnelle 9 en 2027 : fin de cycle, tri, transmission. Ce que l'année t'apporte en amour, au travail, mois par mois et dans ton histoire…</p>
+          <span class="meta">7 octobre 2026 · 10 min de lecture</span>
+        </a>
+        <a class="article-carte" href="nombres-maitres.html">
+          <img class="carte-photo" src="assets/images/blog-nombres-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Numérologie</span>
+          <h2>Les nombres maîtres 11, 22 et 33</h2>
+          <p>Définition, calcul, fréquence réelle selon la méthode, et ce que chaque nombre maître dit de toi et de ta lignée.</p>
+          <span class="meta">7 octobre 2026 · 7 min de lecture</span>
+        </a>
+        <a class="article-carte" href="nombre-maitre-11.html">
+          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Tes nombres</span>
+          <h2>Le nombre maître 11 : l'inspiration, et ce qu'elle demande</h2>
+          <p>Nombre maître 11 en numérologie : symbolique, chemin de vie 11, forces et défis, le 11 en couple, les métiers qui lui ressemblent et ce qu'il dit…</p>
+          <span class="meta">7 octobre 2026 · 10 min de lecture</span>
+        </a>
+        <a class="article-carte" href="nombre-maitre-22.html">
+          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Tes nombres</span>
+          <h2>Le nombre maître 22 : le grand bâtisseur</h2>
+          <p>Nombre maître 22 en numérologie : symbolique, chemin de vie 22, forces et défis, le 22 en couple, les métiers qui lui ressemblent et ce qu'il dit…</p>
+          <span class="meta">7 octobre 2026 · 10 min de lecture</span>
+        </a>
+        <a class="article-carte" href="nombre-maitre-33.html">
+          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Tes nombres</span>
+          <h2>Le nombre maître 33 : le don et la transmission</h2>
+          <p>Nombre maître 33 en numérologie : symbolique, chemin de vie 33, forces et défis, le 33 en couple, ses métiers, sa rareté et sa place dans une lignée.</p>
+          <span class="meta">7 octobre 2026 · 10 min de lecture</span>
+        </a>
+        <a class="article-carte" href="chemin-de-vie-qui-se-repete-famille.html">
+          <img class="carte-photo" src="assets/images/blog-nombres-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Tes nombres</span>
+          <h2>Le même chemin de vie dans la famille</h2>
+          <p>Le même nombre que ta mère ou ta grand-mère ? Calcul exact, nombres maîtres, année personnelle et lecture symbolique.</p>
+          <span class="meta">13 novembre 2026 · 12 min de lecture</span>
+        </a>
+        <a class="article-carte" href="nombre-maitre-heritage-familial.html">
+          <img class="carte-photo" src="assets/images/blog-nombres-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Tes nombres</span>
+          <h2>Nombre maître (11, 22, 33) : un héritage familial ?</h2>
+          <p>Quand le 11, le 22 ou le 33 circule dans une lignée : ce que ces nombres portent, et comment les reconnaître chez les tiens.</p>
+          <span class="meta">13 novembre 2026 · 10 min de lecture</span>
         </a>
       </div>
     </section>
 
-    <section class="bloc" id="ce-qui-se-repete">
-      <div class="conteneur"><div class="bloc-tete"><h2>Ce qui se répète dans un arbre</h2><p>Les phénomènes que la psychogénéalogie observe d'une génération à l'autre, expliqués en profondeur : d'où vient chaque notion, ses racines dans le monde, et comment la repérer dans ton <a href="genosociogramme.html">génosociogramme en ligne</a>.</p></div></div>
+    <section class="bloc" id="origines" style="padding-bottom:0">
+      <div class="conteneur"><div class="bloc-tete"><h2>Aux origines : nombres, calendrier et théories</h2><p>De Sumer à aujourd’hui : d’où viennent vraiment les nombres, le calendrier, la matrice du destin et la théorie de l’attachement, entre faits et traditions.</p></div></div>
       <div class="conteneur articles">
+        <a class="article-carte" href="origine-numerologie-mesopotamie.html">
+          <img class="carte-photo" src="assets/images/numerologie-mesopotamie-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Numérologie</span>
+          <h2>Les nombres sacrés de Mésopotamie</h2>
+          <p>Sumer, l'écriture cunéiforme, le système en base 60 : le premier épisode d'une série sur l'origine des nombres.</p>
+          <span class="meta">10 novembre 2026 · 9 min de lecture</span>
+        </a>
+        <a class="article-carte" href="origine-numerologie-egypte-chine.html">
+          <img class="carte-photo" src="assets/images/numerologie-egypte-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Numérologie</span>
+          <h2>L'Égypte et la Chine antiques</h2>
+          <p>L'Œil d'Horus et ses fractions, les nombres gravés sur les os oraculaires chinois : épisode 2 de la série.</p>
+          <span class="meta">10 novembre 2026 · 8 min de lecture</span>
+        </a>
+        <a class="article-carte" href="origine-numerologie-pythagore-grece.html">
+          <img class="carte-photo" src="assets/images/numerologie-grece-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Numérologie</span>
+          <h2>Pythagore et la Grèce antique</h2>
+          <p>Ce qu'on sait vraiment de lui, la Tétractys, et le mythe construit après sa mort. Épisode 3 de la série.</p>
+          <span class="meta">10 novembre 2026 · 9 min de lecture</span>
+        </a>
+        <a class="article-carte" href="origine-numerologie-gematrie-hebraique.html">
+          <img class="carte-photo" src="assets/images/numerologie-gematrie-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Numérologie</span>
+          <h2>La gématrie hébraïque</h2>
+          <p>Des premiers rabbins à la Kabbale médiévale : comment les lettres sont devenues des nombres. Épisode 4 de la série.</p>
+          <span class="meta">10 novembre 2026 · 10 min de lecture</span>
+        </a>
+        <a class="article-carte" href="origine-numerologie-moderne.html">
+          <img class="carte-photo" src="assets/images/numerologie-moderne-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Numérologie</span>
+          <h2>La naissance de la numérologie moderne</h2>
+          <p>Balliett, Julia Seton Sears, Juno Jordan, et le mythe de la continuité avec Pythagore. Épisode 5, le dernier de la série.</p>
+          <span class="meta">10 novembre 2026 · 9 min de lecture</span>
+        </a>
+        <a class="article-carte" href="histoire-du-calendrier.html">
+          <img class="carte-photo" src="assets/images/blog-calendrier-parchemin-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Histoire</span>
+          <h2>Histoire du calendrier : d'Hénoch au grégorien</h2>
+          <p>Un calendrier transmis par un ange, des Veilleurs, Sirius, une année de 445 jours et dix jours effacés en 1582.</p>
+          <span class="meta">27 novembre 2026 · 12 min de lecture</span>
+        </a>
+        <a class="article-carte" href="d-ou-vient-la-matrice-du-destin.html">
+          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Tes nombres</span>
+          <h2>D'où vient la Matrice de destin ?</h2>
+          <p>La Matrice de destin vient d'une méthode née en 2006. D'où elle vient vraiment, pourquoi on en entend parler seulement maintenant, et son lien…</p>
+          <span class="meta">8 novembre 2026 · 10 min de lecture</span>
+        </a>
+        <a class="article-carte" href="d-ou-vient-la-theorie-de-l-attachement.html">
+          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Tes nombres</span>
+          <h2>D'où vient la théorie de l'attachement ?</h2>
+          <p>Des oies de Konrad Lorenz aux guenons de Harlow, de Bowlby à Ainsworth : l'histoire de la théorie de l'attachement, ses 4 styles, et ce qui se…</p>
+          <span class="meta">9 novembre 2026 · 10 min de lecture</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="bloc" id="prenoms" style="padding-bottom:0">
+      <div class="conteneur"><div class="bloc-tete"><h2>Prénoms et généalogie</h2><p>D’où viennent les prénoms, ce qu’ils transmettent, et pourquoi les généalogies s’arrêtent vers 1600.</p></div></div>
+      <div class="conteneur articles">
+        <a class="article-carte" href="origine-prenoms-fonction-nom.html">
+          <img class="carte-photo" src="assets/images/prenoms-fonction-nom-800.webp?v=2" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Prénoms</span>
+          <h2>La fonction du nom à travers l'histoire</h2>
+          <p>Mésopotamie, Grèce, Rome : pourquoi un prénom n'a jamais été qu'une étiquette. Épisode 1 d'une nouvelle série.</p>
+          <span class="meta">10 novembre 2026 · 9 min de lecture</span>
+        </a>
+        <a class="article-carte" href="prenoms-hebreux-theophores.html">
+          <img class="carte-photo" src="assets/images/prenoms-hebreux-800.webp?v=2" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Prénoms</span>
+          <h2>Les prénoms hébreux théophores</h2>
+          <p>Daniel, Jonathan, Isaïe, Michaël : comment ces prénoms portent le nom d'un dieu, et pourquoi ils ont changé de forme. Épisode 2 de la série.</p>
+          <span class="meta">10 novembre 2026 · 9 min de lecture</span>
+        </a>
+        <a class="article-carte" href="prenoms-mayas-calendrier.html">
+          <img class="carte-photo" src="assets/images/prenoms-mayas-800.webp?v=2" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Prénoms</span>
+          <h2>Les Maya, les Aztèques et le prénom du jour de naissance</h2>
+          <p>Chez les Maya, les Aztèques et les Akan, le prénom ne se choisit pas : il se lit dans le calendrier. Épisode 3 de la série.</p>
+          <span class="meta">10 novembre 2026 · 9 min de lecture</span>
+        </a>
+        <a class="article-carte" href="prenoms-effaces-rome-histoire.html">
+          <img class="carte-photo" src="assets/images/prenoms-effaces-800.webp?v=2" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Prénoms</span>
+          <h2>Les prénoms effacés de l'histoire romaine</h2>
+          <p>Des filles sans vrai prénom individuel, des empereurs au nom rayé des pierres : deux formes d'effacement. Épisode 4 de la série.</p>
+          <span class="meta">10 novembre 2026 · 9 min de lecture</span>
+        </a>
+        <a class="article-carte" href="genealogie-avant-1600-limites.html">
+          <img class="carte-photo" src="assets/images/genealogie-1600-800.webp?v=2" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Prénoms</span>
+          <h2>Pourquoi les généalogies s'arrêtent presque toutes vers 1600</h2>
+          <p>1539, 1579, 1563 : les trois textes qui ont créé les registres, et pourquoi le mur d'avant est administratif. Épisode 5, le dernier de la série.</p>
+          <span class="meta">10 novembre 2026 · 10 min de lecture</span>
+        </a>
         <a class="article-carte" href="prenom-transmis-psychogenealogie.html">
           <img class="carte-photo" src="assets/images/blog-prenom-transmis-psychogenealogie-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
           <span class="theme">Ce qui se répète</span>
@@ -702,326 +934,94 @@
           <p>Le prénom d'un défunt, un prénom composé, un prénom caché dans un autre : ce que la psychogénéalogie y lit, et les traditions du monde.</p>
           <span class="meta">8 octobre 2026 · 11 min de lecture</span>
         </a>
-        <a class="article-carte" href="implexe-mariage-entre-cousins.html">
-          <img class="carte-photo" src="assets/images/blog-implexe-mariage-entre-cousins-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Ce qui se répète</span>
-          <h2>L'implexe : quand le même ancêtre apparaît dans deux branches</h2>
-          <p>Mariages entre cousins, ancêtres communs, dispenses de l'Église, règles d'alliance dans le monde : ce que l'implexe raconte d'une famille.</p>
-          <span class="meta">8 octobre 2026 · 10 min de lecture</span>
+      </div>
+    </section>
+
+    <section class="bloc" id="synchronicite" style="padding-bottom:0">
+      <div class="conteneur"><div class="bloc-tete"><h2>Synchronicité et heures miroirs</h2><p>Un phénomène reconnu en psychologie, pas un signe magique : la synchronicité selon Jung, et les heures miroirs 10h10, 11h11, 20h20 et 22h22.</p></div></div>
+      <div class="conteneur articles">
+        <a class="article-carte" href="synchronicite-jung-psychologie.html">
+          <img class="carte-photo" src="assets/images/synchronicite-jung-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Synchronicité</span>
+          <h2>Ce que Jung en disait vraiment</h2>
+          <p>Le scarabée d'or, la collaboration avec le physicien Pauli, et ce qu'en dit la science aujourd'hui. Épisode 1 d'une nouvelle série.</p>
+          <span class="meta">10 novembre 2026 · 9 min de lecture</span>
         </a>
-        <a class="article-carte" href="metiers-transmis-genealogie.html">
-          <img class="carte-photo" src="assets/images/blog-metiers-transmis-genealogie-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Ce qui se répète</span>
-          <h2>Le métier transmis de génération en génération</h2>
-          <p>Reprendre le métier de son père, rompre avec lui, voir un métier sauter une génération : héritage, loyauté et liberté.</p>
-          <span class="meta">8 octobre 2026 · 11 min de lecture</span>
+        <a class="article-carte" href="synchronicite-ou-coincidence-difference.html">
+          <img class="carte-photo" src="assets/images/synchronicite-coincidence-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Synchronicité</span>
+          <h2>Synchronicité ou coïncidence</h2>
+          <p>Comment faire la différence, avec une grille de lecture simple en trois questions. Épisode 3 de la série.</p>
+          <span class="meta">10 novembre 2026 · 8 min de lecture</span>
         </a>
-        <a class="article-carte" href="deuil-non-fait-mort-jeune.html">
-          <img class="carte-photo" src="assets/images/blog-deuil-non-fait-mort-jeune-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Ce qui se répète</span>
-          <h2>Le deuil non fait : quand une mort jeune traverse les générations</h2>
-          <p>Morts jeunes, premier enfant perdu, mère partie tôt : ce que deviennent les deuils qui n'ont pas pu se faire, et les rites du monde.</p>
-          <span class="meta">8 octobre 2026 · 12 min de lecture</span>
+        <a class="article-carte" href="synchronicites-familiales-generations.html">
+          <img class="carte-photo" src="assets/images/synchronicites-familiales-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Synchronicité</span>
+          <h2>Les synchronicités familiales</h2>
+          <p>Le génosociogramme, le syndrome d'anniversaire et le projet-sens, quand l'histoire se répète. Épisode 4 de la série.</p>
+          <span class="meta">10 novembre 2026 · 9 min de lecture</span>
         </a>
-        <a class="article-carte" href="projet-sens-conception-deuil.html">
-          <img class="carte-photo" src="assets/images/blog-projet-sens-conception-deuil-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Ce qui se répète</span>
-          <h2>Le projet sens : être conçu·e pendant un deuil</h2>
-          <p>Ce que la famille vivait pendant ton attente : la notion de Marc Fréchet, la période de conception, et ses limites.</p>
-          <span class="meta">8 octobre 2026 · 11 min de lecture</span>
+        <a class="article-carte" href="carnet-synchronicites-methode.html">
+          <img class="carte-photo" src="assets/images/carnet-synchronicites-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Synchronicité</span>
+          <h2>Tenir un carnet de synchronicités</h2>
+          <p>La méthode simple, en quatre étapes, pour repérer les messages de ta vie. Épisode 5, le dernier de la série.</p>
+          <span class="meta">10 novembre 2026 · 7 min de lecture</span>
         </a>
-        <a class="article-carte" href="devenir-parent-au-meme-age.html">
-          <img class="carte-photo" src="assets/images/blog-devenir-parent-au-meme-age-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Ce qui se répète</span>
-          <h2>La répétition des âges dans la famille</h2>
-          <p>Devenir parent au même âge, vivre un même événement au même âge : réactions d'anniversaire et rites de passage du monde entier.</p>
-          <span class="meta">8 octobre 2026 · 11 min de lecture</span>
+        <a class="article-carte" href="chiffres-prenoms-dates-qui-reviennent.html">
+          <img class="carte-photo" src="assets/images/chiffres-qui-reviennent-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Synchronicité</span>
+          <h2>Pourquoi certains chiffres reviennent</h2>
+          <p>Illusion de fréquence, loi des grands nombres, et le « syndrome d'anniversaire » familial. Épisode 2 de la série.</p>
+          <span class="meta">10 novembre 2026 · 9 min de lecture</span>
         </a>
-        <a class="article-carte" href="guerre-et-memoire-familiale.html">
-          <img class="carte-photo" src="assets/images/blog-guerre-et-memoire-familiale-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Ce qui se répète</span>
-          <h2>La guerre dans l'arbre : mémoire familiale et silences</h2>
-          <p>1914, 1940, l'Algérie : ce que les guerres laissent dans la mémoire des familles, et comment retrouver leur trace.</p>
-          <span class="meta">8 octobre 2026 · 11 min de lecture</span>
-        </a>
-        <a class="article-carte" href="secret-de-famille.html">
-          <img class="carte-photo" src="assets/images/blog-secret-de-famille-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Ce qui se répète</span>
-          <h2>Secrets de famille : non-dits, fantômes et zones d'ombre</h2>
-          <p>Tisseron, Abraham et Torok, les indices dans l'arbre, les archives : chercher un secret de famille sans accuser.</p>
-          <span class="meta">8 octobre 2026 · 11 min de lecture</span>
-        </a>
-        <a class="article-carte" href="argent-et-lignee.html">
-          <img class="carte-photo" src="assets/images/blog-argent-et-lignee-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Ce qui se répète</span>
-          <h2>Argent et histoire familiale : quand les revers se répètent</h2>
-          <p>Faillites sur plusieurs générations, héritages qui divisent, transfuges de classe : ce que l'argent transmet.</p>
-          <span class="meta">8 octobre 2026 · 11 min de lecture</span>
-        </a>
-        <a class="article-carte" href="filles-garcons-fratrie.html">
-          <img class="carte-photo" src="assets/images/blog-filles-garcons-fratrie-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Ce qui se répète</span>
-          <h2>Fille ou garçon attendu : ce que racontent les fratries</h2>
-          <p>Que des filles, le garçon tant attendu, le même nombre d'enfants d'une génération à l'autre : lire les fratries de ton arbre.</p>
-          <span class="meta">8 octobre 2026 · 11 min de lecture</span>
-        </a>
-        <a class="article-carte" href="triangle-familial-enfant-pris-entre-ses-parents.html">
+        <a class="article-carte" href="heure-miroir-1010-signification.html">
           <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Psychogénéalogie</span>
-          <h2>Conflit de loyauté chez l'enfant : le triangle familial et la loyauté clivée</h2>
-          <p>Conflit de loyauté : définition, triangle familial (Bowen, Minuchin), loyauté clivée, enfant messager ou confident, et comment sortir de ce rôle.</p>
-          <span class="meta">12 novembre 2026 · 11 min de lecture</span>
+          <span class="theme">Synchronicité</span>
+          <h2>10h10 : ce que ça peut vouloir dire, et ce que dit ta lignée</h2>
+          <p>Tu vois souvent 10h10 ? Ce que dit la numérologie (le nombre 1, l'élan du commencement), et ce que ça peut évoquer dans ta lignée.</p>
+          <span class="meta">10 novembre 2026 · 6 min de lecture</span>
         </a>
-        <a class="article-carte" href="famille-toxique-couper-les-ponts.html">
+        <a class="article-carte" href="heure-miroir-1111-signification.html">
           <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Psychogénéalogie</span>
-          <h2>Famille toxique : pourquoi on coupe les ponts</h2>
-          <p>Famille toxique et coupure émotionnelle : ce que Bowen a observé, pourquoi la distance se répète d’une génération à l’autre, et comment en sortir.</p>
-          <span class="meta">12 novembre 2026 · 12 min de lecture</span>
+          <span class="theme">Synchronicité</span>
+          <h2>11h11 : ce que ça peut vouloir dire, et ce que dit ta lignée</h2>
+          <p>Tu vois souvent 11h11 ? Ce que dit la numérologie (le nombre maître 11), pourquoi tu le remarques, et ce que ça peut évoquer dans ta lignée.</p>
+          <span class="meta">10 novembre 2026 · 7 min de lecture</span>
         </a>
-        <a class="article-carte" href="enfant-parentifie-parentification.html">
+        <a class="article-carte" href="heure-miroir-2020-signification.html">
           <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Psychogénéalogie</span>
-          <h2>Parentification : quand l'enfant porte ses parents</h2>
-          <p>Parentification : définition, exemples et signes à l'âge adulte. Un enfant parentifié prend en charge, trop tôt, les besoins matériels ou…</p>
-          <span class="meta">12 novembre 2026 · 10 min de lecture</span>
+          <span class="theme">Synchronicité</span>
+          <h2>20h20 : ce que ça peut vouloir dire, et ce que dit ta lignée</h2>
+          <p>Tu vois souvent 20h20 ? Ce que dit la numérologie (le nombre 2, le lien et la coopération), et ce que ça peut évoquer dans ta lignée.</p>
+          <span class="meta">10 novembre 2026 · 6 min de lecture</span>
         </a>
-        <a class="article-carte" href="adoption-placement-psychogenealogie.html">
+        <a class="article-carte" href="heure-miroir-2222-signification.html">
           <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Psychogénéalogie</span>
-          <h2>Adoption et placement dans l'arbre : la blessure primitive et ce qui se transmet</h2>
-          <p>Adoption, placement en famille d'accueil, enfant confié à des proches : la blessure primitive selon Nancy Verrier, ce que la psychogénéalogie…</p>
-          <span class="meta">12 novembre 2026 · 12 min de lecture</span>
-        </a>
-        <a class="article-carte" href="enfants-non-nes-fausse-couche-ivg-fratrie.html">
-          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Psychogénéalogie</span>
-          <h2>Fausse couche, IVG, enfant mort-né : la place des enfants non nés dans la fratrie</h2>
-          <p>Deuil périnatal, fausse couche, IVG, enfant mort-né : faut-il les compter dans sa fratrie ? Ce qu'en disent Schützenberger, Dumas, Bayle et Porot,…</p>
-          <span class="meta">12 novembre 2026 · 10 min de lecture</span>
-        </a>
-        <a class="article-carte" href="aine-apres-une-fausse-couche.html">
-          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Psychogénéalogie</span>
-          <h2>Aîné·e après une fausse couche : quand on est l'aîné de fait, mais pas le premier</h2>
-          <p>Tu es l'aîné·e de ta fratrie, mais ta mère avait perdu une grossesse avant toi ? Rang de naissance et place de fait, lecture symbolique,…</p>
-          <span class="meta">12 novembre 2026 · 11 min de lecture</span>
-        </a>
-        <a class="article-carte" href="grossesse-perdue-meme-age-que-sa-mere.html">
-          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Psychogénéalogie</span>
-          <h2>Perdre une grossesse au même âge que sa mère : un syndrome d'anniversaire ?</h2>
-          <p>Une fausse couche au même âge que sa mère ou sa grand-mère : syndrome d'anniversaire, transparence psychique de la grossesse, ce que dit la…</p>
-          <span class="meta">12 novembre 2026 · 9 min de lecture</span>
-        </a>
-        <a class="article-carte" href="conjoint-meme-prenom-que-son-pere.html">
-          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Psychogénéalogie</span>
-          <h2>Épouser quelqu'un qui porte le prénom de son père ou de sa mère : hasard ou écho ?</h2>
-          <p>Ton conjoint porte le prénom de ton père, de ta mère ou d'un frère disparu ? Choix amoureux selon Freud et la thérapie Imago, lecture…</p>
-          <span class="meta">12 novembre 2026 · 8 min de lecture</span>
-        </a>
-        <a class="article-carte" href="syndrome-anniversaire.html">
-          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Psychogénéalogie</span>
-          <h2>Le syndrome d'anniversaire : faits, hypothèses et coïncidences</h2>
-          <p>Syndrome d'anniversaire en psychogénéalogie : définition, origine, exemple et limites. Comment distinguer une répétition d'une simple coïncidence.</p>
-          <span class="meta">27 novembre 2026 · 10 min de lecture</span>
+          <span class="theme">Synchronicité</span>
+          <h2>22h22 : ce que ça peut vouloir dire, et ce que dit ta lignée</h2>
+          <p>Tu vois souvent 22h22 ? Ce que dit la numérologie (le nombre maître 22, le grand bâtisseur), et ce que ça peut évoquer dans ta lignée.</p>
+          <span class="meta">10 novembre 2026 · 7 min de lecture</span>
         </a>
       </div>
     </section>
 
-    <section class="bloc">
-      <div class="conteneur"><div class="bloc-tete"><h2>Arbre, famille et schémas</h2></div></div>
+    <section class="bloc" id="ciel" style="padding-bottom:0">
+      <div class="conteneur"><div class="bloc-tete"><h2>Ciel et astrologie</h2><p>Mercure rétrograde, signes qui reviennent dans une famille. Pour chaque mois, voir <a href="le-ciel-du-mois.html">le ciel du mois</a>.</p></div></div>
       <div class="conteneur articles">
-        <a class="article-carte" href="genogramme-vs-genosociogramme.html">
-          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Psychogénéalogie</span>
-          <h2>Génogramme vs génosociogramme : la différence</h2>
-          <p>Définition, symboles, origine en travail social, et ce qui distingue les deux outils.</p>
-          <span class="meta">10 novembre 2026 · 6 min de lecture</span>
-        </a>
-        <a class="article-carte" href="constellation-familiale.html">
-          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Psychogénéalogie</span>
-          <h2>Constellation familiale : définition et faire seul·e</h2>
-          <p>Ce que c'est vraiment, comment ça se passe en groupe, et ce qu'on peut explorer de son côté.</p>
-          <span class="meta">10 novembre 2026 · 8 min de lecture</span>
-        </a>
-        <a class="article-carte" href="relation-mere-fille-toxique.html">
-          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Psychogénéalogie</span>
-          <h2>Relation mère fille toxique : ce qui se transmet</h2>
-          <p>Les signes, ce que ta lignée féminine rejoue, et comment retrouver ta place sans couper le lien.</p>
-          <span class="meta">31 octobre 2026 · 9 min de lecture</span>
-        </a>
-        <a class="article-carte" href="memoire-transgenerationnelle.html">
-          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Psychogénéalogie</span>
-          <h2>La mémoire transgénérationnelle</h2>
-          <p>Ce qui se transmet en silence d'une génération à l'autre, et ce qu'on peut vraiment en dire.</p>
-          <span class="meta">7 octobre 2026 · 8 min de lecture</span>
-        </a>
-        <a class="article-carte" href="loyaute-familiale-invisible.html">
-          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Psychogénéalogie</span>
-          <h2>Les loyautés familiales invisibles</h2>
-          <p>Ces fidélités qui nous lient sans le savoir, et comment les transformer en fidélités choisies.</p>
+        <a class="article-carte" href="mercure-retrograde-2027.html">
+          <img class="carte-photo" src="assets/images/blog-ciel-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Le ciel</span>
+          <h2>Mercure rétrograde 2027 : les dates et leur signification</h2>
+          <p>Les trois périodes de l'année, heure de Paris et du Québec, et une question pour ta famille à chacune.</p>
           <span class="meta">7 octobre 2026 · 7 min de lecture</span>
         </a>
-        <a class="article-carte" href="syndrome-du-gisant.html">
-          <img class="carte-photo" src="assets/images/blog-deuil-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Psychogénéalogie</span>
-          <h2>Le syndrome du gisant</h2>
-          <p>Porter, sans le savoir, la vie d'un mort : la notion du Dr Sellam, un exemple sur cinq générations et ses limites.</p>
-          <span class="meta">7 octobre 2026 · 8 min de lecture</span>
-        </a>
-        <a class="article-carte" href="enfant-de-remplacement.html">
-          <img class="carte-photo" src="assets/images/blog-reves-recurrents-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Psychogénéalogie</span>
-          <h2>L&#x27;enfant de remplacement</h2>
-          <p>Naître après un enfant disparu : exemples, vécu à l'âge adulte et pistes pour trouver sa place.</p>
-          <span class="meta">7 octobre 2026 · 7 min de lecture</span>
-        </a>
-        <a class="article-carte" href="jumeau-perdu.html">
-          <img class="carte-photo" src="assets/images/blog-filles-garcons-fratrie-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Psychogénéalogie</span>
-          <h2>Le jumeau perdu</h2>
-          <p>Jumeau évanescent, manque sans nom, transmission dans la lignée : ce que l&#x27;on sait, et quatre étapes pour lui rendre sa place.</p>
-          <span class="meta">23 octobre 2026 · 5 min de lecture</span>
-        </a>
-        <a class="article-carte" href="place-dans-la-fratrie.html">
-          <img class="carte-photo" src="assets/images/genosociogramme-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Psychogénéalogie</span>
-          <h2>La place dans la fratrie</h2>
-          <p>Aîné·e, milieu, cadet·te : ce que disent les recherches, et ce qu'apporte la psychogénéalogie.</p>
-          <span class="meta">7 octobre 2026 · 7 min de lecture</span>
-        </a>
-        <a class="article-carte" href="peur-de-manquer-d-argent.html">
-          <img class="carte-photo" src="assets/images/blog-argent-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Psychogénéalogie</span>
-          <h2>La peur de manquer d&#x27;argent</h2>
-          <p>Quand l'insécurité vient de plus loin que toi, et des pistes concrètes pour l'apaiser.</p>
-          <span class="meta">7 octobre 2026 · 7 min de lecture</span>
-        </a>
-        <a class="article-carte" href="relation-floue.html">
-          <img class="carte-photo" src="assets/images/relations-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Ta vie en réel</span>
-          <h2>Relation floue : pourquoi c'est si dur de demander « on est quoi ? »</h2>
-          <p>Reconnaître une relation floue, comprendre pourquoi on accepte le flou, et oser poser la question, avec des phrases prêtes à dire.</p>
-          <span class="meta">7 octobre 2026 · 6 min de lecture</span>
-        </a>
-        <a class="article-carte" href="conflits-avec-ses-parents.html">
-          <img class="carte-photo" src="assets/images/psychogenealogie-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Ta vie en réel</span>
-          <h2>Toujours en conflit avec tes parents ? Ce qui se joue vraiment</h2>
-          <p>Pourquoi ça clashe à 20 ans, ce que leurs inquiétudes racontent, et une méthode en cinq étapes pour sortir des disputes.</p>
-          <span class="meta">7 octobre 2026 · 7 min de lecture</span>
-        </a>
-        <a class="article-carte" href="se-sentir-seule.html">
-          <img class="carte-photo" src="assets/images/suivi-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Ta vie en réel</span>
-          <h2>Se sentir seule, même entourée</h2>
-          <p>Ce n'est ni rare ni un défaut. Ce qui peut se jouer, et cinq petites actions pour recréer du lien.</p>
-          <span class="meta">7 octobre 2026 · 5 min de lecture</span>
-        </a>
-        <a class="article-carte" href="blessure-rejet-ou-abandon.html">
-          <img class="carte-photo" src="assets/images/etat-interieur-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Blessures</span>
-          <h2>Blessure de rejet ou d&#x27;abandon : comment faire la différence</h2>
-          <p>La différence en un tableau et un exemple concret, avec le comparatif des cinq blessures.</p>
-          <span class="meta">7 octobre 2026 · 6 min de lecture</span>
-        </a>
-        <a class="article-carte" href="masques-des-5-blessures.html">
-          <img class="carte-photo" src="assets/images/etat-interieur-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Blessures</span>
-          <h2>Les cinq masques des blessures de l&#x27;âme</h2>
-          <p>Fuyant, dépendant, masochiste, contrôlant, rigide : ce que chaque masque protège, et comment l'alléger.</p>
-          <span class="meta">7 octobre 2026 · 8 min de lecture</span>
-        </a>
-        <a class="article-carte" href="blessure-abandon-relation-amoureuse.html">
-          <img class="carte-photo" src="assets/images/relations-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Blessures</span>
-          <h2>Blessure d&#x27;abandon et relation amoureuse</h2>
-          <p>Quand la peur d'être quitté·e prend la place : les signes, l'histoire familiale et des pistes.</p>
-          <span class="meta">7 octobre 2026 · 7 min de lecture</span>
-        </a>
-        <a class="article-carte" href="blessure-trahison-relation-amoureuse.html">
-          <img class="carte-photo" src="assets/images/relations-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Blessures</span>
-          <h2>Blessure de trahison et relation amoureuse</h2>
-          <p>Méfiance, contrôle, jalousie : retrouver confiance, et voir d'où vient la peur d'être trompé·e.</p>
-          <span class="meta">7 octobre 2026 · 7 min de lecture</span>
-        </a>
-        <a class="article-carte" href="schemas-repetitifs-en-amour.html">
-          <img class="carte-photo" src="assets/images/relations-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Schémas répétitifs</span>
-          <h2>Schémas répétitifs en amour : repérer ce qui se rejoue</h2>
-          <p>Toujours le même type de personne, la même fin ? Ce que ton histoire familiale peut éclairer, et un exercice pour faire autrement.</p>
-          <span class="meta">7 octobre 2026 · 7 min de lecture</span>
-        </a>
-        <a class="article-carte" href="informations-avant-genosociogramme.html">
-          <img class="carte-photo" src="assets/images/genosociogramme-vierge-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Génosociogramme</span>
-          <h2>Quelles informations rassembler avant de faire son génosociogramme</h2>
-          <p>Les informations à réunir, thème par thème, où les trouver, et une liste à cocher à imprimer.</p>
-          <span class="meta">7 octobre 2026 · 7 min de lecture</span>
-        </a>
-        <a class="article-carte" href="questions-a-poser-a-sa-famille.html">
-          <img class="carte-photo" src="assets/images/psychogenealogie-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Famille</span>
-          <h2>Les questions à poser à sa famille pour compléter son arbre</h2>
-          <p>Comment s'y prendre avec tes parents et grands-parents, une trentaine de questions, et quoi faire des réponses.</p>
-          <span class="meta">7 octobre 2026 · 8 min de lecture</span>
-        </a>
-        <a class="article-carte" href="arbre-de-vie-arbre-genealogique-genosociogramme.html">
-          <img class="carte-photo" src="assets/images/arbre-de-vie-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Arbre de vie</span>
-          <h2>Arbre de vie, arbre généalogique, génosociogramme : trois arbres à ne pas confondre</h2>
-          <p>À quoi sert chacun, ce qu'on y note, d'où il vient, et comment les utiliser ensemble.</p>
-          <span class="meta">7 octobre 2026 · 6 min de lecture</span>
-        </a>
-        <a class="article-carte" href="blessure-humiliation-relation-amoureuse.html">
-          <img class="carte-photo" src="assets/images/relations-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Blessures</span>
-          <h2>Blessure d'humiliation et relation amoureuse : la reconnaître en amour</h2>
-          <p>Honte, effacement, besoin de faire plaisir : les signes, le masque en amour, et ce que ta famille t'a appris à cacher.</p>
-          <span class="meta">31 octobre 2026 · 9 min de lecture</span>
-        </a>
-        <a class="article-carte" href="blessure-de-rejet.html">
-          <img class="carte-photo" src="assets/images/etat-interieur-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Blessures</span>
-          <h2>La blessure de rejet : la reconnaître, comprendre d'où elle vient</h2>
-          <p>Blessure de rejet : ses signes, le masque du fuyant, le parent souvent concerné, ce qu'elle rejoue en amour et au travail, et son histoire familiale.</p>
-          <span class="meta">7 octobre 2026 · 12 min de lecture</span>
-        </a>
-        <a class="article-carte" href="blessure-d-abandon.html">
-          <img class="carte-photo" src="assets/images/etat-interieur-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Blessures</span>
-          <h2>La blessure d'abandon : la reconnaître, comprendre d'où elle vient</h2>
-          <p>Blessure d'abandon : ses signes, le masque du dépendant, le parent souvent concerné, ce qu'elle rejoue en amour et au travail, et son histoire…</p>
-          <span class="meta">7 octobre 2026 · 10 min de lecture</span>
-        </a>
-        <a class="article-carte" href="blessure-de-trahison.html">
-          <img class="carte-photo" src="assets/images/etat-interieur-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Blessures</span>
-          <h2>La blessure de trahison : la reconnaître, comprendre d'où elle vient</h2>
-          <p>Blessure de trahison : ses signes, le masque du contrôlant, le parent souvent concerné, ce qu'elle rejoue en amour et au travail, et son histoire…</p>
-          <span class="meta">7 octobre 2026 · 10 min de lecture</span>
-        </a>
-        <a class="article-carte" href="blessure-d-humiliation.html">
-          <img class="carte-photo" src="assets/images/etat-interieur-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Blessures</span>
-          <h2>La blessure d'humiliation : la reconnaître, comprendre d'où elle vient</h2>
-          <p>Blessure d'humiliation : ses signes, quel parent est souvent concerné, le masque du masochiste, ce qu'elle rejoue en amour et au travail, et dans…</p>
-          <span class="meta">7 octobre 2026 · 11 min de lecture</span>
-        </a>
-        <a class="article-carte" href="blessure-d-injustice.html">
-          <img class="carte-photo" src="assets/images/etat-interieur-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
-          <span class="theme">Blessures</span>
-          <h2>La blessure d'injustice : la reconnaître, comprendre d'où elle vient</h2>
-          <p>Blessure d'injustice : ses signes, le masque du rigide, la colère, ce qu'elle rejoue au travail et en amour, le parent souvent concerné et la famille.</p>
-          <span class="meta">7 octobre 2026 · 11 min de lecture</span>
+        <a class="article-carte" href="signe-astrologique-qui-revient-famille.html">
+          <img class="carte-photo" src="assets/images/blog-ciel-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+          <span class="theme">Tes astres</span>
+          <h2>Même signe astrologique dans la famille</h2>
+          <p>Trois Scorpions à table ? Calendrier des conceptions, phrases de famille, couleur de la lignée : trois lectures d'un signe qui revient.</p>
+          <span class="meta">13 novembre 2026 · 10 min de lecture</span>
         </a>
       </div>
     </section>
