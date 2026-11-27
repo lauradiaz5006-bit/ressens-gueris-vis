@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Histoire du calendrier : d&#x27;Hénoch au grégorien</title>
+  <meta name="description" content="Histoire du calendrier : calendrier d&#x27;Hénoch (364 jours), Babylone, Égypte, Jules César, réforme grégorienne de 1582 et 1er janvier. Dates et sources vérifiées.">
+  <link rel="canonical" href="https://genesolia.fr/histoire-du-calendrier.html">
+  <meta name="robots" content="noindex,nofollow">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Histoire du calendrier : d&#x27;Hénoch au grégorien">
+  <meta property="og:description" content="Histoire du calendrier : calendrier d&#x27;Hénoch (364 jours), Babylone, Égypte, Jules César, réforme grégorienne de 1582 et 1er janvier. Dates et sources vérifiées.">
+  <meta name="twitter:card" content="summary">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(52rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+    .page-tete .mots{margin-top:.8rem;font-family:var(--display);color:var(--champagne);font-size:1.15rem}
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+    .gestes{margin:1.4rem 0;padding-left:1.2rem;display:grid;gap:.6rem}
+    .gestes li::marker{color:var(--champagne)}
+    .deux{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0}
+    .deux div{padding:1.3rem 1.3rem 1.2rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc)}
+    .deux .nom{font-family:var(--display);color:var(--champagne)}
+    .deux h3{margin:.1rem 0 .5rem}
+    .deux p{color:var(--prune-doux);font-size:.97rem}
+    .tableau{width:100%;border-collapse:collapse;margin:1.4rem 0;font-size:.97rem}
+    .tableau th,.tableau td{padding:.65rem .5rem;border-top:1px solid var(--rose);text-align:left;vertical-align:top}
+    .tableau th{font-weight:600;white-space:nowrap}
+    .tableau td.n{font-family:var(--display);font-size:1.2rem;color:var(--prune);width:2.5rem;text-align:center}
+    .calcul{margin:1.8rem 0;padding:1.6rem;border-radius:var(--rayon);background:linear-gradient(180deg,#FCEFF3,var(--blanc) 80%);border:1px solid var(--rose-fonce)}
+    .calcul .champs{display:flex;flex-wrap:wrap;gap:.8rem;align-items:end}
+    .calcul label{display:grid;gap:.3rem;font-size:.92rem;color:var(--prune-doux)}
+    .calcul select{font:inherit;padding:.6rem .8rem;border-radius:12px;border:1px solid var(--rose-fonce);background:var(--blanc);color:var(--prune)}
+    .resultat{margin-top:1.2rem}
+    .resultat .chiffre{font-family:var(--display);font-size:3rem;line-height:1;color:var(--prune)}
+    .resultat h3{margin:.3rem 0 .4rem}
+    .neuf{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin:1.6rem 0}
+    .neuf a{display:block;height:100%;padding:1rem 1.1rem;border:1px solid var(--rose);border-radius:16px;background:var(--blanc);text-decoration:none}
+    .neuf a:hover{border-color:var(--prune)}
+    .neuf b{display:block;font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--prune);line-height:1}
+    .neuf span{display:block;margin-top:.3rem;color:var(--prune-doux);font-size:.93rem}
+    .voisins{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+    .voisins a{border:1px solid var(--rose-fonce);border-radius:999px;padding:.3rem .9rem;text-decoration:none;font-size:.95rem;background:var(--blanc)}
+    .voisins a[aria-current]{background:var(--prune);color:var(--blanc);border-color:var(--prune)}
+    .faq dt{font-weight:600;margin-top:1.4rem}
+    .faq dd{margin:.4rem 0 0;color:var(--prune-doux)}
+    .article .actions{margin-top:1.6rem;display:flex;flex-wrap:wrap;gap:.6rem}
+    .sr-seul{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .note-fin{font-size:.93rem;color:var(--prune-doux);margin-top:2.4rem}
+    @media (max-width:640px){
+      .deux{grid-template-columns:1fr}
+      .neuf{grid-template-columns:1fr 1fr}
+      .article{padding-top:2.5rem}
+      .article .actions .btn{width:100%}
+    }
+      .sources{font-size:.92rem;color:var(--prune-doux)}
+    .sources li{margin-top:.3rem}
+    .image-prevue{margin:1.6rem 0;padding:1rem 1.2rem;border:1px dashed var(--rose-fonce);border-radius:16px;color:var(--prune-doux);font-size:.92rem}
+  </style>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Article", "headline": "Histoire du calendrier : d'Hénoch au grégorien, pourquoi on compte le temps comme ça", "description": "Histoire du calendrier : calendrier d'Hénoch (364 jours), Babylone, Égypte, Jules César, réforme grégorienne de 1582 et 1er janvier. Dates et sources vérifiées.", "datePublished": "2026-11-27", "dateModified": "2026-11-27", "inLanguage": "fr", "author": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}, "publisher": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}, "url": "https://genesolia.fr/histoire-du-calendrier.html", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://genesolia.fr/histoire-du-calendrier.html"}}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Le calendrier d'Hénoch a-t-il vraiment existé ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui. Le texte qui le décrit, le Livre de l'astronomie (chapitres 72 à 82 du Livre d'Hénoch), est connu depuis longtemps dans sa version éthiopienne, et des fragments araméens plus anciens en ont été retrouvés à Qumrân, près de la mer Morte. Le Livre des Jubilés, un autre texte de la même époque, décrit le même calendrier de 364 jours."}}, {"@type": "Question", "name": "Pourquoi l'année a-t-elle 365 jours et pas 364 ou 360 ?", "acceptedAnswer": {"@type": "Answer", "text": "Parce que c'est la durée la plus proche du temps réel que met la Terre à faire le tour du Soleil (365,2422 jours). Les calendriers de 364 ou 360 jours, plus faciles à diviser en semaines ou en mois égaux, dérivent trop vite par rapport aux saisons pour être tenables sur la durée."}}, {"@type": "Question", "name": "Pourquoi l'année commence-t-elle le 1er janvier ?", "acceptedAnswer": {"@type": "Answer", "text": "Ce n'est pas universel. En France, l'année commençait selon les régions à Pâques, à Noël ou à l'Annonciation. L'édit de Roussillon, signé par Charles IX en 1564, impose le 1er janvier dans tout le royaume, avec application en 1567. D'autres calendriers, comme l'hébraïque ou le chinois, changent d'année à des dates entièrement différentes. Pour voir ce que cela change à la lecture des nombres, lis l'article sur l'année universelle 2027."}}, {"@type": "Question", "name": "Pourquoi est-on passé du calendrier julien au calendrier grégorien ?", "acceptedAnswer": {"@type": "Answer", "text": "Parce que le calendrier julien, établi par Jules César en 46 avant notre ère, comptait une année un tout petit peu trop longue (365,25 jours au lieu de 365,2422). L'écart, accumulé pendant plus de seize siècles, avait fini par décaler l'équinoxe de printemps de dix jours, faussant le calcul de Pâques. Le pape Grégoire XIII a corrigé ce décalage en 1582."}}, {"@type": "Question", "name": "Quand la France est-elle passée au calendrier grégorien ?", "acceptedAnswer": {"@type": "Answer", "text": "En décembre 1582 : le dimanche 9 décembre a été suivi directement du lundi 20 décembre. Dix jours ont donc disparu de l'année 1582 en France."}}, {"@type": "Question", "name": "Y a-t-il eu un calendrier sans lune et sans mois irréguliers ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui, celui d'Hénoch : 364 jours, soit cinquante-deux semaines exactes, avec des mois de 30 ou 31 jours. Il avait l'avantage de faire tomber chaque fête sur le même jour de la semaine, mais il dérivait d'un jour et quart par an par rapport au Soleil."}}]}]</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://genesolia.fr/blog.html"}, {"@type": "ListItem", "position": 3, "name": "Histoire du calendrier : d'Hénoch au grégorien, pourquoi on compte le temps comme ça", "item": "https://genesolia.fr/histoire-du-calendrier.html"}]}</script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d'Ariane"><a href="blog.html">Blog</a><span aria-hidden="true">/</span>Histoire du calendrier : d&#x27;Hénoch au grégorien, pourquoi on compte le temps comme ça</nav>
+        <h1>Histoire du calendrier : d'Hénoch au grégorien, pourquoi on compte le temps comme ça</h1>
+        <p class="intro">Un calendrier de 364 jours transmis par un ange, une année de 445 jours, dix jours effacés en 1582 : l'histoire du calendrier est faite de choix, de calculs et de compromis. Voici comment on est passé d'Hénoch à Jules César, puis au pape Grégoire XIII.</p>
+        <p class="publie">Publié le 27 novembre 2026 · lecture 12 min</p>
+      </div>
+    </section>
+
+    <article class="article">
+      <div class="colonne">
+        <div class="rappel">
+          <strong>L'essentiel en quelques lignes</strong>
+          L'un des textes les plus anciens qui décrivent en détail un calendrier solaire nous vient d'un personnage biblique, Hénoch, et d'un calendrier de 364 jours qu'un ange, Uriel, lui aurait transmis. Ce texte a bel et bien existé : on en a retrouvé des fragments à Qumrân, près de la mer Morte. De ce point de départ, l'histoire du calendrier occidental passe par Babylone, l'Égypte, Jules César, un pape du XVIe siècle et un roi de France excédé par le désordre des dates. Chaque étape corrige la précédente, et aucune n'est parfaite. Ce que tu lis aujourd'hui sur un calendrier n'est donc pas une donnée neutre : c'est la trace d'une très longue suite de choix, de calculs et de compromis.
+        </div>
+
+        <h2>Hénoch : la première trace écrite d'un calendrier contesté</h2>
+        <p>Le point de départ de cette histoire n'est pas un roi ni un savant, mais un texte religieux : le Livre d'Hénoch, et plus précisément sa section dite « Livre de l'astronomie » (ou Livre des luminaires), qui occupe les chapitres 72 à 82. Hénoch, dont la Genèse dit qu'il « marcha avec Dieu », y reçoit un enseignement de l'ange Uriel, dont le nom signifie « Dieu est ma lumière » et qui est présenté comme le gardien des corps célestes. Uriel lui montre le fonctionnement du Soleil, de la Lune et des vents, et lui apprend à compter le temps.</p>
+        <p>Il en tire un calendrier précis : douze mois, chacun composé de deux mois de trente jours suivis d'un mois de trente et un jours à chaque saison, pour un total de 364 jours par an. Le texte est conservé en entier dans sa version éthiopienne, que l'Église orthodoxe éthiopienne inclut dans son canon biblique, et il a circulé bien au-delà : c'est un texte de la tradition juive ancienne, transmis ensuite par des communautés chrétiennes.</p>
+        <p>Ce n'est pas une légende tardive inventée pour l'occasion. Depuis 1947, les manuscrits de la mer Morte, découverts dans les grottes de Qumrân, ont livré des fragments araméens du Livre de l'astronomie. Le plus ancien de ces manuscrits, connu sous le nom de 4Q208, est daté de la fin du IIIe ou du début du IIe siècle avant notre ère, ce qui fait du texte l'un des plus anciens écrits d'astronomie savante du judaïsme. Le calendrier de 364 jours se lit surtout dans la version éthiopienne et dans le Livre des Jubilés, une autre œuvre de la même époque qui le reprend tel quel, et certain·es spécialistes le retrouvent aussi en filigrane derrière d'autres textes de Qumrân. Tout indique qu'une partie du judaïsme ancien, autour de cette communauté, vivait réellement selon ce rythme, en opposition avec le calendrier luni-solaire pratiqué au Temple de Jérusalem.</p>
+        <p>La question qui se pose est évidemment la suivante : pourquoi 364 jours précisément ? Parce que 364 est un multiple exact de 7 : cinquante-deux semaines pile. Une année qui commence un jour donné de la semaine recommence le même jour de la semaine, et chaque fête religieuse tombe année après année sur le même jour de la semaine. Pour un culte rythmé par le sabbat, c'est un avantage considérable : plus de jours de fête qui se déplacent, plus de négociation sur les dates, une organisation parfaitement régulière.</p>
+        <p>Le prix de cette élégance, c'est que 364 jours est trop court d'un jour et quart par rapport à l'année solaire réelle. Au bout de vingt-cinq ans, le calendrier aurait dérivé d'un mois entier par rapport aux saisons. Les chercheur·euses qui étudient ces textes aujourd'hui considèrent que ce système s'inscrivait dans une vraie tradition d'astronomie savante du monde antique, pas dans une croyance isolée : il partage des bases avec les calendriers zodiacaux babyloniens de la même région et de la même époque. Pour les auteur·rices du Livre d'Hénoch, la rigueur du calendrier et la dimension sacrée du temps n'étaient pas deux sujets séparés, mais un seul.</p>
+        <div class="image-prevue">Emplacement image 1 : un manuscrit ancien déroulé sous une lumière chaude, avec des cercles concentriques évoquant le Soleil et la Lune, dans les tons prune et laiton (voir les prompts d'images).</div>
+
+        <h2>Avant Hénoch : Babylone et l'Égypte, les deux sources du temps</h2>
+        <p>Le calendrier d'Hénoch ne sort pas de nulle part : il dialogue avec deux traditions bien plus anciennes, qui se partagent encore aujourd'hui l'héritage du calendrier occidental.</p>
+        <p>En Mésopotamie, les Babyloniens suivent un calendrier lunisolaire : les mois suivent les phases de la Lune (29 ou 30 jours), et pour rattraper le retard sur le Soleil, on ajoute de temps en temps un treizième mois. C'est un calendrier d'observation directe, réajusté en continu : un mois commence quand on voit le premier croissant, et l'année se cale sur les saisons par ajouts successifs.</p>
+        <p>En Égypte, à l'inverse, le calendrier est purement solaire : douze mois de trente jours, plus cinq jours ajoutés à la fin de l'année (les jours dits épagomènes, du grec « ajoutés »), soit 365 jours. Il est stable, prévisible, facile à administrer. C'est de ce modèle égyptien, simple et régulier, que s'inspirera plus tard Rome pour sa propre réforme.</p>
+        <p>Ces deux logiques, l'observation lunaire d'un côté, la régularité solaire de l'autre, sont les deux pôles entre lesquels tous les calendriers de l'histoire vont osciller. Le calendrier d'Hénoch choisit un troisième terme, plus radical : un calendrier sans lune, calé sur la semaine.</p>
+
+        <h2>Rome s'en mêle : l'année de la confusion</h2>
+        <p>Avant Jules César, le calendrier romain est un chaos administratif. L'année ne compte que 355 jours, et c'est aux pontifes, responsables religieux, qu'il revient d'ajouter un mois intercalaire pour la faire coïncider avec les saisons. Le problème, c'est que ces mêmes pontifes utilisent ce pouvoir à des fins politiques : rallonger ou raccourcir le mandat d'un consul selon leurs intérêts. À l'époque de César, le décalage entre l'année civile et l'année solaire réelle atteint environ deux mois.</p>
+        <p>En 46 avant notre ère, Jules César, conseillé par l'astronome grec Sosigène d'Alexandrie, tranche. Il fait ajouter des jours à l'année en cours pour la remettre d'aplomb : elle compte 445 jours, un record qui reste à ce jour la plus longue année jamais enregistrée dans une chronologie officielle, et qu'on surnomme encore aujourd'hui l'année de la confusion. À partir du 1er janvier 45 avant notre ère, le nouveau calendrier julien entre en vigueur : une année de 365 jours, avec un jour supplémentaire tous les quatre ans. C'est, pour l'essentiel, le calendrier que nous utilisons encore.</p>
+        <p>Le mot « bissextile » garde la trace de ce choix : pour intercaler le jour supplémentaire, les Romains répétaient le sixième jour avant les calendes de mars, qui devenait ainsi un « deux fois sixième », <em>bis sextus</em>. La logique est directement empruntée à l'Égypte : une année solaire régulière, à laquelle on ajoute les quelques heures manquantes.</p>
+
+        <h2>Le problème que personne ne voit venir : onze minutes de trop</h2>
+        <p>Le calcul de Sosigène est remarquable pour son époque, mais il repose sur une approximation : une année de 365,25 jours exactement. Or l'année solaire réelle (le temps que met la Terre à revenir au même point par rapport au Soleil) dure 365,2422 jours. La différence ne semble rien, à peine onze minutes par an, mais elle s'accumule : au bout de cent vingt-huit ans, le calendrier a pris un jour d'avance sur les saisons.</p>
+        <p>Pendant des siècles, personne ne s'en inquiète, parce que la dérive est invisible à l'échelle d'une vie. Elle devient un problème parce que le calendrier sert à fixer Pâques, la fête qui commande toutes les autres fêtes mobiles du christianisme. La règle ecclésiastique est : le premier dimanche après la première pleine lune qui suit l'équinoxe de printemps. En 325, le concile de Nicée fixe l'équinoxe de printemps au 21 mars pour calculer la date de Pâques chaque année. Mais douze siècles plus tard, en 1582, l'accumulation de l'erreur a fait glisser l'équinoxe réel au 11 mars du calendrier julien : dix jours de décalage, et avec eux, une date de Pâques de plus en plus fausse.</p>
+
+        <h2>1582 : dix jours qui disparaissent</h2>
+        <p>Le concile de Trente avait demandé de régler le problème. Le pape Grégoire XIII réunit donc une commission de savants, parmi lesquels l'astronome Luigi Lilio (Aloysius Lilius) et le mathématicien jésuite Christophe Clavius. Leur solution tient en deux volets.</p>
+        <p>D'abord, rattraper le retard accumulé : la bulle <em>Inter gravissimas</em>, promulguée le 24 février 1582, supprime dix jours d'un coup, si bien que le lendemain du jeudi 4 octobre 1582 est directement le vendredi 15 octobre. Ensuite, corriger la règle elle-même pour que l'erreur ne se reproduise plus : les années séculaires (1700, 1800, 1900...) ne sont désormais bissextiles que si elles sont divisibles par 400, ce qui est le cas de 1600 ou de 2000, mais pas de 1700, 1800 ou 1900. L'année moyenne passe ainsi à 365,2425 jours, beaucoup plus proche de la réalité. C'est le calendrier grégorien, celui que nous utilisons aujourd'hui.</p>
+        <p>Cette réforme ne s'impose pas partout en même temps, parce qu'elle vient d'un pape et que l'Europe de l'époque est divisée par la Réforme. Elle est perçue, dans beaucoup de pays, comme un acte catholique plus que comme une correction astronomique.</p>
+        <table class="tableau">
+          <thead><tr><th>Date</th><td class="n"></td><td>Où le calendrier grégorien est adopté</td></tr></thead>
+          <tbody>
+            <tr><th>15 octobre 1582</th><td class="n"></td><td>Espagne, Portugal, États italiens, Pologne-Lituanie (le 4 octobre julien est suivi du 15 octobre)</td></tr>
+            <tr><th>20 décembre 1582</th><td class="n"></td><td>France (le dimanche 9 décembre est suivi du lundi 20 décembre, sous Henri III)</td></tr>
+            <tr><th>1700</th><td class="n"></td><td>États protestants d'Allemagne et Danemark-Norvège (la partie solaire du calendrier)</td></tr>
+            <tr><th>14 septembre 1752</th><td class="n"></td><td>Angleterre et ses colonies (le 2 septembre est suivi du 14 septembre)</td></tr>
+            <tr><th>1er mars 1753</th><td class="n"></td><td>Suède</td></tr>
+            <tr><th>14 février 1918</th><td class="n"></td><td>Russie, après la révolution bolchevique</td></tr>
+            <tr><th>1er mars 1923</th><td class="n"></td><td>Grèce (pour la vie civile)</td></tr>
+          </tbody>
+        </table>
+        <p>L'Espagne, le Portugal, l'Italie et la Pologne l'adoptent dès 1582. La France suit deux mois plus tard. Plusieurs pays protestants et les pays orthodoxes résistent bien plus longtemps à une réforme perçue comme catholique : les États protestants d'Allemagne attendent 1700, l'Angleterre et ses colonies 1752, la Suède 1753, la Russie 1918 (après la révolution bolchevique) et la Grèce 1923. Pendant près de deux siècles, deux pays voisins pouvaient ainsi dater la même journée de façons différentes, et un voyageur pouvait changer de date en traversant une frontière.</p>
+        <div class="image-prevue">Emplacement image 2 : une page de calendrier de 1582 dont les jours du 5 au 14 octobre s'effacent en lumière dorée, ambiance parchemin et laiton (voir les prompts d'images).</div>
+
+        <h2>Et le 1er janvier dans tout ça ?</h2>
+        <p>Fixer la longueur de l'année est une chose. Décider où elle commence en est une autre, et ce choix a eu sa propre histoire, indépendante de la précision astronomique. Ce n'est pas universel. Dans la France médiévale, selon les régions et les époques, l'année pouvait commencer à Pâques, à Noël ou à l'Annonciation (le 25 mars). C'est l'édit de Roussillon, signé par Charles IX le 9 août 1564, qui impose le 1er janvier comme point de départ unique de l'année dans tout le royaume, avec application à partir du 1er janvier 1567.</p>
+        <p>Les numérologues qui calculent une « année universelle » du 1er janvier au 31 décembre suivent donc, sans le savoir, une convention qui a moins de cinq siècles en France, et qui a été fixée par décision royale, pas par une évidence du ciel. Nous détaillons ce que cela change à la lecture des nombres dans l'article sur l'<a href="annee-universelle-2027.html">année universelle 2027</a>.</p>
+
+        <h2>Un calendrier, plusieurs calendriers</h2>
+        <p>Le calendrier grégorien n'est universel que dans le cadre occidental. D'autres sociétés comptent le temps selon des logiques entièrement différentes, et toutes coexistent aujourd'hui.</p>
+        <ul class="gestes">
+          <li><strong>Le calendrier hébraïque</strong> reste lunisolaire, avec un mois intercalaire ajouté sept fois sur un cycle de dix-neuf ans pour rester aligné sur les saisons.</li>
+          <li><strong>Le calendrier chinois</strong>, lui aussi lunisolaire, change d'année entre fin janvier et mi-février.</li>
+          <li><strong>Le calendrier musulman (hégirien)</strong> compte les années depuis l'Hégire, en 622 de notre ère. Il est purement lunaire, sans aucun ajustement sur le Soleil : ses douze mois font 354 jours au total, ce qui le fait reculer chaque année d'environ onze jours par rapport au calendrier grégorien. Un même mois peut ainsi tomber, selon les décennies, en toute saison.</li>
+        </ul>
+        <h3>Le calendrier révolutionnaire, une rupture qui n'a pas tenu</h3>
+        <p>La France elle-même a tenté une rupture radicale avec le calendrier révolutionnaire (1793-1805). Les mois y sont renommés d'après les saisons et les travaux des champs (vendémiaire, brumaire, frimaire, nivôse et ainsi de suite), la semaine passe à dix jours, et l'on compte les années à partir de la proclamation de la République. L'idée est de remplacer un temps religieux par un temps rationnel. Elle ne s'impose jamais vraiment : un jour de repos tous les dix jours au lieu de sept pèse sur les habitudes, et l'usage ne suit pas. La France y renonce et revient au grégorien le 1er janvier 1806.</p>
+
+        <h2>Ce que cette histoire raconte, au fond</h2>
+        <p>En remontant depuis Hénoch jusqu'au pape Grégoire XIII, on voit la même scène se répéter : une génération hérite d'un calendrier, découvre qu'il ne colle plus tout à fait au ciel, et le corrige du mieux qu'elle peut avec les outils de son temps. Aucun de ces calendriers n'est faux au sens où il aurait été établi n'importe comment : chacun est le résultat d'une observation sérieuse, ajustée par les meilleur·es savant·es disponibles. Et aucun n'est non plus définitivement vrai, puisque le suivant viendra le corriger à son tour.</p>
+        <p>Ce que cette histoire dit, peut-être, c'est que le temps que nous suivons au quotidien est moins une donnée fixe qu'une lignée de choix transmis, génération après génération, un peu comme une histoire de famille : on hérite d'un cadre sans l'avoir choisi, on le croit souvent plus solide qu'il ne l'est, et il a fallu, à chaque étape, quelqu'un pour oser le remettre en question et le réajuster. Se demander d'où vient le calendrier qu'on utilise sans y penser, c'est déjà une façon de regarder d'où viennent les cadres qu'on a hérités ailleurs, sans toujours les avoir choisis non plus.</p>
+        <p>Et si tu veux prolonger la réflexion côté nombres : le fait que le cycle de neuf ans de la numérologie vienne de l'arithmétique et non du ciel, ou que la date de début de l'année ait été décidée par un roi, fait partie de ce qu'on peut savoir avant d'en tirer un sens. Les articles sur le <a href="annee-universelle-calcul-origine.html">calcul de l'année universelle</a> et sur le <a href="annee-universelle-cycle-9-ans.html">cycle de neuf ans</a> reprennent ces questions.</p>
+
+        <h2>Questions fréquentes</h2>
+        <dl class="faq">
+          <dt>Le calendrier d'Hénoch a-t-il vraiment existé ?</dt><dd>Oui. Le texte qui le décrit, le Livre de l'astronomie (chapitres 72 à 82 du Livre d'Hénoch), est connu depuis longtemps dans sa version éthiopienne, et des fragments araméens plus anciens en ont été retrouvés à Qumrân, près de la mer Morte. Le Livre des Jubilés, un autre texte de la même époque, décrit le même calendrier de 364 jours.</dd>
+          <dt>Pourquoi l'année a-t-elle 365 jours et pas 364 ou 360 ?</dt><dd>Parce que c'est la durée la plus proche du temps réel que met la Terre à faire le tour du Soleil (365,2422 jours). Les calendriers de 364 ou 360 jours, plus faciles à diviser en semaines ou en mois égaux, dérivent trop vite par rapport aux saisons pour être tenables sur la durée.</dd>
+          <dt>Pourquoi l'année commence-t-elle le 1er janvier ?</dt><dd>Ce n'est pas universel. En France, l'année commençait selon les régions à Pâques, à Noël ou à l'Annonciation. L'édit de Roussillon, signé par Charles IX en 1564, impose le 1er janvier dans tout le royaume, avec application en 1567. D'autres calendriers, comme l'hébraïque ou le chinois, changent d'année à des dates entièrement différentes. Pour voir ce que cela change à la lecture des nombres, lis l'article sur l'<a href="annee-universelle-2027.html">année universelle 2027</a>.</dd>
+          <dt>Pourquoi est-on passé du calendrier julien au calendrier grégorien ?</dt><dd>Parce que le calendrier julien, établi par Jules César en 46 avant notre ère, comptait une année un tout petit peu trop longue (365,25 jours au lieu de 365,2422). L'écart, accumulé pendant plus de seize siècles, avait fini par décaler l'équinoxe de printemps de dix jours, faussant le calcul de Pâques. Le pape Grégoire XIII a corrigé ce décalage en 1582.</dd>
+          <dt>Quand la France est-elle passée au calendrier grégorien ?</dt><dd>En décembre 1582 : le dimanche 9 décembre a été suivi directement du lundi 20 décembre. Dix jours ont donc disparu de l'année 1582 en France.</dd>
+          <dt>Y a-t-il eu un calendrier sans lune et sans mois irréguliers ?</dt><dd>Oui, celui d'Hénoch : 364 jours, soit cinquante-deux semaines exactes, avec des mois de 30 ou 31 jours. Il avait l'avantage de faire tomber chaque fête sur le même jour de la semaine, mais il dérivait d'un jour et quart par an par rapport au Soleil.</dd>
+        </dl>
+
+        <h2>Sources</h2>
+        <ul class="sources">
+          <li>Hérodote.net, « Invention de l'ère chrétienne et oubli de l'an zéro » : <a href="https://www.herodote.net/Invention_de_l_ere_chretienne_et_oubli_de_l_An_zero-synthese-27.php">herodote.net</a>.</li>
+          <li>Dates d'adoption du calendrier grégorien par pays : <a href="https://en.wikipedia.org/wiki/Adoption_of_the_Gregorian_calendar">Wikipedia, Adoption of the Gregorian calendar</a>.</li>
+          <li>Édit de Roussillon (1564) : <a href="https://en.wikipedia.org/wiki/Edict_of_Roussillon">Wikipedia</a>.</li>
+          <li>Les manuscrits araméens du Livre de l'astronomie à Qumrân (4Q208 à 4Q211) : <a href="https://link.springer.com/article/10.1007/s00407-020-00268-7">Archive for History of Exact Sciences</a>.</li>
+          <li>Livre d'Hénoch, chapitres 72 à 82 (Livre de l'astronomie) et Livre des Jubilés.</li>
+          <li>Dans cette série : <a href="annee-universelle-2027.html">année universelle 2027</a>, <a href="annee-universelle-calcul-origine.html">calcul, origine et limites</a>, <a href="annee-universelle-cycle-9-ans.html">cycle de neuf ans</a>.</li>
+        </ul>
+
+        <p class="note-fin">Lecture numérologique et symbolique, appuyée sur des faits historiques vérifiés. La numérologie n'est pas une science : ses interprétations sont des pistes de réflexion, pas des causes ni des prédictions.</p>
+        <nav class="voisins" aria-label="Dans la même série"><a href="histoire-du-calendrier.html" aria-current="page">Histoire du calendrier</a><a href="annee-universelle-2027.html">Année universelle 2027</a><a href="annee-universelle-calcul-origine.html">Calcul et origine</a><a href="annee-universelle-cycle-9-ans.html">Cycle de 9 ans</a></nav>
+      </div>
+    </article>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="annee-personnelle-2027.html"><h3>Ton année personnelle 2027</h3><p>Calcule-la gratuitement et découvre ce qu'elle t'invite à vivre.</p></a>
+          <a class="outil" href="theme-numerologique.html"><h3>Ton thème numérologique complet</h3><p>Chemin de vie, expression, nombre héréditaire et année personnelle.</p></a>
+          <a class="outil" href="genosociogramme.html?numerologie"><h3>Ta lignée en nombres</h3><p>Les nombres de chaque membre de ta famille, et ceux qui reviennent.</p></a>
+          <a class="outil" href="origine-numerologie-moderne.html"><h3>D'où vient la numérologie moderne ?</h3><p>Pythagore, la gématrie, puis Balliett : ce que disent les sources.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>
