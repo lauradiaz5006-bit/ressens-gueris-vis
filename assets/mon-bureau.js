@@ -208,6 +208,15 @@
   var PRIORITE = {
     gen: [
       /* Ajout 27 nov. 2026 : 20 articles enrichis (>2000 mots, sources, FAQ), à redemander en premier */
+      'https://genesolia.fr/triangle-familial-enfant-pris-entre-ses-parents.html',
+      'https://genesolia.fr/famille-toxique-couper-les-ponts.html',
+      'https://genesolia.fr/informations-avant-genosociogramme.html',
+      'https://genesolia.fr/liste-des-valeurs.html',
+      'https://genesolia.fr/jumeau-perdu.html',
+      'https://genesolia.fr/cinq-elements-emotions.html',
+      'https://genesolia.fr/emotions-et-hormones.html',
+      'https://genesolia.fr/rever-de-fuir-etre-poursuivi.html',
+      'https://genesolia.fr/rever-de-dents-qui-tombent.html',
       'https://genesolia.fr/nombre-maitre-11.html',
       'https://genesolia.fr/nombre-maitre-22.html',
       'https://genesolia.fr/nombre-maitre-33.html',
