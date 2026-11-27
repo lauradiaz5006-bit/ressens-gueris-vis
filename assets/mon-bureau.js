@@ -207,6 +207,11 @@
      Le plan du site ne sert plus qu'à repérer les pages NOUVELLES ou modifiées depuis moins de 14 jours. */
   var PRIORITE = {
     gen: [
+      /* Ajout 27 nov. 2026 : 4 articles heures miroirs, à demander en premier */
+      'https://genesolia.fr/heure-miroir-1111-signification.html',
+      'https://genesolia.fr/heure-miroir-2222-signification.html',
+      'https://genesolia.fr/heure-miroir-1010-signification.html',
+      'https://genesolia.fr/heure-miroir-2020-signification.html',
       /* Ajout 24 nov. 2026 : 3 nouveaux articles pervers narcissique (pilier + 2 complémentaires), à demander en premier */
       'https://genesolia.fr/pervers-narcissique.html',
       'https://genesolia.fr/parent-pervers-narcissique.html',
