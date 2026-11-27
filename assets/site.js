@@ -365,7 +365,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
 (function () {
   var MARQUE = 'Genesolia';
   var MENU = [
-    ['blog.html', 'Comprendre'],
+    ['blog.html', 'Blog'],
     ['genosociogramme.html', 'Ton arbre familial'],
     ['theme-numerologique.html', 'Tes numéros'],
     ['theme-astral.html', 'Tes astres'],
