@@ -207,6 +207,11 @@
      Le plan du site ne sert plus qu'à repérer les pages NOUVELLES ou modifiées depuis moins de 14 jours. */
   var PRIORITE = {
     gen: [
+      /* Ajout 27 nov. 2026 : 3 pages année universelle + histoire du calendrier, à demander en premier */
+      'https://genesolia.fr/annee-universelle-2027.html',
+      'https://genesolia.fr/annee-universelle-calcul-origine.html',
+      'https://genesolia.fr/annee-universelle-cycle-9-ans.html',
+      'https://genesolia.fr/histoire-du-calendrier.html',
       /* Ajout 27 nov. 2026 : 4 articles heures miroirs, à demander en premier */
       'https://genesolia.fr/heure-miroir-1111-signification.html',
       'https://genesolia.fr/heure-miroir-2222-signification.html',
