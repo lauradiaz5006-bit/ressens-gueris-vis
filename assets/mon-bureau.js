@@ -208,6 +208,11 @@
   var PRIORITE = {
     gen: [
       /* Ajout 27 nov. 2026 : 20 articles enrichis (>2000 mots, sources, FAQ), à redemander en premier */
+      'https://genesolia.fr/blessure-humiliation-relation-amoureuse.html',
+      'https://genesolia.fr/relation-mere-fille-toxique.html',
+      'https://genesolia.fr/dependance-affective.html',
+      'https://genesolia.fr/imago-choix-amoureux.html',
+      'https://genesolia.fr/etapes-du-couple.html',
       'https://genesolia.fr/blessure-rejet-ou-abandon.html',
       'https://genesolia.fr/arbre-de-vie-arbre-genealogique-genosociogramme.html',
       'https://genesolia.fr/se-sentir-seule.html',
