@@ -4,6 +4,8 @@
   'use strict';
   var G = window.Guematrie, N = window.Numerologie;
   var POS = { 1: [150, 34], 2: [252, 96], 3: [48, 96], 4: [252, 206], 5: [48, 206], 6: [150, 266], 7: [252, 376], 8: [48, 376], 9: [150, 436], 10: [150, 504] };
+  function deSphere(n) { n = n.toLowerCase(); return /^le /.test(n) ? 'Du ' + n.slice(3) : /^[aeiouyéèêh]/.test(n) ? 'D’' + n : 'De ' + n; }   /* « de le » devient « du » */
+  function aSphere(n) { n = n.toLowerCase(); return /^le /.test(n) ? 'au ' + n.slice(3) : 'à ' + n; }
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function sansAccent(s) { return String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase(); }
 
@@ -72,7 +74,7 @@
         '<h3>Les lettres de ' + esc(nom) + ' et leurs chemins</h3><p>Chaque lettre ancienne a une image et correspond à un chemin entre deux sphères de l\'arbre. Les chemins de ton prénom sont dessinés en doré.</p>' +
         '<ul class="p-lettres">' + lect.lettres.map(function (k) {
           var L = G.LETTRES[k];
-          return '<li><span class="p-l-val">' + L.v + '</span><div><b>' + L.nom + ', ' + esc(L.image) + '</b><span class="p-chemin">De ' + esc(G.SPHERES[L.chemin[0]].nom.toLowerCase()) + ' à ' + esc(G.SPHERES[L.chemin[1]].nom.toLowerCase()) + '</span><p>' + esc(L.texte) + '</p></div></li>';
+          return '<li><span class="p-l-val">' + L.v + '</span><div><b>' + L.nom + ', ' + esc(L.image) + '</b><span class="p-chemin">' + esc(deSphere(G.SPHERES[L.chemin[0]].nom)) + ' ' + esc(aSphere(G.SPHERES[L.chemin[1]].nom)) + '</span><p>' + esc(L.texte) + '</p></div></li>';
         }).join('') + '</ul>' +
         '<details class="p-detail"><summary>Voir le détail du calcul</summary><p>Ton prénom est transcrit selon sa prononciation dans l\'alphabet ancien à 22 lettres : <span class="p-hebreu" lang="he" dir="rtl">' + lect.lettres.map(function (k) { return G.LETTRES[k].h; }).join('') + '</span>. Les voyelles muettes ne s\'écrivent pas. Chaque lettre a sa valeur, on les additionne (' + lect.lettres.map(function (k) { return G.LETTRES[k].v; }).join(' + ') + ' = ' + lect.total + '), puis on réduit le total jusqu\'à obtenir un nombre de 1 à 10, celui d\'une sphère.</p>' +
         (opts.editable ? '<p>La transcription d\'un prénom n\'est pas toujours unique. Si la prononciation de ton prénom est différente, tu peux la corriger ci-dessous.</p><div id="p-edition"></div>' : '<p><a href="ton-prenom.html?p=' + encodeURIComponent(nom) + '">Corriger la transcription ou lire un autre prénom</a></p>') +

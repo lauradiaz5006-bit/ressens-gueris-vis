@@ -99,6 +99,7 @@ for (const f of L) {
     </div></section>
     <section class="bloc"><div class="conteneur">
 ${P.html(f.prenom, { fiche: f })}
+${(f.approfondir && f.approfondir.length) ? `      <div class="p-bloc"><p class="p-etiq">Pour aller plus loin</p><h2>Le prénom ${esc(f.prenom)}, son histoire en détail</h2>${f.approfondir.map(x => `<p>${x}</p>`).join('')}</div>` : ''}
 ${LG.html}
 ${P.ORIGINE}
       <div class="p-bloc"><p class="p-etiq">Et ton prénom à toi ?</p><h2>Lire un autre prénom</h2><p>La lecture fonctionne pour tous les prénoms, même les plus rares.</p><div class="p-actions" style="margin-bottom:1.4rem"><a class="btn btn-plein" href="ton-prenom.html">Découvrir mon prénom</a><a class="btn btn-trait" href="prenoms.html">Tous les prénoms</a></div>
