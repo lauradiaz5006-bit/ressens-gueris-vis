@@ -207,6 +207,28 @@
      Le plan du site ne sert plus qu'à repérer les pages NOUVELLES ou modifiées depuis moins de 14 jours. */
   var PRIORITE = {
     gen: [
+      /* Ajout 27 nov. 2026 : 20 articles enrichis (>2000 mots, sources, FAQ), à redemander en premier */
+      'https://genesolia.fr/blessure-rejet-ou-abandon.html',
+      'https://genesolia.fr/arbre-de-vie-arbre-genealogique-genosociogramme.html',
+      'https://genesolia.fr/se-sentir-seule.html',
+      'https://genesolia.fr/blessure-trahison-relation-amoureuse.html',
+      'https://genesolia.fr/blessure-abandon-relation-amoureuse.html',
+      'https://genesolia.fr/memoire-transgenerationnelle.html',
+      'https://genesolia.fr/peur-de-manquer-d-argent.html',
+      'https://genesolia.fr/enfant-de-remplacement.html',
+      'https://genesolia.fr/masques-des-5-blessures.html',
+      'https://genesolia.fr/constellation-familiale.html',
+      'https://genesolia.fr/relation-floue.html',
+      'https://genesolia.fr/toussaint-ancetres-et-deuils.html',
+      'https://genesolia.fr/rever-de-ses-grands-parents-decedes.html',
+      'https://genesolia.fr/schemas-repetitifs-en-amour.html',
+      'https://genesolia.fr/genogramme-vs-genosociogramme.html',
+      'https://genesolia.fr/conflits-avec-ses-parents.html',
+      'https://genesolia.fr/questions-a-poser-a-sa-famille.html',
+      'https://genesolia.fr/origine-numerologie-gematrie-hebraique.html',
+      'https://genesolia.fr/origine-numerologie-pythagore-grece.html',
+      'https://genesolia.fr/annee-personnelle-2027.html',
+      'https://genesolia.fr/nombres-maitres.html',
       /* Ajout 27 nov. 2026 : 3 pages année universelle + histoire du calendrier, à demander en premier */
       'https://genesolia.fr/annee-universelle-2027.html',
       'https://genesolia.fr/annee-universelle-calcul-origine.html',
