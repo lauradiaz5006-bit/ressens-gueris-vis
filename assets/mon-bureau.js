@@ -208,6 +208,11 @@
   var PRIORITE = {
     gen: [
       /* Ajout 27 nov. 2026 : 20 articles enrichis (>2000 mots, sources, FAQ), à redemander en premier */
+      'https://genesolia.fr/blessure-de-rejet.html',
+      'https://genesolia.fr/blessure-d-abandon.html',
+      'https://genesolia.fr/blessure-de-trahison.html',
+      'https://genesolia.fr/blessure-d-humiliation.html',
+      'https://genesolia.fr/blessure-d-injustice.html',
       'https://genesolia.fr/blessure-humiliation-relation-amoureuse.html',
       'https://genesolia.fr/relation-mere-fille-toxique.html',
       'https://genesolia.fr/dependance-affective.html',
